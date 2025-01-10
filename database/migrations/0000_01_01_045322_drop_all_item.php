@@ -24,8 +24,9 @@ return new class  extends Migration
         foreach ($tables as $table) {
             $tableName = array_values((array)$table)[0];
             if($tableName!='migrations'){
-
                 Schema::dropIfExists($tableName);
+            }else{
+                DB::table('migrations')->truncate();
             }
         }
 

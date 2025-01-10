@@ -31,6 +31,8 @@ return new class extends Migration
             $table->text('desc')->nullable();
             $table->string('image_url')->nullable();
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
+            $table->string('created_by')->nullable()->comment('username user who created the record');
+            $table->string('updated_by')->nullable()->comment('username user who last updated the record');
             $table->timestamps();
             $table->text('history_log')->nullable();
 
@@ -38,7 +40,8 @@ return new class extends Migration
             $table->foreign('subcategory_id')->references('id')->on('sub_categories');
             $table->foreign('warehouse_id')->references('id')->on('warehouses');
             $table->foreign('rack_id')->references('id')->on('racks');
-            });
+        });
+
     }
 
     /**

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
             $table->timestamps();
+            $table->string('created_by')->nullable()->comment('username user who created the record');
+            $table->string('updated_by')->nullable()->comment('username user who last updated the record');
         });
         Schema::create('sub_categories', function (Blueprint $table) {
             $table->id();
@@ -28,6 +30,8 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
             $table->timestamps();
+            $table->string('created_by')->nullable()->comment('username user who created the record');
+            $table->string('updated_by')->nullable()->comment('username user who last updated the record');
         });
         Schema::create('racks', function (Blueprint $table) {
             $table->id();
@@ -36,6 +40,8 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
             $table->timestamps();
+            $table->string('created_by')->nullable()->comment('username user who created the record');
+            $table->string('updated_by')->nullable()->comment('username user who last updated the record');
         });
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
@@ -44,6 +50,8 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
             $table->timestamps();
+            $table->string('created_by')->nullable()->comment('username user who created the record');
+            $table->string('updated_by')->nullable()->comment('username user who last updated the record');
         });
         Schema::create('warehouses', function (Blueprint $table) {
             $table->id();
@@ -55,6 +63,8 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
             $table->timestamps();
+            $table->string('created_by')->nullable()->comment('username user who created the record');
+            $table->string('updated_by')->nullable()->comment('username user who last updated the record');
         });
 
         Schema::create('banks', function (Blueprint $table) {
@@ -65,6 +75,8 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
             $table->timestamps();
+            $table->string('created_by')->nullable()->comment('username user who created the record');
+            $table->string('updated_by')->nullable()->comment('username user who last updated the record');
         });
         Schema::create('bank_accounts', function (Blueprint $table) {
             $table->id();
@@ -77,6 +89,8 @@ return new class extends Migration
             $table->integer('is_primary')->comment('0=primary;1=not_primary;')->default(0);
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
             $table->timestamps();
+            $table->string('created_by')->nullable()->comment('username user who created the record');
+            $table->string('updated_by')->nullable()->comment('username user who last updated the record');
             $table->foreign('bank_id')->references('id')->on('banks');
         });
         Schema::create('suppliers', function (Blueprint $table) {
@@ -96,6 +110,24 @@ return new class extends Migration
             $table->decimal('discount', 10, 2);
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
             $table->timestamps();
+            $table->string('created_by')->nullable()->comment('username user who created the record');
+            $table->string('updated_by')->nullable()->comment('username user who last updated the record');
+        });
+        Schema::create('images', function (Blueprint $table) {
+            $table->id();
+            $table->string('uuid')->unique();
+            $table->string('name');
+            $table->integer('type')->comment('0=item;1=sales;2=order;3=payable;4=receivable')->default(0);
+            $table->text('description')->nullable();
+            $table->string('img_id')->nullable();
+            $table->string('path')->nullable();
+            $table->string('ext')->nullable();
+            $table->string('source')->comment('0=local;1=gdrive;')->nullable();
+            $table->integer('status')->comment('0=active;1=deleted;')->default(0);
+            $table->integer('index')->default(0);
+            $table->timestamps();
+            $table->string('created_by')->nullable()->comment('username user who created the record');
+            $table->string('updated_by')->nullable()->comment('username user who last updated the record');
         });
     }
 

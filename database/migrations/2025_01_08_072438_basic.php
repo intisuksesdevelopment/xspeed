@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('code');
             $table->text('description')->nullable();
             $table->string('image_url')->nullable();
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('name');
+            $table->string('code');
             $table->text('description')->nullable();
             $table->string('image_url')->nullable();
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
@@ -36,6 +38,7 @@ return new class extends Migration
         Schema::create('racks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('code');
             $table->text('description')->nullable();
             $table->string('image_url')->nullable();
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
@@ -46,6 +49,7 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('code');
             $table->text('description')->nullable();
             $table->string('image_url')->nullable();
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
@@ -70,6 +74,7 @@ return new class extends Migration
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('code');
             $table->string('type');
             $table->text('description')->nullable();
             $table->string('image_url')->nullable();

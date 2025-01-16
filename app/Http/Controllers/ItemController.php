@@ -12,10 +12,16 @@ use Illuminate\Support\Facades\Auth;
 class ItemController extends Controller
 {
 
+    public function __construct(ItemService $itemService) {
+        $this->itemService = $itemService;
+    }
     public function index(Request $request)
     {
-       dd(ItemService::getDetailItem('729bd9f5-eae3-4aa8-b507-01be2864d6b4')->get());
-
-        return view('signin');
-    }
+        $items = ItemService::getPaginatedItems($request);
+        $items = $this->itemService->getPaginatedItems($request);
+         // Apply the method to each item in the collection
+         $itemsWithoutId = $items->map(function ($item) {
+             return $item->getWithoutId(true);
+            });
+        return view('product-list', ['items' => $itemsWithoutId]);    }
 }

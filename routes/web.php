@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CustomAuthController;
 
 /*
@@ -16,6 +17,18 @@ use App\Http\Controllers\CustomAuthController;
 */
 Route::get('tess', [ItemController::class, 'index']);
 
+//**AUTH ROUTE
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+//AUTH ROUTE**
+Route::middleware(['auth'])->group(function () {
+    Route::get('tess', [ItemController::class, 'index']);
+    Route::prefix('product')->group(function () {
+        Route::get('/list', [ItemController::class, 'index']);
+    });
+
+});
 
 Route::get('index', [CustomAuthController::class, 'dashboard']);
 Route::get('signin', [CustomAuthController::class, 'index'])->name('signin');
@@ -32,9 +45,9 @@ Route::get('/index', function () {
     return view('index');
 })->name('index');
 
-Route::get('/product-list', function () {
-    return view('product-list');
-})->name('product-list');
+// Route::get('/product-list', function () {
+//     return view('product-list');
+// })->name('product-list');
 
 Route::get('/add-product', function () {
     return view('add-product');
@@ -239,7 +252,6 @@ Route::get('/payroll-list', function () {
 Route::get('/payslip', function () {
     return view('payslip');
 })->name('payslip');
-
 
 Route::get('/sales-list', function () {
     return view('sales-list');
@@ -863,13 +875,3 @@ Route::get('/employees-list', function () {
 Route::get('/language-settings-web', function () {
     return view('language-settings-web');
 })->name('language-settings-web');
-
-
-
-
-
-
-
-
-
-

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->decimal('stock_min', 10, 2);
             $table->string('currency');
             $table->string('sku');
-            $table->text('desc')->nullable();
+            $table->text('description')->nullable();
             $table->string('image_url')->nullable();
             $table->integer('status')->comment('0=active;1=deleted;')->default(0);
             $table->string('created_by')->nullable()->comment('username user who created the record');

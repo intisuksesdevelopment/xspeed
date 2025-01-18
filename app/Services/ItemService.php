@@ -17,14 +17,16 @@ class ItemService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
-        return Item::orderBy($sortBy, $sortDirection)->paginate($perPage);
+        return Item::with('images')->where('id',21)->orderBy($sortBy, $sortDirection)->paginate($perPage);
     }
     public static function getDetailItem($uuid)
     {
-        $item = Item::where('uuid', $uuid)->first();
+        $item = Item::where('uuid', $uuid) ->with(['category', 'subcategory', 'brand', 'warehouse', 'rack','images']) ->first();
+
         if (!$item) {
             throw new ItemNotFoundException("Item with UUID {$uuid} not found.");
         }
+        $item->status = $item->isAvailable();
         return $item;
     }
     public static function saveItem(Request $request)

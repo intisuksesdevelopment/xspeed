@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
-class LoginController extends Controller
+
+class LoginController extends BaseController
 {
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
     public function __construct()
     {
         // Apply the guest middleware except for the logout method
@@ -16,7 +23,8 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('auth.signin');
+
+        return view('pages.auth.signin');
     }
 
     public function login(Request $request)

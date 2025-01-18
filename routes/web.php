@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomAuthController;
 
 /*
@@ -15,23 +16,31 @@ use App\Http\Controllers\CustomAuthController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('tess', [ItemController::class, 'index']);
+Route::prefix('product')->group(function () {
+    Route::get('/', [ItemController::class, 'index'])->name('product-list');
+    Route::get('/{uuid}', [ItemController::class, 'detail'])->name('product-detail');
+});
+
+Route::prefix('category')->group(function () {
+    Route::get('/', [CategoryController::class, 'index'])->name('category-list');
+    Route::get('/{id}', [CategoryController::class, 'detail'])->name('product-detail');
+});
 
 //**AUTH ROUTE
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
+Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
 //AUTH ROUTE**
 Route::middleware(['auth'])->group(function () {
-    Route::get('tess', [ItemController::class, 'index']);
     Route::prefix('product')->group(function () {
-        Route::get('/list', [ItemController::class, 'index']);
+        // Route::get('/list', [ItemController::class, 'index']);
     });
 
 });
 
 Route::get('index', [CustomAuthController::class, 'dashboard']);
-Route::get('signin', [CustomAuthController::class, 'index'])->name('signin');
+// Route::get('signin', [CustomAuthController::class, 'index'])->name('signin');
 Route::post('custom-login', [CustomAuthController::class, 'customSignin'])->name('signin.custom');
 Route::get('register', [CustomAuthController::class, 'registration'])->name('register');
 Route::post('custom-register', [CustomAuthController::class, 'customRegister'])->name('register.custom');

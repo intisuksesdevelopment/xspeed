@@ -1,10 +1,16 @@
 <?php
 namespace App\Models;
 
+use App\Models\Rack;
+use App\Models\Brand;
+use App\Models\Image;
+use App\Models\Category;
+use App\Models\Warehouse;
+use App\Models\SubCategory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Item extends Model
 {
@@ -15,10 +21,12 @@ class Item extends Model
         'name',
         'category_id',
         'subcategory_id',
+        'brand_id',
         'warehouse_id',
         'rack_id',
         'basic_price',
         'sell_price',
+        'description',
         'quantity',
         'unit',
         'color',
@@ -70,5 +78,26 @@ class Item extends Model
         $array = $this->toArray();
         if ($hideId) { unset($array['id']); }
         return $array;
+    }
+    public function images() {
+        return $this->hasMany(Image::class, 'ref_id') ->where('ref', 'items');
+    }
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
+    public function subcategory() {
+         return $this->belongsTo(SubCategory::class);
+    }
+    public function brand() {
+         return $this->belongsTo(Brand::class);
+    }
+    public function warehouse() {
+         return $this->belongsTo(Warehouse::class);
+    }
+    public function rack() {
+         return $this->belongsTo(Rack::class);
+    }
+    public function isAvailable() {
+        return $this['status'] == 0 ? 'Tersedia' : 'Tidak Tersedia';
     }
 }

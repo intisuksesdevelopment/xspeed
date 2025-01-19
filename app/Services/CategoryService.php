@@ -64,14 +64,13 @@ class CategoryService
         return response()->json(['success' => true, 'message' => 'Update successfully!',
     ]);
     }
-    public static function delete(Request $request)
+    public static function delete($id)
     {
-        $data     = $request->all();
-        $category = Category::find($data['id']);
+        $category = Category::find($id);
         if (! $category) {
-            throw new NotFoundException("code : " . $data['code']);
+            throw new NotFoundException("id : " . $id);
         }
-        $category->status = 0;
+        $category->status = 1;
         $category->update();
 
         return response()->json(['success' => true, 'message' => 'Remove successfully!',

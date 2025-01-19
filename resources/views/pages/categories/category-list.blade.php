@@ -207,6 +207,8 @@
             });
 
             window.deleteData = function(id) {
+            const url = `{{ route('category-delete', ':id') }}`.replace(':id', id);
+
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -221,7 +223,7 @@
                 buttonsStyling: false,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    fetch(`${{ route('category-update') }}/${id}`, {
+                    fetch(url, {
                         method: 'DELETE',
                         headers: {
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -235,9 +237,11 @@
                                 title: "Removed!",
                                 text: "Data has been removed.",
                                 confirmButtonClass: "btn btn-success",
+                                buttonsStyling: false,
+                                confirmButtonText: "OK"
+                            }).then(() => {
+                                location.reload();
                             });
-                            // Menghapus elemen kategori dari DOM atau melakukan refresh halaman
-                            document.getElementById(`category-${id}`).remove();
                         } else {
                             Swal.fire({
                                 icon: "error",
@@ -248,16 +252,17 @@
                         }
                     })
                     .catch(error => {
-                        console.error('Terjadi kesalahan:', error);
+                        console.error('Error:', error);
                         Swal.fire({
                             icon: "error",
-                            title: "Gagal!",
-                            text: "Terjadi kesalahan saat menghapus kategori.",
+                            title: "Failed!",
+                            text: "An error occurred while deleting the category.",
                             confirmButtonClass: "btn btn-danger",
                         });
                     });
                 }
             });
+
             };
         });
        

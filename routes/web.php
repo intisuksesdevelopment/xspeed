@@ -26,6 +26,7 @@ Route::prefix('category')->group(function () {
     Route::get('/{id}', [CategoryController::class, 'detail'])->name('category-detail');
     Route::post('/save', [CategoryController::class, 'save'])->name('category-save');
     Route::post('/update', [CategoryController::class, 'update'])->name('category-update');
+    Route::delete('/delete/{id}', [CategoryController::class, 'delete'])->name('category-delete');
 });
 
 //**AUTH ROUTE

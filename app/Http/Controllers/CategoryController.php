@@ -19,13 +19,16 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         Paginator::useBootstrap(); // Menggunakan Bootstrap
-        $categories = CategoryService::getPaginatedCategories($request);
-
+        $categories = CategoryService::getPaginated($request);
         return view('pages.categories.category-list', ['categories' => $categories]);
     }
-    public function detail($uuid)
+    public function save(Request $request)
     {
-        $item = CategoryService::getDetailCategory($uuid);
-        return view('pages.categories.category-details', ['category' => $item->getWithoutId(true)]);
+        return CategoryService::save($request);
     }
+    public function update(Request $request)
+    {
+        return CategoryService::update($request);
+    }
+
 }

@@ -1,15 +1,16 @@
 <?php
 namespace App\Services;
 
-use App\Constants\CommonConstants;
 use App\Models\Item;
 use Illuminate\Http\Request;
-use Illuminate\Support\ItemNotFoundException;
+use App\Constants\CommonConstants;
+use Illuminate\Support\NotFoundException;
+use Illuminate\Support\AlreadyExistException;
 
 class ItemService
 {
 
-    public static function getPaginatedItems(Request $request)
+    public static function getPaginated(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
         // Default to 10 Item per page if not provided
@@ -19,22 +20,22 @@ class ItemService
         // Default to 'asc' if not provided
         return Item::with('images')->where('id',21)->orderBy($sortBy, $sortDirection)->paginate($perPage);
     }
-    public static function getDetailItem($uuid)
+    public static function getDetail($uuid)
     {
         $item = Item::where('uuid', $uuid) ->with(['category', 'subcategory', 'brand', 'warehouse', 'rack','images']) ->first();
 
         if (!$item) {
-            throw new ItemNotFoundException("Item with UUID {$uuid} not found.");
+            throw new NotFoundException("Item with UUID {$uuid} not found.");
         }
         $item->status = $item->isAvailable();
         return $item;
     }
-    public static function saveItem(Request $request)
+    public static function save(Request $request)
     {
         $data = $request->all();
-        $item = Item::where('name', 'ILIKE', '%' . $item->name . '%')->get();
+        $item = Item::where('name', 'ILIKE', '%' . $data->name . '%')->get();
         if ($item) {
-            throw new ItemAlready("Item with UUID {$uuid} not found.");
+            throw new AlreadyExistException("Item with UUID {$uuid} not found.");
         }
         $item = new Item();
         $item->validateAttributes($data);

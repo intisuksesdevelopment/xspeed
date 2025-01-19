@@ -23,7 +23,9 @@ Route::prefix('product')->group(function () {
 
 Route::prefix('category')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('category-list');
-    Route::get('/{id}', [CategoryController::class, 'detail'])->name('product-detail');
+    Route::get('/{id}', [CategoryController::class, 'detail'])->name('category-detail');
+    Route::post('/save', [CategoryController::class, 'save'])->name('category-save');
+    Route::post('/update', [CategoryController::class, 'update'])->name('category-update');
 });
 
 //**AUTH ROUTE

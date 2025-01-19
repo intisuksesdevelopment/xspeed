@@ -1553,13 +1553,17 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body">
-                            <form action="{{ url('category-list') }}">
+                            <form action="{{ url('category-update') }}">
+                                <div class="mb-3">
+                                    <label class="form-label">Code</label>
+                                    <input type="text" class="form-control">
+                                </div>
                                 <div class="mb-3">
                                     <label class="form-label">Category</label>
                                     <input type="text" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Category Slug</label>
+                                    <label class="form-label">Description</label>
                                     <input type="text" class="form-control">
                                 </div>
                                 <div class="mb-0">
@@ -1599,27 +1603,37 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body">
-                            <form action="{{ url('category-list') }}">
-                                <div class="mb-3">
-                                    <label class="form-label">Category</label>
-                                    <input type="text" class="form-control" value="Laptop">
+                            <form id="categoryForm" method="post" action="{{ route('category-update') }}">
+                                @csrf
+                                <div class="mb-3 d-none">
+                                    <label class="form-label">Id</label>
+                                    <input type="text" id="id" name="id" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Category Slug</label>
-                                    <input type="text" class="form-control" value="laptop">
+                                    <label class="form-label">Code</label>
+                                    <input type="text" id="code" name="code" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Category</label>
+                                    <input type="text" id="name" name="name" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label>Description</label>
+                                    <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+                                    <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
                                 <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="user3" class="check" checked="">
-                                        <label for="user3" class="checktoggle"></label>
+                                        <input type="checkbox" id="status" name="status" class="check" checked="">
+                                        <label for="status" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
-                                        data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                        data-bs-dismiss="modal"  id="cancel-button">Cancel</button>
+                                    <button type="submit" id="submit-button" class="btn btn-submit">Save Changes</button>
                                 </div>
                             </form>
                         </div>
@@ -1690,7 +1704,7 @@
     <!-- /Add Category -->
 
     <!-- Edit Category -->
-    <div class="modal fade" id="edit-category">
+    <div class="modal fade" id="edit-sub-category">
         <div class="modal-dialog modal-dialog-centered custom-modal-two">
             <div class="modal-content">
                 <div class="page-wrapper-new p-0">
@@ -9188,7 +9202,7 @@
 												</div>
 											</div>
 										</div>
-									</div>					
+									</div>
 									<div class="modal-footer-btn">
 										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
 										<button type="submit" class="btn btn-submit">Submit</button>
@@ -9247,7 +9261,7 @@
 												</div>
 											</div>
 										</div>
-									</div>					
+									</div>
 									<div class="modal-footer-btn">
 										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
 										<button type="submit" class="btn btn-submit">Save Changes</button>
@@ -9330,7 +9344,7 @@
 											</div>
 										</div>
 									</div>
-								</div>					
+								</div>
 								<div class="modal-footer-btn">
 									<a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
 									<a href="{{url('warehouse')}}" class="btn btn-submit">Submit</a>
@@ -9387,7 +9401,7 @@
 											</div>
 										</div>
 									</div>
-								</div>					
+								</div>
 								<div class="modal-footer-btn">
 									<a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
 									<a href="{{url('warehouse')}}" class="btn btn-submit">Save Changes</a>
@@ -9853,7 +9867,7 @@
 					</div>
 				</div>
 				<!-- /Add Event Modal -->
-				
+
                 <!-- Add Event Modal -->
                 <div class="modal custom-modal fade none-border" id="my_event">
                     <div class="modal-dialog modal-dialog-centered">
@@ -9874,7 +9888,7 @@
                     </div>
                 </div>
 				<!-- /Add Event Modal -->
-				
+
                 <!-- Add Category Modal -->
                 <div class="modal custom-modal fade" id="add_new_event">
                     <div class="modal-dialog modal-dialog-centered">
@@ -9941,7 +9955,7 @@
 												<input type="text" class="form-control">
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Editor -->
 											<div class="col-md-12">
@@ -9958,7 +9972,7 @@
 											<!-- /Editor -->
 										</div>
 									</div>
-									
+
 									<div class="modal-footer-btn">
 										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
 										<button type="submit" class="btn btn-submit">Submit</button>
@@ -10001,14 +10015,14 @@
 												<input type="text" class="form-control" placeholder="Beijing">
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Editor -->
 											<div class="col-md-12">
 												<div class="edit-add card">
 													<div class="edit-add">
 														<label class="form-label">Description</label>
-				
+
 													</div>
 													<div class="card-body-list">
 														<div id="summernote5">Type your message</div>
@@ -10019,7 +10033,7 @@
 											<!-- /Editor -->
 										</div>
 									</div>
-									
+
 									<div class="modal-footer-btn">
 										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
 										<button type="submit" class="btn btn-submit">Submit</button>
@@ -10365,13 +10379,13 @@
 													<option>Susan Lopez</option>
 												</select>
 											</div>
-										</div>	
+										</div>
 										<div class="col-lg-12">
 											<div class="mb-3 summer-description-box">
 												<label class="form-label">Description</label>
 												<div id="summernote"></div>
 											</div>
-										</div>			
+										</div>
 										<div class="input-blocks m-0">
 											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
 												<span class="status-label">Status</span>
@@ -10424,13 +10438,13 @@
 													<option>Susan Lopez</option>
 												</select>
 											</div>
-										</div>	
+										</div>
 										<div class="col-lg-12">
 											<div class="mb-3 summer-description-box">
 												<label class="form-label">Description</label>
 												<div id="summernote2"></div>
 											</div>
-										</div>			
+										</div>
 										<div class="input-blocks m-0">
 											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
 												<span class="status-label">Status</span>
@@ -10476,7 +10490,7 @@
 												<label class="form-label">Designation Name</label>
 												<input type="text" class="form-control">
 											</div>
-										</div>		
+										</div>
 										<div class="input-blocks m-0">
 											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
 												<span class="status-label">Status</span>
@@ -10520,7 +10534,7 @@
 												<label class="form-label">Designation  Name</label>
 												<input type="text" class="form-control" value="Designer">
 											</div>
-										</div>		
+										</div>
 										<div class="input-blocks m-0">
 											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
 												<span class="status-label">Status</span>
@@ -10721,14 +10735,14 @@
 													<label class="form-label">Expense Name</label>
 													<input type="text" class="form-control">
 												</div>
-												
-											</div>								
+
+											</div>
 											<!-- Editor -->
 											<div class="col-md-12">
 												<div class="edit-add card">
 													<div class="edit-add">
 														<label class="form-label">Description</label>
-				
+
 													</div>
 													<div class="card-body-list input-blocks mb-0">
 														<textarea class="form-control"></textarea>
@@ -10737,7 +10751,7 @@
 												</div>
 											</div>
 											<!-- /Editor -->
-										</div>									
+										</div>
 										<div class="modal-footer-btn">
 											<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
 											<button type="submit" class="btn btn-submit">Submit</button>
@@ -10771,8 +10785,8 @@
 											<label class="form-label">Expense Name</label>
 											<input type="text" value="Employee Benefits" class="form-control">
 										</div>
-										
-									</div>							
+
+									</div>
 									<!-- Editor -->
 									<div class="col-md-12">
 										<div class="edit-add card">
@@ -10786,7 +10800,7 @@
 										</div>
 									</div>
 									<!-- /Editor -->
-								</div>						
+								</div>
 								<div class="modal-footer-btn">
 									<a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
 									<a href="{{url('expense-category')}}" class="btn btn-submit">Save Changes</a>
@@ -10853,8 +10867,8 @@
 												<input type="text" class="form-control">
 												<span class="unlimited-text">0 for Unlimited</span>
 											</div>
-											
-										</div>								
+
+										</div>
 										<!-- Editor -->
 										<div class="col-md-12">
 											<div class="edit-add card">
@@ -10868,7 +10882,7 @@
 											</div>
 										</div>
 										<!-- /Editor -->
-									</div>							
+									</div>
 									<div class="modal-footer-btn">
 										<a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
 										<a href="{{url('expense-list')}}" class="btn btn-submit">Submit</a>
@@ -10933,8 +10947,8 @@
 												<input type="text" class="form-control">
 												<span class="unlimited-text">0 for Unlimited</span>
 											</div>
-											
-										</div>								
+
+										</div>
 										<!-- Editor -->
 										<div class="col-md-12">
 											<div class="edit-add card">
@@ -11361,7 +11375,7 @@
 											<i data-feather="calendar" class="info-img"></i>
 											<input type="text" class="datetimepicker" placeholder="Select">
 											</div>
-										</div>		
+										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="input-blocks">
@@ -11370,14 +11384,14 @@
 										<i data-feather="calendar" class="info-img"></i>
 										<input type="text" class="datetimepicker" placeholder="Select">
 										</div>
-									</div>		
+									</div>
 									</div>
 										<div class="col-lg-12">
 											<div class="input-blocks">
 												<label>No of Days</label>
 												<input type="text" class="form-control" placeholder="01">
 											</div>
-										</div>	
+										</div>
 										<div class="input-blocks m-0">
 											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
 												<span class="status-label">Status</span>
@@ -11421,7 +11435,7 @@
 												<label>Add Holiday</label>
 												<input type="text" class="form-control" value="Newyear">
 											</div>
-										</div>		
+										</div>
 										<div class="col-lg-6">
 											<div class="input-blocks">
 											<label>Start Date</label>
@@ -11429,7 +11443,7 @@
 											<i data-feather="calendar" class="info-img"></i>
 											<input type="text" class="datetimepicker" placeholder="01 Jan 2023">
 											</div>
-										</div>		
+										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="input-blocks">
@@ -11438,7 +11452,7 @@
 											<i data-feather="calendar" class="info-img"></i>
 											<input type="text" class="datetimepicker" placeholder="01 Jan 2023">
 										</div>
-									</div>		
+									</div>
 									</div>
 										<div class="mb-0">
 											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
@@ -11550,8 +11564,8 @@
 											</div>
 										</div>
 									</div>
-									
-									
+
+
 									<div class="modal-footer-btn">
 										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
 										<button type="submit" class="btn btn-submit">Save Changes</button>
@@ -11587,7 +11601,7 @@
 										<div class="col-lg-12">
 											<div class="input-blocks">
 												<label>Start Date</label>
-												
+
 												<div class="input-groupicon calender-input">
 													<i data-feather="calendar" class="info-img"></i>
 													<input type="text" class="datetimepicker" placeholder="Select From - To Date" >
@@ -11635,7 +11649,7 @@
 													</div>
 												</div>
 											</div>
-											
+
 										</div>
 										<div class="col-lg-12">
 											<div class="mb-3 summer-description-box mb-0">
@@ -11677,7 +11691,7 @@
 										<div class="col-lg-12">
 											<div class="input-blocks">
 												<label class="form-label">Start Date</label>
-												
+
 												<div class="input-groupicon calender-input">
 													<i data-feather="calendar" class="info-img"></i>
 													<input type="text" class="datetimepicker" placeholder="Select From - To Date" >
@@ -11724,7 +11738,7 @@
 													</div>
 												</div>
 											</div>
-											
+
 										</div>
 										<div class="col-lg-12">
 											<div class="mb-3 summer-description-box mb-0">
@@ -11917,7 +11931,7 @@
 																			<img src="{{ URL::asset('/build/img/products/stock-img-02.png')}}" alt="product">
 																		</a>
 																		<a href="javascript:void(0);">Nike Jordan</a>
-																	</div>												
+																	</div>
 																</td>
 																<td>PT002</td>
 																<td>Nike</td>
@@ -11937,7 +11951,7 @@
 																			<i data-feather="trash-2" class="feather-trash-2"></i>
 																		</a>
 																	</div>
-																	
+
 																</td>
 															</tr>
 														</tbody>
@@ -12307,7 +12321,7 @@
 							</button>
 						</div>
 						<div class="modal-body custom-modal-body">
-							<form action="purchase-list">							
+							<form action="purchase-list">
 								<div>
 									<div class="row">
 										<div class="col-lg-3 col-sm-6 col-12">
@@ -12590,13 +12604,13 @@
 									<div id="summernote3">
 									</div>
 									<p>Maximum 60 Characters</p>
-								</div>	
+								</div>
 								<div class="modal-footer-btn">
 									<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
 									<button type="submit" class="btn btn-submit">Submit</button>
 								</div>
 							</form>
-							
+
 						</div>
 					</div>
 				</div>
@@ -12702,7 +12716,7 @@
 													</tbody>
 												</table>
 											</div>
-				
+
 											<div class="row">
 												<div class="col-lg-6 ms-auto">
 													<div class="total-order w-100 max-widthauto m-auto mb-4">
@@ -12727,7 +12741,7 @@
 													</div>
 												</div>
 											</div>
-											
+
 											<div class="row">
 												<div class="col-lg-3 col-sm-6 col-12">
 													<div class="input-blocks">
@@ -12735,7 +12749,7 @@
 														<div class="input-groupicon select-code">
 															<input type="text" value="0" class="p-2">
 														</div>
-														
+
 													</div>
 												</div>
 												<div class="col-lg-3 col-sm-6 col-12">
@@ -12887,12 +12901,12 @@
 															<td>2580</td>
 															<td>1250</td>
 															<td>2580</td>
-															<td><span class="badges bg-lightred">Unpaid</span></td>													
+															<td><span class="badges bg-lightred">Unpaid</span></td>
 														</tr>
 													</tbody>
 												</table>
 											</div>
-				
+
 											<div class="row">
 												<div class="col-lg-6 ms-auto">
 													<div class="total-order w-100 max-widthauto m-auto mb-4">
@@ -12917,7 +12931,7 @@
 													</div>
 												</div>
 											</div>
-											
+
 											<div class="row">
 												<div class="col-lg-3 col-sm-6 col-12">
 													<div class="input-blocks">
@@ -12925,7 +12939,7 @@
 														<div class="input-groupicon select-code">
 															<input type="text" value="0" class="p-2">
 														</div>
-														
+
 													</div>
 												</div>
 												<div class="col-lg-3 col-sm-6 col-12">
@@ -13115,11 +13129,11 @@
 																<tbody>
 																	<tr>
 																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">													
+																			<div class="status-toggle modal-status d-flex align-items-center">
 																				<input type="checkbox" id="day1" class="check">
 																				<label for="day1" class="checktoggle"></label>
 																				<span class="status-label ms-2">Monday</span>
-																			</div>							
+																			</div>
 																		</td>
 																		<td>
 																			<div class="text-end">
@@ -13155,14 +13169,14 @@
 																				</label>
 																			</div>
 																		</td>
-																	</tr>	
+																	</tr>
 																	<tr>
 																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">													
+																			<div class="status-toggle modal-status d-flex align-items-center">
 																				<input type="checkbox" id="day2" class="check">
 																				<label for="day2" class="checktoggle"></label>
 																				<span class="status-label ms-2">Tuesday</span>
-																			</div>							
+																			</div>
 																		</td>
 																		<td>
 																			<div class="text-end">
@@ -13197,16 +13211,16 @@
 																					5th
 																				</label>
 																			</div>
-																			
+
 																		</td>
-																	</tr>																										
+																	</tr>
 																	<tr>
 																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">													
+																			<div class="status-toggle modal-status d-flex align-items-center">
 																				<input type="checkbox" id="day3" class="check">
 																				<label for="day3" class="checktoggle"></label>
 																				<span class="status-label ms-2">Wednesday</span>
-																			</div>							
+																			</div>
 																		</td>
 																		<td>
 																			<div class="text-end">
@@ -13241,16 +13255,16 @@
 																					5th
 																				</label>
 																			</div>
-																			
+
 																		</td>
 																	</tr>
 																	<tr>
 																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">													
+																			<div class="status-toggle modal-status d-flex align-items-center">
 																				<input type="checkbox" id="day4" class="check">
 																				<label for="day4" class="checktoggle"></label>
 																				<span class="status-label ms-2">Thursday</span>
-																			</div>							
+																			</div>
 																		</td>
 																		<td>
 																			<div class="text-end">
@@ -13285,16 +13299,16 @@
 																					5th
 																				</label>
 																			</div>
-																			
+
 																		</td>
 																	</tr>
 																	<tr>
 																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">													
+																			<div class="status-toggle modal-status d-flex align-items-center">
 																				<input type="checkbox" id="day5" class="check">
 																				<label for="day5" class="checktoggle"></label>
 																				<span class="status-label ms-2">Friday</span>
-																			</div>							
+																			</div>
 																		</td>
 																		<td>
 																			<div class="text-end">
@@ -13329,16 +13343,16 @@
 																					5th
 																				</label>
 																			</div>
-																			
+
 																		</td>
 																	</tr>
 																	<tr>
 																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">													
+																			<div class="status-toggle modal-status d-flex align-items-center">
 																				<input type="checkbox" id="day6" class="check">
 																				<label for="day6" class="checktoggle"></label>
 																				<span class="status-label ms-2">Saturday</span>
-																			</div>							
+																			</div>
 																		</td>
 																		<td>
 																			<div class="text-end">
@@ -13373,16 +13387,16 @@
 																					5th
 																				</label>
 																			</div>
-																			
+
 																		</td>
 																	</tr>
 																	<tr>
 																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">													
+																			<div class="status-toggle modal-status d-flex align-items-center">
 																				<input type="checkbox" id="day7" class="check">
 																				<label for="day7" class="checktoggle"></label>
 																				<span class="status-label ms-2">Sunday</span>
-																			</div>							
+																			</div>
 																		</td>
 																		<td>
 																			<div class="text-end">
@@ -13417,7 +13431,7 @@
 																					5th
 																				</label>
 																			</div>
-																			
+
 																		</td>
 																	</tr>
 																</tbody>
@@ -13430,7 +13444,7 @@
 																Recurring Shift
 															</label>
 														</div>
-														
+
 														<div class="input-blocks m-0">
 															<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
 																<span class="status-label">Status</span>
@@ -13518,7 +13532,7 @@
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="modal-footer-btn">
 										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
 										<button type="submit" class="btn btn-submit">Submit</button>
@@ -13607,11 +13621,11 @@
 																	<tbody>
 																		<tr>
 																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">													
+																				<div class="status-toggle modal-status d-flex align-items-center">
 																					<input type="checkbox" id="days1" class="check" checked>
 																					<label for="days1" class="checktoggle"></label>
 																					<span class="status-label ms-2">Monday</span>
-																				</div>							
+																				</div>
 																			</td>
 																			<td>
 																				<div class="text-end">
@@ -13647,14 +13661,14 @@
 																					</label>
 																				</div>
 																			</td>
-																		</tr>	
+																		</tr>
 																		<tr>
 																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">													
+																				<div class="status-toggle modal-status d-flex align-items-center">
 																					<input type="checkbox" id="days2" class="check" checked>
 																					<label for="days2" class="checktoggle"></label>
 																					<span class="status-label ms-2">Tuesday</span>
-																				</div>							
+																				</div>
 																			</td>
 																			<td>
 																				<div class="text-end">
@@ -13689,16 +13703,16 @@
 																						5th
 																					</label>
 																				</div>
-																				
+
 																			</td>
-																		</tr>																										
+																		</tr>
 																		<tr>
 																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">													
+																				<div class="status-toggle modal-status d-flex align-items-center">
 																					<input type="checkbox" id="days3" class="check" checked>
 																					<label for="days3" class="checktoggle"></label>
 																					<span class="status-label ms-2">Wednesday</span>
-																				</div>							
+																				</div>
 																			</td>
 																			<td>
 																				<div class="text-end">
@@ -13733,16 +13747,16 @@
 																						5th
 																					</label>
 																				</div>
-																				
+
 																			</td>
 																		</tr>
 																		<tr>
 																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">													
+																				<div class="status-toggle modal-status d-flex align-items-center">
 																					<input type="checkbox" id="days4" class="check" checked>
 																					<label for="days4" class="checktoggle"></label>
 																					<span class="status-label ms-2">Thursday</span>
-																				</div>							
+																				</div>
 																			</td>
 																			<td>
 																				<div class="text-end">
@@ -13777,16 +13791,16 @@
 																						5th
 																					</label>
 																				</div>
-																				
+
 																			</td>
 																		</tr>
 																		<tr>
 																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">													
+																				<div class="status-toggle modal-status d-flex align-items-center">
 																					<input type="checkbox" id="days5" class="check">
 																					<label for="days5" class="checktoggle"></label>
 																					<span class="status-label ms-2">Friday</span>
-																				</div>							
+																				</div>
 																			</td>
 																			<td>
 																				<div class="text-end">
@@ -13821,16 +13835,16 @@
 																						5th
 																					</label>
 																				</div>
-																				
+
 																			</td>
 																		</tr>
 																		<tr>
 																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">													
+																				<div class="status-toggle modal-status d-flex align-items-center">
 																					<input type="checkbox" id="days6" class="check">
 																					<label for="days6" class="checktoggle"></label>
 																					<span class="status-label ms-2">Saturday</span>
-																				</div>							
+																				</div>
 																			</td>
 																			<td>
 																				<div class="text-end">
@@ -13865,16 +13879,16 @@
 																						5th
 																					</label>
 																				</div>
-																				
+
 																			</td>
 																		</tr>
 																		<tr>
 																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">													
+																				<div class="status-toggle modal-status d-flex align-items-center">
 																					<input type="checkbox" id="days7" class="check">
 																					<label for="days7" class="checktoggle"></label>
 																					<span class="status-label ms-2">Sunday</span>
-																				</div>							
+																				</div>
 																			</td>
 																			<td>
 																				<div class="text-end">
@@ -13909,7 +13923,7 @@
 																						5th
 																					</label>
 																				</div>
-																				
+
 																			</td>
 																		</tr>
 																	</tbody>
@@ -13922,7 +13936,7 @@
 																	Recurring Shift
 																</label>
 															</div>
-															
+
 															<div class="input-blocks m-0">
 																<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
 																	<span class="status-label">Status</span>
@@ -14010,7 +14024,7 @@
 												</div>
 											</div>
 										</div>
-										
+
 										<div class="modal-footer-btn">
 											<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
 											<button type="submit" class="btn btn-submit">Submit</button>
@@ -14307,11 +14321,11 @@
 											</div>
 											<div class="mb-3">
 												<label class="form-label">Client Secret Key <span> *</span></label>
-												<input type="text" class="form-control">											
+												<input type="text" class="form-control">
 											</div>
 											<div class="mb-0">
 												<label class="form-label">Login Redirect URL <span> *</span></label>
-												<input type="text" class="form-control">											
+												<input type="text" class="form-control">
 											</div>
 										</div>
 									</div>
@@ -14353,11 +14367,11 @@
 											</div>
 											<div class="mb-3">
 												<label class="form-label">Client Secret Key <span> *</span></label>
-												<input type="text" class="form-control">											
+												<input type="text" class="form-control">
 											</div>
 											<div class="mb-0">
 												<label class="form-label">Login Redirect URL <span> *</span></label>
-												<input type="text" class="form-control">											
+												<input type="text" class="form-control">
 											</div>
 										</div>
 									</div>
@@ -14405,14 +14419,14 @@
 													<input type="text" class="form-control">
 												</div>
 											</div>
-											
+
 											<div class="row">
 												<!-- Editor -->
 												<div class="col-md-12">
 													<div class="edit-add card">
 														<div class="edit-add">
 															<label>Description</label>
-					
+
 														</div>
 														<div class="card-body-list">
 															<div id="summernote">Type your message</div>
@@ -14423,7 +14437,7 @@
 												<!-- /Editor -->
 											</div>
 										</div>
-										
+
 										<div class="modal-footer-btn">
 											<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
 											<button type="submit" class="btn btn-submit">Submit</button>
@@ -14466,14 +14480,14 @@
 												<input type="text" placeholder="China">
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Editor -->
 											<div class="col-md-12">
 												<div class="edit-add card">
 													<div class="edit-add">
 														<label>Description</label>
-				
+
 													</div>
 													<div class="card-body-list">
 														<div id="summernote5">Type your message</div>
@@ -14484,7 +14498,7 @@
 											<!-- /Editor -->
 										</div>
 									</div>
-									
+
 									<div class="modal-footer-btn">
 										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
 										<button type="submit" class="btn btn-submit">Submit</button>
@@ -14560,7 +14574,7 @@
 																			<img src="{{ URL::asset('/build/img/products/stock-img-02.png')}}" alt="product">
 																		</a>
 																		<a href="javascript:void(0);">Nike Jordan</a>
-																	</div>												
+																	</div>
 																</td>
 																<td>PT002</td>
 																<td>Nike</td>
@@ -14593,7 +14607,7 @@
 													</table>
 												</div>
 											</div>
-											
+
 										</div>
 										<div class="col-lg-12">
 											<div class="input-blocks">
@@ -14606,7 +14620,7 @@
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="col-lg-12">
 										<div class="input-blocks summer-description-box">
 											<label>Notes</label>
@@ -14685,7 +14699,7 @@
 																			<img src="{{ URL::asset('/build/img/products/stock-img-02.png')}}" alt="product">
 																		</a>
 																		<a href="javascript:void(0);">Nike Jordan</a>
-																	</div>												
+																	</div>
 																</td>
 																<td>PT002</td>
 																<td>Nike</td>
@@ -14712,14 +14726,14 @@
 																			<i data-feather="trash-2" class="feather-trash-2"></i>
 																		</a>
 																	</div>
-																	
+
 																</td>
 															</tr>
 														</tbody>
 													</table>
 												</div>
 											</div>
-											
+
 										</div>
 										<div class="col-lg-12">
 											<div class="input-blocks">
@@ -14731,7 +14745,7 @@
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="col-lg-12">
 										<div class="input-blocks summer-description-box">
 											<label>Notes</label>
@@ -14921,7 +14935,7 @@
 																			<img src="{{ URL::asset('/build/img/products/stock-img-02.png')}}" alt="product">
 																		</a>
 																		<a href="javascript:void(0);">Nike Jordan</a>
-																	</div>												
+																	</div>
 																</td>
 																<td>PT002</td>
 																<td>Nike</td>
@@ -14941,7 +14955,7 @@
 																			<i data-feather="trash-2" class="feather-trash-2"></i>
 																		</a>
 																	</div>
-																	
+
 																</td>
 															</tr>
 														</tbody>
@@ -15432,7 +15446,7 @@
 												<input type="text" class="form-control">
 											</div>
 										</div>
-										
+
 										<div class="col-lg-6">
 											<div class="input-blocks">
 												<label>Email</label>
@@ -15467,13 +15481,13 @@
 												</div>
 											</div>
 										</div>
-										
+
 										<div class="col-lg-12">
 											<div class="mb-0 input-blocks">
 												<label class="form-label">Descriptions</label>
 												<textarea class="form-control mb-1">Type Message</textarea>
 												<p>Maximum 600 Characters</p>
-											</div>	
+											</div>
 										</div>
 									</div>
 									<div class="modal-footer-btn">
@@ -15539,7 +15553,7 @@
 												<input type="text" placeholder="+12163547758 ">
 											</div>
 										</div>
-										
+
 										<div class="col-lg-6">
 											<div class="input-blocks">
 												<label>Email</label>
@@ -15559,7 +15573,7 @@
 										<div class="col-lg-6">
 											<div class="input-blocks">
 												<label>Password</label>
-												<div class="pass-group"> 
+												<div class="pass-group">
 													<input type="password" class="pass-input" placeholder="****">
 													<span class="fas toggle-password fa-eye-slash"></span>
 												</div>
@@ -15574,13 +15588,13 @@
 												</div>
 											</div>
 										</div>
-										
+
 										<div class="col-lg-12">
 											<div class="mb-0 input-blocks">
 												<label class="form-label">Descriptions</label>
 												<textarea class="form-control mb-1"></textarea>
 												<p>Maximum 600 Characters</p>
-											</div>	
+											</div>
 										</div>
 									</div>
 									<div class="modal-footer-btn">
@@ -15627,7 +15641,7 @@
 												<input type="text" class="form-control">
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Editor -->
 											<div class="col-md-12">
@@ -15644,7 +15658,7 @@
 											<!-- /Editor -->
 										</div>
 									</div>
-									
+
 									<div class="modal-footer-btn">
 										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
 										<button type="submit" class="btn btn-submit">Submit</button>
@@ -15687,14 +15701,14 @@
 												<input type="text" class="form-control" placeholder="Beijing">
 											</div>
 										</div>
-										
+
 										<div class="row">
 											<!-- Editor -->
 											<div class="col-md-12">
 												<div class="edit-add card">
 													<div class="edit-add">
 														<label class="form-label">Description</label>
-				
+
 													</div>
 													<div class="card-body-list">
 														<div id="summernote5">Type your message</div>
@@ -15705,7 +15719,7 @@
 											<!-- /Editor -->
 										</div>
 									</div>
-									
+
 									<div class="modal-footer-btn">
 										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
 										<button type="submit" class="btn btn-submit">Submit</button>
@@ -15719,3 +15733,34 @@
 		</div>
 		<!-- /Edit Supplier -->
 @endif
+<div id="success-alert-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-filled bg-success">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="dripicons-checkmark h1 text-white"></i>
+                    <h4 class="mt-2 text-white">Success!</h4>
+                    <p class="mt-3 text-white" id="success-message">Success.</p> 
+                    <button type="button" class="btn btn-cancel my-2" data-bs-dismiss="modal">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="danger-alert-modal" class="modal fade" tabindex="-1" role="dialog"
+aria-hidden="true">
+<div class="modal-dialog modal-sm">
+    <div class="modal-content modal-filled bg-danger">
+        <div class="modal-body p-4">
+            <div class="text-center">
+                <i class="dripicons-wrong h1 text-white"></i>
+                <h4 class="mt-2 text-white">Failed!</h4>
+                <p class="mt-3 text-white" id="danger-message">Failed.
+                </p>
+                <button type="button" class="btn btn-cancel my-2"
+                    data-bs-dismiss="modal">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

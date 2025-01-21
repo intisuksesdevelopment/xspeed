@@ -1546,38 +1546,44 @@
                     <div class="content">
                         <div class="modal-header border-0 custom-modal-header">
                             <div class="page-title">
-                                <h4>Create Category</h4>
+                                <h4>Add Category</h4>
                             </div>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body">
-                            <form action="{{ url('category-update') }}">
+                            <form id="categoryAddForm" method="post" action="{{ route('category-add') }}">
+                                @csrf
+                                <div class="mb-3 d-none">
+                                    <label class="form-label">Id</label>
+                                    <input type="text" name="id" class="form-control" >
+                                </div>
                                 <div class="mb-3">
                                     <label class="form-label">Code</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" name="code" class="form-control" >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Category</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" name="name" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Description</label>
-                                    <input type="text" class="form-control">
+                                    <label>Description</label>
+                                    <textarea name="description" class="form-control" rows="3"></textarea>
+                                    <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
                                 <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="user2" class="check" checked="">
-                                        <label for="user2" class="checktoggle"></label>
+                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                        <label for="status-add" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
-                                        data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Create Category</button>
+                                        data-bs-dismiss="modal"  name="cancel-button">Cancel</button>
+                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save Changes</button>
                                 </div>
                             </form>
                         </div>
@@ -1603,7 +1609,7 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body">
-                            <form id="categoryForm" method="post" action="{{ route('category-update') }}">
+                            <form id="categoryEditForm" method="post" action="{{ route('category-update') }}">
                                 @csrf
                                 <div class="mb-3 d-none">
                                     <label class="form-label">Id</label>
@@ -1626,14 +1632,14 @@
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="status" name="status" class="check" checked="">
-                                        <label for="status" class="checktoggle"></label>
+                                        <input type="checkbox" id="status-edit" name="status" class="check" checked="">
+                                        <label for="status-edit" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
-                                        data-bs-dismiss="modal"  id="cancel-button">Cancel</button>
-                                    <button type="submit" id="submit-button" class="btn btn-submit">Save Changes</button>
+                                        data-bs-dismiss="modal" id="cancel-edit-button" >Cancel</button>
+                                    <button type="submit" id="submit-edit-button" class="btn btn-submit">Save Changes</button>
                                 </div>
                             </form>
                         </div>
@@ -1645,9 +1651,9 @@
     <!-- /Edit Category -->
 @endif
 
-@if (Route::is(['sub-categories']))
+@if (Route::is(['subcategory-list']))
     <!-- Add Category -->
-    <div class="modal fade" id="add-category">
+    <div class="modal fade" id="add-sub-category">
         <div class="modal-dialog modal-dialog-centered custom-modal-two">
             <div class="modal-content">
                 <div class="page-wrapper-new p-0">
@@ -1661,7 +1667,7 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body">
-                            <form action="{{ url('sub-categories') }}">
+                            <form id="subCategoryAddForm" method="post" action="{{ route('subcategory-add') }}">
                                 <div class="mb-3">
                                     <label class="form-label">Parent Category</label>
                                     <select class="select">
@@ -1718,7 +1724,7 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body">
-                            <form action="{{ url('sub-categories') }}">
+                            <form id="subCategoryEditForm" method="post" action="{{ route('subcategory-update') }}">
                                 <div class="mb-3">
                                     <label class="form-label">Parent Category</label>
                                     <select class="select">
@@ -15740,27 +15746,27 @@
                 <div class="text-center">
                     <i class="dripicons-checkmark h1 text-white"></i>
                     <h4 class="mt-2 text-white">Success!</h4>
-                    <p class="mt-3 text-white" id="success-message">Success.</p> 
-                    <button type="button" class="btn btn-cancel my-2" data-bs-dismiss="modal">Continue</button>
+                    <p class="mt-3 text-white" id="success-message">Success.</p>
+                    <button type="button" id="alert-success-button" class="btn btn-cancel my-2" data-bs-dismiss="modal">Continue</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div id="danger-alert-modal" class="modal fade" tabindex="-1" role="dialog"
-aria-hidden="true">
-<div class="modal-dialog modal-sm">
-    <div class="modal-content modal-filled bg-danger">
-        <div class="modal-body p-4">
-            <div class="text-center">
-                <i class="dripicons-wrong h1 text-white"></i>
-                <h4 class="mt-2 text-white">Failed!</h4>
-                <p class="mt-3 text-white" id="danger-message">Failed.
-                </p>
-                <button type="button" class="btn btn-cancel my-2"
-                    data-bs-dismiss="modal">Continue</button>
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-filled bg-danger">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="dripicons-wrong h1 text-white"></i>
+                    <h4 class="mt-2 text-white">Failed!</h4>
+                    <p class="mt-3 text-white" id="danger-message">Failed.
+                    </p>
+                    <button type="button" class="btn btn-cancel my-2" id="alert-danger-button"
+                        data-bs-dismiss="modal">Continue</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>

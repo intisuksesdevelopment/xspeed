@@ -5,6 +5,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\SubCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,11 +25,17 @@ Route::prefix('product')->group(function () {
 Route::prefix('category')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('category-list');
     Route::get('/{id}', [CategoryController::class, 'detail'])->name('category-detail');
-    Route::post('/save', [CategoryController::class, 'save'])->name('category-save');
+    Route::post('/add', [CategoryController::class, 'add'])->name('category-add');
     Route::post('/update', [CategoryController::class, 'update'])->name('category-update');
     Route::delete('/delete/{id}', [CategoryController::class, 'delete'])->name('category-delete');
 });
-
+Route::prefix('subcategory')->group(function () {
+    Route::get('/', [SubCategoryController::class, 'index'])->name('subcategory-list');
+    Route::get('/{id}', [SubCategoryController::class, 'detail'])->name('subcategory-detail');
+    Route::post('/add', [SubCategoryController::class, 'add'])->name('subcategory-add');
+    Route::post('/update', [SubCategoryController::class, 'update'])->name('subcategory-update');
+    Route::delete('/delete/{id}', [SubCategoryController::class, 'delete'])->name('subcategory-delete');
+});
 //**AUTH ROUTE
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login'])->name('login');

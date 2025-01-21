@@ -2,13 +2,13 @@
 namespace App\Services;
 
 use App\Constants\CommonConstants;
-use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\NotFoundException;
 
-class CategoryService
+class SubCategoryService
 {
     public static function getPaginated(Request $request)
     {
@@ -18,27 +18,27 @@ class CategoryService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
-        $categories = Category::orderBy($sortBy, $sortDirection)->paginate($perPage);
-        foreach ($categories as $category) {
-            $category->availability = $category->isAvailable();
+        $categories = SubCategory::orderBy($sortBy, $sortDirection)->paginate($perPage);
+        foreach ($categories as $subcategory) {
+            $subcategory->availability = $subcategory->isAvailable();
         }
         return $categories;
     }
     public static function getDetail($code)
     {
         try {
-            $category = Category::where('code', $code)->first();
+            $subcategory = SubCategory::where('code', $code)->first();
 
-            if (! $category) {
+            if (! $subcategory) {
                 throw new NotFoundException("code : {$code}");
             }
-            $category->status = $category->isAvailable();
-            return $category;
+            $subcategory->status = $subcategory->isAvailable();
+            return $subcategory;
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Category not found: ' . $e->getMessage(),
+                'message' => 'SubCategory not found: ' . $e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -54,17 +54,17 @@ class CategoryService
         try {
             $data           = $request->all();
             $data['status'] = $request->has('status') ? $request->input('status') : 0;
-            $category       = Category::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
+            $subcategory       = SubCategory::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
 
-            if ($category->isNotEmpty()) {
-                $firstCategory = $category->first();
-                throw new AlreadyExistException("code : {$firstCategory->code}");
+            if ($subcategory->isNotEmpty()) {
+                $firstSubCategory = $subcategory->first();
+                throw new AlreadyExistException("code : {$firstSubCategory->code}");
             }
 
-            $category = new Category();
-            $category->validateAttributes($data);
-            $category->fill($data);
-            $category->save();
+            $subcategory = new SubCategory();
+            $subcategory->validateAttributes($data);
+            $subcategory->fill($data);
+            $subcategory->save();
 
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
@@ -82,13 +82,13 @@ class CategoryService
             $data           = $request->all();
             $data['status'] = $request->has('status') ? $request->input('status') : 0;
 
-            $category = Category::find($data['id']);
-            if (! $category) {
+            $subcategory = SubCategory::find($data['id']);
+            if (! $subcategory) {
                 throw new NotFoundException("code : " . $data['code']);
             }
-            $category->validateAttributes($data);
-            $category->fill($data);
-            $category->update();
+            $subcategory->validateAttributes($data);
+            $subcategory->fill($data);
+            $subcategory->update();
 
             return response()->json([
                 'success' => true,
@@ -98,7 +98,7 @@ class CategoryService
             Log::error($e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Category not found: ' . $e->getMessage(),
+                'message' => 'SubCategory not found: ' . $e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -112,12 +112,12 @@ class CategoryService
     public static function delete($id)
     {
         try {
-            $category = Category::find($id);
-            if (! $category) {
+            $subcategory = SubCategory::find($id);
+            if (! $subcategory) {
                 throw new NotFoundException("id : " . $id);
             }
-            $category->status = 1;
-            $category->update();
+            $subcategory->status = 1;
+            $subcategory->update();
 
             return response()->json([
                 'success' => true,
@@ -127,7 +127,7 @@ class CategoryService
             Log::error($e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Category not found: ' . $e->getMessage(),
+                'message' => 'SubCategory not found: ' . $e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());

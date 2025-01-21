@@ -22,7 +22,7 @@ class CategoryController extends Controller
         $categories = CategoryService::getPaginated($request);
         return view('pages.categories.category-list', ['categories' => $categories]);
     }
-    public function save(Request $request)
+    public function add(Request $request)
     {
         return CategoryService::save($request);
     }

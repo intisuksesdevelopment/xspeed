@@ -147,66 +147,120 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('categoryForm').addEventListener('submit', function(event) {
-                event.preventDefault();
+        // custom checkbox
 
-                let form = this;
-                let formData = new FormData(form);
-                let submitButton = document.getElementById('submit-button');
-                submitButton.disabled = true; 
+        //
 
-                fetch(form.action, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                    },
-                    body: formData,
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
-                    const messageId = data.success ? 'success-message' : 'danger-message';
-                    const modalMessage = data.success ? data.message : data.message || 'Submission failed';
+        // Handle form submission
+        document.getElementById('categoryAddForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-                    document.getElementById(messageId).textContent = modalMessage;
-                    new bootstrap.Modal(document.getElementById(modalId)).show();
+            let form = this;
+            let formData = new FormData(form);
+            let submitButton = document.getElementById('submit-add-button');
+            submitButton.disabled = true;
+            const checkbox = document.getElementById('status-add'); // Set initial value based on checked state
+                checkbox.value = checkbox.checked ? 0 : 1; // Update value when checkbox is toggled
+                checkbox.addEventListener('change', function() { checkbox.value = this.checked ? 0 : 1; });
+                Swal.fire({
+                        title: "Processing...",
+                        text: "Please wait.",
+                        icon: "info",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
 
-                    console.error(modalMessage, data.error);
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                },
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.close();
+                submitButton.disabled = false;
+                const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
+                const messageId = data.success ? 'success-message' : 'danger-message';
+                const modalMessage = data.success ? data.message : data.message || 'Submission failed';
 
-                    document.getElementById('cancel-button').click();
-                    submitButton.disabled = false;
-                })
-                .catch(error => {
-                    document.getElementById('failed-message').textContent = error;
-                    new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
-                    console.error('Submission failed:', error);
-                });
+                document.getElementById(messageId).textContent = modalMessage;
+                new bootstrap.Modal(document.getElementById(modalId)).show();
 
+                console.error(modalMessage, data.error);
+
+                document.getElementByName('cancel-button').click();
+            })
+            .catch(error => {
+                Swal.close();
+                submitButton.disabled = false;
+                document.getElementById('failed-message').textContent = error;
+                new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                console.error('Submission failed:', error);
+            });
+        });
+        document.getElementById('categoryEditForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let form = this;
+            let formData = new FormData(form);
+            let submitButton = document.getElementById('submit-edit-button');
+            submitButton.disabled = true;
+
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                },
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
+                const messageId = data.success ? 'success-message' : 'danger-message';
+                const modalMessage = data.success ? data.message : data.message || 'Submission failed';
+                submitButton.disabled = false;
+
+                document.getElementById(messageId).textContent = modalMessage;
+                new bootstrap.Modal(document.getElementById(modalId)).show();
+
+                console.error(modalMessage, data.error);
+
+                document.getElementByName('cancel-button').click();
+            })
+            .catch(error => {
+                document.getElementById('failed-message').textContent = error;
+                new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                console.error('Submission failed:', error);
+                submitButton.disabled = false;
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var editButtons = document.querySelectorAll('[data-bs-target="#edit-category"]');
-    
-            editButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    var categoryId = this.getAttribute('data-id');
-                    var categoryCode = this.getAttribute('data-code');
-                    var categoryName = this.getAttribute('data-name');
-                    var categoryDescription = this.getAttribute('data-description');
-                    const categoryStatus = this.getAttribute('data-status');
-                    const statusCheckbox = document.getElementById('status');
-                    if (categoryStatus == 0) { statusCheckbox.checked = true; } else { statusCheckbox.checked = false; }    
-                    // Inject data into the modal form fields
-                    document.getElementById('id').value = categoryId;
-                    document.getElementById('code').value = categoryCode;
-                    document.getElementById('name').value = categoryName;
-                    document.getElementById('description').value = categoryDescription;
-                    document.getElementById('status').value = categoryStatus;
-                });
-            });
+        // Handle modal data injection
+        var editButtons = document.querySelectorAll('[data-bs-target="#edit-category"]');
 
-            window.deleteData = function(id) {
+        editButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var categoryId = this.getAttribute('data-id');
+                var categoryCode = this.getAttribute('data-code');
+                var categoryName = this.getAttribute('data-name');
+                var categoryDescription = this.getAttribute('data-description');
+                const categoryStatus = this.getAttribute('data-status');
+                const statusCheckbox = document.getElementById('status-edit');
+                statusCheckbox.checked = (categoryStatus == 0);
+
+                // Inject data into the modal form fields
+                document.getElementById('id').value = categoryId;
+                document.getElementById('code').value = categoryCode;
+                document.getElementById('name').value = categoryName;
+                document.getElementById('description').value = categoryDescription;
+                document.getElementById('status-edit').value = categoryStatus;
+            });
+        });
+
+        // Handle data deletion
+        window.deleteData = function(id) {
             const url = `{{ route('category-delete', ':id') }}`.replace(':id', id);
 
             Swal.fire({
@@ -223,6 +277,13 @@
                 buttonsStyling: false,
             }).then((result) => {
                 if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Processing...",
+                        text: "Please wait.",
+                        icon: "info",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
                     fetch(url, {
                         method: 'DELETE',
                         headers: {
@@ -231,6 +292,7 @@
                     })
                     .then(response => response.json())
                     .then(data => {
+                        Swal.close();
                         if (data.success) {
                             Swal.fire({
                                 icon: "success",
@@ -252,6 +314,7 @@
                         }
                     })
                     .catch(error => {
+                        Swal.close();
                         console.error('Error:', error);
                         Swal.fire({
                             icon: "error",
@@ -262,11 +325,8 @@
                     });
                 }
             });
+        };
+    });
+    </script>
 
-            };
-        });
-       
-
-
-</script>
 @endsection

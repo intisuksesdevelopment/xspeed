@@ -1691,8 +1691,8 @@
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="user2" class="check" checked="">
-                                        <label for="user2" class="checktoggle"></label>
+                                        <input type="checkbox" id="status-edit" name="status" class="check" checked="">
+                                        <label for="status-edit" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -1725,39 +1725,46 @@
                         </div>
                         <div class="modal-body custom-modal-body">
                             <form id="subCategoryEditForm" method="post" action="{{ route('subcategory-update') }}">
+                                @csrf
+                                <div class="mb-3 d-none">
+                                    <label for="id" class="form-label">Id</label>
+                                    <input type="text" id="id" name="id" class="form-control">
+                                </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Parent Category</label>
-                                    <select class="select">
-                                        <option>Computers</option>
-                                        <option>Fruits</option>
+                                    <label for="category-id" class="form-label">Parent Category</label>
+                                    <select id="category-id" name="category-id" class="select">
+                                        <!-- Options will be populated by JavaScript -->
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Category Name</label>
-                                    <input type="text" class="form-control" value="Computers">
+                                    <label for="name" class="form-label">Category Name</label>
+                                    <input id="name" name="name" type="text" class="form-control" value="Computers">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Category Code</label>
-                                    <input type="text" class="form-control" value="CT001">
+                                    <label for="code" class="form-label">Category Code</label>
+                                    <input id="code" name="code" type="text" class="form-control" value="CT001">
                                 </div>
                                 <div class="mb-3 input-blocks">
-                                    <label class="form-label">Description</label>
-                                    <textarea class="form-control">Type Description</textarea>
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea id="description" name="description" class="form-control">Type Description</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="image-url" class="form-label">Icon</label>
+                                    <input id="image-url" name="image_url" type="text" class="form-control" value="CT001">
                                 </div>
                                 <div class="mb-0">
-                                    <div
-                                        class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                    <div class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="user3" class="check" checked="">
-                                        <label for="user3" class="checktoggle"></label>
+                                        <input type="checkbox" id="subcategory-status-edit" name="status" class="check" checked>
+                                        <label for="subcategory-status-edit" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
-                                    <button type="button" class="btn btn-cancel me-2"
-                                        data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                    <button type="button" id="cancel-edit-button" name="cancel-button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" id="submit-edit-button" class="btn btn-submit">Save Changes</button>
                                 </div>
                             </form>
+                            
                         </div>
                     </div>
                 </div>
@@ -15753,8 +15760,8 @@
         </div>
     </div>
 </div>
-<div id="danger-alert-modal" class="modal fade" tabindex="-1" role="dialog"
-    aria-hidden="true">
+
+<div id="danger-alert-modal" class="modal fade" tabindex="-1" role="dialog" inert>
     <div class="modal-dialog modal-sm">
         <div class="modal-content modal-filled bg-danger">
             <div class="modal-body p-4">
@@ -15770,3 +15777,9 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('alert-success-button').addEventListener('click', function() {
+    location.reload();
+});
+
+</script>

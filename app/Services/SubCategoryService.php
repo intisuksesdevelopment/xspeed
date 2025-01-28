@@ -53,7 +53,7 @@ class SubCategoryService
     {
         try {
             $data           = $request->all();
-            $data['status'] = $request->has('status') ? $request->input('status') : 0;
+            $data['status'] = $request->has('status') ? 0 : 1;
             $subcategory       = SubCategory::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
 
             if ($subcategory->isNotEmpty()) {
@@ -80,7 +80,7 @@ class SubCategoryService
     {
         try {
             $data           = $request->all();
-            $data['status'] = $request->has('status') ? $request->input('status') : 0;
+            $data['status'] = $request->has('status') ? 0 : 1;
 
             $subcategory = SubCategory::find($data['id']);
             if (! $subcategory) {

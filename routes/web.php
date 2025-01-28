@@ -1,11 +1,13 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,12 @@ use App\Http\Controllers\SubCategoryController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::prefix('upload')->group(function () {
+    Route::get('/', [FileController::class, 'create'])->name('file.create');
+    Route::post('/', [FileController::class, 'store'])->name('file.store');
+});
+
+
 Route::prefix('product')->group(function () {
     Route::get('/', [ItemController::class, 'index'])->name('product-list');
     Route::get('/{uuid}', [ItemController::class, 'detail'])->name('product-detail');

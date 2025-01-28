@@ -14,7 +14,7 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('/build/img/favicon.png')}}">
-
+    <style> .modal-backdrop + .modal-backdrop { z-index: 1050 !important; } </style>
     @include('layout.partials.head')
 </head>
 

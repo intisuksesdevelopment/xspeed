@@ -6,6 +6,7 @@ use Hash;
 use Session;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Services\CategoryService;
 use App\Services\SubCategoryService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -19,8 +20,9 @@ class SubCategoryController extends Controller
     public function index(Request $request)
     {
         Paginator::useBootstrap(); // Menggunakan Bootstrap
-        $subcategories = SubCategoryService::getPaginated($request);
-        return view('pages.categories.sub-categories', ['subcategories' => $subcategories]);
+        $data['subcategories'] = SubCategoryService::getPaginated($request);
+        $data['categories'] = CategoryService::getActive($request);
+        return view('pages.categories.sub-categories',  $data);
     }
     public function add(Request $request)
     {

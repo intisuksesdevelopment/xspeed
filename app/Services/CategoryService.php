@@ -24,6 +24,20 @@ class CategoryService
         }
         return $categories;
     }
+    public static function getActive(Request $request)
+    {
+        $perPage = $request->input('per_page', CommonConstants::PAGE);
+        // Default to 10 per page if not provided
+        $sortBy = $request->input('sortBy', CommonConstants::SORT);
+        // Default to 'id' if not provided
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        // Default to 'asc' if not provided
+        $categories = Category::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
+        foreach ($categories as $category) {
+            $category->availability = $category->isAvailable();
+        }
+        return $categories;
+    }
     public static function getDetail($code)
     {
         try {
@@ -53,7 +67,7 @@ class CategoryService
     {
         try {
             $data           = $request->all();
-            $data['status'] = $request->has('status') ? $request->input('status') : 0;
+            $data['status'] = $request->has('status') ? 0 : 1;
             $category       = Category::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
 
             if ($category->isNotEmpty()) {
@@ -80,8 +94,8 @@ class CategoryService
     {
         try {
             $data           = $request->all();
-            $data['status'] = $request->has('status') ? $request->input('status') : 0;
-
+            $data['status'] = $request->has('status') ? 0 : 1;
+            
             $category = Category::find($data['id']);
             if (! $category) {
                 throw new NotFoundException("code : " . $data['code']);

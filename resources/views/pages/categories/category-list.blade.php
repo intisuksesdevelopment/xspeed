@@ -228,6 +228,8 @@
                 console.error(modalMessage, data.error);
 
                 document.getElementByName('cancel-button').click();
+                
+                location.reload();
             })
             .catch(error => {
                 document.getElementById('failed-message').textContent = error;

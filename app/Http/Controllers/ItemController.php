@@ -19,8 +19,8 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         Paginator::useBootstrap(); // Menggunakan Bootstrap
-        $items = ItemService::getPaginatedItems($request);
-        $items = $this->itemService->getPaginatedItems($request);
+        $items = ItemService::getPaginated($request);
+        $items = $this->itemService->getPaginated($request);
          // Apply the method to each item in the collection
          $itemsWithoutId = $items->map(function ($item) {
              return $item->getWithoutId(true);

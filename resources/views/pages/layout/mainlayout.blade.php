@@ -14,7 +14,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('/build/src/icon/favicon.png')}}">
 
-    @include('layout.partials.head')
+    @include('pages.layout.partials.head')
 </head>
 
 @if (Route::is(['chat']))
@@ -46,15 +46,15 @@
     @include('pages.layout.partials.header')
 @endif
 @if (!Route::is(['pos', 'under-maintenance', 'coming-soon','error-404','error-500','two-step-verification-3','two-step-verification-2','two-step-verification','email-verification-3','email-verification-2','email-verification','reset-password-3','reset-password-2','reset-password','forgot-password-3','forgot-password-2','forgot-password','register-3','register-2','register','signin-3','signin-2','signin','login','success','success-2','success-3','lock-screen']))
-    @include('layout.partials.sidebar')
-    @include('layout.partials.collapsed-sidebar')
-    @include('layout.partials.horizontal-sidebar')
+    @include('pages.layout.partials.sidebar')
+    @include('pages.layout.partials.collapsed-sidebar')
+    @include('pages.layout.partials.horizontal-sidebar')
 @endif
 @yield('content')
 </div>
 <!-- /Main Wrapper -->
 @include('layout.partials.theme-settings')
-@component('components.modalpopup')
+@component('pages.components.modalpopup')
 @endcomponent
 @include('layout.partials.footer-scripts')
 </body>

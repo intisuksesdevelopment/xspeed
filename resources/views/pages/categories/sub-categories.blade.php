@@ -1,5 +1,5 @@
 <?php $page = 'sub-categories'; ?>
-@extends('layout.mainlayout')
+@extends('pages.layout.mainlayout')
 @section('content')
 <div class="page-wrapper">
     <div class="content">
@@ -257,13 +257,28 @@
                 });
             });
 
+            categories.forEach(function(category) {
+                var option = document.createElement('option'); 
+                option.value = category.id; // Assuming category has 'id' and 'name' properties 
+                option.text = category.name; 
+
+                // Select all elements with the name 'category-id'
+                var selectElements = document.getElementsByName('category-id'); 
+
+                // Loop through each element in the NodeList and append the option
+                for (var i = 0; i < selectElements.length; i++) {
+                    selectElements[i].appendChild(option.cloneNode(true));
+                }
+            });
+
+
 
             // Handle modal data injection
             var editButtons = document.querySelectorAll('[data-bs-target="#edit-sub-category"]');
+        
 
             editButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
-                    document.getElementById('category-id').innerHTML = '';
                     var subCategoryId = this.getAttribute('data-id');
                     var categoryId = this.getAttribute('data-category-id');
                     var subCategoryCode = this.getAttribute('data-code');
@@ -271,23 +286,16 @@
                     var subCategoryDescription = this.getAttribute('data-description');
                     var subCategoryImageUrl = this.getAttribute('data-image-url');
                     const subCategoryStatus = this.getAttribute('data-status');
-                    const statusCheckbox = document.getElementById('status-edit');
+                    const statusCheckbox = document.getElementById('edit-status');
                     statusCheckbox.checked = (subCategoryStatus == 0);
 
                     // Inject data into the modal form fields
-                    document.getElementById('id').value = subCategoryId;
-                    document.getElementById('code').value = subCategoryCode;
-                    document.getElementById('name').value = subCategoryName;
-                    document.getElementById('description').value = subCategoryDescription;
-                    document.getElementById('image-url').value = subCategoryImageUrl;
-                    document.getElementById('subcategory-status-edit').value = subCategoryStatus;
-                    categories.forEach(function(category) {
-                         var option = document.createElement('option'); 
-                         option.value = category.id; // Assuming category has 'id' and 'name' properties 
-                         option.text = category.name; 
-                         document.getElementById('category-id').appendChild(option); 
-                        });
-
+                    document.getElementById('edit-id').value = subCategoryId;
+                    document.getElementById('edit-code').value = subCategoryCode;
+                    document.getElementById('edit-name').value = subCategoryName;
+                    document.getElementById('edit-description').value = subCategoryDescription;
+                    document.getElementById('edit-image-url').value = subCategoryImageUrl;
+                    document.getElementById('edit-status').value = subCategoryStatus;
                 });
             });
 

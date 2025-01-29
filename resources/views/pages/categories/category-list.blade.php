@@ -1,5 +1,5 @@
 <?php $page = 'category-list'; ?>
-@extends('layout.mainlayout')
+@extends('pages.layout.mainlayout')
 @section('content')
 <div class="page-wrapper">
     <div class="content">

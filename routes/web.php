@@ -49,6 +49,9 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
+//**AUTH REGISTER */
+Route::get('register', [LoginController::class, 'registration'])->name('register');
+
 //AUTH ROUTE**
 Route::middleware(['auth'])->group(function () {
     Route::prefix('product')->group(function () {
@@ -60,7 +63,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('index', [CustomAuthController::class, 'dashboard']);
 // Route::get('signin', [CustomAuthController::class, 'index'])->name('signin');
 Route::post('custom-login', [CustomAuthController::class, 'customSignin'])->name('signin.custom');
-Route::get('register', [CustomAuthController::class, 'registration'])->name('register');
+// Route::get('register', [CustomAuthController::class, 'registration'])->name('register');
 Route::post('custom-register', [CustomAuthController::class, 'customRegister'])->name('register.custom');
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
@@ -747,9 +750,9 @@ Route::get('/register-2', function () {
     return view('register-2');
 })->name('register-2');
 
-Route::get('/register', function () {
-    return view('register');
-})->name('register');
+// Route::get('/register', function () {
+//     return view('register');
+// })->name('register');
 
 Route::get('/signin-3', function () {
     return view('signin-3');

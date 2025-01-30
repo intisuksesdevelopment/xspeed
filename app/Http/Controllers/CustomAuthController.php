@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Hash;
-use Session;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class CustomAuthController extends Controller
 {
 
     public function index()
     {
-        
+
         return view('signin');
-    }  
-      
+    }
+
 
     public function customSignin(Request $request)
     {
@@ -40,18 +40,18 @@ class CustomAuthController extends Controller
             return redirect()->intended('index')
                         ->withSuccess('Signed in');
         }
-         
-      
+
+
         return redirect("signin")->withErrors('These credentials do not match our records.');
     }
     public function registration()
     {
         return view('register');
     }
-      
+
 
     public function customRegister(Request $request)
-    {  
+    {
         $request->validate([
             'name' => 'required|min:5',
             'email' => 'required|email|unique:users',
@@ -66,10 +66,10 @@ class CustomAuthController extends Controller
 
         ]
     );
-           
+
         $data = $request->all();
         $check = $this->create($data);
-         
+
         return redirect("signin")->withSuccess('You have signed-in');
     }
 
@@ -82,23 +82,23 @@ class CustomAuthController extends Controller
         'password' => Hash::make($data['password']),
         'confirmpassword' => Hash::make($data['confirmpassword'])
       ]);
-    }    
-    
+    }
+
 
     public function dashboard()
     {
         if(Auth::check()){
             return view('index');
         }
-  
+
         return redirect("signin")->withSuccess('You are not allowed to access');
     }
-    
+
 
     public function signOut() {
         Session::flush();
         Auth::logout();
-  
+
         return Redirect('signin');
     }
 }

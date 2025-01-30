@@ -56,4 +56,9 @@ class LoginController extends BaseController
 
         return redirect('/');
     }
+
+    public function registration()
+    {
+        return view('pages.auth.register');
+    }
 }

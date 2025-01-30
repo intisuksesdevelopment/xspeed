@@ -7,6 +7,7 @@ use Session;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\ItemService;
+use App\Services\CategoryService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,6 +28,11 @@ class ItemController extends Controller
             });
         // dd($itemsWithoutId);
         return view('pages.products.product-list', ['items' => $itemsWithoutId]);
+    }
+    public function add(Request $request)
+    {
+        $data['category'] = CategoryService::getActive($request);
+        return view('pages.products.product-add', $data);
     }
     public function detail($uuid)
     {

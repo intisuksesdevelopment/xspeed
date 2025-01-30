@@ -3,7 +3,7 @@
 @section('content')
     <div class="page-wrapper">
         <div class="content">
-            @component('components.breadcrumb')
+            @component('pages.components.breadcrumb')
                 @slot('title')
                     New Product
                 @endslot
@@ -52,6 +52,17 @@
                                             <div class="col-lg-4 col-sm-6 col-12">
                                                 <div class="mb-3 add-product">
                                                     <label class="form-label">Warehouse</label>
+                                                    <select class="select">
+                                                        <option>Choose</option>
+                                                        <option>Legendary</option>
+                                                        <option>Determined</option>
+                                                        <option>Sincere</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6 col-12">
+                                                <div class="mb-3 add-product">
+                                                    <label class="form-label">Rack</label>
                                                     <select class="select">
                                                         <option>Choose</option>
                                                         <option>Legendary</option>

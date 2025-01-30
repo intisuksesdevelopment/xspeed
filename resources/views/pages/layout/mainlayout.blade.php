@@ -53,7 +53,7 @@
 @yield('content')
 </div>
 <!-- /Main Wrapper -->
-@include('layout.partials.theme-settings')
+@include('pages.layout.partials.theme-settings')
 @component('pages.components.modalpopup')
 @endcomponent
 @include('layout.partials.footer-scripts')

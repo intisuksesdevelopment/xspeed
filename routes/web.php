@@ -8,6 +8,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\WarehouseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +46,22 @@ Route::prefix('subcategory')->group(function () {
     Route::post('/update', [SubCategoryController::class, 'update'])->name('subcategory-update');
     Route::delete('/delete/{id}', [SubCategoryController::class, 'delete'])->name('subcategory-delete');
 });
+
+Route::prefix('suppliers')->group(function () {
+    Route::get('/', [SupplierController::class, 'index'])->name('suppliers');
+    Route::post('/add', [SupplierController::class, 'add'])->name('supplier-add');
+    Route::post('/update', [SupplierController::class, 'update'])->name('supplier-update');
+    Route::delete('/delete/{id}', [SupplierController::class, 'delete'])->name('supplier-delete');
+});
+
+Route::prefix('warehouse')->group(function () {
+    Route::get('/', [WarehouseController::class, 'index'])->name('warehouse');
+    Route::post('/add', [WarehouseController::class, 'add'])->name('warehouse-add');
+    Route::post('/update', [WarehouseController::class, 'update'])->name('warehouse-update');
+    Route::delete('/delete/{id}', [WarehouseController::class, 'delete'])->name('warehouse-delete');
+});
+
+
 //**AUTH ROUTE
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login'])->name('login');

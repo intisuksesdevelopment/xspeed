@@ -58,4 +58,9 @@ class Warehouse extends Model
             throw new ValidationException($validator);
         }
     }
+
+    public function isAvailable()
+    {
+        return $this['status'] == 0 ? 'Aktif' : 'Tidak Aktif';
+    }
 }

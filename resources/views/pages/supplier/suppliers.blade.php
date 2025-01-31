@@ -1,5 +1,5 @@
 <?php $page = 'suppliers'; ?>
-@extends('layout.mainlayout')
+@extends('pages.layout.mainlayout')
 @section('content')
     <div class="page-wrapper">
         <div class="content">
@@ -123,9 +123,9 @@
                                     <td class="action-table-data">
                                         <div class="edit-delete-action">
                                             <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#edit-supplier" 
+                                                data-bs-target="#edit-supplier"
                                                 data-id="{{ $supplier['id']}}"
-                                                data-code="{{ $supplier['code']}}" 
+                                                data-code="{{ $supplier['code']}}"
                                                 data-name="{{ $supplier['name']}}"
                                                 data-email="{{ $supplier['email']}}"
                                                 data-phone="{{ $supplier['phone']}}"
@@ -155,13 +155,13 @@
 <script>
         document.addEventListener('DOMContentLoaded', function() {
             // custom checkbox
-    
+
             //
-    
+
             // Handle form submission
             document.getElementById('supplierAddForm').addEventListener('submit', function(event) {
                 event.preventDefault();
-    
+
                 let form = this;
                 let formData = new FormData(form);
                 let submitButton = document.getElementById('submit-add-button');
@@ -176,7 +176,7 @@
                             showConfirmButton: false,
                             allowOutsideClick: false
                         });
-    
+
                 fetch(form.action, {
                     method: 'POST',
                     headers: {
@@ -191,12 +191,12 @@
                     const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
                     const messageId = data.success ? 'success-message' : 'danger-message';
                     const modalMessage = data.success ? data.message : data.message || 'Submission failed';
-    
+
                     document.getElementById(messageId).textContent = modalMessage;
                     new bootstrap.Modal(document.getElementById(modalId)).show();
-    
+
                     console.error(modalMessage, data.error);
-    
+
                     document.getElementByName('cancel-button').click();
                 })
                 .catch(error => {
@@ -210,12 +210,12 @@
 
             document.getElementById('supplierEditForm').addEventListener('submit', function(event) {
                 event.preventDefault();
-    
+
                 let form = this;
                 let formData = new FormData(form);
                 let submitButton = document.getElementById('submit-edit-button');
                 submitButton.disabled = true;
-    
+
                 fetch(form.action, {
                     method: 'POST',
                     headers: {
@@ -229,12 +229,12 @@
                     const messageId = data.success ? 'success-message' : 'danger-message';
                     const modalMessage = data.success ? data.message : data.message || 'Submission failed';
                     submitButton.disabled = false;
-    
+
                     document.getElementById(messageId).textContent = modalMessage;
                     new bootstrap.Modal(document.getElementById(modalId)).show();
-    
+
                     console.error(modalMessage, data.error);
-    
+
                     document.getElementByName('cancel-button').click();
                 })
                 .catch(error => {
@@ -244,10 +244,10 @@
                     submitButton.disabled = false;
                 });
             });
-    
+
             // Handle modal data injection
             var editButtons = document.querySelectorAll('[data-bs-target="#edit-supplier"]');
-    
+
             editButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
                     var supplierId = this.getAttribute('data-id');
@@ -261,7 +261,7 @@
                     const supplierStatus = this.getAttribute('data-status');
                     const statusCheckbox = document.getElementById('status-edit');
                     statusCheckbox.checked = (supplierStatus == 0);
-    
+
                     // Inject data into the modal form fields
                     document.getElementById('id').value = supplierId;
                     document.getElementById('code').value = supplierCode;
@@ -274,11 +274,11 @@
                     document.getElementById('status-edit').value = supplierStatus;
                 });
             });
-    
+
             // Handle data deletion
             window.deleteData = function(id) {
                 const url = `{{ route('supplier-delete', ':id') }}`.replace(':id', id);
-    
+
                 Swal.fire({
                     title: "Are you sure?",
                     text: "You won't be able to revert this!",

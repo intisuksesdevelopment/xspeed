@@ -41,8 +41,8 @@
                         <li class="{{ Request::is('sub-categories') ? 'active' : '' }}"><a
                                 href="{{ url('sub-categories') }}"><i data-feather="speaker"></i><span>Sub
                                     Category</span></a></li>
-                        <li class="{{ Request::is('brand-list') ? 'active' : '' }}"><a
-                                href="{{ url('brand-list') }}"><i data-feather="tag"></i><span>Brands</span></a></li>
+                        <li class="{{ Request::is('brands') ? 'active' : '' }}"><a
+                                href="{{ url('brands') }}"><i data-feather="tag"></i><span>Brands</span></a></li>
                         <li class="{{ Request::is('units') ? 'active' : '' }}"><a href="{{ url('units') }}"><i
                                     data-feather="speaker"></i><span>Units</span></a></li>
                         <li class="{{ Request::is('varriant-attributes') ? 'active' : '' }}"><a
@@ -145,13 +145,13 @@
                         <li class="{{ Request::is('store-list') ? 'active' : '' }}"><a
                                 href="{{ url('store-list') }}"><i data-feather="home"></i><span>Stores</span></a>
                         </li>
-                        <li class="{{ Request::is('warehouse') ? 'active' : '' }}"><a
-                                href="{{ url('warehouse') }}"><i
+                        <li class="{{ Request::is('warehouses') ? 'active' : '' }}"><a
+                                href="{{ url('warehouses') }}"><i
                                     data-feather="archive"></i><span>Warehouses</span></a>
                         </li>
                     </ul>
                 </li>
-                
+
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Reports</h6>
                     <ul>

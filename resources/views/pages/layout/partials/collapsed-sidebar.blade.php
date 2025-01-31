@@ -11,7 +11,7 @@
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="tablinks nav-link {{ Request::is('product-list','product-details' ,'edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brand-list', 'units', 'varriant-attributes', 'warranty', 'barcode', 'qrcode') ? 'active' : '' }}" href="#messages" id="messages-tab" data-bs-toggle="tab"
+                        <a class="tablinks nav-link {{ Request::is('product-list','product-details' ,'edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brands', 'units', 'varriant-attributes', 'warranty', 'barcode', 'qrcode') ? 'active' : '' }}" href="#messages" id="messages-tab" data-bs-toggle="tab"
                             data-bs-target="#product" role="tab" aria-selected="false">
                             <img src="{{ URL::asset('/build/img/icons/product.svg')}}" alt="">
                         </a>
@@ -30,7 +30,7 @@
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="tablinks nav-link {{ Request::is('customers', 'suppliers', 'store-list', 'warehouse') ? 'active' : '' }}" href="#set" id="set-tab" data-bs-toggle="tab"
+                        <a class="tablinks nav-link {{ Request::is('customers', 'suppliers', 'store-list', 'warehouses') ? 'active' : '' }}" href="#set" id="set-tab" data-bs-toggle="tab"
                             data-bs-target="#user" role="tab" aria-selected="true">
                             <img src="{{ URL::asset('/build/img/icons/users1.svg')}}" alt="">
                         </a>
@@ -114,7 +114,7 @@
                         </ul>
                     </li>
                 </ul>
-                <ul class="tab-pane {{ Request::is('product-list','product-details', 'edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brand-list', 'units', 'varriant-attributes', 'warranty', 'barcode', 'qrcode') ? 'active' : '' }}"
+                <ul class="tab-pane {{ Request::is('product-list','product-details', 'edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brands', 'units', 'varriant-attributes', 'warranty', 'barcode', 'qrcode') ? 'active' : '' }}"
                     id="product" aria-labelledby="messages-tab">
                     <li><a href="{{ url('product-list') }}"
                             class="{{ Request::is('product-list','product-details') ? 'active' : '' }}"><span>Products</span></a></li>
@@ -131,8 +131,8 @@
                     <li><a href="{{ url('sub-categories') }}"
                             class="{{ Request::is('sub-categories') ? 'active' : '' }}"><span>Sub Category</span></a>
                     </li>
-                    <li><a href="{{ url('brand-list') }}"
-                            class="{{ Request::is('brand-list') ? 'active' : '' }}"><span>Brands</span></a></li>
+                    <li><a href="{{ url('brands') }}"
+                            class="{{ Request::is('brands') ? 'active' : '' }}"><span>Brands</span></a></li>
                     <li><a href="{{ url('units') }}"
                             class="{{ Request::is('units') ? 'active' : '' }}"><span>Units</span></a></li>
                     <li><a href="{{ url('varriant-attributes') }}"
@@ -195,7 +195,7 @@
                     </li>
 
                 </ul>
-                <ul class="tab-pane {{ Request::is('customers', 'suppliers', 'store-list', 'warehouse') ? 'active' : '' }}"
+                <ul class="tab-pane {{ Request::is('customers', 'suppliers', 'store-list', 'warehouses') ? 'active' : '' }}"
                     id="user" aria-labelledby="set-tab">
 
                     <li><a href="{{ url('customers') }}"
@@ -204,8 +204,8 @@
                             class="{{ Request::is('suppliers') ? 'active' : '' }}"><span>Suppliers</span></a></li>
                     <li><a href="{{ url('store-list') }}"
                             class="{{ Request::is('store-list') ? 'active' : '' }}"><span>Stores</span></a></li>
-                    <li><a href="{{ url('warehouse') }}"
-                            class="{{ Request::is('warehouse') ? 'active' : '' }}"><span>Warehouses</span></a></li>
+                    <li><a href="{{ url('warehouses') }}"
+                            class="{{ Request::is('warehouses') ? 'active' : '' }}"><span>Warehouses</span></a></li>
 
                 </ul>
                 <ul class="tab-pane {{ Request::is('employees-grid', 'employees-list','edit-employee','add-employee','department-grid', 'department-list','designation', 'shift', 'attendance-employee', 'attendance-admin', 'leaves-admin', 'leaves-employee', 'leave-types', 'holidays','payroll-list','payslip','payslip') ? 'active' : '' }}"

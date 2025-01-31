@@ -10,6 +10,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,12 +55,20 @@ Route::prefix('suppliers')->group(function () {
     Route::delete('/delete/{id}', [SupplierController::class, 'delete'])->name('supplier-delete');
 });
 
-Route::prefix('warehouse')->group(function () {
-    Route::get('/', [WarehouseController::class, 'index'])->name('warehouse');
+Route::prefix('warehouses')->group(function () {
+    Route::get('/', [WarehouseController::class, 'index'])->name('warehouses');
     Route::post('/add', [WarehouseController::class, 'add'])->name('warehouse-add');
     Route::post('/update', [WarehouseController::class, 'update'])->name('warehouse-update');
     Route::delete('/delete/{id}', [WarehouseController::class, 'delete'])->name('warehouse-delete');
 });
+
+Route::prefix('brands')->group(function () {
+    Route::get('/', [BrandController::class, 'index'])->name('brands');
+    Route::post('/add', [BrandController::class, 'add'])->name('brand-add');
+    Route::post('/update', [BrandController::class, 'update'])->name('brand-update');
+    Route::delete('/delete/{id}', [BrandController::class, 'delete'])->name('brand-delete');
+});
+
 
 
 //**AUTH ROUTE
@@ -117,9 +126,9 @@ Route::get('/sub-categories', function () {
     return view('sub-categories');
 })->name('sub-categories');
 
-Route::get('/brand-list', function () {
-    return view('brand-list');
-})->name('brand-list');
+// Route::get('/brand-list', function () {
+//     return view('brand-list');
+// })->name('brand-list');
 
 Route::get('/units', function () {
     return view('units');
@@ -329,17 +338,17 @@ Route::get('/customers', function () {
     return view('customers');
 })->name('customers');
 
-Route::get('/suppliers', function () {
-    return view('suppliers');
-})->name('suppliers');
+// Route::get('/suppliers', function () {
+//     return view('suppliers');
+// })->name('suppliers');
 
 Route::get('/store-list', function () {
     return view('store-list');
 })->name('store-list');
 
-Route::get('/warehouse', function () {
-    return view('warehouse');
-})->name('warehouse');
+// Route::get('/warehouse', function () {
+//     return view('warehouse');
+// })->name('warehouse');
 
 Route::get('/ui-accordion', function () {
     return view('ui-accordion');

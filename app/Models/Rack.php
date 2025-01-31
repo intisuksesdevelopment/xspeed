@@ -21,6 +21,7 @@ class Rack extends Model
         'updated_by',
     ];
 
+    public function isAvailable()
     {
         return $this['status'] == 0 ? 'Aktif' : 'Tidak Aktif';
     }

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit259a1383ded5bbe514a5dbb23fa8eb1c
+class ComposerStaticInit434f45b1a12165693d69969c0d61c4c1
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -395,8 +395,8 @@ class ComposerStaticInit259a1383ded5bbe514a5dbb23fa8eb1c
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -598,9 +598,12 @@ class ComposerStaticInit259a1383ded5bbe514a5dbb23fa8eb1c
         'App\\Http\\Controllers\\CategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/CategoryController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\CustomAuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/CustomAuthController.php',
+        'App\\Http\\Controllers\\FileController' => __DIR__ . '/../..' . '/app/Http/Controllers/FileController.php',
         'App\\Http\\Controllers\\ItemController' => __DIR__ . '/../..' . '/app/Http/Controllers/ItemController.php',
         'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
         'App\\Http\\Controllers\\SubCategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/SubCategoryController.php',
+        'App\\Http\\Controllers\\SupplierController' => __DIR__ . '/../..' . '/app/Http/Controllers/SupplierController.php',
+        'App\\Http\\Controllers\\WarehouseController' => __DIR__ . '/../..' . '/app/Http/Controllers/WarehouseController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\AdminMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminMiddleware.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -621,12 +624,16 @@ class ComposerStaticInit259a1383ded5bbe514a5dbb23fa8eb1c
         'App\\Models\\Item' => __DIR__ . '/../..' . '/app/Models/Item.php',
         'App\\Models\\Rack' => __DIR__ . '/../..' . '/app/Models/Rack.php',
         'App\\Models\\SubCategory' => __DIR__ . '/../..' . '/app/Models/SubCategory.php',
+        'App\\Models\\Supplier' => __DIR__ . '/../..' . '/app/Models/Supplier.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\Warehouse' => __DIR__ . '/../..' . '/app/Models/Warehouse.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Services\\CategoryService' => __DIR__ . '/../..' . '/app/Services/CategoryService.php',
         'App\\Services\\ItemService' => __DIR__ . '/../..' . '/app/Services/ItemService.php',
+        'App\\Services\\LoggingMiddlewareService' => __DIR__ . '/../..' . '/app/Services/LoggingMiddlewareService.php',
         'App\\Services\\SubCategoryService' => __DIR__ . '/../..' . '/app/Services/SubCategoryService.php',
+        'App\\Services\\SupplierService' => __DIR__ . '/../..' . '/app/Services/SupplierService.php',
+        'App\\Services\\WarehouseService' => __DIR__ . '/../..' . '/app/Services/WarehouseService.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
@@ -30908,7 +30915,6 @@ class ComposerStaticInit259a1383ded5bbe514a5dbb23fa8eb1c
         'Illuminate\\Session\\SymfonySessionDecorator' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Session/SymfonySessionDecorator.php',
         'Illuminate\\Session\\TokenMismatchException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Session/TokenMismatchException.php',
         'Illuminate\\Support\\AggregateServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/AggregateServiceProvider.php',
-        'Illuminate\\Support\\AlreadyExistException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/AlreadyExistException.php',
         'Illuminate\\Support\\Arr' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/Arr.php',
         'Illuminate\\Support\\Benchmark' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Benchmark.php',
         'Illuminate\\Support\\Carbon' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Carbon.php',
@@ -30969,6 +30975,7 @@ class ComposerStaticInit259a1383ded5bbe514a5dbb23fa8eb1c
         'Illuminate\\Support\\HigherOrderWhenProxy' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Conditionable/HigherOrderWhenProxy.php',
         'Illuminate\\Support\\HtmlString' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/HtmlString.php',
         'Illuminate\\Support\\InteractsWithTime' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/InteractsWithTime.php',
+        'Illuminate\\Support\\ItemNotFoundException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/ItemNotFoundException.php',
         'Illuminate\\Support\\Js' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Js.php',
         'Illuminate\\Support\\LazyCollection' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/LazyCollection.php',
         'Illuminate\\Support\\Lottery' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Lottery.php',
@@ -30977,7 +30984,6 @@ class ComposerStaticInit259a1383ded5bbe514a5dbb23fa8eb1c
         'Illuminate\\Support\\MultipleInstanceManager' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/MultipleInstanceManager.php',
         'Illuminate\\Support\\MultipleItemsFoundException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/MultipleItemsFoundException.php',
         'Illuminate\\Support\\NamespacedItemResolver' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/NamespacedItemResolver.php',
-        'Illuminate\\Support\\NotFoundException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/NotFoundException.php',
         'Illuminate\\Support\\Number' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Number.php',
         'Illuminate\\Support\\Once' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Once.php',
         'Illuminate\\Support\\Onceable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/Onceable.php',
@@ -35287,9 +35293,9 @@ class ComposerStaticInit259a1383ded5bbe514a5dbb23fa8eb1c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit259a1383ded5bbe514a5dbb23fa8eb1c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit259a1383ded5bbe514a5dbb23fa8eb1c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit259a1383ded5bbe514a5dbb23fa8eb1c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit434f45b1a12165693d69969c0d61c4c1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit434f45b1a12165693d69969c0d61c4c1::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit434f45b1a12165693d69969c0d61c4c1::$classMap;
 
         }, null, ClassLoader::class);
     }

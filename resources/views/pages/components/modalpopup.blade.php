@@ -1769,7 +1769,7 @@
                                     <button type="submit" id="submit-edit-button" class="btn btn-submit">Save Changes</button>
                                 </div>
                             </form>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -1779,7 +1779,7 @@
     <!-- /Edit Category -->
 @endif
 
-@if (Route::is(['brand-list']))
+@if (Route::is(['brands']))
     <!-- Add Brand -->
     <div class="modal fade" id="add-brand">
         <div class="modal-dialog modal-dialog-centered custom-modal-two">
@@ -1795,32 +1795,49 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body new-employee-field">
-                            <form action="{{ url('brand-list') }}">
-                                <div class="mb-3">
-                                    <label class="form-label">Brand</label>
-                                    <input type="text" class="form-control">
+                            <form id="brandAddForm" method="post" action="{{ route('brand-add') }}">
+                                @csrf
+                                <div class="modal-title-head">
+                                    <h6><span><i data-feather="info" class="feather-edit"></i></span>Brand Info
+                                    </h6>
                                 </div>
-                                <label class="form-label">Logo</label>
-                                <div class="profile-pic-upload mb-3">
-                                    <div class="profile-pic brand-pic">
-                                        <span><i data-feather="plus-circle" class="plus-down-add"></i> Add
-                                            Image</span>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label class="form-label">Code</label>
+                                        <input type="text" name="code" class="form-control">
                                     </div>
-                                    <div class="image-upload mb-0">
-                                        <input type="file">
-                                        <div class="image-uploads">
-                                            <h4>Change Image</h4>
+                                    <div class="col-lg-6">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" name="name" class="form-control">
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label>Description</label>
+                                        <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+                                        <p class="mt-1">Maximum 60 Characters</p>
+                                    </div>
+                                    <label class="form-label">Logo</label>
+                                    <div class="profile-pic-upload mb-3">
+                                        <div class="profile-pic brand-pic">
+                                            <span><i data-feather="plus-circle" class="plus-down-add"></i> Add
+                                                Image</span>
+                                        </div>
+                                        <div class="image-upload mb-0">
+                                            <input type="file" name="image_url">
+                                            <div class="image-uploads">
+                                                <h4>Change Image</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-0">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user2" class="check" checked="">
+                                            <label for="user2" class="checktoggle"></label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-0">
-                                    <div
-                                        class="status-toggle modal-status d-flex justify-content-between align-items-center">
-                                        <span class="status-label">Status</span>
-                                        <input type="checkbox" id="user2" class="check" checked="">
-                                        <label for="user2" class="checktoggle"></label>
-                                    </div>
-                                </div>
+                                
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
@@ -1850,37 +1867,53 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body new-employee-field">
-                            <form action="{{ url('brand-list') }}">
-                                <div class="mb-3">
-                                    <label class="form-label">Brand</label>
-                                    <input type="text" class="form-control" value="Boat">
+                            <form id="brandEditForm" method="post" action="{{ route('brand-update') }}">
+                                @csrf
+                                <div class="modal-title-head">
+                                    <h6><span><i data-feather="info" class="feather-edit"></i></span>Brand Info
+                                    </h6>
                                 </div>
-                                <label class="form-label">Logo</label>
-                                <div class="profile-pic-upload mb-3">
-                                    <div class="profile-pic brand-pic">
-                                        <span><img src="{{ URL::asset('/build/img/brand/brand-icon-02.png')}}" alt=""></span>
-                                        <a href="javascript:void(0);" class="remove-photo"><i data-feather="x"
-                                                class="x-square-add"></i></a>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label class="form-label">Code</label>
+                                        <input type="text" id="code" name="code" class="form-control">
                                     </div>
-                                    <div class="image-upload mb-0">
-                                        <input type="file">
-                                        <div class="image-uploads">
-                                            <h4>Change Image</h4>
+                                    <div class="col-lg-6">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" id="name" name="name" class="form-control">
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label>Description</label>
+                                        <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+                                        <p class="mt-1">Maximum 60 Characters</p>
+                                    </div>
+                                    <label class="form-label">Logo</label>
+                                    <div class="profile-pic-upload mb-3" id="image_url">
+                                        <div class="profile-pic brand-pic">
+                                            <span><i data-feather="plus-circle" class="plus-down-add"></i> Add
+                                                Image</span>
+                                        </div>
+                                        <div class="image-upload mb-0">
+                                            <input type="file" name="image_url">
+                                            <div class="image-uploads">
+                                                <h4>Change Image</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-0">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user2" class="check" checked="">
+                                            <label for="user2" class="checktoggle"></label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-0">
-                                    <div
-                                        class="status-toggle modal-status d-flex justify-content-between align-items-center">
-                                        <span class="status-label">Status</span>
-                                        <input type="checkbox" id="user4" class="check" checked="">
-                                        <label for="user4" class="checktoggle"></label>
-                                    </div>
-                                </div>
+                                
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                    <button type="submit" class="btn btn-submit">Create Brand</button>
                                 </div>
                             </form>
                         </div>
@@ -8625,77 +8658,43 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body">
-                            <form action="suppliers">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="new-employee-field">
-                                            <span>Avatar</span>
-                                            <div class="profile-pic-upload mb-2">
-                                                <div class="profile-pic">
-                                                    <span><i data-feather="plus-circle" class="plus-down-add"></i>
-                                                        Profile Photo</span>
-                                                </div>
-                                                <div class="input-blocks mb-0">
-                                                    <div class="image-upload mb-0">
-                                                        <input type="file">
-                                                        <div class="image-uploads">
-                                                            <h4>Change Image</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="input-blocks">
-                                            <label>Supplier Name</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="input-blocks">
-                                            <label>Email</label>
-                                            <input type="email" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="input-blocks">
-                                            <label>Phone</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="input-blocks">
-                                            <label>Address</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-sm-10 col-10">
-                                        <div class="input-blocks">
-                                            <label>City</label>
-                                            <select class="select">
-                                                <option>Choose</option>
-                                                <option>Varrel</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-sm-10 col-10">
-                                        <div class="input-blocks">
-                                            <label>Country</label>
-                                            <select class="select">
-                                                <option>Choose</option>
-                                                <option>Germany</option>
-                                                <option>Mexico</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="mb-0 input-blocks">
-                                            <label class="form-label">Descriptions</label>
-                                            <textarea class="form-control mb-1"></textarea>
-                                            <p>Maximum 600 Characters</p>
-                                        </div>
+                            <form id="supplierAddForm" method="post" action="{{ route('supplier-add') }}">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Kode</label>
+                                    <input type="text" name="code" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Nama</label>
+                                    <input type="text" name="name" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">No. Telpon</label>
+                                    <input type="number" name="phone" class="form-control" placeholder="Masukkan nomor telepon" pattern="[0-9]{10,15}">
+                                </div>
+                                <div class="mb-3">
+                                    <label>Alamat</label>
+                                    <textarea name="address" class="form-control" rows="3"></textarea>
+                                    <p class="mt-1">Maximum 60 Characters</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">No. Npwp</label>
+                                    <input type="number" name="npwp" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Diskon</label>
+                                    <input type="number" name="discount" class="form-control" >
+                                </div>
+                                <div class="mb-0">
+                                    <div
+                                        class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                        <span class="status-label">Status</span>
+                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                        <label for="status-add" class="checktoggle"></label>
                                     </div>
                                 </div>
 
@@ -8714,7 +8713,7 @@
     <!-- /Add Supplier -->
 
     <!-- Edit Supplier -->
-    <div class="modal fade" id="edit-units">
+    <div class="modal fade" id="edit-supplier">
         <div class="modal-dialog modal-dialog-centered custom-modal-two">
             <div class="modal-content">
                 <div class="page-wrapper-new p-0">
@@ -8728,77 +8727,47 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body">
-                            <form action="suppliers">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="new-employee-field">
-                                            <span>Avatar</span>
-                                            <div class="profile-pic-upload edit-pic">
-                                                <div class="profile-pic">
-                                                    <span><img src="{{ URL::asset('/build/img/supplier/edit-supplier.jpg')}}"
-                                                            alt=""></span>
-                                                    <div class="close-img">
-                                                        <i data-feather="x" class="info-img"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="input-blocks mb-0">
-                                                    <div class="image-upload mb-0">
-                                                        <input type="file">
-                                                        <div class="image-uploads">
-                                                            <h4>Change Image</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="input-blocks">
-                                            <label>Supplier Name</label>
-                                            <input type="text" placeholder="Apex Computers">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="input-blocks">
-                                            <label>Email</label>
-                                            <input type="email" placeholder="apexcomputers@example.com">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="input-blocks">
-                                            <label>Phone</label>
-                                            <input type="text" placeholder="+12163547758 ">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="input-blocks">
-                                            <label>Address</label>
-                                            <input type="text" placeholder="Budapester Strasse 2027259 ">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-sm-10 col-10">
-                                        <div class="input-blocks">
-                                            <label>City</label>
-                                            <select class="select">
-                                                <option>Varrel</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-sm-10 col-10">
-                                        <div class="input-blocks">
-                                            <label>Country</label>
-                                            <select class="select">
-                                                <option>Germany</option>
-                                                <option>France</option>
-                                                <option>Mexico</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-0 input-blocks">
-                                        <label class="form-label">Descriptions</label>
-                                        <textarea class="form-control mb-1"></textarea>
-                                        <p>Maximum 600 Characters</p>
+                            <form id="supplierEditForm" method="post" action="{{ route('supplier-update') }}">
+                                @csrf
+                                <div class="mb-3 d-none">
+                                    <label class="form-label">Id</label>
+                                    <input type="text" name="id" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Kode</label>
+                                    <input type="text" name="code" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Nama</label>
+                                    <input type="text" name="name" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">No. Telpon</label>
+                                    <input type="number" name="phone" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label>Alamat</label>
+                                    <textarea name="address" class="form-control" rows="3"></textarea>
+                                    <p class="mt-1">Maximum 60 Characters</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">No. Npwp</label>
+                                    <input type="number" name="npwp" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Diskon</label>
+                                    <input type="number" name="discount" class="form-control" >
+                                </div>
+                                <div class="mb-0">
+                                    <div
+                                        class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                        <span class="status-label">Status</span>
+                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                        <label for="status-add" class="checktoggle"></label>
                                     </div>
                                 </div>
 
@@ -8941,7 +8910,7 @@
     <!-- /Edit Store -->
 @endif
 
-@if (Route::is(['warehouse']))
+{{-- @if (Route::is(['warehouses']))
     <!-- Add Warehouse -->
     <div class="modal fade" id="add-units">
         <div class="modal-dialog modal-dialog-centered custom-modal-two">
@@ -9163,6 +9132,139 @@
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif --}}
+
+@if (Route::is(['warehouses']))
+    <!-- Add Warehouse -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Warehouse</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form id="warehouseAddForm" method="post" action="{{ route('warehouse-add') }}">
+                                @csrf
+                                <div class="mb-3 d-none">
+                                    <label class="form-label">Id</label>
+                                    <input type="text" name="id" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Kode</label>
+                                    <input type="text" name="code" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Nama</label>
+                                    <input type="text" name="name" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Deskripsi</label>
+                                    <input type="text" name="description" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label>Alamat</label>
+                                    <textarea name="address" class="form-control" rows="3"></textarea>
+                                    <p class="mt-1">Maximum 60 Characters</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Telpon</label>
+                                    <input type="number" name="phone" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Foto</label>
+                                    <input type="text" name="image_url" class="form-control" >
+                                </div>
+                                <div class="mb-0">
+                                    <div
+                                        class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                        <span class="status-label">Status</span>
+                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                        <label for="status-add" class="checktoggle"></label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal"  name="cancel-button">Cancel</button>
+                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Warehouse -->
+
+    <!-- Edit Warehouse -->
+    <div class="modal fade" id="edit-warehouse">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Warehouse</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form id="warehouseEditForm" method="post" action="{{ route('warehouse-update') }}">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Kode</label>
+                                    <input type="text" name="code" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Nama</label>
+                                    <input type="text" name="name" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Deskripsi</label>
+                                    <input type="text" name="description" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label>Alamat</label>
+                                    <textarea name="address" class="form-control" rows="3"></textarea>
+                                    <p class="mt-1">Maximum 60 Characters</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Telpon</label>
+                                    <input type="number" name="phone" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Foto</label>
+                                    <input type="text" name="image_url" class="form-control" >
+                                </div>
+                                <div class="mb-0">
+                                    <div
+                                        class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                        <span class="status-label">Status</span>
+                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                        <label for="status-add" class="checktoggle"></label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal"  name="cancel-button">Cancel</button>
+                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save Changes</button>
                                 </div>
                             </form>
                         </div>

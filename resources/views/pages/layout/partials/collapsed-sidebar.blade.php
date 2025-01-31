@@ -11,7 +11,7 @@
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="tablinks nav-link {{ Request::is('product-list','product-details' ,'edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brands', 'units', 'varriant-attributes', 'warranty', 'barcode', 'qrcode') ? 'active' : '' }}" href="#messages" id="messages-tab" data-bs-toggle="tab"
+                        <a class="tablinks nav-link {{ Request::is('product-list','product-details' ,'edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brands', 'units', 'varriant-attributes', 'racks','warranty', 'barcode', 'qrcode') ? 'active' : '' }}" href="#messages" id="messages-tab" data-bs-toggle="tab"
                             data-bs-target="#product" role="tab" aria-selected="false">
                             <img src="{{ URL::asset('/build/img/icons/product.svg')}}" alt="">
                         </a>
@@ -114,7 +114,7 @@
                         </ul>
                     </li>
                 </ul>
-                <ul class="tab-pane {{ Request::is('product-list','product-details', 'edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brands', 'units', 'varriant-attributes', 'warranty', 'barcode', 'qrcode') ? 'active' : '' }}"
+                <ul class="tab-pane {{ Request::is('product-list','product-details', 'edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brands', 'units', 'varriant-attributes', 'racks','warranty', 'barcode', 'qrcode') ? 'active' : '' }}"
                     id="product" aria-labelledby="messages-tab">
                     <li><a href="{{ url('product-list') }}"
                             class="{{ Request::is('product-list','product-details') ? 'active' : '' }}"><span>Products</span></a></li>
@@ -138,6 +138,8 @@
                     <li><a href="{{ url('varriant-attributes') }}"
                             class="{{ Request::is('varriant-attributes') ? 'active' : '' }}"><span>Variant
                                 Attributes</span></a></li>
+                    <li><a href="{{ url('racks') }}"
+                            class="{{ Request::is('racks') ? 'active' : '' }}"><span>Racks</span></a></li>
                     <li><a href="{{ url('warranty') }}"
                             class="{{ Request::is('warranty') ? 'active' : '' }}"><span>Warranties</span></a></li>
                     <li><a href="{{ url('barcode') }}"

@@ -48,6 +48,8 @@
                         <li class="{{ Request::is('varriant-attributes') ? 'active' : '' }}"><a
                                 href="{{ url('varriant-attributes') }}"><i data-feather="layers"></i><span>Variant
                                     Attributes</span></a></li>
+                        <li class="{{ Request::is('racks') ? 'active' : '' }}"><a
+                                href="{{ url('racks') }}"><i data-feather="layers"></i><span>Racks</span></a></li>
                         <li class="{{ Request::is('warranty') ? 'active' : '' }}"><a href="{{ url('warranty') }}"><i
                                     data-feather="bookmark"></i><span>Warranties</span></a>
                         </li>

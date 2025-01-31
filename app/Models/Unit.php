@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rack extends Model
+class Unit extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'unit',
         'name',
-        'code',
-        'description',
-        'image_url',
         'status',
         'created_at',
         'updated_at',
@@ -21,6 +19,7 @@ class Rack extends Model
         'updated_by',
     ];
 
+    public function isAvailable()
     {
         return $this['status'] == 0 ? 'Aktif' : 'Tidak Aktif';
     }

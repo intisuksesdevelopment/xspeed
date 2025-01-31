@@ -11,6 +11,9 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\RackController;
+use App\Http\Controllers\UnitController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +71,21 @@ Route::prefix('brands')->group(function () {
     Route::post('/update', [BrandController::class, 'update'])->name('brand-update');
     Route::delete('/delete/{id}', [BrandController::class, 'delete'])->name('brand-delete');
 });
+
+Route::prefix('racks')->group(function () {
+    Route::get('/', [RackController::class, 'index'])->name('racks');
+    Route::post('/add', [RackController::class, 'add'])->name('rack-add');
+    Route::post('/update', [RackController::class, 'update'])->name('rack-update');
+    Route::delete('/delete/{id}', [RackController::class, 'delete'])->name('rack-delete');
+});
+
+Route::prefix('units')->group(function () {
+    Route::get('/', [UnitController::class, 'index'])->name('units');
+    Route::post('/add', [UnitController::class, 'add'])->name('unit-add');
+    Route::post('/update', [UnitController::class, 'update'])->name('unit-update');
+    Route::delete('/delete/{id}', [UnitController::class, 'delete'])->name('unit-delete');
+});
+
 
 
 
@@ -130,9 +148,9 @@ Route::get('/sub-categories', function () {
 //     return view('brand-list');
 // })->name('brand-list');
 
-Route::get('/units', function () {
-    return view('units');
-})->name('units');
+// Route::get('/units', function () {
+//     return view('units');
+// })->name('units');
 
 Route::get('/varriant-attributes', function () {
     return view('varriant-attributes');

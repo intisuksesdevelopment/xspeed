@@ -56,7 +56,7 @@
             </li>
             <li class="submenu">
                 <a href="javascript:void(0);"
-                    class="{{ Request::is('product-list','product-details','edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brands', 'units', 'varriant-attributes', 'warranty', 'barcode', 'qrcode') ? 'active subdrop' : '' }}"><img
+                    class="{{ Request::is('product-list','product-details','edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brands', 'units', 'varriant-attributes', 'racks', 'warranty', 'barcode', 'qrcode') ? 'active subdrop' : '' }}"><img
                         src="{{ URL::asset('/build/img/icons/product.svg')}}" alt="img"><span> Inventory
                     </span> <span class="menu-arrow"></span></a>
                 <ul>
@@ -85,6 +85,8 @@
                     <li><a
                             href="{{ url('varriant-attributes') }}"class="{{ Request::is('varriant-attributes') ? 'active' : '' }}"><span>Variant
                                 Attributes</span></a></li>
+                    <li><a
+                            href="{{ url('racks') }}"class="{{ Request::is('racks') ? 'active' : '' }}"><span>Racks</span></a></li>
                     <li><a
                             href="{{ url('warranty') }}"class="{{ Request::is('warranty') ? 'active' : '' }}"><span>Warranties</span></a>
                     </li>

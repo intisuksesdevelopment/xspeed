@@ -25,6 +25,21 @@ class WarehouseService
         return $warehouses;
     }
 
+    public static function getActive(Request $request)
+    {
+        $perPage = $request->input('per_page', CommonConstants::PAGE);
+        // Default to 10 per page if not provided
+        $sortBy = $request->input('sortBy', CommonConstants::SORT);
+        // Default to 'id' if not provided
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        // Default to 'asc' if not provided
+        $warehouses = Warehouse::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
+        foreach ($warehouses as $warehouse) {
+            $warehouse->availability = $warehouse->isAvailable();
+        }
+        return $warehouses;
+    }
+
     public static function save(Request $request)
     {
         try {

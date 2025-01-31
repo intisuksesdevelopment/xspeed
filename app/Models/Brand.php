@@ -20,4 +20,9 @@ class Brand extends Model
         'created_by',
         'updated_by',
     ];
+
+    public function isAvailable()
+    {
+        return $this['status'] == 0 ? 'Aktif' : 'Tidak Aktif';
+    }
 }

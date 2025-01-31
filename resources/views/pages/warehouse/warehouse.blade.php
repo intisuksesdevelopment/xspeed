@@ -1,9 +1,9 @@
-<?php $page = 'warehouse'; ?>
-@extends('layout.mainlayout')
+<?php $page = 'warehouses'; ?>
+@extends('pages.layout.mainlayout')
 @section('content')
     <div class="page-wrapper">
         <div class="content">
-            @component('components.breadcrumb')
+            @component('pages.components.breadcrumb')
                 @slot('title')
                     Warehouse
                 @endslot
@@ -226,9 +226,9 @@
                                     <td class="action-table-data">
                                         <div class="edit-delete-action">
                                             <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#edit-warehouse" 
+                                                data-bs-target="#edit-warehouse"
                                                 data-id="{{ $warehouse['id']}}"
-                                                data-code="{{ $warehouse['code']}}" 
+                                                data-code="{{ $warehouse['code']}}"
                                                 data-name="{{ $warehouse['name']}}"
                                                 data-description="{{ $warehouse['description']}}"
                                                 data-phone="{{ $warehouse['phone']}}"
@@ -256,13 +256,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // custom checkbox
-    
+
             //
-    
+
             // Handle form submission
             document.getElementById('warehouseAddForm').addEventListener('submit', function(event) {
                 event.preventDefault();
-    
+
                 let form = this;
                 let formData = new FormData(form);
                 let submitButton = document.getElementById('submit-add-button');
@@ -277,7 +277,7 @@
                             showConfirmButton: false,
                             allowOutsideClick: false
                         });
-    
+
                 fetch(form.action, {
                     method: 'POST',
                     headers: {
@@ -292,12 +292,12 @@
                     const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
                     const messageId = data.success ? 'success-message' : 'danger-message';
                     const modalMessage = data.success ? data.message : data.message || 'Submission failed';
-    
+
                     document.getElementById(messageId).textContent = modalMessage;
                     new bootstrap.Modal(document.getElementById(modalId)).show();
-    
+
                     console.error(modalMessage, data.error);
-    
+
                     document.getElementByName('cancel-button').click();
                 })
                 .catch(error => {
@@ -311,12 +311,12 @@
 
             document.getElementById('warehouseEditForm').addEventListener('submit', function(event) {
                 event.preventDefault();
-    
+
                 let form = this;
                 let formData = new FormData(form);
                 let submitButton = document.getElementById('submit-edit-button');
                 submitButton.disabled = true;
-    
+
                 fetch(form.action, {
                     method: 'POST',
                     headers: {
@@ -330,12 +330,12 @@
                     const messageId = data.success ? 'success-message' : 'danger-message';
                     const modalMessage = data.success ? data.message : data.message || 'Submission failed';
                     submitButton.disabled = false;
-    
+
                     document.getElementById(messageId).textContent = modalMessage;
                     new bootstrap.Modal(document.getElementById(modalId)).show();
-    
+
                     console.error(modalMessage, data.error);
-    
+
                     document.getElementByName('cancel-button').click();
                 })
                 .catch(error => {
@@ -345,10 +345,10 @@
                     submitButton.disabled = false;
                 });
             });
-    
+
             // Handle modal data injection
             var editButtons = document.querySelectorAll('[data-bs-target="#edit-warehouse"]');
-    
+
             editButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
                     var warehouseId = this.getAttribute('data-id');
@@ -361,7 +361,7 @@
                     const warehouseStatus = this.getAttribute('data-status');
                     const statusCheckbox = document.getElementById('status-edit');
                     statusCheckbox.checked = (warehouseStatus == 0);
-    
+
                     // Inject data into the modal form fields
                     document.getElementById('id').value = warehouseId;
                     document.getElementById('code').value = warehouseCode;
@@ -373,11 +373,11 @@
                     document.getElementById('status-edit').value = warehouseStatus;
                 });
             });
-    
+
             // Handle data deletion
             window.deleteData = function(id) {
                 const url = `{{ route('warehouse-delete', ':id') }}`.replace(':id', id);
-    
+
                 Swal.fire({
                     title: "Are you sure?",
                     text: "You won't be able to revert this!",

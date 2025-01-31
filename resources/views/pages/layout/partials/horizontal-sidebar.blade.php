@@ -56,7 +56,7 @@
             </li>
             <li class="submenu">
                 <a href="javascript:void(0);"
-                    class="{{ Request::is('product-list','product-details','edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brand-list', 'units', 'varriant-attributes', 'warranty', 'barcode', 'qrcode') ? 'active subdrop' : '' }}"><img
+                    class="{{ Request::is('product-list','product-details','edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brands', 'units', 'varriant-attributes', 'warranty', 'barcode', 'qrcode') ? 'active subdrop' : '' }}"><img
                         src="{{ URL::asset('/build/img/icons/product.svg')}}" alt="img"><span> Inventory
                     </span> <span class="menu-arrow"></span></a>
                 <ul>
@@ -77,7 +77,7 @@
                             href="{{ url('sub-categories') }}"class="{{ Request::is('sub-categories') ? 'active' : '' }}"><span>Sub
                                 Category</span></a></li>
                     <li><a
-                            href="{{ url('brand-list') }}"class="{{ Request::is('brand-list') ? 'active' : '' }}"><span>Brands</span></a>
+                            href="{{ url('brands') }}"class="{{ Request::is('brands') ? 'active' : '' }}"><span>Brands</span></a>
                     </li>
                     <li><a
                             href="{{ url('units') }}"class="{{ Request::is('units') ? 'active' : '' }}"><span>Units</span></a>
@@ -163,13 +163,13 @@
             </li>
             <li class="submenu">
                 <a href="javascript:void(0);"
-                    class="{{ Request::is('customers','suppliers','store-list','warehouse','roles-permissions','permissions','delete-account','ui-alerts','ui-accordion','ui-avatar','ui-badges','ui-borders','ui-buttons','ui-buttons-group','ui-breadcrumb','ui-cards','ui-carousel','ui-colors','ui-dropdowns','ui-grid','ui-images','ui-lightbox','ui-modals','ui-media','ui-offcanvas','ui-pagination','ui-popovers','ui-progress','ui-placeholders','ui-rangeslider','ui-spinner','ui-sweetalerts','ui-nav-tabs','ui-toasts','ui-tooltips','ui-typography','ui-video','ui-ribbon','ui-clipboard','ui-drag-drop','ui-rating','ui-text-editor','ui-counter','ui-scrollbar','ui-stickynote','ui-timeline','chart-apex','chart-c3','chart-js','chart-morris','chart-flot','chart-peity','icon-fontawesome','icon-feather','icon-ionic','icon-material','icon-pe7','icon-simpleline','icon-themify','icon-weather','icon-typicon','icon-flag','form-wizard','form-select2','form-validation','form-floating-labels','form-vertical','form-horizontal','form-basic-inputs','form-checkbox-radios','form-input-groups','form-grid-gutters','form-select','form-mask','form-fileupload','form-horizontal','form-vertical','form-floating-labels','form-validation','form-select2','form-wizard','tables-basic','data-tables')? 'active subdrop': '' }}"><img
+                    class="{{ Request::is('customers','suppliers','store-list','warehouses','roles-permissions','permissions','delete-account','ui-alerts','ui-accordion','ui-avatar','ui-badges','ui-borders','ui-buttons','ui-buttons-group','ui-breadcrumb','ui-cards','ui-carousel','ui-colors','ui-dropdowns','ui-grid','ui-images','ui-lightbox','ui-modals','ui-media','ui-offcanvas','ui-pagination','ui-popovers','ui-progress','ui-placeholders','ui-rangeslider','ui-spinner','ui-sweetalerts','ui-nav-tabs','ui-toasts','ui-tooltips','ui-typography','ui-video','ui-ribbon','ui-clipboard','ui-drag-drop','ui-rating','ui-text-editor','ui-counter','ui-scrollbar','ui-stickynote','ui-timeline','chart-apex','chart-c3','chart-js','chart-morris','chart-flot','chart-peity','icon-fontawesome','icon-feather','icon-ionic','icon-material','icon-pe7','icon-simpleline','icon-themify','icon-weather','icon-typicon','icon-flag','form-wizard','form-select2','form-validation','form-floating-labels','form-vertical','form-horizontal','form-basic-inputs','form-checkbox-radios','form-input-groups','form-grid-gutters','form-select','form-mask','form-fileupload','form-horizontal','form-vertical','form-floating-labels','form-validation','form-select2','form-wizard','tables-basic','data-tables')? 'active subdrop': '' }}"><img
                         src="{{ URL::asset('/build/img/icons/users1.svg')}}" alt="img"><span>User Management</span> <span
                         class="menu-arrow"></span></a>
                 <ul>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                            class="{{ Request::is('customers', 'suppliers', 'store-list', 'warehouse') ? 'active subdrop' : '' }}"><span>People</span><span
+                            class="{{ Request::is('customers', 'suppliers', 'store-list', 'warehouses') ? 'active subdrop' : '' }}"><span>People</span><span
                                 class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="{{ url('customers') }}"
@@ -181,8 +181,8 @@
                             <li><a href="{{ url('store-list') }}"
                                     class="{{ Request::is('store-list') ? 'active' : '' }}"><span>Stores</span></a>
                             </li>
-                            <li><a href="{{ url('warehouse') }}"
-                                    class="{{ Request::is('warehouse') ? 'active' : '' }}"><span>Warehouses</span></a>
+                            <li><a href="{{ url('warehouses') }}"
+                                    class="{{ Request::is('warehouses') ? 'active' : '' }}"><span>Warehouses</span></a>
                             </li>
                         </ul>
                     </li>

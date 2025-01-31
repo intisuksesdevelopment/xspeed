@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\SupplierService;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Str;
 
 class SupplierController extends Controller
 {
@@ -26,6 +27,8 @@ class SupplierController extends Controller
 
     public function add(Request $request)
     {
+        $request->merge(['uuid' => Str::uuid()]);
+        
         return SupplierService::save($request);
     }
 
@@ -33,7 +36,7 @@ class SupplierController extends Controller
     {
         return SupplierService::update($request);
     }
-    
+
     public function delete($id)
     {
         return SupplierService::delete($id);

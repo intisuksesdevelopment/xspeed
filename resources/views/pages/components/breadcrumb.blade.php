@@ -101,7 +101,7 @@
                         data-feather="plus-circle" class="me-2"></i> {{ $li_2 }}</a>
             </div>
         @endif
-        @if (Route::is(['warehouse']))
+        @if (Route::is(['warehouses']))
             <div class="page-btn">
                 <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-units"><i
                         data-feather="plus-circle" class="me-2"></i>{{ $li_2 }}</a>
@@ -281,7 +281,7 @@
                         data-feather="plus-circle" class="me-2"></i>Add New Category</a>
             </div>
         @endif
-        @if (Route::is(['brand-list']))
+        @if (Route::is(['brands']))
             <div class="page-btn">
                 <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-brand"><i
                         data-feather="plus-circle" class="me-2"></i>Add New Brand</a>

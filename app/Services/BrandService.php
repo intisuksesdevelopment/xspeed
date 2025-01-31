@@ -1,13 +1,13 @@
 <?php
 namespace App\Services;
 
-use App\Models\Supplier;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Constants\CommonConstants;
 use Illuminate\Support\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
 
-class SupplierService
+class BrandService
 {
 
     public static function getPaginated(Request $request)
@@ -18,11 +18,11 @@ class SupplierService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
-        $suppliers = Supplier::orderBy($sortBy, $sortDirection)->paginate($perPage);
-        foreach ($suppliers as $supplier) {
-            $supplier->availability = $supplier->isAvailable();
+        $brands = Brand::orderBy($sortBy, $sortDirection)->paginate($perPage);
+        foreach ($brands as $brand) {
+            $brand->availability = $brand->isAvailable();
         }
-        return $suppliers;
+        return $brands;
     }
 
     public static function getActive(Request $request)
@@ -33,11 +33,11 @@ class SupplierService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
-        $suppliers = Supplier::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
-        foreach ($suppliers as $supplier) {
-            $supplier->availability = $supplier->isAvailable();
+        $brands = Brand::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
+        foreach ($brands as $brand) {
+            $brand->availability = $brand->isAvailable();
         }
-        return $suppliers;
+        return $brands;
     }
 
     public static function save(Request $request)
@@ -45,17 +45,17 @@ class SupplierService
         try {
             $data           = $request->all();
             $data['status'] = $request->has('status') ? $request->input('status') : 0;
-            $supplier       = Supplier::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
+            $brand       = Brand::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
 
-            if ($supplier->isNotEmpty()) {
-                $firstSupplier = $supplier->first();
-                throw new AlreadyExistException("code : {$firstSupplier->code}");
+            if ($brand->isNotEmpty()) {
+                $firstBrand = $brand->first();
+                throw new AlreadyExistException("code : {$firstBrand->code}");
             }
 
-            $supplier = new Supplier();
+            $brand = new Brand();
             // $supplier->validateAttributes($data);
-            $supplier->fill($data);
-            $supplier->save();
+            $brand->fill($data);
+            $brand->save();
 
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
@@ -73,13 +73,13 @@ class SupplierService
             $data           = $request->all();
             $data['status'] = $request->has('status') ? $request->input('status') : 0;
 
-            $supplier = Supplier::find($data['id']);
-            if (! $supplier) {
+            $brand = Brand::find($data['id']);
+            if (! $brand) {
                 throw new NotFoundException("code : " . $data['code']);
             }
             // $category->validateAttributes($data);
-            $supplier->fill($data);
-            $supplier->update();
+            $brand->fill($data);
+            $brand->update();
 
             return response()->json([
                 'success' => true,
@@ -103,12 +103,12 @@ class SupplierService
     public static function delete($id)
     {
         try {
-            $supplier = Supplier::find($id);
-            if (! $supplier) {
+            $brand = Brand::find($id);
+            if (! $brand) {
                 throw new NotFoundException("id : " . $id);
             }
-            $supplier->status = 1;
-            $supplier->update();
+            $brand->status = 1;
+            $brand->update();
 
             return response()->json([
                 'success' => true,
@@ -118,7 +118,7 @@ class SupplierService
             Log::error($e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Category not found: ' . $e->getMessage(),
+                'message' => 'Warehouse not found: ' . $e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());

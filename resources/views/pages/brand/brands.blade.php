@@ -1,17 +1,17 @@
-<?php $page = 'suppliers'; ?>
+<?php $page = 'brands'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
     <div class="page-wrapper">
         <div class="content">
-            @component('components.breadcrumb')
+            @component('pages.components.breadcrumb')
                 @slot('title')
-                    Supplier List
+                    Brand
                 @endslot
                 @slot('li_1')
-                    Manage Your Supplier
+                    Manage your brands
                 @endslot
                 @slot('li_2')
-                    Add New Supplier List
+                    Add New Brand
                 @endslot
             @endcomponent
 
@@ -26,19 +26,17 @@
                             </div>
                         </div>
                         <div class="search-path">
-                            <div class="d-flex align-items-center">
-                                <a class="btn btn-filter" id="filter_search">
-                                    <i data-feather="filter" class="filter-icon"></i>
-                                    <span><img src="{{ URL::asset('/build/img/icons/closes.svg') }}" alt="img"></span>
-                                </a>
-                            </div>
+                            <a class="btn btn-filter" id="filter_search">
+                                <i data-feather="filter" class="filter-icon"></i>
+                                <span><img src="{{ URL::asset('/build/img/icons/closes.svg') }}" alt="img"></span>
+                            </a>
                         </div>
                         <div class="form-sort">
                             <i data-feather="sliders" class="info-img"></i>
                             <select class="select">
                                 <option>Sort by Date</option>
-                                <option>25 9 23</option>
-                                <option>12 9 23</option>
+                                <option>Newest</option>
+                                <option>Oldest</option>
                             </select>
                         </div>
                     </div>
@@ -48,25 +46,34 @@
                             <div class="row">
                                 <div class="col-lg-3 col-sm-6 col-12">
                                     <div class="input-blocks">
-                                        <i data-feather="user" class="info-img"></i>
+                                        <i data-feather="zap" class="info-img"></i>
                                         <select class="select">
-                                            <option>Choose Supplier Name</option>
-                                            <option>Dazzle Shoes</option>
-                                            <option>A-Z Store</option>
+                                            <option>Choose Brand</option>
+                                            <option>Lenevo</option>
+                                            <option>Boat</option>
+                                            <option>Nike</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6 col-12">
                                     <div class="input-blocks">
-                                        <i data-feather="globe" class="info-img"></i>
+                                        <i data-feather="calendar" class="info-img"></i>
+                                        <div class="input-groupicon">
+                                            <input type="text" class="datetimepicker" placeholder="Choose Date">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-12">
+                                    <div class="input-blocks">
+                                        <i data-feather="stop-circle" class="info-img"></i>
                                         <select class="select">
-                                            <option>Choose Country</option>
-                                            <option>Mexico</option>
-                                            <option>Italy</option>
+                                            <option>Choose Status</option>
+                                            <option>Active</option>
+                                            <option>Inactive</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="col-lg-3 col-sm-6 col-12 ms-auto">
                                     <div class="input-blocks">
                                         <a class="btn btn-filters ms-auto"> <i data-feather="search"
                                                 class="feather-search"></i> Search </a>
@@ -77,7 +84,7 @@
                     </div>
                     <!-- /Filter -->
                     <div class="table-responsive">
-                        <table class="table datanew">
+                        <table class="table  datanew">
                             <thead>
                                 <tr>
                                     <th class="no-sort">
@@ -86,19 +93,17 @@
                                             <span class="checkmarks"></span>
                                         </label>
                                     </th>
-                                    <th>Kode</th>
-                                    <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>Telp</th>
-                                    <th>Alamat</th>
-                                    <th>Npwp</th>
-                                    <th>Diskon</th>
+                                    <th>Code</th>
+                                    <th>Logo</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Created On</th>
                                     <th>Status</th>
                                     <th class="no-sort">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($suppliers as $supplier)
+                                @foreach($brands as $brand)
                                 <tr>
                                     <td>
                                         <label class="checkboxs">
@@ -106,36 +111,33 @@
                                             <span class="checkmarks"></span>
                                         </label>
                                     </td>
-                                    <td>{{ $supplier['code']}}</td>
-                                    <td>{{ $supplier['name']}}</td>
-                                    <td>{{ $supplier['email']}}</td>
-                                    <td>{{ $supplier['phone']}}</td>
-                                    <td>{{ $supplier['address']}}</td>
-                                    <td>{{ $supplier['npwp']}}</td>
-                                    <td>{{ $supplier['discount']}}</td>
+                                    <td>{{ $brand['code']}}</td>
+                                    <td><span class="d-flex"><img
+                                        src="{{ URL::asset($brand['image_url']) }}"
+                                        alt=""></span></td>
+                                    <td>{{ $brand['name']}}</td>
+                                    <td>{{ $brand['description']}}</td>
+                                    <td>{{ $brand['created_at']}}</td>
                                     <td>
-                                        @if ($supplier['status']==0)
-                                        <span class="badge badge-linesuccess">{{ $supplier['availability']}}</span>
+                                        @if ($brand['status']==0)
+                                        <span class="badge badge-linesuccess">{{ $brand['availability']}}</span>
                                         @else
-                                        <span class="badge badge-danger">{{ $supplier['availability']}}</span>
+                                        <span class="badge badge-danger">{{ $brand['availability']}}</span>
                                         @endif
                                     </td>
                                     <td class="action-table-data">
                                         <div class="edit-delete-action">
                                             <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#edit-supplier"
-                                                data-id="{{ $supplier['id']}}"
-                                                data-code="{{ $supplier['code']}}"
-                                                data-name="{{ $supplier['name']}}"
-                                                data-email="{{ $supplier['email']}}"
-                                                data-phone="{{ $supplier['phone']}}"
-                                                data-address="{{ $supplier['address']}}"
-                                                data-npwp="{{ $supplier['npwp']}}"
-                                                data-discount="{{ $supplier['discount']}}"
-                                                data-status="{{ $supplier['status']}}">
+                                                data-bs-target="#edit-brand"
+                                                data-id="{{ $brand['id']}}"
+                                                data-code="{{ $brand['code']}}"
+                                                data-name="{{ $brand['name']}}"
+                                                data-description="{{ $brand['description']}}"
+                                                data-image="{{ $brand['image_url']}}"
+                                                data-status="{{ $brand['status']}}">
                                                 <i data-feather="edit" class="feather-edit"></i>
                                             </a>
-                                            <a class="p-2" href="javascript:void(0);" onclick="deleteData({{ $supplier['id']}})">
+                                            <a class="p-2" href="javascript:void(0);" onclick="deleteData({{ $brand['id']}})">
                                                 <i data-feather="trash-2" class="feather-trash-2"></i>
                                             </a>
                                         </div>
@@ -144,7 +146,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -152,14 +153,14 @@
         </div>
     </div>
 
-<script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             // custom checkbox
 
             //
 
             // Handle form submission
-            document.getElementById('supplierAddForm').addEventListener('submit', function(event) {
+            document.getElementById('brandAddForm').addEventListener('submit', function(event) {
                 event.preventDefault();
 
                 let form = this;
@@ -208,7 +209,7 @@
                 });
             });
 
-            document.getElementById('supplierEditForm').addEventListener('submit', function(event) {
+            document.getElementById('brandEditForm').addEventListener('submit', function(event) {
                 event.preventDefault();
 
                 let form = this;
@@ -246,38 +247,32 @@
             });
 
             // Handle modal data injection
-            var editButtons = document.querySelectorAll('[data-bs-target="#edit-supplier"]');
+            var editButtons = document.querySelectorAll('[data-bs-target="#edit-brand"]');
 
             editButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
-                    var supplierId = this.getAttribute('data-id');
-                    var supplierCode = this.getAttribute('data-code');
-                    var supplierName = this.getAttribute('data-name');
-                    var supplierEmail = this.getAttribute('data-email');
-                    var supplierPhone = this.getAttribute('data-phone');
-                    var supplierAddress = this.getAttribute('data-address');
-                    var supplierNpwp = this.getAttribute('data-npwp');
-                    var supplierDiscount = this.getAttribute('data-discount');
-                    const supplierStatus = this.getAttribute('data-status');
+                    var brandId = this.getAttribute('data-id');
+                    var brandCode = this.getAttribute('data-code');
+                    var brandName = this.getAttribute('data-name');
+                    var brandDescription = this.getAttribute('data-description');
+                    var brandImageUrl = this.getAttribute('data-image');
+                    const brandStatus = this.getAttribute('data-status');
                     const statusCheckbox = document.getElementById('status-edit');
-                    statusCheckbox.checked = (supplierStatus == 0);
+                    statusCheckbox.checked = (brandStatus == 0);
 
                     // Inject data into the modal form fields
-                    document.getElementById('id').value = supplierId;
-                    document.getElementById('code').value = supplierCode;
-                    document.getElementById('name').value = supplierName;
-                    document.getElementById('email').value = supplierEmail;
-                    document.getElementById('phone').value = supplierPhone;
-                    document.getElementById('address').value = supplierAddress;
-                    document.getElementById('npwp').value = supplierNpwp;
-                    document.getElementById('discount').value = supplierDiscount;
-                    document.getElementById('status-edit').value = supplierStatus;
+                    document.getElementById('id').value = brandId;
+                    document.getElementById('code').value = brandCode;
+                    document.getElementById('name').value = brandName;
+                    document.getElementById('description').value = brandDescription;
+                    document.getElementById('image_url').value = brandImageUrl;
+                    document.getElementById('status-edit').value = brandStatus;
                 });
             });
 
             // Handle data deletion
             window.deleteData = function(id) {
-                const url = `{{ route('supplier-delete', ':id') }}`.replace(':id', id);
+                const url = `{{ route('brand-delete', ':id') }}`.replace(':id', id);
 
                 Swal.fire({
                     title: "Are you sure?",
@@ -335,7 +330,7 @@
                             Swal.fire({
                                 icon: "error",
                                 title: "Failed!",
-                                text: "An error occurred while deleting the supplier.",
+                                text: "An error occurred while deleting the brand.",
                                 confirmButtonClass: "btn btn-danger",
                             });
                         });

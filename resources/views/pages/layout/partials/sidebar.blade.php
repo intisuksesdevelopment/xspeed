@@ -24,10 +24,10 @@
                     <h6 class="submenu-hdr">Inventory</h6>
                     <ul>
                         <li class="{{ Request::is('product-list','product-details') ? 'active' : '' }}"><a
-                                href="{{ url('product-list') }}"><i data-feather="box"></i><span>Products</span></a>
+                                href="{{ route('product-list') }}"><i data-feather="box"></i><span>Products</span></a>
                         </li>
                         <li class="{{ Request::is('add-product','edit-product') ? 'active' : '' }}"><a
-                                href="{{ url('add-product') }}"><i data-feather="plus-square"></i><span>Create
+                                href="{{ route('product-add') }}"><i data-feather="plus-square"></i><span>Create
                                     Product</span></a></li>
                         <li class="{{ Request::is('expired-products') ? 'active' : '' }}"><a
                                 href="{{ url('expired-products') }}"><i data-feather="codesandbox"></i><span>Expired

@@ -151,17 +151,11 @@
                                 <td>
                                     <div class="productimgname">
                                         @foreach($item['images'] as $image)
-                                            @if ($image['index']==0)
+                                            @if ($loop->index == 0)
                                                 <a href="javascript:void(0);" class="product-img stock-img">
                                                     <img src="{{ $image['path'] }}" alt="product">
                                                 </a>
-                                                <a href="javascript:void(0);">{{$image['name']}}</a>
-                                            @else
-                                                <a href="javascript:void(0);" class="product-img stock-img">
-                                                    <img src="{{ URL::asset('/build/img/products/expire-product-04.png') }}"
-                                                        alt="product">
-                                                </a>
-                                                <a href="javascript:void(0);">{{ $item['name'] }}</a>
+                                                {{-- <a href="javascript:void(0);">{{$image['name']}}</a> --}}
                                             @endif
                                         @endforeach
 
@@ -206,50 +200,6 @@
                                 </td>
                             </tr>
                             @endforeach
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>
-                                    <div class="productimgname">
-                                        <a href="javascript:void(0);" class="product-img stock-img">
-                                            <img src="{{ URL::asset('/build/img/products/expire-product-04.png') }}"
-                                                alt="product">
-                                        </a>
-                                        <a href="javascript:void(0);">Woodcraft Sandal</a>
-                                    </div>
-                                </td>
-                                <td>PT010</td>
-                                <td>Bags</td>
-                                <td>Woodcraft</td>
-                                <td>$4547.00</td>
-                                <td>Kg</td>
-                                <td>148</td>
-                                <td>
-                                    <div class="userimgname">
-                                        <a href="javascript:void(0);" class="product-img">
-                                            <img src="{{ URL::asset('/build/img/users/user-10.jpg') }}" alt="product">
-                                        </a>
-                                        <a href="javascript:void(0);">Grillo</a>
-                                    </div>
-                                </td>
-                                <td class="action-table-data">
-                                    <div class="edit-delete-action">
-                                        <a class="me-2 edit-icon p-2" href="{{ url('product-details') }}">
-                                            <i data-feather="eye" class="action-eye"></i>
-                                        </a>
-                                        <a class="me-2 p-2" href="{{ url('edit-product') }}">
-                                            <i data-feather="edit" class="feather-edit"></i>
-                                        </a>
-                                        <a class="confirm-text p-2" href="javascript:void(0);">
-                                            <i data-feather="trash-2" class="feather-trash-2"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>

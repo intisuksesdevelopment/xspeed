@@ -95,7 +95,7 @@ class CategoryService
         try {
             $data           = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
-            
+
             $category = Category::find($data['id']);
             if (! $category) {
                 throw new NotFoundException("code : " . $data['code']);

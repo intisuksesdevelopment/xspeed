@@ -18,7 +18,8 @@
         @endslot
         @endcomponent
         <!-- /add -->
-        <form action="add-product">
+        <form id="productAddForm" method="post" action="{{ route('product-add') }}">
+            @csrf
             <div class="card">
                 <div class="card-body add-product pb-0">
                     <div class="accordion-card-one accordion" id="accordionExample">
@@ -93,8 +94,8 @@
                                                                 class="plus-down-add"></i><span>Add
                                                                 New</span></a>
                                                     </div>
-                                                    <select class="select2 form-control" name="category_id">
-                                                        @foreach($caregories as $category)
+                                                    <select class="select2 form-control" name="category_id" id="category_id">
+                                                        @foreach($categories as $category)
                                                             <option value="{{ $category['id']}}" selected>{{ $category['name']}}</option>
                                                         @endforeach
                                                     </select>
@@ -103,10 +104,10 @@
                                             <div class="col-lg-4 col-sm-6 col-12">
                                                 <div class="mb-3 add-product">
                                                     <label class="form-label">Sub Category</label>
-                                                    <select class="select2 form-control" name="subcategory_id">
-                                                        @foreach($subcaregories as $subcategory)
+                                                    <select class="select2 form-control" name="subcategory_id" id="subcategory_id">
+                                                        {{-- @foreach($subcategories as $subcategory)
                                                             <option value="{{ $subcategory['id']}}" selected>{{ $subcategory['name']}}</option>
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </select>
                                                 </div>
                                             </div>
@@ -122,7 +123,7 @@
                                                             data-bs-target="#add-unit"><i data-feather="plus-circle"
                                                                 class="plus-down-add"></i><span>Add New</span></a>
                                                     </div>
-                                                    <select class="select2 form-control" name="unit_id">
+                                                    <select class="select2 form-control" name="unit">
 
                                                         @foreach($units as $unit)
                                                             <option value="{{ $unit['unit']}}" selected>{{ $unit['unit'].' - '.$unit['name']}}</option>
@@ -148,12 +149,21 @@
                                             </div>
 
                                         </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-sm-6 col-12">
+                                                <div class="mb-3 add-product">
+                                                    <label class="form-label">Color</label>
+                                                    <input type="text" class="form-control" name="color">
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                     <!-- Editor -->
                                     <div class="col-lg-12">
                                         <div class="input-blocks summer-description-box transfer mb-3">
                                             <label>Description</label>
-                                            <textarea class="form-control h-100" rows="5" name="description"></textarea>
+                                            <textarea class="form-control h-100" rows="5" name="desc"></textarea>
                                             <p class="mt-1">Maximum 60 Characters</p>
                                         </div>
                                     </div>
@@ -267,19 +277,9 @@
                                                             <div class="text-editor add-list add">
                                                                 <div class="col-lg-12">
                                                                     <div class="add-choosen">
-                                                                        <div class="input-blocks">
-                                                                            {{-- <div class="image-upload">
-                                                                                <input type="file">
-                                                                                <div class="image-uploads">
-                                                                                    <i data-feather="plus-circle"
-                                                                                        class="plus-down-add me-0"></i>
-                                                                                    <h4>Add Images</h4>
-                                                                                </div>
-                                                                            </div> --}}
-                                                                        </div>
                                                                         <div class="phone-img">
                                                                             <img src="{{ URL::asset('/build/img/products/phone-add-2.png') }}"
-                                                                                alt="image">
+                                                                                alt="image" id="image1">
                                                                             <a href="javascript:void(0);"><i
                                                                                     data-feather="x"
                                                                                     class="x-square-add remove-product"></i></a>
@@ -287,7 +287,21 @@
 
                                                                         <div class="phone-img">
                                                                             <img src="{{ URL::asset('/build/img/products/phone-add-1.png') }}"
-                                                                                alt="image">
+                                                                                alt="image" id="image1">
+                                                                            <a href="javascript:void(0);"><i
+                                                                                    data-feather="x"
+                                                                                    class="x-square-add remove-product"></i></a>
+                                                                        </div>
+                                                                        <div class="phone-img">
+                                                                            <img src="{{ URL::asset('/build/img/products/phone-add-1.png') }}"
+                                                                                alt="image" id="image2">
+                                                                            <a href="javascript:void(0);"><i
+                                                                                    data-feather="x"
+                                                                                    class="x-square-add remove-product"></i></a>
+                                                                        </div>
+                                                                        <div class="phone-img">
+                                                                            <img src="{{ URL::asset('/build/img/products/phone-add-1.png') }}"
+                                                                                alt="image" id="image3">
                                                                             <a href="javascript:void(0);"><i
                                                                                     data-feather="x"
                                                                                     class="x-square-add remove-product"></i></a>
@@ -338,7 +352,7 @@
             <div class="col-lg-12">
                 <div class="btn-addproduct mb-4">
                     <button type="button" class="btn btn-cancel me-2">Cancel</button>
-                    <button type="submit" class="btn btn-submit">Save Product</button>
+                    <button type="submit" class="btn btn-submit" id="submit-add-button">Save Product</button>
                 </div>
             </div>
         </form>
@@ -346,4 +360,76 @@
 
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var subcategories = @json($subcategories);
+        // Event listener for category dropdown change
+        $('#category_id').on('change', function() {
+            var selectedCategoryId = $(this).val();
+            $('#subcategory_id').empty();
+            $.each(subcategories, function(index, subcategory) {
+                if (subcategory.category_id == selectedCategoryId) {
+                    var option = $('<option>', {
+                        value: subcategory.id,
+                        text: subcategory.name
+                    });
+                    $('#subcategory_id').append(option);
+
+                    // Select the first option that is appended
+                    if (index === 0) {
+                        $('#subcategory_id').val(subcategory.id);
+                    }
+                }
+            });
+        });
+
+    // Trigger change event on page load to filter subcategories for the selected category
+    $('#category_id').trigger('change');
+        document.getElementById('productAddForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let form = this;
+            let formData = new FormData(form);
+            let submitButton = document.getElementById('submit-add-button');
+            submitButton.disabled = true;
+                Swal.fire({
+                        title: "Processing...",
+                        text: "Please wait.",
+                        icon: "info",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                },
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.close();
+                submitButton.disabled = false;
+                const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
+                const messageId = data.success ? 'success-message' : 'danger-message';
+                const modalMessage = data.success ? data.message : data.message || 'Submission failed';
+
+                document.getElementById(messageId).textContent = modalMessage;
+                new bootstrap.Modal(document.getElementById(modalId)).show();
+
+                console.error(modalMessage, data.message);
+
+                document.getElementByName('cancel-button').click();
+            })
+            .catch(error => {
+                Swal.close();
+                submitButton.disabled = false;
+                document.getElementById('failed-message').textContent = error.message;
+                new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                console.error('Submission failed:', error.message);
+            });
+        });
+    });
+</script>
 @endsection

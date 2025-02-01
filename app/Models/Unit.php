@@ -21,6 +21,6 @@ class Unit extends Model
 
     public function isAvailable()
     {
-        return $this['status'] == 0 ? 'Aktif' : 'Tidak Aktif';
+        return $this['status'] == 0 ? 'Available' : 'Not Available';
     }
 }

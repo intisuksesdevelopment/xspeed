@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+    <script>
+        window.APP_URL = "{{ config('app.url') }}";
+    </script>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
@@ -16,7 +18,6 @@
 
     @include('pages.layout.partials.head')
 </head>
-
 @if (Route::is(['chat']))
 
     <body class="main-chat-blk">

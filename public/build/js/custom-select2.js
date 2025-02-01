@@ -6,7 +6,7 @@
 
     /* multiple select */
     $('.js-example-basic-multiple').select2();
-	
+
 // Single Select Placeholder
 $("#select2-with-placeholder").select2({
 	placeholder: "Select a state",
@@ -16,6 +16,11 @@ $("#select2-with-placeholder").select2({
 
     /* single select with placeholder */
     $("#select2-placeholder-single").select2({
+        placeholder: "Select a state",
+        allowClear: true,
+        dir: "ltr"
+    });
+    $(".select2").select2({
         placeholder: "Select a state",
         allowClear: true,
         dir: "ltr"

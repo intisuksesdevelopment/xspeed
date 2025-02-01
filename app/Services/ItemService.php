@@ -25,7 +25,7 @@ class ItemService
         $item = Item::where('uuid', $uuid) ->with(['category', 'subcategory', 'brand', 'warehouse', 'rack','images']) ->first();
 
         if (!$item) {
-            throw new NotFoundException("Item with UUID {$uuid} not found.");
+            throw new NotFoundException("uuid : {$uuid}");
         }
         $item->status = $item->isAvailable();
         return $item;
@@ -33,9 +33,9 @@ class ItemService
     public static function save(Request $request)
     {
         $data = $request->all();
-        $item = Item::where('name', 'ILIKE', '%' . $data->name . '%')->get();
+        $item = Item::where('name', 'ILIKE', '%' . $data['name'] . '%')->first();
         if ($item) {
-            throw new AlreadyExistException("Item with UUID {$uuid} not found.");
+            throw new AlreadyExistException("name : {$data['name']}");
         }
         $item = new Item();
         $item->validateAttributes($data);

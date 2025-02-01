@@ -1,20 +1,20 @@
 
 function loadJS(FILE_URL, async = true) {
 	let scriptEle = document.createElement("script");
-  
+
 	scriptEle.setAttribute("src", FILE_URL);
 	scriptEle.setAttribute("type", "text/javascript");
 	scriptEle.setAttribute("async", async);
-  
+
 	document.body.appendChild(scriptEle);
-  
-	// success event 
+
+	// success event
 	scriptEle.addEventListener("load", () => {
-	  
+
 	});
 	 // error event
 	scriptEle.addEventListener("error", (ev) => {
-	  
+        console.log(ev);
 	});
   }
 
@@ -71,7 +71,7 @@ setTimeout(function () {
         '</div>' +
         '</div>' +
         '</form>' +
-       
+
         '<form id="template_direction" method="post">' +
         '<div class="theme-mode border-0">' +
         '<div class="theme-head">' +
@@ -107,8 +107,8 @@ setTimeout(function () {
         '</div>' +
         '</div>' +
         '</form>' +
-       
-       
+
+
         '<form id="layout_mode" method="post">' +
         '<div class="theme-mode border-0 mb-0">' +
         '<div class="theme-head">' +
@@ -142,7 +142,7 @@ setTimeout(function () {
         '</div>' +
         '</div>' +
         '</div>' +
-        
+
         '<div class="col-xl-6 ere">' +
         '<div class="layout-wrap">' +
         '<div class="d-flex align-items-center">' +
@@ -181,7 +181,7 @@ setTimeout(function () {
         '</div>' +
         '</div>' +
         '</div>' +
-        '</div>' +        
+        '</div>' +
         '</div>' +
         '</div>' +
         '</form>' +
@@ -242,7 +242,7 @@ setTimeout(function () {
         '<div class="col-xl-6">' +
         '<div class="footer-reset-btn">' +
         '<a href="#" class="btn btn-primary w-100">Buy Now</a> ' +
-		
+
         '</form>' +
         '</div>' +
         '</div>' +
@@ -254,6 +254,6 @@ setTimeout(function () {
     );
 
 loadJS('build/js/theme-settings.js', true);
-	
+
     }, 1000);
 

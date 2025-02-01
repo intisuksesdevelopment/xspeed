@@ -1837,7 +1837,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
@@ -1909,7 +1909,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
@@ -1983,7 +1983,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
@@ -2055,7 +2055,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
@@ -16015,7 +16015,7 @@
     </div>
 </div>
 
-<div id="danger-alert-modal" class="modal fade" tabindex="-1" role="dialog" inert>
+<div id="danger-alert-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm">
         <div class="modal-content modal-filled bg-danger">
             <div class="modal-body p-4">

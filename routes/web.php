@@ -33,7 +33,8 @@ Route::prefix('upload')->group(function () {
 
 Route::prefix('product')->group(function () {
     Route::get('/', [ItemController::class, 'index'])->name('product-list');
-    Route::get('/add', [ItemController::class, 'add'])->name('product-add');
+    Route::get('/add', [ItemController::class, 'addForm'])->name('product-add');
+    Route::post('/add', [ItemController::class, 'add'])->name('product-add');
     Route::get('/{uuid}', [ItemController::class, 'detail'])->name('product-detail');
 });
 

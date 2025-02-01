@@ -18,11 +18,25 @@ class SubCategoryService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
-        $categories = SubCategory::orderBy($sortBy, $sortDirection)->paginate($perPage);
-        foreach ($categories as $subcategory) {
+        $subcategories = SubCategory::orderBy($sortBy, $sortDirection)->paginate($perPage);
+        foreach ($subcategories as $subcategory) {
             $subcategory->availability = $subcategory->isAvailable();
         }
-        return $categories;
+        return $subcategories;
+    }
+    public static function getActive(Request $request)
+    {
+        $perPage = $request->input('per_page', CommonConstants::PAGE);
+        // Default to 10 per page if not provided
+        $sortBy = $request->input('sortBy', CommonConstants::SORT);
+        // Default to 'id' if not provided
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        // Default to 'asc' if not provided
+        $subcategories = SubCategory::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
+        foreach ($subcategories as $subcategory) {
+            $subcategory->availability = $subcategory->isAvailable();
+        }
+        return $subcategories;
     }
     public static function getDetail($code)
     {

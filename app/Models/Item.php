@@ -34,6 +34,7 @@ class Item extends Model
         'stock_min',
         'currency',
         'sku',
+        'barcode',
         'desc',
         'image_url',
         'status',
@@ -46,7 +47,7 @@ class Item extends Model
     {
         $validator = Validator::make($attributes, [
             'uuid' => 'required|uuid|unique:items,uuid',
-            'name' => 'required|string|max:255',
+            'name' => 'required|string',
             'category_id' => 'required|integer',
             'subcategory_id' => 'required|integer',
             'warehouse_id' => 'required|integer',
@@ -60,10 +61,11 @@ class Item extends Model
             'stock_min' => 'required|integer',
             'currency' => 'required|string|max:3',
             'sku' => 'nullable|string|max:50',
+            'barcode' => 'nullable|string|max:50',
             'desc' => 'nullable|string',
             'image_url' => 'nullable|string|max:255',
             'status' => 'required|string|max:50',
-            'created_by' => 'required|integer',
+            'created_by' => 'nullable|integer',
             'updated_by' => 'nullable|integer',
             'history_log' => 'nullable|string',
         ]);

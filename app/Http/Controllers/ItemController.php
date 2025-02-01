@@ -12,6 +12,7 @@ use App\Services\CategoryService;
 use App\Services\RackService;
 use App\Services\WarehouseService;
 use App\Services\SubCategoryService;
+use App\Services\UnitService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +42,7 @@ class ItemController extends Controller
         $data['warehouses'] = WarehouseService::getActive($request);
         $data['racks'] = RackService::getActive($request);
         $data['brands'] = BrandService::getActive($request);
+        $data['units'] = UnitService::getActive($request);
         return view('pages.products.product-add', $data);
     }
     public function detail($uuid)

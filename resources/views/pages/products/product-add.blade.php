@@ -123,9 +123,10 @@
                                                                 class="plus-down-add"></i><span>Add New</span></a>
                                                     </div>
                                                     <select class="select2 form-control" name="unit_id">
-                                                        <option>Choose</option>
-                                                        <option>Kg</option>
-                                                        <option>Pc</option>
+
+                                                        @foreach($units as $unit)
+                                                            <option value="{{ $unit['unit']}}" selected>{{ $unit['unit'].' - '.$unit['name']}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>

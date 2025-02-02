@@ -1,0 +1,3 @@
+[submodule "vendor/brick/math"]
+    path = vendor/brick/math
+    url = <URL-of-the-submodule-repository>

@@ -1,16 +1,16 @@
 <?php
 namespace App\Models;
 
-use App\Models\Rack;
 use App\Models\Brand;
-use App\Models\Image;
 use App\Models\Category;
-use App\Models\Warehouse;
+use App\Models\Image;
+use App\Models\Rack;
 use App\Models\SubCategory;
+use App\Models\Warehouse;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Item extends Model
 {
@@ -35,7 +35,6 @@ class Item extends Model
         'currency',
         'sku',
         'barcode',
-        'desc',
         'image_url',
         'status',
         'created_by',
@@ -43,30 +42,30 @@ class Item extends Model
         'history_log',
     ];
 
-    public function validateAttributes($attributes)
+    public function validateAttributes($attributes, $id = null)
     {
         $validator = Validator::make($attributes, [
-            'uuid' => 'required|uuid|unique:items,uuid',
-            'name' => 'required|string',
-            'category_id' => 'required|integer',
+            'uuid'           => 'required|uuid|unique:items,uuid,' . $id,
+            'name'           => 'required|string',
+            'category_id'    => 'required|integer',
             'subcategory_id' => 'nullable|integer',
-            'warehouse_id' => 'required|integer',
-            'rack_id' => 'required|integer',
-            'basic_price' => 'required|numeric',
-            'sell_price' => 'required|numeric',
-            'unit' => 'required|string|max:50',
-            'color' => 'nullable|string|max:50',
-            'stock' => 'required|integer',
-            'stock_min' => 'required|integer',
-            'currency' => 'required|string|max:3',
-            'sku' => 'nullable|string|max:50',
-            'barcode' => 'nullable|string|max:50',
-            'desc' => 'nullable|string',
-            'image_url' => 'nullable|string|max:255',
-            'status' => 'required|string|max:50',
-            'created_by' => 'nullable|integer',
-            'updated_by' => 'nullable|integer',
-            'history_log' => 'nullable|string',
+            'warehouse_id'   => 'required|integer',
+            'rack_id'        => 'required|integer',
+            'basic_price'    => 'required|numeric',
+            'sell_price'     => 'required|numeric',
+            'unit'           => 'required|string|max:50',
+            'color'          => 'nullable|string|max:50',
+            'stock'          => 'required|integer',
+            'stock_min'      => 'required|integer',
+            'currency'       => 'required|string|max:3',
+            'sku'            => 'nullable|string|max:50',
+            'barcode'        => 'nullable|string|max:50',
+            'description'    => 'nullable|string',
+            'image_url'      => 'nullable|string|max:255',
+            'status'         => 'required|string|max:50',
+            'created_by'     => 'nullable|integer',
+            'updated_by'     => 'nullable|integer',
+            'history_log'    => 'nullable|string',
         ]);
 
         if ($validator->fails()) {
@@ -75,30 +74,47 @@ class Item extends Model
 
         return true;
     }
-    public function getWithoutId(bool $hideId = false) {
+    public function getWithoutId(bool $hideId = false)
+    {
         $array = $this->toArray();
-        if ($hideId) { unset($array['id']); }
+        if ($hideId) {unset($array['id']);}
         return $array;
     }
-    public function images() {
-        return $this->hasMany(Image::class, 'ref_id') ->where('ref', 'items');
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'ref_id')->where('ref', 'items');
     }
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
-    public function subcategory() {
-         return $this->belongsTo(SubCategory::class);
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class);
     }
-    public function brand() {
-         return $this->belongsTo(Brand::class);
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
-    public function warehouse() {
-         return $this->belongsTo(Warehouse::class);
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
     }
-    public function rack() {
-         return $this->belongsTo(Rack::class);
+    public function rack()
+    {
+        return $this->belongsTo(Rack::class);
     }
-    public function isAvailable() {
-        return $this['status'] == 0 ? 'Tersedia' : 'Tidak Tersedia';
+    public function isAvailable()
+    {
+        switch ($this['status']) {
+            case 0:
+                return 'Available';
+            case 1:
+                return 'Deleted';
+            case 2:
+                return 'Not Active';
+            default:
+                return 'Unknown Status';
+        }
     }
 }

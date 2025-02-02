@@ -42,6 +42,6 @@ class SubCategory extends Model
     }
     public function isAvailable()
     {
-        return $this['status'] == 0 ? 'Tersedia' : 'Tidak Tersedia';
+        return $this['status'] == 0 ? 'Available' : 'Not Available';
     }
 }

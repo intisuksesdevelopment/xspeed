@@ -52,6 +52,15 @@ class ImageService
         }
     }
 
+    public static function getCoverImage(Request $request)
+    {
+        foreach ($request as $key => $value) {
+            if (strpos($key, 'image') === 0 && ! is_null($value) && $value !== '') {
+                return  $value;
+            }
+        }
+    }
+
     public static function isValidImageUrl($url)
     {
         // Check if URL is valid

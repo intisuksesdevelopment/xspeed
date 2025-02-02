@@ -28,15 +28,16 @@
                                     </li>
                                     <li>
                                         <h4>Category</h4>
-                                        <h6>{{$item['category']['name']}}</h6>
+                                        <h6>{{$item['category']['code'].' - '.$item['category']['name']}}</h6>
                                     </li>
                                     <li>
                                         <h4>Sub Category</h4>
-                                        <h6>{{$item['subcategory']['name']}}</h6>
-                                    </li>
+                                        @isset($item['subcategory']) <h6>{{$item['subcategory']['code'].' - '. $item['subcategory']['name'] }}</h6>
+                                    @endisset
+                                                                        </li>
                                     <li>
                                         <h4>Brand</h4>
-                                        <h6>{{$item['brand']['name']}}</h6>
+                                        <h6>{{$item['brand']['code'].' - '.$item['brand']['name']}}</h6>
                                     </li>
                                     <li>
                                         <h4>Unit</h4>
@@ -48,11 +49,11 @@
                                     </li>
                                     <li>
                                         <h4>Minimum Qty</h4>
-                                        <h6>{{$item['stock_min']}}</h6>
+                                        <h6>{{$item['stock_min'].' '.$item['unit']}}</h6>
                                     </li>
                                     <li>
                                         <h4>Quantity</h4>
-                                        <h6>{{$item['stock']}}</h6>
+                                        <h6>{{$item['stock'].' '.$item['unit']}}</h6>
                                     </li>
                                     {{-- <li>
                                         <h4>Tax</h4>

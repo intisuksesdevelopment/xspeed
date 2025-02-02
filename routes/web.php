@@ -35,7 +35,11 @@ Route::prefix('product')->group(function () {
     Route::get('/', [ItemController::class, 'index'])->name('product-list');
     Route::get('/add', [ItemController::class, 'addForm'])->name('product-add');
     Route::post('/add', [ItemController::class, 'add'])->name('product-add');
-    Route::get('/{uuid}', [ItemController::class, 'detail'])->name('product-detail');
+    Route::get('/edit/{uuid}', [ItemController::class, 'editForm'])->name('product-edit-form');
+    Route::post('/edit', [ItemController::class, 'edit'])->name('product-edit');
+    Route::get('/detail/{uuid}', [ItemController::class, 'detail'])->name('product-detail');
+    Route::delete('/delete/{uuid}', [ItemController::class, 'delete'])->name('product-delete');
+
 });
 
 Route::prefix('category')->group(function () {

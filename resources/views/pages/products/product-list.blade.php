@@ -132,7 +132,7 @@
                                 <th>SKU</th>
                                 <th>Category</th>
                                 <th>Brand</th>
-                                <th>Price</th>
+                                <th>Sell Price</th>
                                 <th>Unit</th>
                                 <th>Qty</th>
                                 <th>Created by</th>
@@ -150,49 +150,43 @@
                                 </td>
                                 <td>
                                     <div class="productimgname">
-                                        @foreach($item['images'] as $image)
-                                            @if ($loop->index == 0)
-                                                <a href="javascript:void(0);" class="product-img stock-img">
-                                                    <img src="{{ $image['path'] }}" alt="product">
-                                                </a>
-                                                {{-- <a href="javascript:void(0);">{{$image['name']}}</a> --}}
-                                            @endif
-                                        @endforeach
+                                        @if ($item['image_url']!=null)
+                                            <a href="javascript:void(0);" class="product-img stock-img">
+                                                <img src="{{ $item['image_url'] }}" alt="product">
+                                            </a>
+                                            <a href="javascript:void(0);">{{$item['name']}}</a>
 
+                                        @else
+                                            @foreach($item['images'] as $image)
+                                                @if ($loop->index == 0)
+                                                    <a href="javascript:void(0);" class="product-img stock-img">
+                                                        <img src="{{ $image['path'] }}" alt="product">
+                                                    </a>
+                                                    <a href="javascript:void(0);">{{$item['name']}}</a>
+
+                                                @endif
+                                            @endforeach
+                                        @endif
+
+
+                                       
                                     </div>
                                 </td>
                                 <td>{{ $item['sku']}}</td>
-                                <td>{{ $item['category_id']}}</td>
-                                <td>{{ $item['brand_id']}}</td>
+                                <td>{{ $item['category']['code']}}</td>
+                                <td>{{ $item['brand']['code']}}</td>
                                 <td>{{ $item['sell_price']}}</td>
                                 <td>{{ $item['unit']}}</td>
                                 <td>{{ $item['stock']}}</td>
-                                <td>
-                                    <div class="userimgname">
-                                        @foreach($item['images'] as $image)
-                                            @if (isset($item->images[0]))
-                                            <a href="javascript:void(0);" class="product-img">
-                                                <img src="{{ $item->images[0]->url }}" alt="product">
-                                            </a>
-                                            <a href="javascript:void(0);">{{$image->name}}</a>
-                                            @else
-                                            <a href="javascript:void(0);" class="product-img">
-                                                <img src="{{ URL::asset('/build/img/users/user-10.jpg') }}" alt="product">
-                                            </a>
-                                            <a href="javascript:void(0);">Grillo</a>
-                                            @endif
-                                        @endforeach
-
-                                    </div>
-                                </td>
+                                <td>{{ $item['created_by']}}</td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 edit-icon p-2" href="{{ './'.$item['uuid'] }}">
+                                        <a class="me-2 edit-icon p-2" href="{{ route('product-detail', ['uuid' => $item['uuid']]) }}">
                                             <i data-feather="eye" class="action-eye"></i>
-                                        </a>
-                                        <a class="me-2 p-2" href="{{ url('edit-product') }}">
+                                        </a>                                        
+                                        <a class="me-2 p-2" href="{{ route('product-edit-form', ['uuid' => $item['uuid']]) }}">
                                             <i data-feather="edit" class="feather-edit"></i>
-                                        </a>
+                                        </a>                                        
                                         <a class="confirm-text p-2" href="javascript:void(0);">
                                             <i data-feather="trash-2" class="feather-trash-2"></i>
                                         </a>

@@ -21,7 +21,7 @@ class ItemService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
-        return Item::with('images')->with('category')->with('category')->with('subcategory')->with('rack')->orderBy($sortBy, $sortDirection)->paginate($perPage);
+        return Item::with('images')->with(['category','brand','rack'])->orderBy($sortBy, $sortDirection)->paginate($perPage);
     }
     public static function getDetail($uuid)
     {
@@ -47,7 +47,7 @@ class ItemService
             // Create a new item
             $item         = new Item();
             $data['uuid'] = (string) Str::uuid(); // Generate a unique identifier
-
+            $data['image_url'] = ImageService::getCoverImage($request);
             // Validate and fill item attributes
             $item->validateAttributes($data);
             $item->fill($data);
@@ -63,6 +63,65 @@ class ItemService
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
+        }
+    }
+
+    public static function edit(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $item = Item::where('uuid',$data['uuid'])->first();
+            if (!$item) {
+                throw new AlreadyExistException("name : {$data['name']}");
+            }
+            $data['id'] = $item->id;
+            $data['image_url'] = ImageService::getCoverImage($request);
+
+            $data['stock'] = (int) $data['stock'];
+            $data['stock_min'] = (int) $data['stock_min'];
+            
+            $item->validateAttributes($data, $item->id);
+            $item->fill($data);
+            $item->update(); // Save the item to the database
+
+            // Handle image saving
+            ImageService::saveAll($request, 'items', $item->id);
+
+            return response()->json(['success' => true, 'message' => 'Add successfully!']);
+        } catch (AlreadyExistException $e) {
+            Log::error($e->getMessage());
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
+        }
+    }
+    public static function delete($uuid)
+    {
+        try {
+            $item = Item::where('uuid',$uuid);
+            if (! $item) {
+                throw new NotFoundException("uuid : " . $uuid);
+            }
+            $item->status = 1;
+            $item->update();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Removed successfully!',
+            ]);
+        } catch (NotFoundException $e) {
+            Log::error($e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Item not found: ' . $e->getMessage(),
+            ], 404);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
         }
     }
 }

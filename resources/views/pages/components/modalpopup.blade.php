@@ -1958,7 +1958,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <label>Description</label>
-                                        <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+                                        <textarea name="description" class="form-control" rows="3"></textarea>
                                         <p class="mt-1">Maximum 60 Characters</p>
                                     </div>
                                     <label class="form-label">Iamge</label>
@@ -1979,7 +1979,7 @@
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="status-add" name="status" class="check" checked="">
-                                            <label for="user2" class="checktoggle"></label>
+                                            <label for="status-add" class="checktoggle"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -2015,6 +2015,10 @@
                         <div class="modal-body custom-modal-body new-employee-field">
                             <form id="rackEditForm" method="post" action="{{ route('rack-update') }}">
                                 @csrf
+                                <div class="mb-3 d-none">
+                                    <label for="edit-id" class="form-label">Id</label>
+                                    <input type="text" id="id" name="id" class="form-control">
+                                </div>
                                 <div class="modal-title-head">
                                     <h6><span><i data-feather="info" class="feather-edit"></i></span>Rack Info
                                     </h6>
@@ -2051,7 +2055,7 @@
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="status-edit" class="check" checked="">
-                                            <label for="user2" class="checktoggle"></label>
+                                            <label for="status-edit" class="checktoggle"></label>
                                         </div>
                                     </div>
                                 </div>

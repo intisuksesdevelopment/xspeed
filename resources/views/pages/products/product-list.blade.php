@@ -202,4 +202,11 @@
         <!-- /product list -->
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.deleteRack = function(id) {
+                deleteData(`{{ route('item-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+            };
+    });
+</script>
 @endsection

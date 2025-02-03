@@ -385,6 +385,8 @@
 
     // Trigger change event on page load to filter subcategories for the selected category
     $('#category_id').trigger('change');
+    
+    submitForm('productAddForm', 'submit-add-button',null,null);
         document.getElementById('productAddForm').addEventListener('submit', function(event) {
             event.preventDefault();
 

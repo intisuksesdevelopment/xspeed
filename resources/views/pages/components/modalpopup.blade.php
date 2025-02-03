@@ -1978,7 +1978,7 @@
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
-                                            <input type="checkbox" id="user2" class="check" checked="">
+                                            <input type="checkbox" id="status-add" name="status" class="check" checked="">
                                             <label for="user2" class="checktoggle"></label>
                                         </div>
                                     </div>
@@ -1987,7 +1987,7 @@
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Create Rack</button>
+                                    <button type="submit" class="btn btn-submit" id="submit-add-button">Create Rack</button>
                                 </div>
                             </form>
                         </div>
@@ -2050,7 +2050,7 @@
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
-                                            <input type="checkbox" id="user2" class="check" checked="">
+                                            <input type="checkbox" id="status-edit" class="check" checked="">
                                             <label for="user2" class="checktoggle"></label>
                                         </div>
                                     </div>
@@ -16032,6 +16032,6 @@
     </div>
 </div>
 <script>
-   
+
 
 </script>

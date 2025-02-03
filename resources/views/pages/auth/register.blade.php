@@ -4,7 +4,7 @@
     <div class="account-content">
         <div class="login-wrapper register-wrap bg-img">
             <div class="login-content">
-                <form action="{{ route('register.custom') }}" method="POST">
+                <form action="{{ route('register') }}" id="userAddForm" method="POST">
                     @csrf
                     <div class="login-userset">
                         <div class="login-logo logo-normal">
@@ -30,6 +30,18 @@
                             </div>
                         </div>
                         <div class="form-login">
+                            <label>Username</label>
+                            <div class="form-addons">
+                                <input type="text" class="form-control" id="username" name="username">
+                                <img src="{{ URL::asset('/build/img/icons/user-icon.svg') }}" alt="img">
+                            </div>
+                            <div class="text-danger pt-2">
+                                @error('username')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-login">
                             <label>Email Address</label>
                             <div class="form-addons">
                                 <input type="text" class="form-control" id="email" name="email">
@@ -49,6 +61,18 @@
                             </div>
                             <div class="text-danger pt-2">
                                 @error('nik')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-login">
+                            <label>Phone</label>
+                            <div class="form-addons">
+                                <input type="text" class="form-control" id="phone" name="phone">
+                                <img src="{{ URL::asset('/build/img/icons/user-icon.svg') }}" alt="img">
+                            </div>
+                            <div class="text-danger pt-2">
+                                @error('phone')
                                     {{ $message }}
                                 @enderror
                             </div>
@@ -93,7 +117,7 @@
                             </div>
                         </div>
                         <div class="form-login">
-                            <button type="submit" class="btn btn-login">Sign Up</button>
+                            <button type="submit" class="btn btn-login" id="submit-add-button">Sign Up</button>
                         </div>
                         <div class="signinform">
                             <h4>Already have an account ? <a href="{{ url('signin') }}" class="hover-a">Sign In Instead</a>
@@ -131,4 +155,9 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+                submitForm('userAddForm', 'submit-add-button',null,'{{ route("login") }}');
+            });
+    </script>
 @endsection

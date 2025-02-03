@@ -187,18 +187,22 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    Swal.close();
-                    submitButton.disabled = false;
-                    const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
-                    const messageId = data.success ? 'success-message' : 'danger-message';
-                    const modalMessage = data.success ? data.message : data.message || 'Submission failed';
+                    if (data.success) {
+                        // Show success modal
+                        document.getElementById('success-message').textContent = data.message;
+                        new bootstrap.Modal(document.getElementById('success-alert-modal')).show();
 
-                    document.getElementById(messageId).textContent = modalMessage;
-                    new bootstrap.Modal(document.getElementById(modalId)).show();
-
-                    console.error(modalMessage, data.error);
-
-                    document.getElementByName('cancel-button').click();
+                        // Redirect to the login page after a short delay (e.g., 2 seconds)
+                        setTimeout(() => {
+                            location.reload();
+                        }, 2000);
+                    } else {
+                        // Show danger modal
+                        document.getElementById('danger-message').textContent = data.message || 'Submission failed';
+                        new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                        
+                        console.error(data.message, data.error);
+                    }
                 })
                 .catch(error => {
                     Swal.close();
@@ -226,17 +230,23 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
-                    const messageId = data.success ? 'success-message' : 'danger-message';
-                    const modalMessage = data.success ? data.message : data.message || 'Submission failed';
-                    submitButton.disabled = false;
+                   
+                    if (data.success) {
+                        // Show success modal
+                        document.getElementById('success-message').textContent = data.message;
+                        new bootstrap.Modal(document.getElementById('success-alert-modal')).show();
 
-                    document.getElementById(messageId).textContent = modalMessage;
-                    new bootstrap.Modal(document.getElementById(modalId)).show();
-
-                    console.error(modalMessage, data.error);
-
-                    document.getElementByName('cancel-button').click();
+                        // Redirect to the login page after a short delay (e.g., 2 seconds)
+                        setTimeout(() => {
+                            location.reload();
+                        }, 2000);
+                    } else {
+                        // Show danger modal
+                        document.getElementById('danger-message').textContent = data.message || 'Submission failed';
+                        new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                        
+                        console.error(data.message, data.error);
+                    }
                 })
                 .catch(error => {
                     document.getElementById('failed-message').textContent = error;

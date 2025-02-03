@@ -101,7 +101,8 @@ Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 //**AUTH REGISTER */
-Route::get('register', [LoginController::class, 'registration'])->name('register');
+Route::get('register', [LoginController::class, 'registrationForm'])->name('register-form');
+Route::post('register', [LoginController::class, 'registration'])->name('register');
 
 //AUTH ROUTE**
 Route::middleware(['auth'])->group(function () {

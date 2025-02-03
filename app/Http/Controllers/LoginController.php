@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\UserService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Routing\Controller as BaseController;
 
 
 class LoginController extends BaseController
@@ -57,8 +58,12 @@ class LoginController extends BaseController
         return redirect('/');
     }
 
-    public function registration()
+    public function registrationForm()
     {
         return view('pages.auth.register');
+    }
+    public function registration(Request $request)
+    {
+        return UserService::register($request);
     }
 }

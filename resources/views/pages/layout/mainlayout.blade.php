@@ -22,7 +22,7 @@
 
     <body class="main-chat-blk">
 @endif
-@if (!Route::is(['chat', 'under-maintenance', 'coming-soon', 'error-404', 'error-500','two-step-verification-3','two-step-verification-2','two-step-verification','email-verification-3','email-verification-2','email-verification','reset-password-3','reset-password-2','reset-password','forgot-password-3','forgot-password-2','forgot-password','register-3','register-2','register','signin-3','signin-2','signin','success','success-2','success-3']))
+@if (!Route::is(['chat', 'under-maintenance', 'coming-soon', 'error-404', 'error-500','two-step-verification-3','two-step-verification-2','two-step-verification','email-verification-3','email-verification-2','email-verification','reset-password-3','reset-password-2','reset-password','forgot-password-3','forgot-password-2','forgot-password','register-3','register-2','register','register-form','signin-3','signin-2','signin','success','success-2','success-3']))
 
     <body>
 @endif
@@ -30,8 +30,7 @@
 
     <body class="error-page">
 @endif
-@if (Route::is(['two-step-verification-3','two-step-verification-2','two-step-verification','email-verification-3','email-verification-2','email-verification','reset-password-3','reset-password-2','reset-password','forgot-password-3','forgot-password-2','forgot-password','register-3','register-2','register','signin-3','signin-2','signin','success','success-2','success-3']))
-
+@if (Route::is(['two-step-verification-3','two-step-verification-2','two-step-verification','email-verification-3','email-verification-2','email-verification','reset-password-3','reset-password-2','reset-password','forgot-password-3','forgot-password-2','forgot-password','register-3','register-2','register','register-form','signin-3','signin-2','signin','success','success-2','success-3']))
     <body class="account-page">
 @endif
 @component('components.loader')
@@ -43,10 +42,10 @@
 @if (Route::is(['lock-screen']))
     <div class="main-wrapper login-body">
 @endif
-@if (!Route::is(['under-maintenance', 'coming-soon','error-404','error-500','two-step-verification-3','two-step-verification-2','two-step-verification','email-verification-3','email-verification-2','email-verification','reset-password-3','reset-password-2','reset-password','forgot-password-3','forgot-password-2','forgot-password','register-3','register-2','register','signin-3','signin-2','signin','login','success','success-2','success-3','lock-screen']))
+@if (!Route::is(['under-maintenance', 'coming-soon','error-404','error-500','two-step-verification-3','two-step-verification-2','two-step-verification','email-verification-3','email-verification-2','email-verification','reset-password-3','reset-password-2','reset-password','forgot-password-3','forgot-password-2','forgot-password','register-3','register-2','register','register-form','signin-3','signin-2','signin','login','success','success-2','success-3','lock-screen']))
     @include('pages.layout.partials.header')
 @endif
-@if (!Route::is(['pos', 'under-maintenance', 'coming-soon','error-404','error-500','two-step-verification-3','two-step-verification-2','two-step-verification','email-verification-3','email-verification-2','email-verification','reset-password-3','reset-password-2','reset-password','forgot-password-3','forgot-password-2','forgot-password','register-3','register-2','register','signin-3','signin-2','signin','login','success','success-2','success-3','lock-screen']))
+@if (!Route::is(['pos', 'under-maintenance', 'coming-soon','error-404','error-500','two-step-verification-3','two-step-verification-2','two-step-verification','email-verification-3','email-verification-2','email-verification','reset-password-3','reset-password-2','reset-password','forgot-password-3','forgot-password-2','forgot-password','register-3','register-2','register','register-form','signin-3','signin-2','signin','login','success','success-2','success-3','lock-screen']))
     @include('pages.layout.partials.sidebar')
     @include('pages.layout.partials.collapsed-sidebar')
     @include('pages.layout.partials.horizontal-sidebar')
@@ -57,7 +56,7 @@
 @include('pages.layout.partials.theme-settings')
 @component('pages.components.modalpopup')
 @endcomponent
-@include('layout.partials.footer-scripts')
+@include('pages.layout.partials.footer-scripts')
 </body>
 
 </html>

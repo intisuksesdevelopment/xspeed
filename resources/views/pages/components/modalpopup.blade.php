@@ -16032,8 +16032,6 @@
     </div>
 </div>
 <script>
-    document.getElementById('alert-success-button').addEventListener('click', function() {
-    location.reload();
-});
+   
 
 </script>

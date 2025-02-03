@@ -281,12 +281,12 @@
                         data-feather="plus-circle" class="me-2"></i>Add New Category</a>
             </div>
         @endif
-        @if (Route::is(['brand-list']))
+        {{-- @if (Route::is(['brand-list']))
             <div class="page-btn">
                 <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-brand"><i
                         data-feather="plus-circle" class="me-2"></i>Add New Brand</a>
             </div>
-        @endif
+        @endif --}}
         @if (Route::is(['attendance-admin']))
             <div class="page-btn">
                 <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-units"><i

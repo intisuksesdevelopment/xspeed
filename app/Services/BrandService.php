@@ -44,8 +44,8 @@ class BrandService
     {
         try {
             $data           = $request->all();
-            $data['status'] = $request->has('status') ? $request->input('status') : 0;
-            $brand       = Brand::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
+            $data['status'] = $request->has('status') ? 0 : 1;
+            $brand          = Brand::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
 
             if ($brand->isNotEmpty()) {
                 $firstBrand = $brand->first();

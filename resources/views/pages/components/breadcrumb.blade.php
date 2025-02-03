@@ -115,7 +115,7 @@
         @endif
         @if (Route::is(['racks']))
         <div class="page-btn">
-            <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-units"><i
+            <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-rack"><i
                     data-feather="plus-circle" class="me-2"></i> {{ $li_2 }}</a>
         </div>
         @endif

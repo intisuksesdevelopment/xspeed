@@ -160,7 +160,7 @@
             //
 
             // Handle form submission
-            
+
             submitForm('rackAddForm', 'submit-add-button','status-add',null);
             submitForm('rackEditForm', 'submit-edit-button','status-edit',null);
             // Handle modal data injection

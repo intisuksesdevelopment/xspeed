@@ -26,16 +26,16 @@ class RackController extends Controller
 
     public function add(Request $request)
     {
-        return BrandService::save($request);
+        return RackService::save($request);
     }
 
     public function update(Request $request)
     {
-        return BrandService::update($request);
+        return RackService::update($request);
     }
-    
+
     public function delete($id)
     {
-        return BrandService::delete($id);
+        return RackService::delete($id);
     }
 }

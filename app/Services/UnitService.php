@@ -45,20 +45,19 @@ class UnitService
     {
         try {
             $data           = $request->all();
-            $data['status'] = $request->has('status') ? $request->input('status') : 0;
-            $unit       = Unit::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
+            $data['status'] = $request->has('status') ? 0 : 1;
+            $unit           = Unit::whereRaw('LOWER(unit) = ?', [strtolower($data['unit'])])->first();  
 
-            if ($unit->isNotEmpty()) {
-                $firstUnit = $unit->first();
-                throw new AlreadyExistException("code : {$firstUnit->code}");
-            }
-
-            $unit = new Unit();
-            // $supplier->validateAttributes($data);
-            $unit->fill($data);
-            $unit->save();
-
-            return response()->json(['success' => true, 'message' => 'Add successfully!']);
+            if ($unit) {  
+                throw new AlreadyExistException("unit : {$unit->unit}");
+            } else {  
+                $unit = new Unit();
+                // $supplier->validateAttributes($data);
+                $unit->fill($data);
+                $unit->save();
+    
+                return response()->json(['success' => true, 'message' => 'Add successfully!']);
+            }  
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());
             return response()->json(['success' => false, 'message' => $e->getMessage()]);

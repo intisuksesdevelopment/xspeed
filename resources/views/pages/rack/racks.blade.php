@@ -157,8 +157,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             // custom checkbox
 
-            //
-
             // Handle form submission
 
             submitForm('rackAddForm', 'submit-add-button','status-add',null);

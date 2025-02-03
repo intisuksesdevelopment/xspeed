@@ -186,10 +186,10 @@
                                         </a>                                        
                                         <a class="me-2 p-2" href="{{ route('product-edit-form', ['uuid' => $item['uuid']]) }}">
                                             <i data-feather="edit" class="feather-edit"></i>
-                                        </a>                                        
-                                        <a class="confirm-text p-2" href="javascript:void(0);">
-                                            <i data-feather="trash-2" class="feather-trash-2"></i>
                                         </a>
+                                        <a class="p-2" href="javascript:void(0);" onclick="deleteProduct({{ $rack['id']}})">
+                                            <i data-feather="trash-2" class="feather-trash-2"></i>
+                                        </a>        
                                     </div>
                                 </td>
                             </tr>
@@ -204,7 +204,7 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        window.deleteRack = function(id) {
+        window.deleteProduct = function(id) {
                 deleteData(`{{ route('item-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             };
     });

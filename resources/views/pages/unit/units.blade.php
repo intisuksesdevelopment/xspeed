@@ -169,7 +169,7 @@
                     document.getElementById('status-edit').value = unitStatus;
                 });
             });
-            window.deleteRack = function(id) {
+            window.deleteData = function(id) {
                 deleteData(`{{ route('unit-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             };
         });

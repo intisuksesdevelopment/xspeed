@@ -188,7 +188,7 @@
             });
 
             // Handle data deletion
-            window.deleteRack = function(id) {
+            window.deleteData = function(id) {
                 deleteData(`{{ route('supplier-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             };
         });

@@ -137,7 +137,7 @@
                                                 data-status="{{ $rack['status']}}">
                                                 <i data-feather="edit" class="feather-edit"></i>
                                             </a>
-                                            <a class="p-2" href="javascript:void(0);" onclick="deleteData({{ $rack['id']}})">
+                                            <a class="p-2" href="javascript:void(0);" onclick="deleteRack({{ $rack['id']}})">
                                                 <i data-feather="trash-2" class="feather-trash-2"></i>
                                             </a>
                                         </div>
@@ -189,6 +189,7 @@
             window.deleteRack = function(id) {
                 deleteData(`{{ route('rack-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             };
+
         });
     </script>
 @endsection

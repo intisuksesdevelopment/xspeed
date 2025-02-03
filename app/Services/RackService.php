@@ -45,7 +45,7 @@ class RackService
     {
         try {
             $data           = $request->all();
-            $data['status'] = $request->has('status') ? $request->input('status') : 0;
+            $data['status'] = $request->has('status') ? 0 : 1;
             $rack       = Rack::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
 
             if ($rack->isNotEmpty()) {

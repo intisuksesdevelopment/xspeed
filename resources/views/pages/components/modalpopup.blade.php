@@ -1987,7 +1987,7 @@
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Create Rack</button>
+                                    <button type="submit" class="btn btn-submit" id="submit-add-button" >Create Rack</button>
                                 </div>
                             </form>
                         </div>

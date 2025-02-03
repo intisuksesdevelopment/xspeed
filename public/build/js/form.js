@@ -57,7 +57,7 @@ function submitForm(formId, submitButtonId, statusCheckboxId = null,redirect = n
         .catch(error => {
             Swal.close();
             submitButton.disabled = false;
-            document.getElementById('failed-message').textContent = error;
+            document.getElementById('error-message').textContent = error;
             new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
             console.error('Submission failed:', error);
         });

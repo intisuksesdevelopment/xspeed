@@ -26,16 +26,16 @@ class UnitController extends Controller
 
     public function add(Request $request)
     {
-        return BrandService::save($request);
+        return UnitService::save($request);
     }
 
     public function update(Request $request)
     {
-        return BrandService::update($request);
+        return UnitService::update($request);
     }
     
     public function delete($id)
     {
-        return BrandService::delete($id);
+        return UnitService::delete($id);
     }
 }

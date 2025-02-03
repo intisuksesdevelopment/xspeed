@@ -137,7 +137,7 @@
                                                 data-status="{{ $brand['status']}}">
                                                 <i data-feather="edit" class="feather-edit"></i>
                                             </a>
-                                            <a class="p-2" href="javascript:void(0);" onclick="deleteData({{ $brand['id']}})">
+                                            <a class="p-2" href="javascript:void(0);" onclick="deleteBrand({{ $brand['id']}})">
                                                 <i data-feather="trash-2" class="feather-trash-2"></i>
                                             </a>
                                         </div>
@@ -157,196 +157,37 @@
         document.addEventListener('DOMContentLoaded', function() {
             // custom checkbox
 
-            //
-
             // Handle form submission
-            document.getElementById('brandAddForm').addEventListener('submit', function(event) {
-                event.preventDefault();
 
-                let form = this;
-                let formData = new FormData(form);
-                let submitButton = document.getElementById('submit-add-button');
-                submitButton.disabled = true;
-                const checkbox = document.getElementById('status-add'); // Set initial value based on checked state
-                    checkbox.value = checkbox.checked ? 0 : 1; // Update value when checkbox is toggled
-                    checkbox.addEventListener('change', function() { checkbox.value = this.checked ? 0 : 1; });
-                    Swal.fire({
-                            title: "Processing...",
-                            text: "Please wait.",
-                            icon: "info",
-                            showConfirmButton: false,
-                            allowOutsideClick: false
-                        });
-
-                fetch(form.action, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                    },
-                    body: formData,
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Show success modal
-                        document.getElementById('success-message').textContent = data.message;
-                        new bootstrap.Modal(document.getElementById('success-alert-modal')).show();
-
-                        // Redirect to the login page after a short delay (e.g., 2 seconds)
-                        setTimeout(() => {
-                            location.reload();
-                        }, 2000);
-                    } else {
-                        // Show danger modal
-                        document.getElementById('danger-message').textContent = data.message || 'Submission failed';
-                        new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
-                        
-                        console.error(data.message, data.error);
-                    }
-                })
-                .catch(error => {
-                    Swal.close();
-                    submitButton.disabled = false;
-                    document.getElementById('failed-message').textContent = error;
-                    new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
-                    console.error('Submission failed:', error);
-                });
-            });
-
-            document.getElementById('brandEditForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                let form = this;
-                let formData = new FormData(form);
-                let submitButton = document.getElementById('submit-edit-button');
-                submitButton.disabled = true;
-
-                fetch(form.action, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                    },
-                    body: formData,
-                })
-                .then(response => response.json())
-                .then(data => {
-                   
-                    if (data.success) {
-                        // Show success modal
-                        document.getElementById('success-message').textContent = data.message;
-                        new bootstrap.Modal(document.getElementById('success-alert-modal')).show();
-
-                        // Redirect to the login page after a short delay (e.g., 2 seconds)
-                        setTimeout(() => {
-                            location.reload();
-                        }, 2000);
-                    } else {
-                        // Show danger modal
-                        document.getElementById('danger-message').textContent = data.message || 'Submission failed';
-                        new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
-                        
-                        console.error(data.message, data.error);
-                    }
-                })
-                .catch(error => {
-                    document.getElementById('failed-message').textContent = error;
-                    new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
-                    console.error('Submission failed:', error);
-                    submitButton.disabled = false;
-                });
-            });
-
+            submitForm('brandAddForm', 'submit-add-button','status-add',null);
+            submitForm('brandEditForm', 'submit-edit-button','status-edit',null);
             // Handle modal data injection
             var editButtons = document.querySelectorAll('[data-bs-target="#edit-brand"]');
 
             editButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
-                    var brandId = this.getAttribute('data-id');
-                    var brandCode = this.getAttribute('data-code');
-                    var brandName = this.getAttribute('data-name');
-                    var brandDescription = this.getAttribute('data-description');
-                    var brandImageUrl = this.getAttribute('data-image');
-                    const brandStatus = this.getAttribute('data-status');
+                    var rackId = this.getAttribute('data-id');
+                    var rackCode = this.getAttribute('data-code');
+                    var rackName = this.getAttribute('data-name');
+                    var rackDescription = this.getAttribute('data-description');
+                    var rackImageUrl = this.getAttribute('data-image');
+                    const rackStatus = this.getAttribute('data-status');
                     const statusCheckbox = document.getElementById('status-edit');
-                    statusCheckbox.checked = (brandStatus == 0);
+                    statusCheckbox.checked = (rackStatus == 0);
 
                     // Inject data into the modal form fields
-                    document.getElementById('id').value = brandId;
-                    document.getElementById('code').value = brandCode;
-                    document.getElementById('name').value = brandName;
-                    document.getElementById('description').value = brandDescription;
-                    document.getElementById('image_url').value = brandImageUrl;
-                    document.getElementById('status-edit').value = brandStatus;
+                    document.getElementById('id').value = rackId;
+                    document.getElementById('code').value = rackCode;
+                    document.getElementById('name').value = rackName;
+                    document.getElementById('description').value = rackDescription;
+                    document.getElementById('image_url').value = rackImageUrl;
+                    document.getElementById('status-edit').value = rackStatus;
                 });
             });
-
-            // Handle data deletion
-            window.deleteData = function(id) {
-                const url = `{{ route('brand-delete', ':id') }}`.replace(':id', id);
-
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, remove!",
-                    cancelButtonText: "Cancel",
-                    confirmButtonClass: "btn btn-primary",
-                    cancelButtonClass: "btn btn-danger ml-1",
-                    buttonsStyling: false,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire({
-                            title: "Processing...",
-                            text: "Please wait.",
-                            icon: "info",
-                            showConfirmButton: false,
-                            allowOutsideClick: false
-                        });
-                        fetch(url, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            Swal.close();
-                            if (data.success) {
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Removed!",
-                                    text: "Data has been removed.",
-                                    confirmButtonClass: "btn btn-success",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "OK"
-                                }).then(() => {
-                                    location.reload();
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Failed!",
-                                    text: data.message,
-                                    confirmButtonClass: "btn btn-danger",
-                                });
-                            }
-                        })
-                        .catch(error => {
-                            Swal.close();
-                            console.error('Error:', error);
-                            Swal.fire({
-                                icon: "error",
-                                title: "Failed!",
-                                text: "An error occurred while deleting the brand.",
-                                confirmButtonClass: "btn btn-danger",
-                            });
-                        });
-                    }
-                });
+            window.deleteBrand = function(id) {
+                deleteData({{ route('brand-delete', ':id') }}, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             };
+
         });
     </script>
 @endsection

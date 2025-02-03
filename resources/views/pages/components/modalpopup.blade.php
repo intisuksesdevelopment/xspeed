@@ -1812,7 +1812,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <label>Description</label>
-                                        <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+                                        <textarea name="description" class="form-control" rows="3"></textarea>
                                         <p class="mt-1">Maximum 60 Characters</p>
                                     </div>
                                     <label class="form-label">Logo</label>
@@ -1828,12 +1828,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                
                                     <div class="mb-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
-                                            <input type="checkbox" id="user2" class="check" checked="">
-                                            <label for="user2" class="checktoggle"></label>
+                                            <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                            <label for="status-add" class="checktoggle"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -1841,7 +1842,7 @@
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Edit Brand</button>
+                                    <button type="submit" class="btn btn-submit" id="submit-add-button">Create Brand</button>
                                 </div>
                             </form>
                         </div>
@@ -1904,8 +1905,8 @@
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
-                                            <input type="checkbox" id="user2" class="check" checked="">
-                                            <label for="user2" class="checktoggle"></label>
+                                            <input type="checkbox" id="status-edit" class="check" checked="">
+                                            <label for="status-edit" class="checktoggle"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -1913,7 +1914,7 @@
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Create Brand</button>
+                                    <button type="submit" class="btn btn-submit" id="submit-edit-button">Edit Brand</button>
                                 </div>
                             </form>
                         </div>
@@ -1934,7 +1935,7 @@
                     <div class="content">
                         <div class="modal-header border-0 custom-modal-header">
                             <div class="page-title">
-                                <h4>Create Brand</h4>
+                                <h4>Create Rack</h4>
                             </div>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -1987,7 +1988,7 @@
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit" id="submit-add-button" id="submit-add-button" >Create Rack</button>
+                                    <button type="submit" class="btn btn-submit" id="submit-add-button">Create Rack</button>
                                 </div>
                             </form>
                         </div>
@@ -2063,7 +2064,7 @@
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Edit Rack</button>
+                                    <button type="submit" class="btn btn-submit" id="submit-edit-button">Edit Rack</button>
                                 </div>
                             </form>
                         </div>
@@ -2152,14 +2153,14 @@
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                        <input type="checkbox" id="status-edit" name="status" class="check" checked="">
                                         <label for="status-add" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal"  name="cancel-button">Cancel</button>
-                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save Changes</button>
+                                    <button type="submit" id="submit-edit-button" class="btn btn-submit">Save Changes</button>
                                 </div>
                             </form>
                         </div>

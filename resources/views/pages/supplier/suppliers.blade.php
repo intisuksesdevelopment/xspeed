@@ -135,7 +135,7 @@
                                                 data-status="{{ $supplier['status']}}">
                                                 <i data-feather="edit" class="feather-edit"></i>
                                             </a>
-                                            <a class="p-2" href="javascript:void(0);" onclick="deleteData({{ $supplier['id']}})">
+                                            <a class="p-2" href="javascript:void(0);" onclick="deleteSupplier({{ $supplier['id']}})">
                                                 <i data-feather="trash-2" class="feather-trash-2"></i>
                                             </a>
                                         </div>
@@ -188,7 +188,7 @@
             });
 
             // Handle data deletion
-            window.deleteData = function(id) {
+            window.deleteSupplier = function(id) {
                 deleteData(`{{ route('supplier-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             };
         });

@@ -237,7 +237,7 @@
                                                 data-status="{{ $warehouse['status']}}">
                                                 <i data-feather="edit" class="feather-edit"></i>
                                             </a>
-                                            <a class="p-2" href="javascript:void(0);" onclick="deleteData({{ $warehouse['id']}})">
+                                            <a class="p-2" href="javascript:void(0);" onclick="deleteWarehouse({{ $warehouse['id']}})">
                                                 <i data-feather="trash-2" class="feather-trash-2"></i>
                                             </a>
                                         </div>
@@ -285,7 +285,7 @@
                 });
             });
 
-            window.deleteData = function(id) {
+            window.deleteWarehouse = function(id) {
                 deleteData(`{{ route('warehouse-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             };
         });

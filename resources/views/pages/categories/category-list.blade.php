@@ -128,7 +128,7 @@
                                             data-status="{{ $category['status']}}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
-                                        <a class="p-2" href="javascript:void(0);" onclick="deleteData({{ $category['id']}})">
+                                        <a class="p-2" href="javascript:void(0);" onclick="deleteCategory({{ $category['id']}})">
                                             <i data-feather="trash-2" class="feather-trash-2"></i>
                                         </a>
                                     </div>
@@ -150,95 +150,8 @@
         // custom checkbox
 
         //
-
-        // Handle form submission
-        document.getElementById('categoryAddForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            let form = this;
-            let formData = new FormData(form);
-            let submitButton = document.getElementById('submit-add-button');
-            submitButton.disabled = true;
-            const checkbox = document.getElementById('status-add'); // Set initial value based on checked state
-                checkbox.value = checkbox.checked ? 0 : 1; // Update value when checkbox is toggled
-                checkbox.addEventListener('change', function() { checkbox.value = this.checked ? 0 : 1; });
-                Swal.fire({
-                        title: "Processing...",
-                        text: "Please wait.",
-                        icon: "info",
-                        showConfirmButton: false,
-                        allowOutsideClick: false
-                    });
-
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                },
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                Swal.close();
-                submitButton.disabled = false;
-                const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
-                const messageId = data.success ? 'success-message' : 'danger-message';
-                const modalMessage = data.success ? data.message : data.message || 'Submission failed';
-
-                document.getElementById(messageId).textContent = modalMessage;
-                new bootstrap.Modal(document.getElementById(modalId)).show();
-
-                console.error(modalMessage, data.error);
-
-                document.getElementByName('cancel-button').click();
-            })
-            .catch(error => {
-                Swal.close();
-                submitButton.disabled = false;
-                document.getElementById('failed-message').textContent = error;
-                new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
-                console.error('Submission failed:', error);
-            });
-        });
-        document.getElementById('categoryEditForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            let form = this;
-            let formData = new FormData(form);
-            let submitButton = document.getElementById('submit-edit-button');
-            submitButton.disabled = true;
-
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                },
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
-                const messageId = data.success ? 'success-message' : 'danger-message';
-                const modalMessage = data.success ? data.message : data.message || 'Submission failed';
-                submitButton.disabled = false;
-
-                document.getElementById(messageId).textContent = modalMessage;
-                new bootstrap.Modal(document.getElementById(modalId)).show();
-
-                console.error(modalMessage, data.error);
-
-                document.getElementByName('cancel-button').click();
-                
-                location.reload();
-            })
-            .catch(error => {
-                document.getElementById('failed-message').textContent = error;
-                new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
-                console.error('Submission failed:', error);
-                submitButton.disabled = false;
-            });
-        });
-
+        submitForm('categoryAddForm', 'submit-add-button','status-add',null);
+        submitForm('categoryEditForm', 'submit-edit-button','status-edit',null);
         // Handle modal data injection
         var editButtons = document.querySelectorAll('[data-bs-target="#edit-category"]');
 
@@ -260,74 +173,9 @@
                 document.getElementById('status-edit').value = categoryStatus;
             });
         });
-
-        // Handle data deletion
-        window.deleteData = function(id) {
-            const url = `{{ route('category-delete', ':id') }}`.replace(':id', id);
-
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, remove!",
-                cancelButtonText: "Cancel",
-                confirmButtonClass: "btn btn-primary",
-                cancelButtonClass: "btn btn-danger ml-1",
-                buttonsStyling: false,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Processing...",
-                        text: "Please wait.",
-                        icon: "info",
-                        showConfirmButton: false,
-                        allowOutsideClick: false
-                    });
-                    fetch(url, {
-                        method: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        Swal.close();
-                        if (data.success) {
-                            Swal.fire({
-                                icon: "success",
-                                title: "Removed!",
-                                text: "Data has been removed.",
-                                confirmButtonClass: "btn btn-success",
-                                buttonsStyling: false,
-                                confirmButtonText: "OK"
-                            }).then(() => {
-                                location.reload();
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Failed!",
-                                text: data.message,
-                                confirmButtonClass: "btn btn-danger",
-                            });
-                        }
-                    })
-                    .catch(error => {
-                        Swal.close();
-                        console.error('Error:', error);
-                        Swal.fire({
-                            icon: "error",
-                            title: "Failed!",
-                            text: "An error occurred while deleting the category.",
-                            confirmButtonClass: "btn btn-danger",
-                        });
-                    });
-                }
-            });
-        };
+        window.deleteRack = function(id) {
+                deleteData(`{{ route('category-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+            };
     });
     </script>
 

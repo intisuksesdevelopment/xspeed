@@ -129,7 +129,7 @@
                                                 data-status="{{ $unit['status']}}">
                                                 <i data-feather="edit" class="feather-edit"></i>
                                             </a>
-                                            <a class="p-2" href="javascript:void(0);" onclick="deleteData({{ $unit['id']}})">
+                                            <a class="p-2" href="javascript:void(0);" onclick="deleteUnit({{ $unit['id']}})">
                                                 <i data-feather="trash-2" class="feather-trash-2"></i>
                                             </a>
                                         </div>
@@ -169,7 +169,7 @@
                     document.getElementById('status-edit').value = unitStatus;
                 });
             });
-            window.deleteData = function(id) {
+            window.deleteUnit = function(id) {
                 deleteData(`{{ route('unit-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             };
         });

@@ -154,7 +154,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+           document.addEventListener('DOMContentLoaded', function() {
             // custom checkbox
 
             // Handle form submission
@@ -162,30 +162,30 @@
             submitForm('brandAddForm', 'submit-add-button','status-add',null);
             submitForm('brandEditForm', 'submit-edit-button','status-edit',null);
             // Handle modal data injection
-            var editButtons = document.querySelectorAll('[data-bs-target="#edit-brand"]');
+            var editButtons = document.querySelectorAll('[data-bs-target="#edit-rack"]');
 
             editButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
-                    var rackId = this.getAttribute('data-id');
-                    var rackCode = this.getAttribute('data-code');
-                    var rackName = this.getAttribute('data-name');
-                    var rackDescription = this.getAttribute('data-description');
-                    var rackImageUrl = this.getAttribute('data-image');
-                    const rackStatus = this.getAttribute('data-status');
+                    var brandId = this.getAttribute('data-id');
+                    var brandCode = this.getAttribute('data-code');
+                    var brandName = this.getAttribute('data-name');
+                    var brandkDescription = this.getAttribute('data-description');
+                    var brandImageUrl = this.getAttribute('data-image');
+                    const brandStatus = this.getAttribute('data-status');
                     const statusCheckbox = document.getElementById('status-edit');
                     statusCheckbox.checked = (rackStatus == 0);
 
                     // Inject data into the modal form fields
-                    document.getElementById('id').value = rackId;
-                    document.getElementById('code').value = rackCode;
-                    document.getElementById('name').value = rackName;
-                    document.getElementById('description').value = rackDescription;
-                    document.getElementById('image_url').value = rackImageUrl;
-                    document.getElementById('status-edit').value = rackStatus;
+                    document.getElementById('id').value = brandId;
+                    document.getElementById('code').value = brandCode;
+                    document.getElementById('name').value = brandName;
+                    document.getElementById('description').value = brandkDescription;
+                    document.getElementById('image_url').value = brandImageUrl;
+                    document.getElementById('status-edit').value = brandStatus;
                 });
             });
             window.deleteBrand = function(id) {
-                deleteData({{ route('brand-delete', ':id') }}, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+                deleteData(`{{ route('brand-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             };
 
         });

@@ -148,7 +148,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             submitForm('unitAddForm', 'submit-add-button','status-add',null);
-            submitForm('unitEditForm', 'submit-edit-button','status-add',null);
+            submitForm('unitEditForm', 'submit-edit-button','status-edit',null);
 
             // Handle modal data injection
             var editButtons = document.querySelectorAll('[data-bs-target="#edit-unit"]');
@@ -170,7 +170,7 @@
                 });
             });
             window.deleteUnit = function(id) {
-                deleteData(`{{ route('unit-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+                deleteData({{ route('unit-delete', ':id') }}, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             };
         });
     </script>

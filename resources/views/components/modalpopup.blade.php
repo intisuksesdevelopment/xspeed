@@ -1779,7 +1779,7 @@
     <!-- /Edit Category -->
 @endif
 
-@if (Route::is(['brand-list']))
+{{-- @if (Route::is(['brand-list']))
     <!-- Add Brand -->
     <div class="modal fade" id="add-brand">
         <div class="modal-dialog modal-dialog-centered custom-modal-two">
@@ -1890,7 +1890,7 @@
         </div>
     </div>
     <!-- Edit Brand -->
-@endif
+@endif --}}
 
 @if (Route::is(['units']))
     <!-- Add Unit -->

@@ -136,6 +136,7 @@
                                 <th>Unit</th>
                                 <th>Qty</th>
                                 <th>Created by</th>
+                                <th>Status</th>
                                 <th class="no-sort">Action</th>
                             </tr>
                         </thead>
@@ -179,6 +180,13 @@
                                 <td>{{ $item['unit']}}</td>
                                 <td>{{ $item['stock']}}</td>
                                 <td>{{ $item['created_by']}}</td>
+                                <td>
+                                    @if ($item['status'] == 0)
+                                        <span class="badge badge-linesuccess">{{ $item['availability'] }}</span>
+                                    @else
+                                        <span class="badge badge-danger">{{ $item['availability'] }}</span>
+                                    @endif
+                                </td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
                                         <a class="me-2 edit-icon p-2" href="{{ route('product-detail', ['uuid' => $item['uuid']]) }}">
@@ -187,7 +195,7 @@
                                         <a class="me-2 p-2" href="{{ route('product-edit-form', ['uuid' => $item['uuid']]) }}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
-                                        <a class="p-2" href="javascript:void(0);" onclick="deleteProduct({{ $item['id']}})">
+                                        <a class="p-2" href="javascript:void(0);" onclick="deleteProduct('{{ $item['uuid']}}')">
                                             <i data-feather="trash-2" class="feather-trash-2"></i>
                                         </a>        
                                     </div>
@@ -205,7 +213,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         window.deleteProduct = function(id) {
-                deleteData(`{{ route('item-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+                deleteData(`{{ route('product-delete', ':uuid') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             };
     });
 </script>

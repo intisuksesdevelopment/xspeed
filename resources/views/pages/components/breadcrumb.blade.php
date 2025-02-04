@@ -1,4 +1,4 @@
-@if (Route::is(['add-product']))
+@if (Route::is(['product-add']))
     <div class="page-header">
         <div class="add-item d-flex">
             <div class="page-title">
@@ -24,7 +24,7 @@
 
 @if (
     !Route::is([
-        'add-product',
+        'product-add',
         'chart-apex',
         'chart-c3',
         'chart-flot',

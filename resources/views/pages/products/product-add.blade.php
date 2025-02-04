@@ -1,4 +1,4 @@
-<?php $page = 'add-product'; ?>
+<?php $page = 'product-add'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
 <div class="page-wrapper">
@@ -11,7 +11,7 @@
         Create new product
         @endslot
         @slot('li_2')
-        product-list
+        {{ url('product') }}
         @endslot
         @slot('li_3')
         Back to Product

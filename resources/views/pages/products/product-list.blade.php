@@ -3,7 +3,7 @@
 @section('content')
 <div class="page-wrapper">
     <div class="content">
-        @component('components.breadcrumb')
+        @component('pages.components.breadcrumb')
         @slot('title')
         Product List
         @endslot
@@ -11,7 +11,7 @@
         Manage your products
         @endslot
         @slot('li_2')
-        {{ url('add-product') }}
+        {{ url('product/add') }}
         @endslot
         @slot('li_3')
         Add New Product

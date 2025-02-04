@@ -1,4 +1,28 @@
-@if (Route::is(['add-product']))
+@if (Route::is(['product-add']))
+    <div class="page-header">
+        <div class="add-item d-flex">
+            <div class="page-title">
+                <h4>{{ $title }}</h4>
+                <h6>{{ $li_1 }}</h6>
+            </div>
+        </div>
+        <ul class="table-top-head">
+            <li>
+                <div class="page-btn">
+                    <a href="{{ $li_2 }}" class="btn btn-secondary"><i data-feather="arrow-left"
+                            class="me-2"></i>{{ $li_3 }}</a>
+                </div>
+            </li>
+            <li>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header"><i
+                        data-feather="chevron-up" class="feather-chevron-up"></i></a>
+            </li>
+        </ul>
+
+    </div>
+@endif
+
+@if (Route::is(['product-edit']))
     <div class="page-header">
         <div class="add-item d-flex">
             <div class="page-title">
@@ -24,7 +48,8 @@
 
 @if (
     !Route::is([
-        'add-product',
+        'product-add',
+        'product-edit',
         'chart-apex',
         'chart-c3',
         'chart-flot',

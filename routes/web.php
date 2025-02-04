@@ -96,7 +96,7 @@ Route::prefix('units')->group(function () {
 
 
 //**AUTH ROUTE
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login-form');
 Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -112,7 +112,7 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Route::get('index', [CustomAuthController::class, 'dashboard']);
+Route::get('index', [CustomAuthController::class, 'dashboard'])->name('dashboard');
 // Route::get('signin', [CustomAuthController::class, 'index'])->name('signin');
 Route::post('custom-login', [CustomAuthController::class, 'customSignin'])->name('signin.custom');
 // Route::get('register', [CustomAuthController::class, 'registration'])->name('register');

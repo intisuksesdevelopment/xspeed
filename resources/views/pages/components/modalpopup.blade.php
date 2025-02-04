@@ -1537,7 +1537,7 @@
     <!-- / Edit Low Stock -->
 @endif
 
-@if (Route::is(['category-list']))
+@if (Route::is(['category']))
     <!-- Add Category -->
     <div class="modal fade" id="add-category">
         <div class="modal-dialog modal-dialog-centered custom-modal-two">
@@ -1651,7 +1651,7 @@
     <!-- /Edit Category -->
 @endif
 
-@if (Route::is(['subcategory-list']))
+@if (Route::is(['subcategory']))
     <!-- Add Category -->
     <div class="modal fade" id="add-sub-category">
         <div class="modal-dialog modal-dialog-centered custom-modal-two">
@@ -1669,10 +1669,6 @@
                         <div class="modal-body custom-modal-body">
                             <form id="subCategoryAddForm" method="post" action="{{ route('subcategory-add') }}">
                                 @csrf
-                                <div class="mb-3 d-none">
-                                    <label for="add-id" class="form-label">Id</label>
-                                    <input type="text" id="add-id" name="id" class="form-control">
-                                </div>
                                 <div class="mb-3">
                                     <label for="add-category-id" class="form-label">Parent Category</label>
                                     <select id="add-category-id" name="category-id" class="select">
@@ -1680,25 +1676,25 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="add-name" class="form-label">Category Name</label>
-                                    <input id="add-name" name="name" type="text" class="form-control" value="Computers">
+                                    <input id="name" name="name" type="text" class="form-control" value="Computers">
                                 </div>
                                 <div class="mb-3">
                                     <label for="add-code" class="form-label">Category Code</label>
-                                    <input id="add-code" name="code" type="text" class="form-control" value="CT001">
+                                    <input id="code" name="code" type="text" class="form-control" value="CT001">
                                 </div>
                                 <div class="mb-3 input-blocks">
-                                    <label for="add-description" class="form-label">Description</label>
-                                    <textarea id="add-description" name="description" class="form-control">Type Description</textarea>
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea id="description" name="description" class="form-control">Type Description</textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="add-image-url" class="form-label">Icon</label>
-                                    <input id="add-image-url" name="image_url" type="text" class="form-control" value="CT001">
+                                    <label for="image-url" class="form-label">Icon</label>
+                                    <input id="image-url" name="image_url" type="text" class="form-control" value="CT001">
                                 </div>
                                 <div class="mb-0">
                                     <div class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="add-status" name="status" class="check" checked>
-                                        <label for="add-status" class="checktoggle"></label>
+                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                        <label for="status-add" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -1870,6 +1866,10 @@
                         <div class="modal-body custom-modal-body new-employee-field">
                             <form id="brandEditForm" method="post" action="{{ route('brand-update') }}">
                                 @csrf
+                                <div class="mb-3 d-none">
+                                    <label for="edit-id" class="form-label">Id</label>
+                                    <input type="text" id="id" name="id" class="form-control">
+                                </div>
                                 <div class="modal-title-head">
                                     <h6><span><i data-feather="info" class="feather-edit"></i></span>Brand Info
                                     </h6>

@@ -147,15 +147,17 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            submitForm('unitAddForm', 'submit-add-button','status-add',null);
-            submitForm('unitEditForm', 'submit-edit-button','status-edit',null);
+        // custom checkbox
 
-            // Handle modal data injection
-            var editButtons = document.querySelectorAll('[data-bs-target="#edit-unit"]');
+        //
+        submitForm('unitAddForm', 'submit-add-button','status-add',null);
+        submitForm('unitEditForm', 'submit-edit-button','status-edit',null);
+        // Handle modal data injection
+        var editButtons = document.querySelectorAll('[data-bs-target="#edit-unit"]');
 
-            editButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    var unitId = this.getAttribute('data-id');
+        editButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var unitId = this.getAttribute('data-id');
                     var unitUnit = this.getAttribute('data-unit');
                     var unitName = this.getAttribute('data-name');
                     const unitStatus = this.getAttribute('data-status');
@@ -167,11 +169,12 @@
                     document.getElementById('unit').value = unitUnit;
                     document.getElementById('name').value = unitName;
                     document.getElementById('status-edit').value = unitStatus;
-                });
             });
-            window.deleteUnit = function(id) {
-                deleteData({{ route('unit-delete', ':id') }}, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-            };
         });
+        window.deleteCategory = function(id) {
+                deleteData(`{{ route('unit-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+            };
+         });
+       
     </script>
 @endsection

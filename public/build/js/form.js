@@ -73,7 +73,13 @@ function submitForm(formId, submitButtonId, statusCheckboxId = null,redirect = n
     });
 }
 function deleteData(routeName, id, csrfToken) {
-    const url = routeName.replace(':id', id);
+    let url;
+    
+    if (routeName.includes(':id')) {
+        url = routeName.replace(':id', id);
+    } else if (routeName.includes(':uuid')) {
+        url = routeName.replace(':uuid', id);
+    }
 
     Swal.fire({
         title: "Are you sure?",

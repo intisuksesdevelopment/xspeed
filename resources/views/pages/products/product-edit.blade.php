@@ -1,4 +1,4 @@
-<?php $page = 'add-product'; ?>
+<?php $page = 'product-edit'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
 <div class="page-wrapper">

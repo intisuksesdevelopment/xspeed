@@ -131,9 +131,9 @@ Route::get('/index', function () {
 //     return view('product-list');
 // })->name('product-list');
 
-Route::get('/add-product', function () {
-    return view('add-product');
-})->name('add-product');
+// Route::get('/add-product', function () {
+//     return view('add-product');
+// })->name('add-product');
 
 Route::get('/expired-products', function () {
     return view('expired-products');

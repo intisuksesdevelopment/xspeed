@@ -1,14 +1,14 @@
 <?php
 namespace App\Services;
 
-use App\Models\Item;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Services\ImageService;
 use App\Constants\CommonConstants;
+use App\Models\Item;
+use App\Services\ImageService;
+use Illuminate\Http\Request;
+use Illuminate\Support\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\NotFoundException;
-use Illuminate\Support\AlreadyExistException;
+use Illuminate\Support\Str;
 
 class ItemService
 {
@@ -16,12 +16,13 @@ class ItemService
     public static function getPaginated(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
-        // Default to 10 Item per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
-        // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
-        // Default to 'asc' if not provided
-        return Item::with('images')->with(['category','brand','rack'])->orderBy($sortBy, $sortDirection)->paginate($perPage);
+        $items = Item::with('images')->with(['category', 'brand', 'rack'])->orderBy($sortBy, $sortDirection)->paginate($perPage);
+        foreach ($items as $item) {
+            $item->availability = $item->isAvailable();
+        }
+        return $items;
     }
     public static function getDetail($uuid)
     {
@@ -45,8 +46,8 @@ class ItemService
             }
 
             // Create a new item
-            $item         = new Item();
-            $data['uuid'] = (string) Str::uuid(); // Generate a unique identifier
+            $item              = new Item();
+            $data['uuid']      = (string) Str::uuid(); // Generate a unique identifier
             $data['image_url'] = ImageService::getCoverImage($request);
             // Validate and fill item attributes
             $item->validateAttributes($data);
@@ -70,16 +71,16 @@ class ItemService
     {
         try {
             $data = $request->all();
-            $item = Item::where('uuid',$data['uuid'])->first();
-            if (!$item) {
+            $item = Item::where('uuid', $data['uuid'])->first();
+            if (! $item) {
                 throw new AlreadyExistException("name : {$data['name']}");
             }
-            $data['id'] = $item->id;
+            $data['id']        = $item->id;
             $data['image_url'] = ImageService::getCoverImage($request);
 
-            $data['stock'] = (int) $data['stock'];
+            $data['stock']     = (int) $data['stock'];
             $data['stock_min'] = (int) $data['stock_min'];
-            
+
             $item->validateAttributes($data, $item->id);
             $item->fill($data);
             $item->update(); // Save the item to the database
@@ -99,12 +100,16 @@ class ItemService
     public static function delete($uuid)
     {
         try {
-            $item = Item::where('uuid',$uuid);
+            // Fetch the item model instance
+            $item = Item::where('uuid', $uuid)->first();
+
             if (! $item) {
                 throw new NotFoundException("uuid : " . $uuid);
             }
+
+            // Update the status
             $item->status = 1;
-            $item->update();
+            $item->save(); // Save the item to the database
 
             return response()->json([
                 'success' => true,
@@ -124,4 +129,5 @@ class ItemService
             ], 500);
         }
     }
+
 }

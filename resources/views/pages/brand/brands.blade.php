@@ -116,7 +116,7 @@
                                         src="{{ URL::asset($brand['image_url']) }}"
                                         alt=""></span></td>
                                     <td>{{ $brand['name']}}</td>
-                                    <td>{{ $brand['description']}}</td>
+                                    <td class="d-inline-block text-truncate">{{ $brand['description']}}</td>
                                     <td>{{ $brand['created_at']}}</td>
                                     <td>
                                         @if ($brand['status']==0)

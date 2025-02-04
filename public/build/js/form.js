@@ -32,23 +32,32 @@ function submitForm(formId, submitButtonId, statusCheckboxId = null,redirect = n
         .then(data => {
             Swal.close();
             submitButton.disabled = false;
-
+    
             const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
             const messageId = data.success ? 'success-message' : 'danger-message';
-            const modalMessage = data.success ? data.message : data.message || 'Submission failed';
-
+            let modalMessage = data.success ? data.message : 'Submission failed';
+    
+            // Handle nested error messages
+            if (!data.success && data.message) {
+                if (typeof data.message === 'object') {
+                    modalMessage = Object.values(data.message).flat().join(', ');
+                } else {
+                    modalMessage = data.message;
+                }
+            }
+    
             document.getElementById(messageId).textContent = modalMessage;
             new bootstrap.Modal(document.getElementById(modalId)).show();
-
+    
             console.error(modalMessage, data.error);
-
+    
             document.getElementsByName('cancel-button').forEach(button => button.click());
-
+    
             if (data.success) {
                 setTimeout(() => {
                     if (redirect) {
                         window.location.href = redirect;
-                    }else{
+                    } else {
                         window.location.reload();
                     }
                 }, 2000);
@@ -57,14 +66,20 @@ function submitForm(formId, submitButtonId, statusCheckboxId = null,redirect = n
         .catch(error => {
             Swal.close();
             submitButton.disabled = false;
-            document.getElementById('error-message').textContent = error;
+            document.getElementById('error-message').textContent = error.message || 'An error occurred';
             new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
             console.error('Submission failed:', error);
         });
     });
 }
 function deleteData(routeName, id, csrfToken) {
-    const url = routeName.replace(':id', id);
+    let url;
+    
+    if (routeName.includes(':id')) {
+        url = routeName.replace(':id', id);
+    } else if (routeName.includes(':uuid')) {
+        url = routeName.replace(':uuid', id);
+    }
 
     Swal.fire({
         title: "Are you sure?",

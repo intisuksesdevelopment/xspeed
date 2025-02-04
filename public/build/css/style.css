@@ -10354,7 +10354,7 @@ table.dataTable > thead .sorting_desc_disabled:before {
 
 .custom-select {
   min-width: 80px;
-  background: url(../img/icons/dropdown.svg) no-repeat 95% 50%;
+  background: url(../src/img/icons/dropdown.svg) no-repeat 95% 50%;
 }
 
 .dataTables_paginate .pagination li {
@@ -12009,7 +12009,7 @@ th .checkboxs .checkmarks::after, td .checkboxs .checkmarks::after {
   color: #ffffff;
 }
 [data-layout-mode=dark_mode] .user-menu.nav li.flag-nav .dropdown-menu .dropdown-item:hover {
-  background: #212529 url(../img/icons/check.svg) no-repeat calc(100% - 12px) center;
+  background: #212529 url(../src/img/icons/check.svg) no-repeat calc(100% - 12px) center;
 }
 [data-layout-mode=dark_mode] .user-menu.nav.nav > li > a.dropdown-toggle.nav-link.show {
   background: #212529;
@@ -14084,7 +14084,7 @@ hr {
   color: #ffffff;
 }
 .user-menu.nav > li.flag-nav .dropdown-menu .dropdown-item.active, .user-menu.nav > li.flag-nav .dropdown-menu .dropdown-item:hover {
-  background: #F7F7F7 url(../img/icons/check.svg) no-repeat calc(100% - 12px) center;
+  background: #F7F7F7 url(../src/img/icons/check.svg) no-repeat calc(100% - 12px) center;
 }
 .user-menu.nav > li.flag-nav .dropdown-menu a img {
   width: 20px;
@@ -16698,7 +16698,7 @@ body.mini-sidebar.expand-menu .sidebar .sidebar-menu > ul > li.submenu-open ul l
   left: 6px;
 }
 [data-direction=rtl] body .header .user-menu.nav > li.flag-nav .dropdown-menu .dropdown-item.active, [data-direction=rtl] body .header .user-menu.nav > li.flag-nav .dropdown-menu .dropdown-item:hover {
-  background: #F7F7F7 url(../img/icons/check.svg) no-repeat calc(12% - 12px) center;
+  background: #F7F7F7 url(../src/img/icons/check.svg) no-repeat calc(12% - 12px) center;
 }
 [data-direction=rtl] body .header .user-menu.nav > li.flag-nav .dropdown-menu a img {
   margin-right: 0;
@@ -21459,7 +21459,7 @@ body.mini-sidebar.expand-menu .sidebar .sidebar-menu > ul > li.submenu-open ul l
 }
 
 .comming-soon-pg {
-  background-image: url(../img/coming-soon.png);
+  background-image: url(../src/img/coming-soon.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -21702,7 +21702,7 @@ body.mini-sidebar.expand-menu .sidebar .sidebar-menu > ul > li.submenu-open ul l
   display: flex;
 }
 .login-wrapper.bg-img {
-  background-image: url(../img/authentication/login-img.jpg);
+  background-image: url(../src/img/authentication/login-img.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -21712,16 +21712,16 @@ body.mini-sidebar.expand-menu .sidebar .sidebar-menu > ul > li.submenu-open ul l
   backdrop-filter: blur(17px);
 }
 .login-wrapper.bg-img.register-wrap {
-  background-image: url(../img/authentication/register-img.jpg);
+  background-image: url(../src/img/authentication/register-img.jpg);
 }
 .login-wrapper.bg-img.forgot-pass-wrap {
-  background-image: url(../img/authentication/forgot-password-img.jpg);
+  background-image: url(../src/img/authentication/forgot-password-img.jpg);
 }
 .login-wrapper.bg-img.reset-pass-wrap {
-  background-image: url(../img/authentication/reset-password-img.jpg);
+  background-image: url(../src/img/authentication/reset-password-img.jpg);
 }
 .login-wrapper.bg-img.email-veri-wrap {
-  background-image: url(../img/authentication/email-verification-img.jpg);
+  background-image: url(../src/img/authentication/email-verification-img.jpg);
 }
 .login-wrapper .login-content {
   width: 50%;
@@ -22728,7 +22728,7 @@ span.badge.badges-warning {
 }
 
 .cal-icon {
-  background-image: url(../img/icons/calendars.svg);
+  background-image: url(../src/img/icons/calendars.svg);
   background-repeat: no-repeat;
   background-position: 95% 50%;
 }

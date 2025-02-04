@@ -20,27 +20,32 @@ class ImageService
             foreach ($data as $key => $value) {
                 if (strpos($key, 'image') === 0 && ! is_null($value) && $value !== '') {
                     $imageUrl = $value;
-
+            
                     // Create a new image instance
                     $image         = new Image();
                     $image->uuid   = (string) Str::uuid();
                     $image->ref_id = $refId;
                     $image->ref    = $ref;
                     $image->path   = $imageUrl;
-                    $image->source   = 'web';
-                    $image->index   = $key;
-
+                    $image->source = 'web';
+            
+                    // Extract index from the key using regex
+                    if (preg_match('/image(\d+)/', $key, $matches)) {
+                        $image->index = $matches[1];
+                    }
+            
                     if (self::isValidImageUrl($imageUrl)) {
                         // Set the path and extension based on the image URL
-                        $image->name  = self::getImageFilename($imageUrl);
-                        $image->ext  = self::getImageExtension($imageUrl);
-
+                        $image->name = self::getImageFilename($imageUrl);
+                        $image->ext = self::getImageExtension($imageUrl);
+            
                         // Save the image to the database
                         $image->save();
                         $images[] = $image;
                     }
                 }
             }
+            
 
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {

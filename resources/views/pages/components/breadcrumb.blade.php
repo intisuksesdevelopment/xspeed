@@ -131,7 +131,7 @@
                         data-feather="plus-circle" class="me-2"></i>Add New Supplier</a>
             </div>
         @endif
-        @if (Route::is(['subcategory-list']))
+        @if (Route::is(['subcategory']))
             <div class="page-btn">
                 <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-sub-category"><i
                         data-feather="plus-circle" class="me-2"></i> Add Sub Category</a>
@@ -281,7 +281,7 @@
                         data-feather="plus-circle" class="me-2"></i>Add New Country</a>
             </div>
         @endif
-        @if (Route::is(['category-list']))
+        @if (Route::is(['category']))
             <div class="page-btn">
                 <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-category"><i
                         data-feather="plus-circle" class="me-2"></i>Add New Category</a>

@@ -35,11 +35,11 @@
                         <li class="{{ Request::is('low-stocks') ? 'active' : '' }}"><a
                                 href="{{ url('low-stocks') }}"><i data-feather="trending-down"></i><span>Low
                                     Stocks</span></a></li>
-                        <li class="{{ Request::is('category-list') ? 'active' : '' }}"><a
-                                href="{{ url('category-list') }}"><i
+                        <li class="{{ Request::is('category') ? 'active' : '' }}"><a
+                                href="{{ url('category') }}"><i
                                     data-feather="codepen"></i><span>Category</span></a></li>
-                        <li class="{{ Request::is('sub-categories') ? 'active' : '' }}"><a
-                                href="{{ url('sub-categories') }}"><i data-feather="speaker"></i><span>Sub
+                        <li class="{{ Request::is('subcategory') ? 'active' : '' }}"><a
+                                href="{{ url('subcategory') }}"><i data-feather="speaker"></i><span>Sub
                                     Category</span></a></li>
                         <li class="{{ Request::is('brands') ? 'active' : '' }}"><a
                                 href="{{ url('brands') }}"><i data-feather="tag"></i><span>Brands</span></a></li>

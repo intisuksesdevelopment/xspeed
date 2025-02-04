@@ -1,9 +1,9 @@
-<?php $page = 'category-list'; ?>
+<?php $page = 'category'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
 <div class="page-wrapper">
     <div class="content">
-        @component('components.breadcrumb')
+        @component('pages.components.breadcrumb')
         @slot('title')
         Category
         @endslot
@@ -173,7 +173,7 @@
                 document.getElementById('status-edit').value = categoryStatus;
             });
         });
-        window.deleteRack = function(id) {
+        window.deleteCategory = function(id) {
                 deleteData(`{{ route('category-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             };
     });

@@ -4,7 +4,7 @@
     <div class="account-content">
         <div class="login-wrapper bg-img">
             <div class="login-content">
-                <form action="{{ route('signin.custom') }}" method="POST">
+                <form id="userLoginForm" action="{{ route('login') }}" method="POST">
                     @csrf
                     <div class="login-userset">
                         <div class="login-logo logo-normal">
@@ -15,10 +15,10 @@
                         </a>
                         <div class="login-userheading">
                             <h3>Sign In</h3>
-                            <h4>Access using your email and passcode.</h4>
+                            <h4>Access using your nik or email and passcode.</h4>
                         </div>
                         <div class="form-login mb-3">
-                            <label class="form-label">Email Address</label>
+                            <label class="form-label">Nik / Email Address</label>
                             <div class="form-addons">
                                 <input type="text" class="form- control" id="email" name="email"
                                     value="admin@example.com">
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="form-login">
-                            <button type="submit" class="btn btn-login">Sign In</button>
+                            <button id="submit-login-button" type="submit" class="btn btn-login">Sign In</button>
                         </div>
                         <div class="signinform">
                             <h4>New on our platform?<a href="{{ url('register') }}" class="hover-a"> Create an account</a>
@@ -102,4 +102,9 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+                submitForm('userLoginForm', 'submit-login-button',null,'{{ route("product-list") }}');
+            });
+    </script>
 @endsection

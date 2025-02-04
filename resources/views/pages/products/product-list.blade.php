@@ -187,7 +187,7 @@
                                         <a class="me-2 p-2" href="{{ route('product-edit-form', ['uuid' => $item['uuid']]) }}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
-                                        <a class="p-2" href="javascript:void(0);" onclick="deleteProduct({{ $rack['id']}})">
+                                        <a class="p-2" href="javascript:void(0);" onclick="deleteProduct({{ $item['id']}})">
                                             <i data-feather="trash-2" class="feather-trash-2"></i>
                                         </a>        
                                     </div>

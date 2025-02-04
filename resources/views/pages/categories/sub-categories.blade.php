@@ -1,9 +1,9 @@
-<?php $page = 'sub-categories'; ?>
+<?php $page = 'subcategory'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
 <div class="page-wrapper">
     <div class="content">
-        @component('components.breadcrumb')
+        @component('pages.components.breadcrumb')
         @slot('title')
         Sub Category list
         @endslot

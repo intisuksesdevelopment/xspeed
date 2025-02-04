@@ -162,7 +162,7 @@
             submitForm('brandAddForm', 'submit-add-button','status-add',null);
             submitForm('brandEditForm', 'submit-edit-button','status-edit',null);
             // Handle modal data injection
-            var editButtons = document.querySelectorAll('[data-bs-target="#edit-rack"]');
+            var editButtons = document.querySelectorAll('[data-bs-target="#edit-brand"]');
 
             editButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
@@ -173,7 +173,7 @@
                     var brandImageUrl = this.getAttribute('data-image');
                     const brandStatus = this.getAttribute('data-status');
                     const statusCheckbox = document.getElementById('status-edit');
-                    statusCheckbox.checked = (rackStatus == 0);
+                    statusCheckbox.checked = (brandStatus == 0);
 
                     // Inject data into the modal form fields
                     document.getElementById('id').value = brandId;

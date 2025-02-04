@@ -43,14 +43,14 @@ Route::prefix('product')->group(function () {
 });
 
 Route::prefix('category')->group(function () {
-    Route::get('/', [CategoryController::class, 'index'])->name('category-list');
+    Route::get('/', [CategoryController::class, 'index'])->name('category');
     Route::get('/{id}', [CategoryController::class, 'detail'])->name('category-detail');
     Route::post('/add', [CategoryController::class, 'add'])->name('category-add');
     Route::post('/update', [CategoryController::class, 'update'])->name('category-update');
     Route::delete('/delete/{id}', [CategoryController::class, 'delete'])->name('category-delete');
 });
 Route::prefix('subcategory')->group(function () {
-    Route::get('/', [SubCategoryController::class, 'index'])->name('subcategory-list');
+    Route::get('/', [SubCategoryController::class, 'index'])->name('subcategory');
     Route::get('/{id}', [SubCategoryController::class, 'detail'])->name('subcategory-detail');
     Route::post('/add', [SubCategoryController::class, 'add'])->name('subcategory-add');
     Route::post('/update', [SubCategoryController::class, 'update'])->name('subcategory-update');
@@ -143,13 +143,13 @@ Route::get('/low-stocks', function () {
     return view('low-stocks');
 })->name('low-stocks');
 
-Route::get('/category-list', function () {
-    return view('category-list');
-})->name('category-list');
+// Route::get('/category-list', function () {
+//     return view('category-list');
+// })->name('category-list');
 
-Route::get('/sub-categories', function () {
-    return view('sub-categories');
-})->name('sub-categories');
+// Route::get('/sub-categories', function () {
+//     return view('sub-categories');
+// })->name('sub-categories');
 
 // Route::get('/brand-list', function () {
 //     return view('brand-list');

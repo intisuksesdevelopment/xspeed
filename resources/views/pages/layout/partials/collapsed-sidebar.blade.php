@@ -11,7 +11,7 @@
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="tablinks nav-link {{ Request::is('product-list','product-details' ,'edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brands', 'units', 'varriant-attributes', 'racks','warranty', 'barcode', 'qrcode') ? 'active' : '' }}" href="#messages" id="messages-tab" data-bs-toggle="tab"
+                        <a class="tablinks nav-link {{ Request::is('product-list','product-details' ,'edit-product','add-product', 'expired-products', 'low-stocks', 'category', 'subcategory', 'brands', 'units', 'varriant-attributes', 'racks','warranty', 'barcode', 'qrcode') ? 'active' : '' }}" href="#messages" id="messages-tab" data-bs-toggle="tab"
                             data-bs-target="#product" role="tab" aria-selected="false">
                             <img src="{{ URL::asset('/build/img/icons/product.svg')}}" alt="">
                         </a>
@@ -114,7 +114,7 @@
                         </ul>
                     </li>
                 </ul>
-                <ul class="tab-pane {{ Request::is('product-list','product-details', 'edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brands', 'units', 'varriant-attributes', 'racks','warranty', 'barcode', 'qrcode') ? 'active' : '' }}"
+                <ul class="tab-pane {{ Request::is('product-list','product-details', 'edit-product','add-product', 'expired-products', 'low-stocks', 'category', 'subcategory', 'brands', 'units', 'varriant-attributes', 'racks','warranty', 'barcode', 'qrcode') ? 'active' : '' }}"
                     id="product" aria-labelledby="messages-tab">
                     <li><a href="{{ url('product-list') }}"
                             class="{{ Request::is('product-list','product-details') ? 'active' : '' }}"><span>Products</span></a></li>
@@ -126,10 +126,10 @@
                                 Products</span></a></li>
                     <li><a href="{{ url('low-stocks') }}"
                             class="{{ Request::is('low-stocks') ? 'active' : '' }}"><span>Low Stocks</span></a></li>
-                    <li><a href="{{ url('category-list') }}"
-                            class="{{ Request::is('category-list') ? 'active' : '' }}"><span>Category</span></a></li>
-                    <li><a href="{{ url('sub-categories') }}"
-                            class="{{ Request::is('sub-categories') ? 'active' : '' }}"><span>Sub Category</span></a>
+                    <li><a href="{{ url('category') }}"
+                            class="{{ Request::is('category') ? 'active' : '' }}"><span>Category</span></a></li>
+                    <li><a href="{{ url('subcategory') }}"
+                            class="{{ Request::is('subcategory') ? 'active' : '' }}"><span>Sub Category</span></a>
                     </li>
                     <li><a href="{{ url('brands') }}"
                             class="{{ Request::is('brands') ? 'active' : '' }}"><span>Brands</span></a></li>

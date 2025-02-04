@@ -351,7 +351,7 @@
             </div>
             <div class="col-lg-12">
                 <div class="btn-addproduct mb-4">
-                    <button type="button" class="btn btn-cancel me-2">Cancel</button>
+                    <button type="button" class="btn btn-cancel me-2" onclick="window.location.href='{{ url('product') }}'">Cancel</button>
                     <button type="submit" class="btn btn-submit" id="submit-add-button">Save Product</button>
                 </div>
             </div>

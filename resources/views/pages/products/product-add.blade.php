@@ -396,53 +396,7 @@
     });
 
     $('#category_id').trigger('change');
-    
     submitForm('productAddForm', 'submit-add-button',null,null);
-        document.getElementById('productAddForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            let form = this;
-            let formData = new FormData(form);
-            let submitButton = document.getElementById('submit-add-button');
-            submitButton.disabled = true;
-                Swal.fire({
-                        title: "Processing...",
-                        text: "Please wait.",
-                        icon: "info",
-                        showConfirmButton: false,
-                        allowOutsideClick: false
-                    });
-
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                },
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                Swal.close();
-                submitButton.disabled = false;
-                const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
-                const messageId = data.success ? 'success-message' : 'danger-message';
-                const modalMessage = data.success ? data.message : data.message || 'Submission failed';
-
-                document.getElementById(messageId).textContent = modalMessage;
-                new bootstrap.Modal(document.getElementById(modalId)).show();
-
-                console.error(modalMessage, data.message);
-
-                document.getElementByName('cancel-button').click();
-            })
-            .catch(error => {
-                Swal.close();
-                submitButton.disabled = false;
-                document.getElementById('failed-message').textContent = error.message;
-                new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
-                console.error('Submission failed:', error.message);
-            });
-        });
     });
 </script>
 @endsection

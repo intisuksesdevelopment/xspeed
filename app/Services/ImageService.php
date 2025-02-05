@@ -31,7 +31,7 @@ class ImageService
             
                     // Extract index from the key using regex
                     if (preg_match('/image(\d+)/', $key, $matches)) {
-                        $image->index = $matches[1];
+                        $image->index = $matches[1]-1;
                     }
             
                     if (self::isValidImageUrl($imageUrl)) {

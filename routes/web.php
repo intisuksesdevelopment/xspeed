@@ -31,6 +31,10 @@ Route::prefix('upload')->group(function () {
 });
 
 
+Route::prefix('sales')->group(function () {
+    Route::get('/', [SalesController::class, 'index'])->name('sales-list');
+
+});
 Route::prefix('product')->group(function () {
     Route::get('/', [ItemController::class, 'index'])->name('product-list');
     Route::get('/add', [ItemController::class, 'addForm'])->name('product-add');
@@ -335,9 +339,9 @@ Route::get('/payslip', function () {
     return view('payslip');
 })->name('payslip');
 
-Route::get('/sales-list', function () {
-    return view('sales-list');
-})->name('sales-list');
+// Route::get('/sales-list', function () {
+//     return view('sales-list');
+// })->name('sales-list');
 
 Route::get('/invoice-report', function () {
     return view('invoice-report');

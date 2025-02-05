@@ -48,9 +48,10 @@
                                         <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
                                                 <label class="form-label">Warehouse</label>
-                                                <select class="select2 form-control" name="warehouse_id">
+                                                <select class="select2 form-control" id="warehouse_id" name="warehouse_id">
                                                     @foreach($warehouses as $warehouse)
-                                                        <option value="{{ $warehouse['id']}}" selected>{{ $warehouse['name']}}</option>
+                                                    <option value="{{ $warehouse['id']}}" selected>{{
+                                                        $warehouse['name']}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -58,9 +59,10 @@
                                         <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
                                                 <label class="form-label">Rack</label>
-                                                <select class="select2 form-control" name="rack_id">
+                                                <select class="select2 form-control" id="rack_id" name="rack_id">
                                                     @foreach($racks as $rack)
-                                                        <option value="{{ $rack['id']}}" selected>{{ $rack['name']}}</option>
+                                                    <option value="{{ $rack['id']}}" selected>{{ $rack['name']}}
+                                                    </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -77,9 +79,10 @@
                                                                 data-feather="plus-circle"
                                                                 class="plus-down-add"></i><span>Add New</span></a>
                                                     </div>
-                                                    <select class="select2 form-control" name="brand_id">
+                                                    <select class="select2 form-control" id="brand_id" name="brand_id">
                                                         @foreach($brands as $brand)
-                                                            <option value="{{ $brand['id']}}" selected>{{ $brand['name']}}</option>
+                                                        <option value="{{ $brand['id']}}" selected>{{ $brand['name']}}
+                                                        </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -94,9 +97,11 @@
                                                                 class="plus-down-add"></i><span>Add
                                                                 New</span></a>
                                                     </div>
-                                                    <select class="select2 form-control" name="category_id" id="category_id">
+                                                    <select class="select2 form-control" name="category_id"
+                                                        id="category_id">
                                                         @foreach($categories as $category)
-                                                            <option value="{{ $category['id']}}" selected>{{ $category['name']}}</option>
+                                                        <option value="{{ $category['id']}}" selected>{{
+                                                            $category['name']}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -104,9 +109,11 @@
                                             <div class="col-lg-4 col-sm-6 col-12">
                                                 <div class="mb-3 add-product">
                                                     <label class="form-label">Sub Category</label>
-                                                    <select class="select2 form-control" name="subcategory_id" id="subcategory_id">
+                                                    <select class="select2 form-control" name="subcategory_id"
+                                                        id="subcategory_id">
                                                         {{-- @foreach($subcategories as $subcategory)
-                                                            <option value="{{ $subcategory['id']}}" selected>{{ $subcategory['name']}}</option>
+                                                        <option value="{{ $subcategory['id']}}" selected>{{
+                                                            $subcategory['name']}}</option>
                                                         @endforeach --}}
                                                     </select>
                                                 </div>
@@ -126,7 +133,8 @@
                                                     <select class="select2 form-control" name="unit">
 
                                                         @foreach($units as $unit)
-                                                            <option value="{{ $unit['unit']}}" selected>{{ $unit['unit'].' - '.$unit['name']}}</option>
+                                                        <option value="{{ $unit['unit']}}" selected>{{ $unit['unit'].' -
+                                                            '.$unit['name']}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -135,16 +143,23 @@
                                                 <div class="input-blocks add-product list">
                                                     <label>Sku</label>
                                                     <input type="text" class="form-control list"
-                                                        placeholder="Please Enter Item Code" name="sku">
-                                                    <button type="submit" class="btn btn-primaryadd">
+                                                        placeholder="Please Enter Item Code" name="sku" id="sku-input">
+                                                    <button type="submit" class="btn btn-primaryadd"
+                                                        id="generate-sku-btn">
                                                         Generate Sku
                                                     </button>
                                                 </div>
+
                                             </div>
                                             <div class="col-lg-4 col-sm-6 col-12">
-                                                <div class="mb-3 add-product">
-                                                    <label class="form-label">Barcode</label>
-                                                    <input type="text" class="form-control" name="barcode">
+                                                <div class="input-blocks add-product list">
+                                                    <label>Barcode</label>
+                                                    <input type="text" class="form-control list"
+                                                        placeholder="Please Enter Item Barcode" name="barcode" id="barcode-input">
+                                                    <button type="submit" class="btn btn-primaryadd"
+                                                        id="generate-barcode-btn">
+                                                        Generate Barcode
+                                                    </button>
                                                 </div>
                                             </div>
 
@@ -218,7 +233,8 @@
                                                     <div class="mb-3 add-product">
                                                         <label class="form-label">Currency</label>
                                                         <select class="select2 form-control" name="currency">
-                                                            <option value="IDR" selected>Indonesian Rupiah (IDR)</option>
+                                                            <option value="IDR" selected>Indonesian Rupiah (IDR)
+                                                            </option>
                                                             <option value="USD">US Dollar (USD)</option>
                                                             <option value="EUR">Euro (EUR)</option>
                                                             <option value="JPY">Japanese Yen (JPY)</option>
@@ -276,37 +292,6 @@
                                                         <div class="accordion-body">
                                                             <div class="text-editor add-list add">
                                                                 <div class="col-lg-12">
-                                                                    <div class="add-choosen">
-                                                                        <div class="phone-img">
-                                                                            <img src="{{ URL::asset('/build/img/products/phone-add-2.png') }}"
-                                                                                alt="image" id="image0">
-                                                                            <a href="javascript:void(0);"><i
-                                                                                    data-feather="x"
-                                                                                    class="x-square-add remove-product"></i></a>
-                                                                        </div>
-
-                                                                        <div class="phone-img">
-                                                                            <img src="{{ URL::asset('/build/img/products/phone-add-1.png') }}"
-                                                                                alt="image" id="image1">
-                                                                            <a href="javascript:void(0);"><i
-                                                                                    data-feather="x"
-                                                                                    class="x-square-add remove-product"></i></a>
-                                                                        </div>
-                                                                        <div class="phone-img">
-                                                                            <img src="{{ URL::asset('/build/img/products/phone-add-1.png') }}"
-                                                                                alt="image" id="image2">
-                                                                            <a href="javascript:void(0);"><i
-                                                                                    data-feather="x"
-                                                                                    class="x-square-add remove-product"></i></a>
-                                                                        </div>
-                                                                        <div class="phone-img">
-                                                                            <img src="{{ URL::asset('/build/img/products/phone-add-1.png') }}"
-                                                                                alt="image" id="image3">
-                                                                            <a href="javascript:void(0);"><i
-                                                                                    data-feather="x"
-                                                                                    class="x-square-add remove-product"></i></a>
-                                                                        </div>
-                                                                    </div>
 
                                                                 </div>
                                                             </div>
@@ -351,7 +336,8 @@
             </div>
             <div class="col-lg-12">
                 <div class="btn-addproduct mb-4">
-                    <button type="button" class="btn btn-cancel me-2" onclick="window.location.href='{{ url('product') }}'">Cancel</button>
+                    <button type="button" class="btn btn-cancel me-2"
+                        onclick="window.location.href='{{ url('product') }}'">Cancel</button>
                     <button type="submit" class="btn btn-submit" id="submit-add-button">Save Product</button>
                 </div>
             </div>
@@ -362,7 +348,9 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        var categories = @json($categories);
         var subcategories = @json($subcategories);
+        var brands = @json($brands);
         // Event listener for category dropdown change
         $('#category_id').on('change', function() {
             var selectedCategoryId = $(this).val();
@@ -382,8 +370,31 @@
                 }
             });
         });
+// Example function to generate a SKU (you can customize this as needed)
+    function generateSKU(category, brand, id) {
+        const catCode = category.replace(/\s+/g, '').toUpperCase();
+        const brandCode = brand.replace(/\s+/g, '').toUpperCase();
+        const uniqueId = id.toString();
+        return `${catCode}-${brandCode}-${uniqueId}`;
+    }
 
-    // Trigger change event on page load to filter subcategories for the selected category
+    document.getElementById('generate-sku-btn').addEventListener('click', function(event) {
+        event.preventDefault();
+
+        var categoryCode = (categories.find(cat => cat.id == $('#category_id').val()) != null) ? categories.find(cat => cat.id == $('#category_id').val()).code : 'common';
+        var brandCode = (brands.find(brand => brand.id == $('#brand_id').val()) != null) ? brands.find(brand => brand.id == $('#brand_id').val()).code : '';
+
+        const id = Math.floor(Math.random() * 1000000);
+
+        const sku = generateSKU(categoryCode, brandCode, id);
+        document.getElementById('sku-input').value = sku;
+    });
+    document.getElementById('generate-barcode-btn').addEventListener('click', function(event) {
+        event.preventDefault();
+        var timestampValue = Math.floor(Date.now() / 1000); 
+        document.getElementById('barcode-input').value = timestampValue;
+    });
+
     $('#category_id').trigger('change');
     
     submitForm('productAddForm', 'submit-add-button',null,null);

@@ -191,12 +191,13 @@
                                             <span class="checkmarks"></span>
                                         </label>
                                     </th>
-                                    <th>Kode</th>
-                                    <th>Nama</th>
-                                    <th>Deskripsi</th>
-                                    <th>Alamat</th>
-                                    <th>Telepon</th>
-                                    <th>Foto</th>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
+                                    <th>Image</th>
+                                    <th>Created On</th>
                                     <th>Status</th>
                                     <th class="no-sort">Action</th>
                                 </tr>
@@ -212,10 +213,11 @@
                                     </td>
                                     <td>{{ $warehouse['code']}}</td>
                                     <td>{{ $warehouse['name']}}</td>
-                                    <td>{{ $warehouse['description']}}</td>
+                                    <td class="d-inline-block text-truncate">{{ $warehouse['description']}}</td>
                                     <td>{{ $warehouse['address']}}</td>
                                     <td>{{ $warehouse['phone']}}</td>
                                     <td>{{ $warehouse['image_url']}}</td>
+                                    <td>{{ $warehouse['created_at']}}</td>
                                     <td>
                                         @if ($warehouse['status']==0)
                                         <span class="badge badge-linesuccess">{{ $warehouse['availability']}}</span>
@@ -233,7 +235,7 @@
                                                 data-description="{{ $warehouse['description']}}"
                                                 data-phone="{{ $warehouse['phone']}}"
                                                 data-address="{{ $warehouse['address']}}"
-                                                data-image_url="{{ $warehouse['image_url']}}"
+                                                data-image="{{ $warehouse['image_url']}}"
                                                 data-status="{{ $warehouse['status']}}">
                                                 <i data-feather="edit" class="feather-edit"></i>
                                             </a>

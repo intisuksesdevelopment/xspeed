@@ -9,6 +9,7 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WarehouseController;
@@ -39,9 +40,9 @@ Route::prefix('sales')->group(function () {
 
 });
 Route::prefix('stock')->group(function () {
-    Route::get('/', [SalesController::class, 'index'])->name('stock-list');
-    Route::get('/add', [SalesController::class, 'addForm'])->name('stock-add-form');
-    Route::post('/add', [SalesController::class, 'add'])->name('stock-add');
+    Route::get('/', [StockController::class, 'index'])->name('stock-list');
+    Route::get('/add', [StockController::class, 'addForm'])->name('stock-add-form');
+    Route::post('/add', [StockController::class, 'add'])->name('stock-add');
 
 });
 Route::prefix('product')->group(function () {

@@ -44,7 +44,7 @@ class SupplierService
     {
         try {
             $data           = $request->all();
-            $data['status'] = $request->has('status') ? $request->input('status') : 0;
+            $data['status'] = $request->has('status') ? 0 : 1;
             $supplier       = Supplier::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
 
             if ($supplier->isNotEmpty()) {
@@ -71,7 +71,7 @@ class SupplierService
     {
         try {
             $data           = $request->all();
-            $data['status'] = $request->has('status') ? $request->input('status') : 0;
+            $data['status'] = $request->has('status') ? 0 : 1;
 
             $supplier = Supplier::find($data['id']);
             if (! $supplier) {

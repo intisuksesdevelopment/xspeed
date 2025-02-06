@@ -102,7 +102,7 @@
                                 <th>Parent category</th>
                                 <th>Category Code</th>
                                 <th>Description</th>
-                                <th>Created By</th>
+                                <th>Created On</th>
                                 <th>Status</th>
                                 <th class="no-sort">Action</th>
                             </tr>
@@ -125,7 +125,7 @@
                                 <td>{{ $subcategory['category']['name']}}</td>
                                 <td>{{ $subcategory['code']}}</td>
                                 <td>{{ $subcategory['description']}}</td>
-                                <td>{{ $subcategory['created_by']}}</td>
+                                <td>{{ $subcategory['created_at']}}</td>
                                 <td>
                                     @if ($subcategory['status']==0)
                                     <span class="badge badge-linesuccess">{{ $subcategory['availability']}}</span>

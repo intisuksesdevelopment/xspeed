@@ -8684,7 +8684,7 @@
     <!-- /Add Supplier -->
 
     <!-- Edit Supplier -->
-    <div class="modal fade" id="edit-supplier">
+    <div class="modal fade">
         <div class="modal-dialog modal-dialog-centered custom-modal-two">
             <div class="modal-content">
                 <div class="page-wrapper-new p-0">

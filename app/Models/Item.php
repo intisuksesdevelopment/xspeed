@@ -54,7 +54,6 @@ class Item extends Model
             'basic_price'    => 'required|numeric',
             'sell_price'     => 'required|numeric',
             'unit'           => 'required|string|max:50',
-            'color'          => 'nullable|string|max:50',
             'stock'          => 'required|integer',
             'stock_min'      => 'required|integer',
             'currency'       => 'required|string|max:3',

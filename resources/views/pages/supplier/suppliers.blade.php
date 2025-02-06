@@ -3,7 +3,7 @@
 @section('content')
     <div class="page-wrapper">
         <div class="content">
-            @component('components.breadcrumb')
+            @component('pages.components.breadcrumb')
                 @slot('title')
                     Supplier List
                 @endslot
@@ -93,6 +93,7 @@
                                     <th>Alamat</th>
                                     <th>Npwp</th>
                                     <th>Diskon</th>
+                                    <th>Created On</th>
                                     <th>Status</th>
                                     <th class="no-sort">Action</th>
                                 </tr>
@@ -113,6 +114,7 @@
                                     <td>{{ $supplier['address']}}</td>
                                     <td>{{ $supplier['npwp']}}</td>
                                     <td>{{ $supplier['discount']}}</td>
+                                    <td>{{ $supplier['created_at']}}</td>
                                     <td>
                                         @if ($supplier['status']==0)
                                         <span class="badge badge-linesuccess">{{ $supplier['availability']}}</span>
@@ -155,7 +157,7 @@
 <script>
         document.addEventListener('DOMContentLoaded', function() {
             submitForm('supplierAddForm', 'submit-add-button','status-add',null);
-            submitForm('supplierEditForm', 'submit-edit-button','status-add',null);
+            submitForm('supplierEditForm', 'submit-edit-button','status-edit',null);
 
             // Handle modal data injection
             var editButtons = document.querySelectorAll('[data-bs-target="#edit-supplier"]');

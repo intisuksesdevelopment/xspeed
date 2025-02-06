@@ -8812,34 +8812,34 @@
                         <div class="modal-body custom-modal-body">
                             <form id="supplierAddForm" method="post" action="{{ route('supplier-add') }}">
                                 @csrf
-                                <div class="mb-3">
-                                    <label class="form-label">Kode</label>
-                                    <input type="text" name="code" class="form-control" >
+                                <div class="mb-3"> 
+                                    <label class="form-label">Code</label>
+                                    <input type="text" id="code" name="code" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Nama</label>
-                                    <input type="text" name="name" class="form-control" >
+                                    <label class="form-label">Name</label>
+                                    <input type="text" id="name" name="name" class="form-control" >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
-                                    <input type="email" name="email" class="form-control" >
+                                    <input type="email" id="email" name="email" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">No. Telpon</label>
-                                    <input type="number" name="phone" class="form-control" placeholder="Masukkan nomor telepon" pattern="[0-9]{10,15}">
+                                    <label class="form-label">Phone</label>
+                                    <input type="number" id="phone" name="phone" class="form-control" placeholder="Masukkan nomor telepon" pattern="[0-9]{10,15}">
                                 </div>
                                 <div class="mb-3">
-                                    <label>Alamat</label>
-                                    <textarea name="address" class="form-control" rows="3"></textarea>
+                                    <label>Address</label>
+                                    <textarea name="address" id="address" class="form-control" rows="3"></textarea>
                                     <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">No. Npwp</label>
-                                    <input type="number" name="npwp" class="form-control" >
+                                    <input type="number" name="npwp" id="npwp" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Diskon</label>
-                                    <input type="number" name="discount" class="form-control" >
+                                    <label class="form-label">Discount</label>
+                                    <input type="number" id="discount" name="discount" class="form-control" >
                                 </div>
                                 <div class="mb-0">
                                     <div
@@ -8853,7 +8853,7 @@
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                    <button type="submit" class="btn btn-submit" id="submit-add-button">Submit</button>
                                 </div>
                             </form>
                         </div>
@@ -8883,50 +8883,50 @@
                                 @csrf
                                 <div class="mb-3 d-none">
                                     <label class="form-label">Id</label>
-                                    <input type="text" name="id" class="form-control" >
+                                    <input type="text" id="id" name="id" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Kode</label>
-                                    <input type="text" name="code" class="form-control" >
+                                    <label class="form-label">Code</label>
+                                    <input type="text" id="code" name="code" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Nama</label>
-                                    <input type="text" name="name" class="form-control" >
+                                    <label class="form-label">Name</label>
+                                    <input type="text" id="name" name="name" class="form-control" >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
-                                    <input type="email" name="email" class="form-control" >
+                                    <input type="email" id="email" name="email" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">No. Telpon</label>
-                                    <input type="number" name="phone" class="form-control" >
+                                    <label class="form-label">Phone</label>
+                                    <input type="number" id="phone" name="phone" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label>Alamat</label>
-                                    <textarea name="address" class="form-control" rows="3"></textarea>
+                                    <label>Address</label>
+                                    <textarea name="address" id="address" class="form-control" rows="3"></textarea>
                                     <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">No. Npwp</label>
-                                    <input type="number" name="npwp" class="form-control" >
+                                    <input type="number" id="npwp" name="npwp" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Diskon</label>
-                                    <input type="number" name="discount" class="form-control" >
+                                    <label class="form-label">Discount</label>
+                                    <input type="number" id="discount" name="discount" class="form-control" >
                                 </div>
                                 <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
-                                        <label for="status-add" class="checktoggle"></label>
+                                        <input type="checkbox" id="status-edit" name="status" class="check" checked="">
+                                        <label for="status-edit" class="checktoggle"></label>
                                     </div>
                                 </div>
 
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                    <button type="submit" class="btn btn-submit" id="submit-edit-button">Submit</button>
                                 </div>
                             </form>
                         </div>
@@ -9409,14 +9409,14 @@
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
-                                        <label for="status-add" class="checktoggle"></label>
+                                        <input type="checkbox" id="status-edit" name="status" class="check" checked="">
+                                        <label for="status-edit" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal"  name="cancel-button">Cancel</button>
-                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save Changes</button>
+                                    <button type="submit" id="submit-edit-button" class="btn btn-submit">Save Changes</button>
                                 </div>
                             </form>
                         </div>

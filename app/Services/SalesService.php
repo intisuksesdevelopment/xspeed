@@ -1,7 +1,12 @@
 <?php
 namespace App\Services;
 
+use App\Models\Sales;
+use Illuminate\Http\Request;
 use App\Constants\CommonConstants;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\NotFoundException;
+use Illuminate\Support\AlreadyExistException;
 
 class SalesService{
     public static function getPaginated(Request $request)

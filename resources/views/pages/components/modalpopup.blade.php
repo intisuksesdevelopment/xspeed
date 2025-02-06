@@ -8814,19 +8814,19 @@
                                 @csrf
                                 <div class="mb-3"> 
                                     <label class="form-label">Code</label>
-                                    <input type="text" id="code" name="code" class="form-control" >
+                                    <input type="text" name="code" class="form-control" >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Name</label>
-                                    <input type="text" id="name" name="name" class="form-control" >
+                                    <input type="text" name="name" class="form-control" >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
-                                    <input type="email" id="email" name="email" class="form-control" >
+                                    <input type="email" name="email" class="form-control" >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Phone</label>
-                                    <input type="number" id="phone" name="phone" class="form-control" placeholder="Masukkan nomor telepon" pattern="[0-9]{10,15}">
+                                    <input type="number" name="phone" class="form-control" placeholder="Masukkan nomor telepon" pattern="[0-9]{10,15}">
                                 </div>
                                 <div class="mb-3">
                                     <label>Address</label>
@@ -8835,11 +8835,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">No. Npwp</label>
-                                    <input type="number" name="npwp" id="npwp" class="form-control" >
+                                    <input type="number" name="npwp" class="form-control" >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Discount</label>
-                                    <input type="number" id="discount" name="discount" class="form-control" >
+                                    <input type="number" name="discount" class="form-control" >
                                 </div>
                                 <div class="mb-0">
                                     <div
@@ -8899,7 +8899,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Phone</label>
-                                    <input type="number" id="phone" name="phone" class="form-control" >
+                                    <input type="text" class="form-control" id="phones" name="phone" >
                                 </div>
                                 <div class="mb-3">
                                     <label>Address</label>

@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\ItemService;
-use App\Services\SalesService;
 
-class SalesController extends Controller
+class StockController extends Controller
 {
     private $salesService;
 
@@ -17,9 +15,8 @@ class SalesController extends Controller
     public function index(Request $request)
     {
         Paginator::useBootstrap(); // Menggunakan Bootstrap
-        $data['sales'] = SalesService::getPaginated($request);
-        $data['items'] = ItemService::getActive($request);
-        return view('pages.sales.sales-list', $data);
+        $data['stocks'] = StockService::getPaginated($request);
+        return view('pages.stocks.stock-list', $data);
     }
     public function addForm(Request $request)
     {

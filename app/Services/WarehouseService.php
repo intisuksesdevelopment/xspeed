@@ -53,11 +53,10 @@ class WarehouseService
                 throw new AlreadyExistException("code : {$firstWarehouse->code}");
             }
 
+
             $warehouse = new Warehouse();
-            // $supplier->validateAttributes($data);
             $warehouse->fill($data);
             $warehouse->save();
-
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());

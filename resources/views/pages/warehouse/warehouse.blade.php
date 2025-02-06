@@ -270,7 +270,7 @@
                     var warehouseDescription = this.getAttribute('data-description');
                     var warehousePhone = this.getAttribute('data-phone');
                     var warehouseAddress = this.getAttribute('data-address');
-                    var warehouseImageUrl = this.getAttribute('data-Image-url');
+                    var warehouseImageUrl = this.getAttribute('data-Image');
                     const warehouseStatus = this.getAttribute('data-status');
                     const statusCheckbox = document.getElementById('status-edit');
                     statusCheckbox.checked = (warehouseStatus == 0);

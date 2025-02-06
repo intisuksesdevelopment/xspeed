@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\ItemService;
 use App\Services\SalesService;
+use Illuminate\Pagination\Paginator;
 
 class SalesController extends Controller
 {

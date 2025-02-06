@@ -45,7 +45,7 @@ class WarehouseService
     {
         try {
             $data           = $request->all();
-            $data['status'] = $request->has('status') ? $request->input('status') : 0;
+            $data['status'] = $request->has('status') ? 0 : 1;
             $warehouse       = Warehouse::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
 
             if ($warehouse->isNotEmpty()) {
@@ -72,7 +72,7 @@ class WarehouseService
     {
         try {
             $data           = $request->all();
-            $data['status'] = $request->has('status') ? $request->input('status') : 0;
+            $data['status'] = $request->has('status') ? 0 : 1;
 
             $warehouse = Warehouse::find($data['id']);
             if (! $warehouse) {

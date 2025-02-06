@@ -46,7 +46,6 @@ class Warehouse extends Model
             'description' => 'nullable|string',
             'address' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:20',
-            'image_url' => 'nullable|string|url',
             'status' => 'required|in:active,inactive',
             'created_by' => 'nullable|integer',
             'updated_by' => 'nullable|integer',

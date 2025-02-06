@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
-    private $salesService;
+    private $stockService;
 
-    public function __construct(SalesService $salesService) {
-        $this->salesService = $salesService;
+    public function __construct(StockService $stockService) {
+        $this->stockService = $stockService;
     }
 
     public function index(Request $request)

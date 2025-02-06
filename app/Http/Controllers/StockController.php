@@ -30,6 +30,6 @@ class StockController extends Controller
     }
     public function add(Request $request)
     {
-        return SalesService::save($request);
+        return StockService::save($request);
     }
 }

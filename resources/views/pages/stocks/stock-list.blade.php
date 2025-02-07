@@ -95,7 +95,7 @@
                     </div>
                     <!-- /Filter -->
                     <div class="table-responsive">
-                        <table class="table  datanew">
+                        <table class="table datanew">
                             <thead>
                                 <tr>
                                     <th class="no-sort" rowspan="2">
@@ -104,17 +104,56 @@
                                             <span class="checkmarks"></span>
                                         </label>
                                     </th>
-                                    <th rowspan="2">Periode</th>
+                                    <th class="no-sort" rowspan="2">Periode</th>
                                     <th rowspan="2">Date</th>
                                     <th rowspan="2">Warehouse</th>
-                                    <th>Total</th>
+                                    <th colspan="6" class="text-center">Total</th>
                                     <th rowspan="2">Created by</th>
+                                    <th rowspan="2">Approve by</th>
                                     <th rowspan="2">Status</th>
                                     <th class="no-sort" rowspan="2">Action</th>
                                 </tr>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Stock</th>
+                                    <th>Count</th>
+                                    <th>Diff</th>
+                                    <th>Price Diff</th>
+                                    <th>Price List</th>
+                                </tr>
                             </thead>
-                            <tbody class="sales-list"></tbody>
+                            <tbody class="sales-list">
+                                <tr>
+                                    <td>1</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="action-table-data">
+                                        <div class="edit-delete-action">
+                                            <a class="me-2 p-2" href="#" data-bs-toggle="modal"
+                                                data-bs-target="#edit-stores">
+                                                <i data-feather="edit" class="feather-edit"></i>
+                                            </a>
+                                            <a class="confirm-text p-2" href="javascript:void(0);">
+                                                <i data-feather="trash-2" class="feather-trash-2"></i>
+                                            </a>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
+                        
+                        
                     </div>
                 </div>
             </div>

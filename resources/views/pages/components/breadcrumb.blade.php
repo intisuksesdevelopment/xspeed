@@ -168,6 +168,17 @@
                         data-feather="plus-circle" class="me-2"></i> Add Store</a>
             </div>
         @endif
+        @if (Route::is(['stock-list']))
+            <div class="page-btn">
+                <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-stores"><i
+                        data-feather="plus-circle" class="me-2"></i> Add Stock Opname</a>
+            </div>
+            
+            <div class="page-btn import">
+                <a href="#" class="btn btn-added color" data-bs-toggle="modal" data-bs-target="#view-notes"><i
+                        data-feather="download" class="me-2"></i>Import Stock Opname</a>
+            </div>
+        @endif
         @if (Route::is(['stock-transfer']))
             <div class="page-btn">
                 <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-units"><i

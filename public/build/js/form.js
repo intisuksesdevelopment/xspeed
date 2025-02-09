@@ -169,3 +169,34 @@ function clearDecimal(number) {
 
     return formattedNumber;
 }
+function showSuccess(message) {
+    // Set default message if message is null or empty
+    const successMessage = message || "Successfully.";
+
+    Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: successMessage,
+        confirmButtonClass: "btn btn-success",
+    });
+}
+function showWarning(message) {
+    const warningMessage = message || "Please check the input data and try again."
+    Swal.fire({
+        icon: "warning",
+        title: "Warning",
+        text: warningMessage,
+        confirmButtonClass: "btn btn-warning",
+    });
+}
+function showError(message) {
+    // Set default message if message is null or empty
+    const errorMessage = message || "An unexpected error occurred. Please try again.";
+
+    Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: errorMessage,
+        confirmButtonClass: "btn btn-danger",
+    });
+}

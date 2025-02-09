@@ -14,7 +14,7 @@
     <title>Xpeed Shop - Indonesia</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('/build/src/icon/favicon.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('/build/src/icons/favicon.png')}}">
 
     @include('pages.layout.partials.head')
 </head>

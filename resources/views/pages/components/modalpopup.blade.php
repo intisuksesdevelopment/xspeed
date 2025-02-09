@@ -7367,6 +7367,8 @@
     </div>
     <!-- /Edit Product -->
 
+
+
     <!-- Recent Transactions -->
     <div class="modal fade pos-modal" id="recents" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -14548,7 +14550,72 @@
 		</div>
 		<!-- /Edit State -->
 @endif
-
+@if(Route::is(['stock-add-form']))
+        <!-- Detail Product -->
+        <div class="modal fade" id="detail-product" aria-labelledby="detail-product">
+            <div class="modal-dialog modal-dialog-centered stock-adjust-modal">
+                <div class="modal-content">
+					<div class="page-wrapper-new p-0">
+                        <div class="content">
+                            <div class="modal-header p-4">
+                                <h5>Detail Product</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body  custom-modal-body">
+                                <div class="row">
+                                    <div class="col-lg-8 col-sm-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="bar-code-view d-none">
+                                                    <img src="{{ URL::asset('/build/img/barcode/barcode1.png') }}" alt="barcode">
+                                                    <a class="printimg">
+                                                        <img src="{{ URL::asset('/build/img/icons/printer.svg') }}" alt="print">
+                                                    </a>
+                                                </div>
+                                                <div class="productdetails">
+                                                    
+                                                <ul class="product-bar">
+                                                    <li><h4>Product</h4><h6 id="modal-product-name"></h6></li>
+                                                    <li><h4>Category</h4><h6 id="modal-product-category"></h6></li>
+                                                    <li><h4>Sub Category</h4><h6 id="modal-product-subcategory"></h6></li>
+                                                    <li><h4>Brand</h4><h6 id="modal-product-brand"></h6></li>
+                                                    <li><h4>Unit</h4><h6 id="modal-product-unit"></h6></li>
+                                                    <li><h4>SKU</h4><h6 id="modal-product-sku"></h6></li>
+                                                    <li><h4>Minimum Qty</h4><h6 id="modal-product-min-qty"></h6></li>
+                                                    <li><h4>Quantity</h4><h6 id="modal-product-qty"></h6></li>
+                                                    <li><h4>Basic Price</h4><h6 id="modal-product-basic-price"></h6></li>
+                                                    <li><h4>Sell Price</h4><h6 id="modal-product-sell-price"></h6></li>
+                                                    <li><h4>Status</h4><h6 id="modal-product-status"></h6></li>
+                                                    <li><h4>Description</h4><h6 id="modal-product-description"></h6></li>
+                                                </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-12">
+                                        <div class="card">
+                                        <div class="card-body">
+                                            <div class="slider-product-details">
+                                            <div class="owl-carousel owl-theme product-slide" id="product-carousel">
+                                                <!-- Images will be populated here -->
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    
+                </div>
+            </div>
+        </div>
+        <!-- /Detail Product -->
+@endif
 @if(Route::is(['stock-adjustment']))
 		<!-- Add Adjustment -->
 		<div class="modal fade" id="add-units">

@@ -205,9 +205,14 @@
             </div>
             <div class="col-lg-12">
                 <div class="btn-addproduct mb-4">
-                    <button type="button" class="btn btn-cancel me-2"
+                        <div class="mb-3 d-none">
+                            <label class="form-label">Id</label>
+                            <input type="text" id="products" name="products" class="form-control" >
+                        </div>
+                        <button type="button" class="btn btn-cancel me-2"
                         onclick="window.location.href='{{ url('product') }}'">Cancel</button>
-                    <button type="submit" class="btn btn-submit" id="submit-add-button">Save Product</button>
+                        <button type="submit" class="btn btn-submit" id="submit-add-button">Save Product</button>
+                   
                 </div>
             </div>
         </form>
@@ -262,11 +267,7 @@
                                     data-bs-target="#detail-product" data-sku="${product.sku}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye action-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                 </a>
-                                
-                                <a class="me-2 p-2" data-bs-toggle="modal" data-bs-target="#edit-units">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                </a>
-                                <a class="confirm-text p-2" href="javascript:void(0);">
+                                <a class="confirm-text p-2" href="javascript:void(0);" onclick="removeProduct('${product.sku}')">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                 </a>
                             </div>
@@ -275,6 +276,8 @@
                 `;
                 $('#stock-table tbody').append(newRow);
             });
+            const productListJson = JSON.stringify(productList);
+            document.getElementById('products').value = productListJson;
         }
         renderTable();
 
@@ -405,7 +408,7 @@
                 const selectedProductId = $('#product_id').val();
 
                 if (!selectedProductId) {
-                    alert("Please select a product.");
+                    showWarnig("Please select a product.");
                     return;
                 }
 
@@ -413,7 +416,7 @@
                 const selectedItem = items.find(item => item.uuid === selectedProductId);
                 selectedItem.count = selectedItem.stock;
                 if (!selectedItem) {
-                    alert("Selected product not found.");
+                    showWarnig("Selected product not found.");
                     return;
                 }
 
@@ -430,8 +433,64 @@
                 } else {
                     console.log('Product with this SKU already exists');
                 }
+                
             });
+            $('#submit-add-button').on('click', function (event) {
+
+                // Convert the productList array to a JSON string
+                const productListJson = JSON.stringify(productList);
+
+                // Validate productListJson
+                if (!productListJson || productListJson === "[]") {
+                    showError('Product list is empty. Please add at least one product.');
+                    return; // Stop the form submission
+                } else {
+                    submitForm('stockAddForm', 'submit-add-button', null, '{{ route("stock-list") }}');
+                }
+            });
+        // $('#submit-add-button').on('click', function () {
+        //     const productListJson = JSON.stringify(productList);
+
+        //     // Validate productListJson
+        //     if (!productListJson || productListJson === "[]") {
+        //         showError('Product list is empty. Please add at least one product.');
+        //         return; // Stop the form submission
+        //     }else{
+        //         submitForm('stockAddForm', 'submit-add-button',null,'{{ route("stock-list") }}');
+        //     }
+        // });
+        // document.getElementById('stockAddForm').addEventListener('submit', function(event) {
+        //     event.preventDefault(); // Prevent the default form submission
+
+        //     // Convert the productList array to a JSON string
+        //     const productListJson = JSON.stringify(productList);
+
+        //     // Validate productListJson
+        //     if (!productListJson || productListJson === "[]") {
+        //         showError('Product list is empty. Please add at least one product.');
+        //         return; // Stop the form submission
+        //     } else {
+        //         submitForm('stockAddForm', 'submit-add-button', null, '{{ route("stock-list") }}');
+        //     }
+        // });
+       
+       function removeProduct(sku) {
+            // Find the index of the product with the given SKU
+            const index = productList.findIndex(product => product.sku === sku);
+            if (index !== -1) {
+            productList.splice(index, 1);
+            renderTable();
+            showSuccess('Product removed successfully.');
+            } else {
+                showError('Product not found.');
+            }
+
+        }
+        window.removeProduct = function(sku) {
+            removeProduct(sku);
+        };
 
      });
+
    </script>
 @endsection

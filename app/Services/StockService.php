@@ -46,6 +46,7 @@ class StockService
         try {
             $data           = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
+            dd($data);
             $stock       = Stock::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
 
             if ($stock->isNotEmpty()) {

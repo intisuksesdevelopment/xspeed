@@ -9146,30 +9146,34 @@
                         <div class="modal-body custom-modal-body">
                             <form id="warehouseEditForm" method="post" action="{{ route('warehouse-update') }}">
                                 @csrf
-                                <div class="mb-3">
-                                    <label class="form-label">Kode</label>
-                                    <input type="text" name="code" class="form-control" >
+                                <div class="mb-3 d-none">
+                                    <label class="form-label">Id</label>
+                                    <input type="text" id="id" name="id" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Nama</label>
-                                    <input type="text" name="name" class="form-control" >
+                                    <label class="form-label">Code</label>
+                                    <input type="text" id="code" name="code" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Deskripsi</label>
-                                    <input type="text" name="description" class="form-control" >
+                                    <label class="form-label">Name</label>
+                                    <input type="text" id="name" name="name" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label>Alamat</label>
-                                    <textarea name="address" class="form-control" rows="3"></textarea>
+                                    <label class="form-label">Description</label>
+                                    <input type="text" id="description" name="description" class="form-control" >
+                                </div>
+                                <div class="mb-3">
+                                    <label>Address</label>
+                                    <textarea name="address" id="address" class="form-control" rows="3"></textarea>
                                     <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Telpon</label>
-                                    <input type="number" name="phone" class="form-control" >
+                                    <label class="form-label">Phone</label>
+                                    <input type="number" id="phone" name="phone" class="form-control" >
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Foto</label>
-                                    <input type="text" name="image_url" class="form-control" >
+                                    <label class="form-label">Image</label>
+                                    <input type="text" id="image_url" name="image_url" class="form-control" >
                                 </div>
                                 <div class="mb-0">
                                     <div

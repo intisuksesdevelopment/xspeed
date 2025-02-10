@@ -15521,86 +15521,86 @@
 								</button>
 							</div>
 							<div class="modal-body custom-modal-body">
-								<form action="users">
+								<form id="userAddForm" method="post" action="{{ route('user-add') }}">
+                                    @csrf
 									<div class="row">
-										<div class="col-lg-12">
-											<div class="new-employee-field">
-												<span>Avatar</span>
-												<div class="profile-pic-upload mb-2">
-													<div class="profile-pic">
-														<span><i data-feather="plus-circle" class="plus-down-add"></i> Profile Photo</span>
-													</div>
-													<div class="input-blocks mb-0">
-														<div class="image-upload mb-0">
-															<input type="file">
-															<div class="image-uploads">
-																<h4>Change Image</h4>
-															</div>
-														</div>
-													</div>
-												</div>
+										<div class="col-lg-6">
+											<div class="input-blocks">
+												<label>Nik</label>
+												<input type="text" name="nik" class="form-control" required>
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="input-blocks">
+												<label>Name</label>
+												<input type="text" name="name" class="form-control" required>
 											</div>
 										</div>
 										<div class="col-lg-6">
 											<div class="input-blocks">
 												<label>User Name</label>
-												<input type="text" class="form-control">
+												<input type="text" name="username" class="form-control" required>
 											</div>
 										</div>
 										<div class="col-lg-6">
 											<div class="input-blocks">
 												<label>Phone</label>
-												<input type="text" class="form-control">
+												<input type="number" name="phone" class="form-control" required>
 											</div>
 										</div>
 
 										<div class="col-lg-6">
 											<div class="input-blocks">
 												<label>Email</label>
-												<input type="email" class="form-control">
+												<input type="email" name="email" class="form-control" required>
 											</div>
 										</div>
 										<div class="col-lg-6">
 											<div class="input-blocks">
-												<label>Role</label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Manager</option>
-													<option>Admin</option>
-												</select>
+												<label for="role">Role</label>  
+                                                    <select name="role" class="select" required>  
+                                                        <option disabled selected>Choose</option>  
+                                                        <option value="staff">Staff</option>  
+                                                        <option value="warehouse">Warehouse</option>  
+                                                        <option value="cashier">Cashier</option>  
+                                                        <option value="supervisor">Supervisor</option>  
+                                                    </select>  
 											</div>
 										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Password</label>
-												<div class="pass-group">
-													<input type="password" class="pass-input">
-													<span class="fas toggle-password fa-eye-slash"></span>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Confirm Passworrd</label>
-												<div class="pass-group">
-													<input type="password" class="pass-input">
-													<span class="fas toggle-password fa-eye-slash"></span>
-												</div>
-											</div>
-										</div>
+                                        
+										<div class="col-lg-6">  
+                                            <div class="input-blocks">  
+                                                <label for="password">Password</label>  
+                                                <div class="pass-group">  
+                                                    <input type="password" name="password" class="pass-input" required>  
+                                                    <span class="fas toggle-password fa-eye-slash"></span>  
+                                                </div>  
+                                            </div>  
+                                        </div>  
+                                        <div class="col-lg-6">  
+                                            <div class="input-blocks">  
+                                                <label for="confirm-password">Confirm Password</label>  
+                                                <div class="pass-group">  
+                                                    <input type="password" name="confirm_password" class="pass-input" required>  
+                                                    <span class="fas toggle-password fa-eye-slash"></span>  
+                                                </div>  
+                                            </div>  
+                                        </div>  
+                                        
+                                        <div class="mb-0">
+                                            <div
+                                                class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                                <span class="status-label">Status</span>
+                                                <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                                <label for="status-add" class="checktoggle"></label>
+                                            </div>
+                                        </div>
 
-										<div class="col-lg-12">
-											<div class="mb-0 input-blocks">
-												<label class="form-label">Descriptions</label>
-												<textarea class="form-control mb-1">Type Message</textarea>
-												<p>Maximum 600 Characters</p>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
+								<div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal"  name="cancel-button">Cancel</button>
+                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save Changes</button>
+                                </div>
 								</form>
 							</div>
 						</div>
@@ -15625,89 +15625,71 @@
 								</button>
 							</div>
 							<div class="modal-body custom-modal-body">
-								<form action="users">
+								<form id="userEditForm" method="post" action="{{ route('user-update') }}">
 									<div class="row">
-										<div class="col-lg-12">
-											<div class="new-employee-field">
-												<span>Avatar</span>
-												<div class="profile-pic-upload edit-pic">
-													<div class="profile-pic">
-														<span><img src="{{ URL::asset('/build/img/users/edit-user.jpg')}}" class="user-editer" alt="User"></span>
-														<div class="close-img">
-															<i data-feather="x" class="info-img"></i>
-														</div>
-													</div>
-													<div class="input-blocks mb-0">
-														<div class="image-upload mb-0">
-															<input type="file">
-															<div class="image-uploads">
-																<h4>Change Image</h4>
-															</div>
-														</div>
-													</div>
-												</div>
+									@csrf
+                                    <div class="mb-3 d-none">
+                                        <label class="form-label">uuid</label>
+                                        <input type="text" id="uuid" name="uuid" class="form-control" >
+                                    </div>
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="input-blocks">
+												<label>Nik</label>
+												<input type="text" id="nik" name="nik" class="form-control" required>
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="input-blocks">
+												<label>Name</label>
+												<input type="text" id="name" name="name" class="form-control" required>
 											</div>
 										</div>
 										<div class="col-lg-6">
 											<div class="input-blocks">
 												<label>User Name</label>
-												<input type="text" placeholder="Thomas">
+												<input type="text" id="username" name="username" class="form-control" required>
 											</div>
 										</div>
 										<div class="col-lg-6">
 											<div class="input-blocks">
 												<label>Phone</label>
-												<input type="text" placeholder="+12163547758 ">
+												<input type="number" id="phone" name="phone" class="form-control" required>
 											</div>
 										</div>
 
 										<div class="col-lg-6">
 											<div class="input-blocks">
 												<label>Email</label>
-												<input type="email" placeholder="thomas@example.com">
+												<input type="email" id="email" name="email" class="form-control" required>
 											</div>
 										</div>
 										<div class="col-lg-6">
 											<div class="input-blocks">
-												<label>Role</label>
-												<select class="select">
-													<option>Admin</option>
-													<option>Manager</option>
-													<option>Store Keeper</option>
-												</select>
+												<label for="role">Role</label>  
+                                                    <select name="role" id="role" class="select" required>  
+                                                        <option disabled selected>Choose</option>  
+                                                        <option value="staff">Staff</option>  
+                                                        <option value="warehouse">Warehouse</option>  
+                                                        <option value="cashier">Cashier</option>  
+                                                        <option value="supervisor">Supervisor</option>  
+                                                    </select>  
 											</div>
 										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Password</label>
-												<div class="pass-group">
-													<input type="password" class="pass-input" placeholder="****">
-													<span class="fas toggle-password fa-eye-slash"></span>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Confirm Passworrd</label>
-												<div class="pass-group">
-													<input type="password" class="pass-input" placeholder="****">
-													<span class="fas toggle-password fa-eye-slash"></span>
-												</div>
-											</div>
-										</div>
-
-										<div class="col-lg-12">
-											<div class="mb-0 input-blocks">
-												<label class="form-label">Descriptions</label>
-												<textarea class="form-control mb-1"></textarea>
-												<p>Maximum 600 Characters</p>
-											</div>
-										</div>
+                                        <div class="mb-0">
+                                            <div
+                                                class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                                <span class="status-label">Status</span>
+                                                <input type="checkbox" id="status-edit" name="status" class="check" checked="">
+                                                <label for="status-edit" class="checktoggle"></label>
+                                            </div>
+                                        </div>
 									</div>
 									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
+                                        <button type="button" class="btn btn-cancel me-2"
+                                            data-bs-dismiss="modal"  name="cancel-button">Cancel</button>
+                                        <button type="submit" id="submit-edit-button" class="btn btn-submit">Save Changes</button>
+                                    </div>
 								</form>
 							</div>
 						</div>

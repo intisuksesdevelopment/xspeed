@@ -2,6 +2,8 @@
 namespace App\Services;
 
 use App\Models\Stock;
+use App\Models\StockData;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Constants\CommonConstants;
 use Illuminate\Support\Facades\Log;
@@ -45,19 +47,47 @@ class StockService
     {
         try {
             $data           = $request->all();
-            $data['status'] = $request->has('status') ? 0 : 1;
-            dd($data);
-            $stock       = Stock::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
+            $data['uuid'] = (string) Str::uuid();
+            $stock       = Stock::whereRaw('LOWER(periode) LIKE ?', ['%' . strtolower($data['periode']) . '%'])->get();
 
             if ($stock->isNotEmpty()) {
                 $firstStock = $stock->first();
-                throw new AlreadyExistException("code : {$firstStock->code}");
+                throw new AlreadyExistException("no reference : {$firstStock->periode}");
             }
+            $total_item = 0;
+            $total_stock = 0;
+            $total_count = 0;
+            $total_diff = 0;
+            $total_price = 0;
+            $total_price_diff = 0;
 
+            $data['products'] = json_decode($data['products'], true);
+            foreach ($data['products'] as $product) {
+                $total_item++;
+                $total_stock += $product['stock'];
+                $total_count += $product['count'];
+                $total_diff += $product['count'] - $product['stock'];
+                $total_price += $product['basic_price'] * $product['stock'];
+            }
+            
+            // Calculate total price difference
+            foreach ($data['products'] as $product) {
+                $total_price_diff += $product['basic_price'] * $product['count'];
+            }
+            $total_price_diff -= $total_price;
+            
             $stock = new Stock();
-            // $supplier->validateAttributes($data);
-            $stock->fill($data);
+            $stock = $stock->fill($data);
+            $stock->total_item = $total_item;
+            $stock->stock_total = $total_stock;
+            $stock->qty_total = $total_count;
+            $stock->diff_total = $total_diff;
+            $stock->price_total = $total_price;
+            $stock->diff_price_total = $total_price_diff;
+            $stock->status = 2;
             $stock->save();
+            
+            self::saveAllStockData($data['products'], $stock->id);
 
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
@@ -68,7 +98,24 @@ class StockService
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
         }
     }
-
+    public static function saveAllStockData($products, $stock_id)
+    {
+        foreach ($products as $product) {
+            $stockData = new StockData();
+            $stockData->stock_id = $stock_id;
+            $stockData->item_id = ItemService::getId($product['uuid']); // Assuming uuid is the item_id
+            $stockData->item_stock = $product['stock'];
+            $stockData->item_price = $product['basic_price'];
+            $stockData->rack = $product['rack'] ?? null; // Assuming rack might be optional
+            $stockData->qty = $product['stock'];
+            $stockData->diff = $product['count'] - $product['stock'];
+            $stockData->price_total = $product['basic_price'] * $product['count'];
+            $stockData->created_by = auth()->user()->id?? null; // Assuming you have user authentication
+            $stockData->status = 0; // Set the default status
+            $stockData->save();
+        }
+    }
+    
     public static function update(Request $request)
     {
         try {

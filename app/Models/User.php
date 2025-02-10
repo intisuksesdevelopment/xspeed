@@ -24,12 +24,14 @@ class User extends Authenticatable
         'uuid',
         'nik',
         'username',
+        'role',
         'name',
         'phone',
         'email',
         'email_verified_at',
         'password',
         'remember_token',
+        'join_at',
         'created_at',
         'updated_at',
 
@@ -65,6 +67,7 @@ class User extends Authenticatable
             'uuid'           => 'required|uuid|unique:users,uuid',
             'nik'            => 'required|string|max:50|unique:users,nik',
             'username'       => 'required|string|max:50',
+            'role'       => 'required|string|max:50',
             'name'           => 'required|string|max:255',
             'phone'          => 'required|string|max:20',
             'email'          => 'required|string|email|max:255|unique:users,email',
@@ -76,5 +79,10 @@ class User extends Authenticatable
         }
 
         return true;
+    }
+
+    public function isAvailable()
+    {
+        return $this['status'] == 0 ? 'Available' : 'Not Available';
     }
 }

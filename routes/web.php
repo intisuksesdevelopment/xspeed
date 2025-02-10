@@ -15,7 +15,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\SubCategoryController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -105,6 +105,15 @@ Route::prefix('units')->group(function () {
     Route::post('/update', [UnitController::class, 'update'])->name('unit-update');
     Route::delete('/delete/{id}', [UnitController::class, 'delete'])->name('unit-delete');
 });
+
+
+Route::prefix('users')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('users');
+    Route::post('/add', [UserController::class, 'add'])->name('user-add');
+    Route::post('/update', [UserController::class, 'update'])->name('user-update');
+    Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
+});
+
 
 
 
@@ -609,9 +618,9 @@ Route::get('/icon-flag', function () {
     return view('icon-flag');
 })->name('icon-flag');
 
-Route::get('/users', function () {
-    return view('users');
-})->name('users');
+// Route::get('/users', function () {
+//     return view('users');
+// })->name('users');
 
 Route::get('/roles-permissions', function () {
     return view('roles-permissions');

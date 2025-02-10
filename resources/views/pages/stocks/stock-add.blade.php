@@ -177,6 +177,7 @@
                                                                     <th rowspan="2">Sku</th>
                                                                     <th colspan="2" class="text-center">QTY</th>
                                                                     <th colspan="2" class="text-center">Price</th>
+                                                                    <th rowspan="2">Rack</th>
                                                                     <th rowspan="2">Action</th>
                                                                 </tr>
                                                                 <tr>
@@ -225,6 +226,7 @@
         var warehouses = @json($warehouses);
         var categories = @json($categories);
         var subcategories = @json($subcategories);
+        var racks = @json($racks);
         var items = @json($items);
 
         $('#product-carousel').owlCarousel({
@@ -238,216 +240,301 @@
         let productList = [
             
         ];
-        function renderTable() {
-            $('#stock-table tbody').empty();
-            productList.forEach(product => {
-                const newRow = `
-                    <tr>
-                        <td>
-                            <div class="productimgname">
-                                <a href="javascript:void(0);" class="product-img stock-img">
-                                    <img src="${product.image_url}" alt="product">
-                                </a>
-                                <a href="javascript:void(0);">${product.name}</a>
-                            </div>
-                        </td>
-                        <td>${product.sku}</td>
-                        <td class="text-center">${clearDecimal(product.stock)}</td>
-                        <td class="text-center">
-                            <div class="product-quantity">
-                                 <input type="text" class="quntity-input" id="input-${product.sku}" value="${clearDecimal(product.stock)}">
-                            </div>
-                        </td>
-                        <td class="text-end">${formatRupiah(product.stock * product.basic_price)}</td>
-                        <td class="text-end" id="total-${product.sku}">0,00</td>
 
-                        <td class="action-table-data">
-                            <div class="edit-delete-action">
-                                <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                    data-bs-target="#detail-product" data-sku="${product.sku}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye action-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                </a>
-                                <a class="confirm-text p-2" href="javascript:void(0);" onclick="removeProduct('${product.sku}')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-                $('#stock-table tbody').append(newRow);
-            });
-            const productListJson = JSON.stringify(productList);
-            document.getElementById('products').value = productListJson;
-        }
+
+    function removeProduct(sku) {
+        productList = productList.filter(product => product.sku !== sku);
         renderTable();
+    }
 
-        $('#stock-table').on('input', '.quntity-input', function() {
-            const sku = $(this).attr('id').split('-')[1]; // Extract SKU from ID
-            const newCount = parseInt($(this).val());
-            const product = productList.find(p => p.sku === sku);
-            const existingProduct = productList.find(product => product.sku === sku);
-
-
-            // Update total price
-            const newTotal = (newCount * product.basic_price)-(product.stock * product.basic_price);
-            existingProduct.count =newTotal;
-            $(`#total-${sku}`).text(formatRupiah(newTotal));
+    function renderTable() {
+        // const tableBody = document.getElementById('stock-table');
+        // tableBody.innerHTML = ''; // Clear existing table body
+        $('#stock-table tbody').empty();
+        productList.forEach(product => {
+            const newRow = `
+                <tr>
+                    <td>
+                        <div class="productimgname">
+                            <a href="javascript:void(0);" class="product-img stock-img">
+                                <img src="${product.image_url}" alt="product">
+                            </a>
+                            <a href="javascript:void(0);">${product.name}</a>
+                        </div>
+                    </td>
+                    <td>${product.sku}</td>
+                    <td class="text-center">${clearDecimal(product.stock)}</td>
+                    <td class="text-center">
+                        <div class="product-quantity">
+                            <input type="text" class="quantity-input" id="input-${product.sku}" value="${clearDecimal(product.stock)}">
+                        </div>
+                    </td>
+                    <td class="text-end">${formatRupiah(product.stock * product.basic_price)}</td>
+                    <td class="text-end" id="total-${product.sku}">0,00</td>
+                    <td class="text-end">
+                        <select class="select2 form-control" id="rack-${product.sku}">
+                            <option value="" disabled ${!product.rack ? 'selected' : ''}>Select a rack</option>
+                            ${racks.map(rack => `<option value="${rack.id}" ${rack.id === (product.rack ? product.rack.id : null) ? 'selected' : ''}>${rack.name}</option>`).join('')}
+                        </select>
+                    </td>
+                    <td class="action-table-data">
+                        <div class="edit-delete-action">
+                            <a class="me-2 p-2" href="#" data-bs-toggle="modal" data-bs-target="#detail-product" data-sku="${product.sku}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye action-eye">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </a>
+                            <a class="confirm-text p-2" href="javascript:void(0);" onclick="removeProduct('${product.sku}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            $('#stock-table tbody').append(newRow);
         });
-        $('#stock-table').on('click', '[data-bs-toggle="modal"]', function() {
-            const sku = this.getAttribute('data-sku')
-            const product = productList.find(p => p.sku === sku);
+        const productListJson = JSON.stringify(productList);
+        document.getElementById('products').value = productListJson;
+    }
+    renderTable();
 
-            // Populate the modal with product details
-            $('#modal-product-name').text(product.name);
-            $('#modal-product-category').text(product.category.code + ' - ' + product.category.name);
-            $('#modal-product-subcategory').text(product.subcategory ? product.subcategory.code + ' - ' + product.subcategory.name : '');
-            $('#modal-product-brand').text(product.brand.code + ' - ' + product.brand.name);
-            $('#modal-product-unit').text(product.unit);
-            $('#modal-product-sku').text(product.sku);
-            $('#modal-product-min-qty').text(product.stock_min + ' ' + product.unit);
-            $('#modal-product-qty').text(product.stock + ' ' + product.unit);
-            $('#modal-product-basic-price').text(product.basic_price);
-            $('#modal-product-sell-price').text(product.sell_price);
-            $('#modal-product-status').text(product.status);
-            $('#modal-product-description').text(product.description);
-                // Clear previous images
-            $('#product-carousel').trigger('destroy.owl.carousel'); // Destroy the carousel
-            $('#product-carousel').html(''); 
+    $('#stock-table').on('input', '.quntity-input', function() {
+        const sku = $(this).attr('id').split('-')[1]; // Extract SKU from ID
+        const newCount = parseInt($(this).val());
+        const product = productList.find(p => p.sku === sku);
+        const existingProduct = productList.find(product => product.sku === sku);
 
-            // Populate the image slider with product images
-            product.images.forEach(image => {
-                const imageSlide = `
-                <div class="slider-product">
-                    <img src="${image.path}" alt="img">
-                    <h4>${image.name}</h4>
-                    <h6>${image.description}</h6>
-                </div>
-                `;
-                $('#product-carousel').append(imageSlide);
-            });
-            // Reinitialize Owl Carousel after adding new images
-            $('#product-carousel').owlCarousel({
-                        items: 1,
-                        loop: true,
-                        margin: 10,
-                        nav: true,
-                        dots: true
-                    });        
+
+        // Update total price
+        const newTotal = (newCount * product.basic_price)-(product.stock * product.basic_price);
+        existingProduct.count =newTotal;
+        $(`#total-${sku}`).text(formatRupiah(newTotal));
+    });
+    $('#stock-table').on('click', '[data-bs-toggle="modal"]', function() {
+        const sku = this.getAttribute('data-sku')
+        const product = productList.find(p => p.sku === sku);
+
+        // Populate the modal with product details
+        $('#modal-product-name').text(product.name);
+        $('#modal-product-category').text(product.category.code + ' - ' + product.category.name);
+        $('#modal-product-subcategory').text(product.subcategory ? product.subcategory.code + ' - ' + product.subcategory.name : '');
+        $('#modal-product-brand').text(product.brand.code + ' - ' + product.brand.name);
+        $('#modal-product-unit').text(product.unit);
+        $('#modal-product-sku').text(product.sku);
+        $('#modal-product-min-qty').text(product.stock_min + ' ' + product.unit);
+        $('#modal-product-qty').text(product.stock + ' ' + product.unit);
+        $('#modal-product-basic-price').text(product.basic_price);
+        $('#modal-product-sell-price').text(product.sell_price);
+        $('#modal-product-status').text(product.status);
+        $('#modal-product-description').text(product.description);
+            // Clear previous images
+        $('#product-carousel').trigger('destroy.owl.carousel'); // Destroy the carousel
+        $('#product-carousel').html(''); 
+
+        // Populate the image slider with product images
+        product.images.forEach(image => {
+            const imageSlide = `
+            <div class="slider-product">
+                <img src="${image.path}" alt="img">
+                <h4>${image.name}</h4>
+                <h6>${image.description}</h6>
+            </div>
+            `;
+            $('#product-carousel').append(imageSlide);
         });
-        function generateRandomNumber() {
-                return Math.floor(Math.random() * 900) + 100;
-        }
+        // Reinitialize Owl Carousel after adding new images
+        $('#product-carousel').owlCarousel({
+                    items: 1,
+                    loop: true,
+                    margin: 10,
+                    nav: true,
+                    dots: true
+                });        
+    });
+    function generateRandomNumber() {
+            return Math.floor(Math.random() * 900) + 100;
+    }
 
         
-        function formatDate(date) {
-                const day = ("0" + date.getDate()).slice(-2);
-                const month = ("0" + (date.getMonth() + 1)).slice(-2);
-                const year = date.getFullYear();
-                return `${day}-${month}-${year}`;
-        }
-        $('#warehouse_id').on('change', function() {
-            
-                const currentDate = new Date();
-                const formattedDate = formatDate(currentDate);
+    function formatDate(date) {
+            const day = ("0" + date.getDate()).slice(-2);
+            const month = ("0" + (date.getMonth() + 1)).slice(-2);
+            const year = date.getFullYear();
+            return `${day}-${month}-${year}`;
+    }
+    $('#warehouse_id').on('change', function() {
+    
+        const currentDate = new Date();
+        const formattedDate = formatDate(currentDate);
 
-                const warehouseCode = (warehouses.find(war => war.id == $('#warehouse_id').val()) != null) ? warehouses.find(war => war.id == $('#warehouse_id').val()).code : 'common';
+        const warehouseCode = (warehouses.find(war => war.id == $('#warehouse_id').val()) != null) ? warehouses.find(war => war.id == $('#warehouse_id').val()).code : 'common';
 
-                const unixTimestamp = Math.floor(currentDate.getTime() / 1000);
-                const randomNumber = generateRandomNumber();
-                const periode = `${warehouseCode}-${unixTimestamp}${randomNumber}`;
+        const unixTimestamp = Math.floor(currentDate.getTime() / 1000);
+        const randomNumber = generateRandomNumber();
+        const periode = `${warehouseCode}-${unixTimestamp}${randomNumber}`;
 
-                $('#date').val(formattedDate);
-                $('#periode').val(periode);
-        });
-        $('#category_id').on('change', function() {
-                const selectedCategoryId = $(this).val();
+        $('#date').val(formattedDate);
+        $('#periode').val(periode);
+    });
+    $('#category_id').on('change', function() {
+        const selectedCategoryId = $(this).val();
 
-                // Filter subcategories based on selected category
-                $('#subcategory_id option').each(function() {
-                    const subcategoryCategoryId = $(this).data('category-id');
-                    if (subcategoryCategoryId == selectedCategoryId) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
-
-                $('#subcategory_id').val('');
-                $('#subcategory_id').trigger('change');
-            });
-
-            $('#subcategory_id, #brand_id').on('change', function() {
-                filterProducts();
-            });
-
-            $('#product_id').on('select2:open', function() {
-                filterProducts();
-            });
-
-            function filterProducts() {
-                const selectedCategoryId = $('#category_id').val();
-                const selectedSubcategoryId = $('#subcategory_id').val();
-                const selectedBrandId = $('#brand_id').val();
-
-                // Filter products based on selected category, subcategory, and brand
-                $('#product_id').html('<option value="" disabled selected>Select a product</option>'); // Clear existing options
-
-                items.forEach(function(item) {
-                    if ((!selectedCategoryId || item.category_id == selectedCategoryId) &&
-                        (!selectedSubcategoryId || item.subcategory_id == selectedSubcategoryId) &&
-                        (!selectedBrandId || item.brand_id == selectedBrandId)) {
-                        const option = `<option value="${item.uuid}" data-category-id="${item.category_id}" data-subcategory-id="${item.subcategory_id}" data-brand-id="${item.brand_id}">${item.name}</option>`;
-                        $('#product_id').append(option);
-                    }
-                });
-
-                $('#product_id').trigger('change.select2');
+        // Filter subcategories based on selected category
+        $('#subcategory_id option').each(function() {
+            const subcategoryCategoryId = $(this).data('category-id');
+            if (subcategoryCategoryId == selectedCategoryId) {
+                $(this).show();
+            } else {
+                $(this).hide();
             }
-        $('#warehouse_id').trigger('change');
-        $('#add-item-btn').on('click', function () {
-                const selectedProductId = $('#product_id').val();
+        });
 
-                if (!selectedProductId) {
-                    showWarnig("Please select a product.");
-                    return;
-                }
+        $('#subcategory_id').val('');
+        $('#subcategory_id').trigger('change');
+    });
 
-                // Get the selected item from the items array
-                const selectedItem = items.find(item => item.uuid === selectedProductId);
-                selectedItem.count = selectedItem.stock;
-                if (!selectedItem) {
-                    showWarnig("Selected product not found.");
-                    return;
-                }
+    $('#subcategory_id, #brand_id').on('change', function() {
+        filterProducts();
+    });
 
-                const selectedProductName = selectedItem.name;
-                const selectedProductSku = selectedItem.sku;
+    $('#product_id').on('select2:open', function() {
+        filterProducts();
+    });
 
-                
-                const existingProduct = productList.find(product => product.sku === selectedProductSku.sku);
-                
-                // If the product doesn't exist, add it to the list
-                if (!existingProduct) {
-                    productList.push(selectedItem);
-                    renderTable(); // Refresh the table to include the new product
-                } else {
-                    console.log('Product with this SKU already exists');
-                }
-                
+    function filterProducts() {
+        const selectedCategoryId = $('#category_id').val();
+        const selectedSubcategoryId = $('#subcategory_id').val();
+        const selectedBrandId = $('#brand_id').val();
+
+        // Filter products based on selected category, subcategory, and brand
+        $('#product_id').html('<option value="" disabled selected>Select a product</option>'); // Clear existing options
+
+        items.forEach(function(item) {
+            if ((!selectedCategoryId || item.category_id == selectedCategoryId) &&
+                (!selectedSubcategoryId || item.subcategory_id == selectedSubcategoryId) &&
+                (!selectedBrandId || item.brand_id == selectedBrandId)) {
+                const option = `<option value="${item.uuid}" data-category-id="${item.category_id}" data-subcategory-id="${item.subcategory_id}" data-brand-id="${item.brand_id}">${item.name}</option>`;
+                $('#product_id').append(option);
+            }
+        });
+
+        $('#product_id').trigger('change.select2');
+    }
+    $('#warehouse_id').trigger('change');
+    $('#add-item-btn').on('click', function () {
+        const selectedProductId = $('#product_id').val();
+
+        if (!selectedProductId) {
+            showWarning("Please select a product.");
+            return;
+        }
+
+        // Get the selected item from the items array
+        const selectedItem = items.find(item => item.uuid === selectedProductId);
+        selectedItem.count = selectedItem.stock;
+        if (!selectedItem) {
+            showWarning("Selected product not found.");
+            return;
+        }
+
+        const selectedProductName = selectedItem.name;
+        const selectedProductSku = selectedItem.sku;
+
+        
+        const existingProduct = productList.find(product => product.sku === selectedProductSku.sku);
+        
+        // If the product doesn't exist, add it to the list
+        if (!existingProduct) {
+            const { uuid,name,sku,stock,basic_price,image_url,count } = selectedItem;
+
+            const product = { uuid,name,sku,stock,basic_price,image_url,count };
+            productList.push(product);
+            renderTable(); // Refresh the table to include the new product
+        } else {
+            console.log('Product with this SKU already exists');
+        }
+        
+    });
+        document.getElementById('stockAddForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let form = this;
+            let formData = new FormData(form);
+            let submitButton = document.getElementById('submit-add-button');
+            submitButton.disabled = true;
+            Swal.fire({
+                title: "Processing...",
+                text: "Please wait.",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false
             });
-            $('#submit-add-button').on('click', function (event) {
 
-                // Convert the productList array to a JSON string
-                const productListJson = JSON.stringify(productList);
+            const productListJson = JSON.stringify(productList);
 
-                // Validate productListJson
-                if (!productListJson || productListJson === "[]") {
-                    showError('Product list is empty. Please add at least one product.');
-                    return; // Stop the form submission
-                } else {
-                    submitForm('stockAddForm', 'submit-add-button', null, '{{ route("stock-list") }}');
-                }
-            });
+            // Validate productListJson
+            if (!productListJson || productListJson === "[]") {
+                showError('Product list is empty. Please add at least one product.');
+                
+            } else {
+                fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                    },
+                body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    Swal.close();
+                    submitButton.disabled = false;
+            
+                    const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
+                    const messageId = data.success ? 'success-message' : 'danger-message';
+                    let modalMessage = data.success ? data.message : 'Submission failed';
+            
+                    // Handle nested error messages
+                    if (!data.success && data.message) {
+                        if (typeof data.message === 'object') {
+                            modalMessage = Object.values(data.message).flat().join(', ');
+                        } else {
+                            modalMessage = data.message;
+                        }
+                    }
+            
+                    document.getElementById(messageId).textContent = modalMessage;
+                    new bootstrap.Modal(document.getElementById(modalId)).show();
+            
+                    console.error(modalMessage, data.error);
+            
+                    document.getElementsByName('cancel-button').forEach(button => button.click());
+            
+                    if (data.success) {
+                        setTimeout(() => {
+                            if (redirect) {
+                                window.location.href = redirect;
+                            } else {
+                                window.location.reload();
+                            }
+                        }, 2000);
+                    }
+                }).catch(error => {
+                    Swal.close();
+                    submitButton.disabled = false;
+                    document.getElementById('error-message').textContent = error.message || 'An error occurred';
+                    new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                    console.error('Submission failed:', error);
+                });
+            }
+            submitButton.disabled = false;
+        });
+        
         // $('#submit-add-button').on('click', function () {
         //     const productListJson = JSON.stringify(productList);
 

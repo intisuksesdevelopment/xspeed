@@ -48,6 +48,16 @@ class ItemService
         $item->status = $item->isAvailable();
         return $item;
     }
+    public static function getId($uuid)
+    {
+        $item = Item::where('uuid', $uuid)->first();
+
+        if (! $item) {
+            throw new NotFoundException("uuid : {$uuid}");
+        }
+        $item->status = $item->isAvailable();
+        return $item['id'];
+    }
     public static function save(Request $request)
     {
         try {

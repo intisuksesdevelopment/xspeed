@@ -33,6 +33,7 @@ class StockController extends Controller
         $data['categories']    = CategoryService::getActive($request);
         $data['subcategories']    = SubCategoryService::getActive($request);
         $data['brands']    = BrandService::getActive($request);
+        $data['racks']    = RackService::getActive($request);
         $data['warehouses']    = WarehouseService::getActive($request);
         return view('pages.stocks.stock-add', $data);
     }

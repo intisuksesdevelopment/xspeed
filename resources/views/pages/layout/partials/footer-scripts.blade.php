@@ -200,7 +200,7 @@
 @endif
 
 
-@if (Route::is(['product-add']))
+@if (Route::is(['product-add','stock-add-form']))
 <script src="{{ URL::asset('/build/js/custom-select2.js') }}"></script>
 @endif
 

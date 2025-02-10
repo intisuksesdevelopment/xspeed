@@ -143,4 +143,60 @@ function deleteData(routeName, id, csrfToken) {
             });
         }
     });
+  
+}
+function formatRupiah(number) {
+    // Ensure the number has two decimal places
+    let formattedNumber = number.toFixed(2);
+
+    // Replace the decimal point with a comma
+    formattedNumber = formattedNumber.replace('.', ',');
+
+    // Add thousands separators
+    formattedNumber = formattedNumber.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    return formattedNumber;
+}
+function clearDecimal(number) {
+    // Convert the number to a string if it isn't already
+    let numStr = number.toString();
+
+    // Remove the decimal part, if any
+    numStr = numStr.split('.')[0];
+
+    // Add thousands separators
+    let formattedNumber = numStr.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    return formattedNumber;
+}
+function showSuccess(message) {
+    // Set default message if message is null or empty
+    const successMessage = message || "Successfully.";
+
+    Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: successMessage,
+        confirmButtonClass: "btn btn-success",
+    });
+}
+function showWarning(message) {
+    const warningMessage = message || "Please check the input data and try again."
+    Swal.fire({
+        icon: "warning",
+        title: "Warning",
+        text: warningMessage,
+        confirmButtonClass: "btn btn-warning",
+    });
+}
+function showError(message) {
+    // Set default message if message is null or empty
+    const errorMessage = message || "An unexpected error occurred. Please try again.";
+
+    Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: errorMessage,
+        confirmButtonClass: "btn btn-danger",
+    });
 }

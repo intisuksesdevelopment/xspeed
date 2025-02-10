@@ -41,7 +41,9 @@ class Item extends Model
         'updated_by',
         'history_log',
     ];
-
+    protected $hidden = [
+        'id',
+    ];
     public function validateAttributes($attributes, $id = null)
     {
         $validator = Validator::make($attributes, [

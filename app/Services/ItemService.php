@@ -24,6 +24,20 @@ class ItemService
         }
         return $items;
     }
+    public static function getActive(Request $request)
+    {
+        $perPage = $request->input('per_page', CommonConstants::PAGE);
+        // Default to 10 per page if not provided
+        $sortBy = $request->input('sortBy', CommonConstants::SORT);
+        // Default to 'id' if not provided
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        // Default to 'asc' if not provided
+        $units = Item::with(['category', 'subcategory', 'brand', 'warehouse', 'rack', 'images'])->where('status', 0)->orderBy($sortBy, $sortDirection)->get();
+        foreach ($units as $unit) {
+            $unit->availability = $unit->isAvailable();
+        }
+        return $units;
+    }
     public static function getDetail($uuid)
     {
         $item = Item::where('uuid', $uuid)->with(['category', 'subcategory', 'brand', 'warehouse', 'rack', 'images'])->first();
@@ -33,6 +47,16 @@ class ItemService
         }
         $item->status = $item->isAvailable();
         return $item;
+    }
+    public static function getId($uuid)
+    {
+        $item = Item::where('uuid', $uuid)->first();
+
+        if (! $item) {
+            throw new NotFoundException("uuid : {$uuid}");
+        }
+        $item->status = $item->isAvailable();
+        return $item['id'];
     }
     public static function save(Request $request)
     {

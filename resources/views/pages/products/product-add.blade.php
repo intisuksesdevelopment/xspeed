@@ -396,7 +396,7 @@
     });
 
     $('#category_id').trigger('change');
-    submitForm('productAddForm', 'submit-add-button',null,null);
+        submitForm('productAddForm', 'submit-add-button',null,null);
     });
 </script>
 @endsection

@@ -103,4 +103,9 @@ class StockData extends Authenticatable
                 return 'Unknown Status';
         }
     }
+
+    public function isAvailable()
+    {
+        return $this['status'] == 0 ? 'Available' : 'Not Available';
+    }
 }

@@ -132,13 +132,7 @@
                                         <div class="edit-delete-action">  
                                             <a class="me-2 p-2" href="#" data-bs-toggle="modal"  
                                                 data-bs-target="#edit-user"  
-                                                data-uuid="{{ $user['uuid']}}"  
-                                                data-username="{{ $user['username']}}"  
-                                                data-name="{{ $user['name']}}"  
-                                                data-phone="{{ $user['phone']}}"  
-                                                data-email="{{ $user['email']}}"
-                                                data-role="{{ $user['role']}}"    
-                                                data-status="{{ $user['status']}}">  
+                                                data-user='@json($user)'>  
                                                 <i data-feather="edit" class="feather-edit"></i>  
                                             </a>  
                                             <a class="p-2" href="javascript:void(0);" onclick="deleteUser({{ $user['id']}})">  
@@ -166,27 +160,22 @@
 
             editButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
-                    var userUuid = this.getAttribute('data-uuid');
-                    var userUsername = this.getAttribute('data-username');
-                    var userName = this.getAttribute('data-name');
-                    var userPhone = this.getAttribute('data-phone');
-                    var userEmail = this.getAttribute('data-email');
-                    var userRole = this.getAttribute('data-role');
-                    const userStatus = this.getAttribute('data-status');
-                    const statusCheckbox = document.getElementById('status-edit');
-                    statusCheckbox.checked = (userStatus == 0);
+                var user = JSON.parse(this.getAttribute('data-user'));
+                const statusCheckbox = document.getElementById('status-edit');
+                statusCheckbox.checked = (user.status == 0);
 
                     // Inject data into the modal form fields
-                    document.getElementById('uuid').value = userUuid;
-                    document.getElementById('username').value = userUsername;
-                    document.getElementById('name').value = userName;
-                    document.getElementById('phone').value = userPhone;
-                    document.getElementById('email').value = userEmail;
-                    document.getElementById('role').value = userRole;
-                    document.getElementById('status-edit').value = userStatus;
+                    document.getElementById('uuid').value = user.uuid;
+                    document.getElementById('nik').value = user.nik;
+                    document.getElementById('username').value = user.username;
+                    document.getElementById('name').value = user.name;
+                    document.getElementById('phone').value = user.phone;
+                    document.getElementById('email').value = user.email;
+                    document.getElementById('role').value = user.role;
+                    document.getElementById('status-edit').value = user.status;
+
                 });
             });
-
             window.deleteUser = function(id) {
                 deleteData(`{{ route('user-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             };

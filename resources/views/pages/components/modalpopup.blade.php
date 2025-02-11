@@ -15596,11 +15596,12 @@
                                             </div>
                                         </div>
 
-								<div class="modal-footer-btn">
-                                    <button type="button" class="btn btn-cancel me-2"
-                                        data-bs-dismiss="modal"  name="cancel-button">Cancel</button>
-                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save Changes</button>
-                                </div>
+                                        <div class="modal-footer-btn">
+                                            <button type="button" class="btn btn-cancel me-2"
+                                                data-bs-dismiss="modal"  name="cancel-button">Cancel</button>
+                                            <button type="submit" id="submit-add-button" class="btn btn-submit">Save Changes</button>
+                                        </div>
+                                    </div>
 								</form>
 							</div>
 						</div>
@@ -15610,63 +15611,63 @@
 	</div>
 <!-- /Add User -->
 
-		<!-- Edit User -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit User</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form id="userEditForm" method="post" action="{{ route('user-update') }}">
-									<div class="row">
-									@csrf
+    <!-- Edit User -->
+    <div class="modal fade" id="edit-user" aria-labelledby="edit-user">
+            <div class="modal-dialog modal-dialog-centered stock-adjust-modal">
+                <div class="modal-content">
+                    <div class="page-wrapper-new p-0">
+                        <div class="content">
+                            <div class="modal-header border-0 custom-modal-header">
+                                <div class="page-title">
+                                    <h4>Edit User</h4>
+                                </div>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body custom-modal-body">
+                                <form id="userEditForm" method="post" action="{{ route('user-update') }}">
+                                    <div class="row">
+                                    @csrf
                                     <div class="mb-3 d-none">
                                         <label class="form-label">uuid</label>
                                         <input type="text" id="uuid" name="uuid" class="form-control" >
                                     </div>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Nik</label>
-												<input type="text" id="nik" name="nik" class="form-control" required>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Name</label>
-												<input type="text" id="name" name="name" class="form-control" required>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>User Name</label>
-												<input type="text" id="username" name="username" class="form-control" required>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Phone</label>
-												<input type="number" id="phone" name="phone" class="form-control" required>
-											</div>
-										</div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="input-blocks">
+                                                <label>Nik</label>
+                                                <input type="text" id="nik" name="nik" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="input-blocks">
+                                                <label>Name</label>
+                                                <input type="text" id="name" name="name" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="input-blocks">
+                                                <label>User Name</label>
+                                                <input type="text" id="username" name="username" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="input-blocks">
+                                                <label>Phone</label>
+                                                <input type="tel" id="phone" name="phone" class="form-control" required>
+                                            </div>
+                                        </div>
 
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Email</label>
-												<input type="email" id="email" name="email" class="form-control" required>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label for="role">Role</label>  
+                                        <div class="col-lg-6">
+                                            <div class="input-blocks">
+                                                <label>Email</label>
+                                                <input type="email" id="email" name="email" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="input-blocks">
+                                                <label for="role">Role</label>  
                                                     <select name="role" id="role" class="select" required>  
                                                         <option disabled selected>Choose</option>  
                                                         <option value="staff">Staff</option>  
@@ -15674,8 +15675,8 @@
                                                         <option value="cashier">Cashier</option>  
                                                         <option value="supervisor">Supervisor</option>  
                                                     </select>  
-											</div>
-										</div>
+                                            </div>
+                                        </div>
                                         <div class="mb-0">
                                             <div
                                                 class="status-toggle modal-status d-flex justify-content-between align-items-center">
@@ -15684,20 +15685,21 @@
                                                 <label for="status-edit" class="checktoggle"></label>
                                             </div>
                                         </div>
-									</div>
-									<div class="modal-footer-btn">
+                                    </div>
+                                    <div class="modal-footer-btn">
                                         <button type="button" class="btn btn-cancel me-2"
                                             data-bs-dismiss="modal"  name="cancel-button">Cancel</button>
                                         <button type="submit" id="submit-edit-button" class="btn btn-submit">Save Changes</button>
                                     </div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit User -->
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!-- /Edit User -->
 @endif
 
 @if(Route::is(['countries']))

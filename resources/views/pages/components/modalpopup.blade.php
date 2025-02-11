@@ -15574,7 +15574,7 @@
                                                 <div class="pass-group">  
                                                     <input type="password" name="password" class="pass-input" required>  
                                                     <span class="fas toggle-password fa-eye-slash"></span>  
-                                                </div>  
+                                                </div> 
                                             </div>  
                                         </div>  
                                         <div class="col-lg-6">  
@@ -15583,9 +15583,15 @@
                                                 <div class="pass-group">  
                                                     <input type="password" name="confirm_password" class="pass-input" required>  
                                                     <span class="fas toggle-password fa-eye-slash"></span>  
-                                                </div>  
+                                                </div> 
                                             </div>  
-                                        </div>  
+                                        </div>
+                                        <div class="col-lg-12">  
+                                            <div class="input-blocks">  
+                                                <label>Note : </label>  
+                                                <small class="text-danger">Password must be at least 8 characters long and include at least one letter, one number, and one special character.</small>   
+                                            </div>  
+                                        </div>
                                         
                                         <div class="mb-0">
                                             <div

@@ -81,7 +81,7 @@ class UserService
     {
         try {
             $data           = $request->all();
-            $data['status'] = $request->has('status') ? 0 : 1;
+            $data['status'] = 3; //default status waiting (3)
 
             $user = User::whereRaw('LOWER(nik) LIKE ? OR LOWER(email) LIKE ?', [  
                 '%' . strtolower($data['nik']) . '%',  

@@ -30,19 +30,40 @@ class LoginController extends BaseController
         try {
             $request->validate([
                 'email'    => 'required|email',
-                'password' => 'required|string|min:6',
+                'password' => [
+                    'required',
+                    'string',
+                    'min:8',
+                    'regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).+$/',
+                    function ($attribute, $value, $fail) {
+                        if (! preg_match('/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).+$/', $value)) {
+                            return $fail('The ' . $attribute . ' must be at least 8 characters long and include at least one letter, one number, and one special character.');
+                        }
+                    },
+                ],
             ]);
 
             $credentials = $request->only('email', 'password');
 
             if (Auth::attempt($credentials)) {
-                $request->session()->regenerate();
+                // Retrieve the authenticated user
+                $user = Auth::user();
 
-                return response()->json([
-                    'success'      => true,
-                    'message'      => 'Login successful!',
-                    'redirect_url' => url('dashboard'),
-                ]);
+                // Check if user status is 0
+                if ($user->status === 0) {
+                    $request->session()->regenerate();
+
+                    return response()->json([
+                        'success'      => true,
+                        'message'      => 'Login successful!',
+                        'redirect_url' => url('dashboard'),
+                    ]);
+                } else {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Your account is not active or waiting for approval.',
+                    ], 403);
+                }
             }
 
             return response()->json([

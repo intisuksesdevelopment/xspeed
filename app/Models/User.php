@@ -64,14 +64,25 @@ class User extends Authenticatable
     public function validateAttributes($attributes)
     {
         $validator = Validator::make($attributes, [
-            'uuid'           => 'required|uuid|unique:users,uuid',
-            'nik'            => 'required|string|max:50|unique:users,nik',
-            'username'       => 'required|string|max:50',
-            'role'       => 'required|string|max:50',
-            'name'           => 'required|string|max:255',
-            'phone'          => 'required|string|max:20',
-            'email'          => 'required|string|email|max:255|unique:users,email',
-            'password'       => 'required|string|min:8',
+            'uuid'     => 'required|uuid|unique:users,uuid',
+            'nik'      => 'required|string|max:50|unique:users,nik',
+            'username' => 'required|string|max:50',
+            'role'     => 'required|string|max:50',
+            'name'     => 'required|string|max:255',
+            'phone'    => 'required|string|max:20',
+            'email'    => 'required|string|email|max:255|unique:users,email',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/^(?=.[a-zA-Z])(?=.[0-9])(?=.*[\W_]).+$/',
+                function ($attribute, $value, $fail) {
+                    if (! preg_match('/^(?=.[a-zA-Z])(?=.[0-9])(?=.*[\W_]).+$/', $value)) {
+                        return $fail('The ' . $attribute . ' must be at least 8 characters long and include at least one letter, one number, and one special character.');
+                    }
+                },
+            ],
+
         ]);
 
         if ($validator->fails()) {

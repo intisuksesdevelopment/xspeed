@@ -1,11 +1,11 @@
 <?php
 namespace App\Models;
 
-
+use App\Models\Item;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
@@ -21,7 +21,9 @@ class Category extends Model
         'created_by',
         'updated_by',
     ];
-    
+
+    protected $appends = ['item_count'];
+
     public function validateAttributes($attributes)
     {
         $validator = Validator::make($attributes, [
@@ -29,7 +31,7 @@ class Category extends Model
             'code'        => 'required|string|max:255',
             'description' => 'nullable|string',
             'image_url'   => 'nullable|url',
-            'status'      => 'required|integer|in:0,1'
+            'status'      => 'required|integer|in:0,1',
         ]);
         if ($validator->fails()) {
             throw new ValidationException($validator);
@@ -40,5 +42,18 @@ class Category extends Model
     public function isAvailable()
     {
         return $this['status'] == 0 ? 'Available' : 'Not Available';
+    }
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    public function countItems()
+    {
+        return $this->items()->count();
+    }
+    public function getItemCountAttribute()
+    {
+        return $this->items()->count();
     }
 }

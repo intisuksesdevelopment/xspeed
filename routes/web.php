@@ -2,10 +2,12 @@
 
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RackController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SalesController;
@@ -15,7 +17,6 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\SubCategoryController;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,7 @@ Route::prefix('product')->group(function () {
     Route::post('/edit', [ItemController::class, 'edit'])->name('product-edit');
     Route::get('/detail/{uuid}', [ItemController::class, 'detail'])->name('product-detail');
     Route::delete('/delete/{uuid}', [ItemController::class, 'delete'])->name('product-delete');
+    Route::get('/category/{category_id}', [ItemController::class, 'getItemsByCategory'])->name('product-category');
 
 });
 
@@ -114,7 +116,12 @@ Route::prefix('users')->group(function () {
     Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
 });
 
-
+Route::prefix('pos')->group(function () {
+    Route::get('/', [PosController::class, 'index'])->name('pos');
+    Route::post('/add', [PosController::class, 'add'])->name('pos-add');
+    Route::post('/update', [UserController::class, 'update'])->name('user-update');
+    Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
+});
 
 
 
@@ -374,9 +381,9 @@ Route::get('/quotation-list', function () {
     return view('quotation-list');
 })->name('quotation-list');
 
-Route::get('/pos', function () {
-    return view('pos');
-})->name('pos');
+// Route::get('/pos', function () {
+//     return view('pos');
+// })->name('pos');
 
 Route::get('/coupons', function () {
     return view('coupons');

@@ -153,5 +153,9 @@ class ItemService
             ], 500);
         }
     }
+    public static function getItemsByCategory($category_id){
+        $items = Item::where('category_id', $category_id)->where('status',0)->with(['category'])->get();
+        return response()->json($items);
+    }
 
 }

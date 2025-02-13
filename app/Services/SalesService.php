@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 
-use App\Models\Sales;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 use App\Constants\CommonConstants;
 use Illuminate\Support\Facades\Log;
@@ -28,15 +28,15 @@ class SalesService{
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
         // Default to 10 per page if not provided
-        $sortBy = $request->input('sortBy', CommonConstants::SORT);
+        $sortBy = $request->input('sortBy', 'created_at');
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
-        $units = Unit::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
-        foreach ($units as $unit) {
-            $unit->availability = $unit->isAvailable();
+        $sales = Sale::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
+        foreach ($sales as $sale) {
+            $sale->availability = $sale->isAvailable();
         }
-        return $units;
+        return $sales;
     }
 
     public static function save(Request $request)

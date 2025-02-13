@@ -8605,81 +8605,72 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body">
-                            <form action="customers">
-                                <div class="modal-title-head people-cust-avatar">
-                                    <h6>Avatar</h6>
-                                </div>
-                                <div class="new-employee-field">
-                                    <div class="profile-pic-upload">
-                                        <div class="profile-pic">
-                                            <span><i data-feather="plus-circle" class="plus-down-add"></i> Add
-                                                Image</span>
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="image-upload mb-0">
-                                                <input type="file">
-                                                <div class="image-uploads">
-                                                    <h4>Change Image</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <form id="customerAddForm" method="post" action="{{ route('customer-add') }}">
+                                @csrf
                                 <div class="row">
-                                    <div class="col-lg-4 pe-0">
+                                    <div class="col-lg-6 pe-0">
                                         <div class="mb-3">
                                             <label class="form-label">Customer Name</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" name="code" class="form-control" required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 pe-0">
+                                    <div class="col-lg-6 pe-0">
+                                        <div class="mb-3">
+                                            <label class="form-label">Name</label>
+                                            <input type="text" name="name" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 pe-0">
                                         <div class="mb-3">
                                             <label class="form-label">Email</label>
-                                            <input type="email" class="form-control">
+                                            <input type="email" name="email" class="form-control" required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 pe-0">
-                                        <div class="input-blocks">
-                                            <label class="mb-2">Phone</label>
-                                            <input class="form-control form-control-lg group_formcontrol"
-                                                id="phone" name="phone" type="text">
+                                    <div class="col-lg-6 pe-0">
+                                        <div class="mb-3">
+                                            <label class="form-label">Phone</label>
+                                            <input type="number" name="phone" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 pe-0">
                                         <div class="mb-3">
                                             <label class="form-label">Address</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" name="address" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 pe-0">
                                         <div class="mb-3">
-                                            <label class="form-label">City</label>
-                                            <input type="text" class="form-control">
+                                            <label class="form-label">Limit Transaction</label>
+                                            <input type="number" name="limit_transaction" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 pe-0">
                                         <div class="mb-3">
-                                            <label class="form-label">Country</label>
-                                            <select class="select">
-                                                <option>Choose</option>
-                                                <option>United Kingdom</option>
-                                                <option>United State</option>
-                                            </select>
+                                            <label class="form-label">Limit Debt</label>
+                                            <input type="number" name="limit_debt" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <div class="mb-3 input-blocks">
-                                            <label class="form-label">Descriptions</label>
-                                            <textarea class="form-control mb-1"></textarea>
-                                            <p>Maximum 60 Characters</p>
+                                        <div class="mb-3">
+                                            <label class="form-label">Discount (%)</label>
+                                            <input type="number" name="discount" class="form-control" required>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-0">
+                                    <div
+                                        class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                        <span class="status-label">Status</span>
+                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                        <label for="status-add" class="checktoggle"></label>
                                     </div>
                                 </div>
 
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                    <button type="submit" class="btn btn-submit" id="submit-add-button">Submit</button>
                                 </div>
                             </form>
                         </div>
@@ -8691,7 +8682,7 @@
     <!-- /Add Customer -->
 
     <!-- Edit Customer -->
-    <div class="modal fade" id="edit-units">
+    <div class="modal fade" id="edit-customer">
         <div class="modal-dialog modal-dialog-centered custom-modal-two">
             <div class="modal-content">
                 <div class="page-wrapper-new p-0">
@@ -8705,86 +8696,76 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body">
-                            <form action="customers">
-                                <div class="modal-title-head people-cust-avatar">
-                                    <h6>Avatar</h6>
-                                </div>
-                                <div class="new-employee-field">
-                                    <div class="profile-pic-upload">
-                                        <div class="profile-pic people-profile-pic">
-                                            <img src="{{ URL::asset('/build/img/profiles/profile.png')}}" alt="Img">
-                                            <a href="#"><i data-feather="x-square"
-                                                    class="x-square-add"></i></a>
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="image-upload mb-0">
-                                                <input type="file">
-                                                <div class="image-uploads">
-                                                    <h4>Change Image</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <form id="customerEditForm" method="post" action="{{ route('customer-update') }}">
+                                @csrf
+                                <div class="mb-3 d-none">
+                                    <label class="form-label">Id</label>
+                                    <input type="text" id="id" name="id" class="form-control" >
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-4 pe-0">
+                                    <div class="col-lg-6 pe-0">
                                         <div class="mb-3">
                                             <label class="form-label">Customer Name</label>
-                                            <input type="text" class="form-control" value="Thomas">
+                                            <input type="text" name="code" id="code" class="form-control" required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 pe-0">
+                                    <div class="col-lg-6 pe-0">
+                                        <div class="mb-3">
+                                            <label class="form-label">Name</label>
+                                            <input type="text" name="name" id="name" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 pe-0">
                                         <div class="mb-3">
                                             <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" value="thomas@example.com">
+                                            <input type="email" name="email" id="email" class="form-control" required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 pe-0">
-                                        <div class="input-blocks">
-                                            <label class="mb-2">Phone</label>
-                                            <input class="form-control form-control-lg group_formcontrol"
-                                                id="phone2" name="phone2" type="text">
+                                    <div class="col-lg-6 pe-0">
+                                        <div class="mb-3">
+                                            <label class="form-label">Phone</label>
+                                            <input type="number" name="phone" id="phone" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 pe-0">
                                         <div class="mb-3">
                                             <label class="form-label">Address</label>
-                                            <input type="text" class="form-control"
-                                                value="Budapester Strasse 2027259 ">
+                                            <input type="text" name="address" id="address" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 pe-0">
                                         <div class="mb-3">
-                                            <label class="form-label">City</label>
-                                            <select class="select">
-                                                <option>Varrel</option>
-                                                <option>Varrel</option>
-                                            </select>
+                                            <label class="form-label">Limit Transaction</label>
+                                            <input type="number" name="limit_transaction" id="limit_transaction" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 pe-0">
                                         <div class="mb-3">
-                                            <label class="form-label">Country</label>
-                                            <select class="select">
-                                                <option>Germany</option>
-                                                <option>United State</option>
-                                            </select>
+                                            <label class="form-label">Limit Debt</label>
+                                            <input type="number" name="limit_debt" id="limit_debt" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <div class="mb-0 input-blocks">
-                                            <label class="form-label">Descriptions</label>
-                                            <textarea class="form-control mb-1"></textarea>
-                                            <p>Maximum 60 Characters</p>
+                                        <div class="mb-3">
+                                            <label class="form-label">Discount (%)</label>
+                                            <input type="number" name="discount" id="discount" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
 
+                                <div class="mb-0">
+                                    <div
+                                        class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                        <span class="status-label">Status</span>
+                                        <input type="checkbox" id="status-edit" name="status" class="check" checked="">
+                                        <label for="status-edit" class="checktoggle"></label>
+                                    </div>
+                                </div>
 
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                    <button type="submit" class="btn btn-submit" id="submit-edit-button">Submit</button>
                                 </div>
                             </form>
                         </div>

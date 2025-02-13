@@ -398,6 +398,62 @@
     </div>
     <script>
             const productCategoryRoute = @json(route('product-category', ['category_id' => 'CATEGORY_ID']));
+            var sales = @json($sales);
+            document.addEventListener('DOMContentLoaded', function() {
+                var sales = @json($sales);
+
+                sales.forEach(function(sale) {
+                    var saleDiv = `
+                        <div class="default-cover p-4 mb-4">
+                            <span class="badge bg-secondary d-inline-block mb-4">Order ID : #${sale.trx_id}</span>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 record mb-3">
+                                    <table>
+                                        <tr class="mb-3">
+                                            <td>Cashier</td>
+                                            <td class="colon">:</td>
+                                            <td class="text">${sale.created_by}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Customer</td>
+                                            <td class="colon">:</td>
+                                            <td class="text">${sale.cust_name}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-sm-12 col-md-6 record mb-3">
+                                    <table>
+                                        <tr>
+                                            <td>Total</td>
+                                            <td class="colon">:</td>
+                                            <td class="text">$${sale.final_total}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date</td>
+                                            <td class="colon">:</td>
+                                            <td class="text">${new Date(sale.created_date).toLocaleDateString()} ${new Date(sale.created_date).toLocaleTimeString()}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <p class="p-4">Customer need to recheck the product once</p>
+                            <div class="btn-row d-sm-flex align-items-center justify-content-between">
+                                <a href="javascript:void(0);" class="btn btn-info btn-icon flex-fill">Open</a>
+                                <a href="javascript:void(0);" class="btn btn-danger btn-icon flex-fill">Products</a>
+                                <a href="javascript:void(0);" class="btn btn-success btn-icon flex-fill">Print</a>
+                            </div>
+                        </div>
+                    `;
+
+                    if (sale.payment_status === 2) {
+                        document.getElementById('sales-hold-list').innerHTML += saleDiv;
+                    } else if (sale.payment_status === 1) {
+                        document.getElementById('sales-unpaid-list').innerHTML += saleDiv;
+                    } else if (sale.payment_status === 0) {
+                        document.getElementById('sales-paid-list').innerHTML += saleDiv;
+                    }
+                });
+            });
 
     </script>
 @endsection

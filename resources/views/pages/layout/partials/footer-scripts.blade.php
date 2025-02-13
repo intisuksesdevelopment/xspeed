@@ -204,7 +204,9 @@
 <script src="{{ URL::asset('/build/js/custom-select2.js') }}"></script>
 @endif
 
-
+@if (Route::is(['pos']))
+<script src="{{ URL::asset('/build/js/page/pos.js') }}"></script>
+@endif
 
 <!-- Custom JS -->
 <script src="{{ URL::asset('/build/js/theme-script.js') }}"></script>

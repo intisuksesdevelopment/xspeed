@@ -35,6 +35,7 @@ class CategoryService
         $categories = Category::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
         foreach ($categories as $category) {
             $category->availability = $category->isAvailable();
+            $category->countItems = $category->countItems();
         }
         return $categories;
     }

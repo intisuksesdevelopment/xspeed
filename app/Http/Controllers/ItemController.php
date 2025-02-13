@@ -69,4 +69,8 @@ class ItemController extends Controller
         $item = ItemService::getDetail($uuid);
         return view('pages.products.product-details', ['item' => $item->getWithoutId(true)]);
     }
+    public function getItemsByCategory($category_id)
+    {
+        return ItemService::getItemsByCategory($category_id);
+    }
 }

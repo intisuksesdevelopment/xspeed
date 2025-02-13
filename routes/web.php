@@ -17,6 +17,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,6 +117,12 @@ Route::prefix('users')->group(function () {
     Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
 });
 
+Route::prefix('customers')->group(function () {
+    Route::get('/', [CustomerController::class, 'index'])->name('customers');
+    Route::post('/add', [CustomerController::class, 'add'])->name('customer-add');
+    Route::post('/update', [CustomerController::class, 'update'])->name('customer-update');
+    Route::delete('/delete/{id}', [CustomerController::class, 'delete'])->name('customer-delete');
+});
 Route::prefix('pos')->group(function () {
     Route::get('/', [PosController::class, 'index'])->name('pos');
     Route::post('/add', [PosController::class, 'add'])->name('pos-add');
@@ -389,9 +396,9 @@ Route::get('/coupons', function () {
     return view('coupons');
 })->name('coupons');
 
-Route::get('/customers', function () {
-    return view('customers');
-})->name('customers');
+// Route::get('/customers', function () {
+//     return view('customers');
+// })->name('customers');
 
 // Route::get('/suppliers', function () {
 //     return view('suppliers');

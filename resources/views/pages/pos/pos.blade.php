@@ -401,7 +401,6 @@
             var sales = @json($sales);
             document.addEventListener('DOMContentLoaded', function() {
                 var sales = @json($sales);
-
                 sales.forEach(function(sale) {
                     var saleDiv = `
                         <div class="default-cover p-4 mb-4">
@@ -426,17 +425,17 @@
                                         <tr>
                                             <td>Total</td>
                                             <td class="colon">:</td>
-                                            <td class="text">$${sale.final_total}</td>
+                                            <td class="text">${sale.final_total} ${sale.currency.toUpperCase()}</td>
                                         </tr>
                                         <tr>
                                             <td>Date</td>
                                             <td class="colon">:</td>
-                                            <td class="text">${new Date(sale.created_date).toLocaleDateString()} ${new Date(sale.created_date).toLocaleTimeString()}</td>
+                                            <td class="text">${convertTimestamp(sale.created_at)}</td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
-                            <p class="p-4">Customer need to recheck the product once</p>
+                            <p class="p-4">${sale.description}</p>
                             <div class="btn-row d-sm-flex align-items-center justify-content-between">
                                 <a href="javascript:void(0);" class="btn btn-info btn-icon flex-fill">Open</a>
                                 <a href="javascript:void(0);" class="btn btn-danger btn-icon flex-fill">Products</a>

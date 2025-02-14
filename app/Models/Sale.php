@@ -14,7 +14,7 @@ class Sale extends Model
         'trx_id',
         'type',
         'name',
-        'desc',
+        'description',
         'tax_percent',
         'tax_total',
         'disc_percent',

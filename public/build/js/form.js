@@ -169,6 +169,15 @@ function clearDecimal(number) {
 
     return formattedNumber;
 }
+function convertTimestamp(timestamp) {
+    var createdDate = new Date(timestamp);
+    var formattedDate = createdDate.getDate().toString().padStart(2, '0') + '-' +
+                        (createdDate.getMonth() + 1).toString().padStart(2, '0') + '-' +
+                        createdDate.getFullYear() + ' ' +
+                        createdDate.toLocaleTimeString('en-GB');
+
+    return formattedDate;
+}
 function showSuccess(message) {
     // Set default message if message is null or empty
     const successMessage = message || "Successfully.";

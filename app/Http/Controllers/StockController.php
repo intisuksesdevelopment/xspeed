@@ -9,6 +9,7 @@ use App\Services\UnitService;
 use App\Services\BrandService;
 use App\Services\StockService;
 use App\Services\CategoryService;
+use App\Services\CustomerService;
 use App\Services\WarehouseService;
 use App\Services\SubCategoryService;
 use Illuminate\Pagination\Paginator;

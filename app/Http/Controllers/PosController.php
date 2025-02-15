@@ -7,6 +7,7 @@ use App\Services\ItemService;
 use App\Services\UtilService;
 use App\Services\SalesService;
 use App\Services\CategoryService;
+use App\Services\CustomerService;
 
 class PosController extends Controller
 {
@@ -21,6 +22,8 @@ class PosController extends Controller
         $data['items'] = ItemService::getActive($request);
         $data['categories'] = CategoryService::getActive($request);
         $data['sales'] = SalesService::getActive($request);
+        $data['customers']    = CustomerService::getActive($request);
+
         return view('pages.pos.pos',$data);
     }
 

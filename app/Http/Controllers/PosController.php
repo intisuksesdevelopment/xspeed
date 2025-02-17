@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\ItemService;
 use App\Services\UtilService;
 use App\Services\SalesService;
+use App\Services\PaymentService;
 use App\Services\CategoryService;
 use App\Services\CustomerService;
 
@@ -23,12 +24,14 @@ class PosController extends Controller
         $data['categories'] = CategoryService::getActive($request);
         $data['sales'] = SalesService::getActive($request);
         $data['customers']    = CustomerService::getActive($request);
+        $data['paymentMethods']    = PaymentService::getActive($request);
 
         return view('pages.pos.pos',$data);
     }
 
     public function add(Request $request)
     {
+        dd($request->all());
         return CategoryService::save($request);
     }
 }

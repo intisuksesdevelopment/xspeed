@@ -24,5 +24,8 @@ class PaymentMethod extends Model
         'updated_at',
 
     ];
-
+    public function isAvailable()
+    {
+        return $this['status'] == 0 ? 'Available' : 'Not Available';
+    }
 }

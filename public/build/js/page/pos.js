@@ -1,3 +1,4 @@
+let itemSalesList = [];
 document.addEventListener('DOMContentLoaded', function() {
     const productElements = document.querySelectorAll('.product-info');
     const selectElement = document.getElementById('item-select');
@@ -146,6 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const salesItem = document.getElementById(`sales-item-${itemId}`);
             if (salesItem) {
                 salesItem.remove();
+                removeItem(itemId);
                 updateSalesItemCount();
             }            
         };
@@ -214,8 +216,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 feather.replace();
             }
             updateSalesItemCount();
+            addItem(item);
         }
-
+        function addItem(item) {
+            let existingItem = itemSalesList.find(i => i.id === item.id);
+        
+            if (existingItem) {
+                // Update the existing item and increment the quantity
+                existingItem.qty += 1;
+                console.log(`Item updated:`, existingItem);
+            } else {
+                // Add the new item and set quantity to 1
+                item.qty = 1;
+                itemSalesList.push(item);
+                console.log('Item added:', itemSalesList);
+            }
+        }
+        
+        // Function to remove an item by ID
+        function removeItem(id) {
+            itemSalesList = itemSalesList.filter(item => item.id !== id);
+            console.log('Item removed:', itemSalesList);
+        }
+        function updateQty(id, qty) {
+            // Find the index of the item with the specified id
+            let itemIndex = itemSalesList.findIndex(item => item.id === id);
+            if (itemIndex !== -1) {
+                // Update the quantity of the found item
+                itemSalesList[itemIndex].qty = qty;
+                console.log('Item updated:', itemSalesList[itemIndex]);
+            } else {
+                console.error(`Item with ID ${id} does not exist.`);
+            }
+        }
         document.getElementById('sales-list').addEventListener("click", function (event) {
             let target = event.target;
             let qtyItem = target.closest(".qty-item");
@@ -249,5 +282,73 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-
+        document.getElementById('posAddForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            let form = this;
+            let formData = new FormData(form);
+            let submitButton = document.getElementById('submit-button-id');
+            submitButton.disabled = true;
+        
+            // Include itemSalesList in the form data
+            formData.append('itemSalesList', JSON.stringify(itemSalesList));
+        
+            Swal.fire({
+                title: "Processing...",
+                text: "Please wait.",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+        
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                },
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.close();
+                submitButton.disabled = false;
+        
+                const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
+                const messageId = data.success ? 'success-message' : 'danger-message';
+                let modalMessage = data.success ? data.message : 'Submission failed';
+        
+                // Handle nested error messages
+                if (!data.success && data.message) {
+                    if (typeof data.message === 'object') {
+                        modalMessage = Object.values(data.message).flat().join(', ');
+                    } else {
+                        modalMessage = data.message;
+                    }
+                }
+        
+                document.getElementById(messageId).textContent = modalMessage;
+                new bootstrap.Modal(document.getElementById(modalId)).show();
+        
+                console.error(modalMessage, data.error);
+        
+                document.getElementsByName('cancel-button').forEach(button => button.click());
+        
+                if (data.success) {
+                    setTimeout(() => {
+                        if (redirect) {
+                            window.location.href = redirect;
+                        } else {
+                            window.location.reload();
+                        }
+                    }, 2000);
+                }
+            })
+            .catch(error => {
+                Swal.close();
+                submitButton.disabled = false;
+                document.getElementById('error-message').textContent = error.message || 'An error occurred';
+                new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                console.error('Submission failed:', error);
+            });
+        });
 });

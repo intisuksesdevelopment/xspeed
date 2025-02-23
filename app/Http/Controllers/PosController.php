@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\BankService;
 use App\Services\ItemService;
 use App\Services\UtilService;
 use App\Services\SalesService;
@@ -25,7 +26,8 @@ class PosController extends Controller
         $data['sales'] = SalesService::getActive($request);
         $data['customers']    = CustomerService::getActive($request);
         $data['paymentMethods']    = PaymentService::getActive($request);
-
+        $data['banks']    = BankService::getActive($request);
+        UtilService::convertToIdr(100, 'USD');
         return view('pages.pos.pos',$data);
     }
 

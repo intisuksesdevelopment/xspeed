@@ -143,8 +143,11 @@ Route::post('register', [LoginController::class, 'registration'])->name('registe
 
 //AUTH ROUTE**
 Route::middleware(['auth'])->group(function () {
-    Route::prefix('product')->group(function () {
-        // Route::get('/list', [ItemController::class, 'index']);
+    Route::prefix('pos')->group(function () {
+        Route::get('/', [PosController::class, 'index'])->name('pos');
+        Route::post('/add', [PosController::class, 'add'])->name('pos-add');
+        Route::post('/update', [UserController::class, 'update'])->name('user-update');
+        Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
     });
 
 });

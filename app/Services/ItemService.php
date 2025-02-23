@@ -32,11 +32,13 @@ class ItemService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
-        $units = Item::with(['category', 'subcategory', 'brand', 'warehouse', 'rack', 'images'])->where('status', 0)->orderBy($sortBy, $sortDirection)->get();
-        foreach ($units as $unit) {
-            $unit->availability = $unit->isAvailable();
+        $items = Item::with(['category', 'subcategory', 'brand', 'warehouse', 'rack', 'images'])->where('status', 0)->orderBy($sortBy, $sortDirection)->get();
+        foreach ($items as $item) {
+            $item->availability = $item->isAvailable();
+            $item->sell_price = UtilService::convertToIdr($item->sell_price, $item->currency);
+            $item->currency = 'IDR';
         }
-        return $units;
+        return $items;
     }
     public static function getDetail($uuid)
     {

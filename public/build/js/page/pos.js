@@ -4,12 +4,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectElement = document.getElementById('item-select');
     const items = JSON.parse(atob(encodedItems));
     const sales = JSON.parse(atob(encodedSales));
+    const customers = JSON.parse(atob(encodedCustomers));
 
     const salesList = document.getElementById('sales-list');
 
-    const shippingCost = 40.21; // Fixed shipping cost
-    const taxRate = 0.05; // 5% GST
-    const discountRate = 0.10; // 10% discount
+    const customerSelect = document.getElementById('customer-select');
+    const taxSelect = document.getElementById('tax-select');
+    const shippingSelect = document.getElementById('shipping-select');
+    const discountSelect = document.getElementById('discount-select');
+    const paymentSelect = document.getElementById('payment-method-select');
+
+
+
+    
 
     document.querySelectorAll('#categoryList li').forEach(function(category) {
         category.addEventListener('click', function() {
@@ -36,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <h6 class="product-name"><a href="javascript:void(0);">${item.name}</a></h6>
                                     <div class="d-flex align-items-center justify-content-between price">
                                         <span>${clearDecimal(item.stock)} ${item.unit}</span>
-                                        <p>${item.sell_price}</p>
+                                        <p>${formatRupiah(item.sell_price)}</p>
                                     </div>
                                 </div>
                             `;
@@ -62,26 +69,42 @@ document.addEventListener('DOMContentLoaded', function() {
         function calculateTotals() {
             let subtotal = 0;
             const productItems = salesList.querySelectorAll('.product-list');
-
+        
             productItems.forEach(function(productItem) {
                 const qty = parseFloat(productItem.querySelector('input[name="qty"]').value);
                 const price = parseFloat(productItem.querySelector('.info p').innerText.replace('$', ''));
                 subtotal += qty * price;
             });
+            let taxRate = parseFloat(taxSelect.value) / 100 || 0; 
+            let shippingCost = parseFloat(shippingSelect.value) || 0;
+            let discountRate = parseFloat(discountSelect.value) / 100 || 0;
+            let customer = customers.filter(customer => customer.code === customerSelect.value)[0];
+            if(discountRate!=parseFloat(customer.discount) / 100){
+                if (customer.discount != 0) {
+                    discountRate = parseFloat(customer.discount) / 100;
+                    $("#discount-select").val(parseFloat(customer.discount).toString()).change();
+                    
+                }
+            }
 
+            
+            
+        
             const tax = subtotal * taxRate;
             const discount = subtotal * discountRate;
             const total = subtotal + tax + shippingCost - discount;
-
+        
             const options = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+            document.getElementById('tax-value').innerText = taxRate*100;
+            document.getElementById('discount-value').innerText = discountRate*100;
             document.getElementById('subtotal').innerText = subtotal.toLocaleString('de-DE', options);
             document.getElementById('tax').innerText = tax.toLocaleString('de-DE', options);
             document.getElementById('shipping').innerText = shippingCost.toLocaleString('de-DE', options);
             document.getElementById('discount').innerText = `-${discount.toLocaleString('de-DE', options)}`;
             document.getElementById('total').innerText = total.toLocaleString('de-DE', options);
             document.getElementById('grandtotal').innerText = total.toLocaleString('de-DE', options);
-
         }
+        
         sales.forEach(function(sale) {
             var saleDiv = `
                 <div class="default-cover p-4 mb-4">
@@ -133,6 +156,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('sales-paid-list').innerHTML += saleDiv;
             }
         });
+        function reset() {
+            itemSalesList = [];
+            document.getElementById('transaction-id').innerText = generateTransactionID();
+            updateSalesItemCount();
+            calculateTotals();
+            salesList.innerHTML = '';
+        }
         function generateTransactionID() {
             const unixTimestamp = Math.floor(Date.now() / 1000);
             const randomNumber = Math.floor(100000 + Math.random() * 900000);
@@ -143,15 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('sales-item-count').innerText = itemCount;
             calculateTotals();
         }
-        window.removeSalesItem = function(itemId) {
-            const salesItem = document.getElementById(`sales-item-${itemId}`);
-            if (salesItem) {
-                salesItem.remove();
-                removeItem(itemId);
-                updateSalesItemCount();
-            }            
-        };
-        document.getElementById('transaction-id').innerText = generateTransactionID();
+        
 
         productElements.forEach(function(productElement) {
             productElement.addEventListener('click', function() {
@@ -238,6 +260,59 @@ document.addEventListener('DOMContentLoaded', function() {
             itemSalesList = itemSalesList.filter(item => item.id !== id);
             console.log('Item removed:', itemSalesList);
         }
+        function paymentMethodChange() {
+            const paymentSelect = document.getElementById('payment-method-select');
+            const selectedPaymentMethod = paymentSelect.options[paymentSelect.selectedIndex].text;
+
+            document.getElementById('payment-method-select').classList.add('d-none');
+            document.getElementById('div-bank').classList.add('d-none');
+            document.getElementById('div-account').classList.add('d-none');
+            document.getElementById('div-credit').classList.add('d-none');
+            document.getElementById('div-duedate').classList.add('d-none');
+            document.getElementById('payment-method-select').classList.add('d-none');
+
+            switch (selectedPaymentMethod) {
+                case 'Cash':
+                    break;
+                case 'Bank Transfer':
+                    document.getElementById('div-bank').classList.remove('d-none');
+                    console.log("Payment method: Bank Transfer");
+                    break;
+                case 'Debit':
+                    document.getElementById('div-account').classList.remove('d-none');
+                    console.log("Payment method: Debit");
+                    break;
+                case 'Due Date':
+                    document.getElementById('div-duedate').classList.remove('d-none');
+                    console.log("Payment method: Due Date");
+                    break;
+                case undefined:
+                    break;
+                default:
+                    console.log("Payment method: Credit");
+
+                    const installmentSelect = document.getElementById('installment-select');
+                
+                    const selectedOption = paymentSelect.options[paymentSelect.selectedIndex];
+                    const methods = JSON.parse(selectedOption.getAttribute('data-method'));
+                
+                    // Kosongkan opsi sebelumnya
+                    installmentSelect.innerHTML = '';
+                
+                    // Tambahkan opsi baru
+                    methods.forEach(function(method) {
+                        const option = document.createElement('option');
+                        option.value = method;
+                        option.text = method;
+                        installmentSelect.appendChild(option);
+                    });
+                    document.getElementById('div-bank').classList.remove('d-none');
+                    document.getElementById('div-credit').classList.remove('d-none');
+
+                }
+                    console.log("Payment method tidak dikenal");
+        }
+        
         function updateQty(id, qty) {
             // Find the index of the item with the specified id
             let itemIndex = itemSalesList.findIndex(item => item.id === id);
@@ -351,4 +426,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Submission failed:', error);
             });
         });
+
+        window.removeSalesItem = function(itemId) {
+            const salesItem = document.getElementById(`sales-item-${itemId}`);
+            if (salesItem) {
+                salesItem.remove();
+                removeItem(itemId);
+                updateSalesItemCount();
+            }            
+        };
+        window.reset = function() {
+            reset();  
+        };
+        window.calculate = function() {
+            calculateTotals();  
+        };
+        window.paymentMethodChange = function() {
+            paymentMethodChange();  
+        };
+
+
+        //INIT FUNCTION
+
+        document.getElementById('transaction-id').innerText = generateTransactionID();
+        paymentMethodChange();
+
 });

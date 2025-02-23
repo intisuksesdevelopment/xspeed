@@ -7,7 +7,7 @@
                 <a href="javascript:void(0);" class="btn btn-secondary mb-xs-3" data-bs-toggle="modal"
                     data-bs-target="#orders"><span class="me-1 d-flex align-items-center"><i data-feather="shopping-cart"
                             class="feather-16"></i></span>View Orders</a>
-                <a href="javascript:void(0);" class="btn btn-info"><span class="me-1 d-flex align-items-center"><i
+                <a href="javascript:void(0);" onclick="reset()" class="btn btn-info"><span class="me-1 d-flex align-items-center"><i
                             data-feather="rotate-cw" class="feather-16"></i></span>Reset</a>
                 <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recents"><span
                         class="me-1 d-flex align-items-center"><i data-feather="refresh-ccw"
@@ -63,7 +63,7 @@
                                                             <span class=" d-none" id="stock-{{ $item['sku'] }}" value="{{ \App\Services\UtilService::clearDecimal($item['stock']) }}"></span>
                                                             <span class=" d-none" id="price-{{ $item['sku'] }}" value="{{ $item['sell_price'] }}"></span>
                                                             <span>{{ \App\Services\UtilService::clearDecimal($item['stock']).' '.$item['unit'] }}</span>
-                                                            <p>{{ $item['sell_price'] }}</p>
+                                                            <p>{{\App\Services\UtilService::formatCurrency($item['sell_price'],$item['currency']) }}</p>
                                                         </div>
                                                         
                                                     </div>
@@ -99,7 +99,7 @@
                                 <h6>Customer Information</h6>
                                 <div class="input-block d-flex align-items-center">
                                     <div class="flex-grow-1">
-                                        <select class="select2 form-control" name="customer">
+                                        <select class="select2 form-control" name="customer" id="customer-select" onchange="calculate()">
                                             <option selected value="walkin">Walk in Customer</option>
                                             @foreach($customers as $customer)
                                              <option value="{{ $customer['code']}}">{{ $customer['name']}}</option>
@@ -135,7 +135,7 @@
                                         <div class="col-12 col-sm-4">
                                             <div class="input-block">
                                                 <label>Order Tax</label>
-                                                <select class="select " name="tax" id="tax-select">
+                                                <select class="select " name="tax" id="tax-select" onchange="calculate()">
                                                     <option value="10">10%</option>
                                                     <option value="11">11%</option>
                                                     <option value="12">12%</option>
@@ -148,25 +148,40 @@
                                         <div class="col-12 col-sm-4">
                                             <div class="input-block">
                                                 <label>Shipping</label>
-                                                <select class="select" name="shipping" id="shipping-select">
+                                                <select class="select" name="shipping" id="shipping-select" onchange="calculate()">
                                                     <option selected  value="0">0</option>
-                                                    <option value="15">15</option>
-                                                    <option value="20">20</option>
-                                                    <option value="20">25</option>
-                                                    <option value="30">30</option>
+                                                    <option value="10000">10.000</option>
+                                                    <option value="15000">15.000</option>
+                                                    <option value="20000">25.000</option>
+                                                    <option value="30000">30.000</option>
+                                                    <option value="50000">50.000</option>
+                                                    <option value="75000">70.000</option>
+                                                    <option value="100000">100.000</option>
+                                                    <option value="1500000">150.000</option>
+                                                    <option value="2000000">200.000</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <div class="input-block">
                                                 <label>Discount</label>
-                                                <select class="select" name="discount" id="discount-select">
+                                                <select class="select" name="discount" id="discount-select" onchange="calculate()">
+                                                    <option selected  value="0">0%</option>
+                                                    <option value="1">1%</option>
+                                                    <option value="2">2%</option>
+                                                    <option value="3">3%</option>
+                                                    <option value="4">4%</option>
+                                                    <option value="5">5%</option>
+                                                    <option value="6">6%</option>
+                                                    <option value="7">7%</option>
+                                                    <option value="8">8%</option>
+                                                    <option value="9">9%</option>
                                                     <option value="10">10%</option>
-                                                    <option value="10">10%</option>
-                                                    <option value="10">15%</option>
-                                                    <option value="10">20%</option>
-                                                    <option value="10">25%</option>
-                                                    <option value="10">30%</option>
+                                                    <option value="11">11%</option>
+                                                    <option value="12">12%</option>
+                                                    <option value="13">13%</option>
+                                                    <option value="14">14%</option>
+                                                    <option value="15">15%</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -176,23 +191,23 @@
                                     <table class="table table-responsive table-borderless">
                                         <tr>
                                             <td>Sub Total</td>
-                                            <td class="text-end" id="subtotal">0.00</td>
+                                            <td class="text-end" id="subtotal">0,00</td>
                                         </tr>
                                         <tr>
-                                            <td>Tax (GST 5%)</td>
-                                            <td class="text-end" id="tax">0.00</td>
+                                            <td>Tax (<span id="tax-value">10</span>%)</td>
+                                            <td class="text-end" id="tax">0,00</td>
                                         </tr>
                                         <tr>
                                             <td>Shipping</td>
-                                            <td class="text-end" id="shipping">0.00</td>
+                                            <td class="text-end" id="shipping">0,00</td>
                                         </tr>
                                         <tr>
-                                            <td class="danger">Discount (10%)</td>
-                                            <td class="danger text-end" id="discount">0.00</td>
+                                            <td class="danger">Discount (<span id="discount-value">0</span>%)</td>
+                                            <td class="danger text-end" id="discount">0,00</td>
                                         </tr>
                                         <tr>
                                             <td>Total</td>
-                                            <td class="text-end"><span  id="total"></span> IDR</td>
+                                            <td class="text-end"><span  id="total">0,00</span> IDR</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -202,20 +217,62 @@
                                     <h6>Payment Method</h6>
                                     <div class="row d-flex align-items-center justify-content-center methods">
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12">
-                                            <div class="input-block">
-                                               
-                                                <select class="select" name="payment_method" id="payment-method-select">
+                                            <div class="input-blocks mb-3 ">
+                                                <select class="select" name="payment_method" id="payment-method-select" onchange="paymentMethodChange()">
                                                     @foreach($paymentMethods as $paymentMethod)
-                                                        <option value="{{ $paymentMethod['id']}}">{{ $paymentMethod['name']}}</option>
+                                                        <option value="{{ $paymentMethod['id']}}" data-method="{{ $paymentMethod['method']}}">{{ $paymentMethod['name']}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="mb-3 input-blocks" id="div-bank">
+                                                <label class="form-label">Bank</label>
+                                                <select class="select" name="bank" id="bank-select">
+                                                    @foreach($banks as $bank)
+                                                        <option value="{{ $bank['code']}}">{{ $bank['name']}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div id="div-account">
+                                                <div class="mb-3 input-blocks">
+                                                    <label class="form-label">Account Number</label>
+                                                    <input type="text" class="form-control" name="account_number">
+                                                </div>
+                                                <div class="mb-3 input-blocks">
+                                                    <label class="form-label">Account Name</label>
+                                                    <input type="text" class="form-control" name="account_name">
+                                                </div>
+                                            </div>
+                                            <div id="div-credit">
+                                                <div class="mb-3 input-blocks">
+                                                    <label class="form-label">Card Number</label>
+                                                    <input type="text" class="form-control" name="card_number">
+                                                </div>
+                                                <div class="mb-3 input-blocks">
+                                                    <label class="form-label">Installment</label>
+                                                    <select class="select" name="installment" id="installment-select">
+                                                       
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div id="div-duedate">
+                                                <div class="input-blocks">
+                                                    <label>Due Date</label>
+                                                    <div class="input-groupicon calender-input">
+                                                        <i data-feather="calendar" class="info-img"></i>
+                                                        <input type="text" class="datetimepicker" id="date" style="z-index: 1000;position: relative;"
+                                                            placeholder="Choose">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+                                          
+                                            
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-grid btn-block">
                                     <a class="btn btn-secondary" href="javascript:void(0);">
-                                        Grand Total : <span id="grandtotal"></span><span> IDR</span>
+                                        Grand Total : <span id="grandtotal">0,00</span><span> IDR</span>
                                     </a>
                                 </div>
                                 <div class="btn-row d-sm-flex align-items-center justify-content-between">
@@ -245,6 +302,7 @@
     <script>
     const encodedSales = "{{ base64_encode(json_encode($sales)) }}";
     const encodedItems = "{{ base64_encode(json_encode($items)) }}";
+    const encodedCustomers = "{{ base64_encode(json_encode($customers)) }}";
     const productCategoryRoute = @json(route('product-category', ['category_id' => 'CATEGORY_ID']));
     function submitOrder(status) {
             const form = document.getElementById('posAddForm');

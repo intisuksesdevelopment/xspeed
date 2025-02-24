@@ -49,7 +49,9 @@ class Sale extends Model
         'confirm_at',
 
     ];
-
+    protected $hidden = [
+        'id',
+    ];
     public function user()
     {
         return $this->belongsTo(User::class, 'uid');

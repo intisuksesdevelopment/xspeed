@@ -39,6 +39,8 @@ Route::prefix('sales')->group(function () {
     Route::get('/', [SalesController::class, 'index'])->name('sales-list');
     Route::get('/add', [SalesController::class, 'addForm'])->name('sales-add-form');
     Route::post('/add', [SalesController::class, 'add'])->name('sales-add-form');
+    Route::get('/{id}', [SalesController::class, 'detail'])->name('sales-detail');
+
 
 });
 Route::prefix('stock')->group(function () {

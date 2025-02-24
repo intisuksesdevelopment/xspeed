@@ -36,4 +36,8 @@ class SalesController extends Controller
     {
         return SalesService::save($request);
     }
+    public function detail(Request $request)
+    {
+        return SalesService::detail($request);
+    }
 }

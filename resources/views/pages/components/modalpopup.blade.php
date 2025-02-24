@@ -7908,7 +7908,7 @@
         <div class="modal-dialog modal-md modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header p-4">
-                    <h5 class="modal-title">Orderss</h5>
+                    <h5 class="modal-title">Orders</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>

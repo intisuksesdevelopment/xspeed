@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\Sale;
+use App\Models\SaleData;
 use Illuminate\Http\Request;
 use App\Constants\CommonConstants;
 use Illuminate\Support\Facades\Log;
@@ -18,10 +19,10 @@ class SalesService{
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
         $sales = Sales::orderBy($sortBy, $sortDirection)->paginate($perPage);
-        foreach ($units as $unit) {
-            $unit->availability = $unit->isAvailable();
+        foreach ($sales as $sale) {
+            $sale->availability = $sale->isAvailable();
         }
-        return $units;
+        return $sales;
     }
 
     public static function getActive(Request $request)
@@ -44,15 +45,15 @@ class SalesService{
         try {
             $data           = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
-            $unit           = Unit::whereRaw('LOWER(unit) = ?', [strtolower($data['unit'])])->first();  
+            $sale           = Sale::whereRaw('LOWER(sale) = ?', [strtolower($data['sale'])])->first();  
 
-            if ($unit) {  
-                throw new AlreadyExistException("unit : {$unit->unit}");
+            if ($sale) {  
+                throw new AlreadyExistException("sale : {$sale->sale}");
             } else {  
-                $unit = new Unit();
+                $sale = new Sale();
                 // $supplier->validateAttributes($data);
-                $unit->fill($data);
-                $unit->save();
+                $sale->fill($data);
+                $sale->save();
     
                 return response()->json(['success' => true, 'message' => 'Add successfully!']);
             }  
@@ -71,13 +72,13 @@ class SalesService{
             $data           = $request->all();
             $data['status'] = $request->has('status') ? $request->input('status') : 0;
 
-            $unit = Unit::find($data['id']);
-            if (! $unit) {
+            $sale = Sale::find($data['id']);
+            if (! $sale) {
                 throw new NotFoundException("code : " . $data['code']);
             }
             // $category->validateAttributes($data);
-            $unit->fill($data);
-            $unit->update();
+            $sale->fill($data);
+            $sale->update();
 
             return response()->json([
                 'success' => true,
@@ -97,16 +98,48 @@ class SalesService{
             ], 500);
         }
     }
-
+    public static function detail($request)
+    {
+        try {
+            $data = [];
+            $sales = Sale::where('trx_id', $request->id)
+                        ->where('status', '<>', 2)
+                        ->first();
+            if ($sales) {
+                $data['sales'] = $sales;
+    
+                $salesData = SaleData::where('sales_id', $sales->id)
+                            ->where('status', '=', 0)->get();
+                if ($salesData) {
+                    $data['sales_data'] = $salesData;
+                }
+            }
+    
+            return $data;
+        } catch (NotFoundException $e) {
+            Log::error($e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Sale not found: ' . $e->getMessage(),
+            ], 404);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+    
     public static function delete($id)
     {
         try {
-            $unit = Unit::find($id);
-            if (! $unit) {
+            $sale = Sale::find($id);
+            if (! $sale) {
                 throw new NotFoundException("id : " . $id);
             }
-            $unit->status = 1;
-            $unit->update();
+            $sale->status = 1;
+            $sale->update();
 
             return response()->json([
                 'success' => true,
@@ -116,7 +149,7 @@ class SalesService{
             Log::error($e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Unit not found: ' . $e->getMessage(),
+                'message' => 'Sale not found: ' . $e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());

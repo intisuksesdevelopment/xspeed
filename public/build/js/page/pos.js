@@ -141,9 +141,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <p class="p-4">${sale.description}</p>
                     <div class="btn-row d-sm-flex align-items-center justify-content-between">
-                        <a href="javascript:void(0);" class="btn btn-info btn-icon flex-fill">Open</a>
-                        <a href="javascript:void(0);" class="btn btn-danger btn-icon flex-fill">Products</a>
-                        <a href="javascript:void(0);" class="btn btn-success btn-icon flex-fill">Print</a>
+                        <a href="javascript:void(0);" class="btn btn-info btn-icon flex-fill" onclick="openTransaction(${sale})">Open</a>
+                        <a href="javascript:void(0);" class="btn btn-success btn-icon flex-fill" onclick="printTransaction(${sale})">Print</a>
                     </div>
                 </div>
             `;
@@ -312,7 +311,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                     console.log("Payment method tidak dikenal");
         }
-        
+        function openTransaction(sale) {
+           
+        }
+        function printTransaction(sale) {
+          
+        }
         function updateQty(id, qty) {
             // Find the index of the item with the specified id
             let itemIndex = itemSalesList.findIndex(item => item.id === id);
@@ -442,6 +446,12 @@ document.addEventListener('DOMContentLoaded', function() {
             calculateTotals();  
         };
         window.paymentMethodChange = function() {
+            paymentMethodChange();  
+        };
+        window.openTransaction = function(sale) {
+            paymentMethodChange();  
+        };
+        window.printTransaction = function(sale) {
             paymentMethodChange();  
         };
 

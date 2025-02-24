@@ -26,7 +26,7 @@
                                         <img src="{{ URL::asset('/build/img/categories/category-01.png') }}" alt="Categories">
                                     </a>
                                     <h6><a href="javascript:void(0);">All Categories</a></h6>
-                                    <span>80 Items</span>
+                                    <span>{{ $items->count() }} Items</span>
                                 </li>
                                 @foreach($categories as $category)
                                     <li id="{{ $category['id']}}" data-category-id="{{ $category['id'] }}">

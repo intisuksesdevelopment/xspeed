@@ -165,7 +165,9 @@ document.addEventListener('DOMContentLoaded', function() {
         function generateTransactionID() {
             const unixTimestamp = Math.floor(Date.now() / 1000);
             const randomNumber = Math.floor(100000 + Math.random() * 900000);
-            return `${unixTimestamp}${randomNumber}`;
+            const transactionId = unixTimestamp+'/SLS/'+randomNumber;
+            document.getElementById('trx_id').value = transactionId;
+            return transactionId;
         }
         function updateSalesItemCount() {
             const itemCount = salesList.querySelectorAll('.product-list').length;
@@ -336,6 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let inputField = qtyItem.querySelector("input");
             let itemId = inputField.id.replace("qty-", ""); // Extract itemId
+
             let stock = parseInt(document.getElementById(`sales-stock-${itemId}`).textContent, 10);
             let price = parseFloat(document.getElementById(`sales-price-${itemId}`).textContent);
             let infoDiv = qtyItem.closest(".product-list").querySelector(".info p"); // Get price display
@@ -360,6 +363,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert("Stock limit reached!");
                 }
             }
+            itemSalesList.map(item => {
+                if (item.sku === itemId) {
+                    item.qty = qty;
+                }
+                return item;
+            });
         });
         document.getElementById('posAddForm').addEventListener('submit', function(event) {
             event.preventDefault();

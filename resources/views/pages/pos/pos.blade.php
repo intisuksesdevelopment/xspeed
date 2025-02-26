@@ -86,7 +86,9 @@
                             <div class="head d-flex align-items-center justify-content-between w-100">
                                 <div class="">
                                     <h5>Order List</h5>
-                                    <span>Transaction ID : #<span id="transaction-id" name="transaction_id"></span></span>
+                                    <span>Transaction ID : #<span id="transaction-id" ></span></span>
+                                    <span class="d-none">Transaction ID : #<input id="trx_id" name="trx_id"></span>
+                                    <span class="d-none">Transaction ID : #<input id="type" name="type" value="sales"></span>
                                 </div>
                                 <div class="">
                                     <a class="confirm-text" href="javascript:void(0);"><i data-feather="trash-2"
@@ -112,6 +114,7 @@
                                 </div>
                                 <div class="card-body">
                                     <select class="select2 form-control" name="item" id="item-select">
+                                        <option disabled selected>Select Item ...</option>
                                         @foreach($items as $item)
                                             <option value="{{ $item['sku']}}">{{ $item['name']}}</option>
                                         @endforeach
@@ -277,16 +280,16 @@
                                 </div>
                                 <div class="btn-row d-sm-flex align-items-center justify-content-between">
                                     <a href="javascript:void(0);" class="btn btn-info btn-icon flex-fill"
-                                        data-bs-toggle="modal" data-bs-target="#hold-order" onclick="submitOrder('hold')">
+                                        data-bs-toggle="modal" data-bs-target="#hold-order" onclick="submitOrder(2)">
                                         <span class="me-1 d-flex align-items-center"><i data-feather="pause" class="feather-16"></i></span>
                                         Hold
                                     </a>
-                                    <a href="javascript:void(0);" class="btn btn-danger btn-icon flex-fill" onclick="submitOrder('void')">
+                                    <a href="javascript:void(0);" class="btn btn-danger btn-icon flex-fill" onclick="deleteOrder('void')">
                                         <span class="me-1 d-flex align-items-center"><i data-feather="trash-2" class="feather-16"></i></span>
-                                        Void
+                                        Delete
                                     </a>
                                     <a href="javascript:void(0);" class="btn btn-success btn-icon flex-fill"
-                                        data-bs-toggle="modal" data-bs-target="#payment-completed" onclick="submitOrder('payment')">
+                                        data-bs-toggle="modal" data-bs-target="#payment-completed" onclick="submitOrder(0)">
                                         <span class="me-1 d-flex align-items-center"><i data-feather="credit-card" class="feather-16"></i></span>
                                         Payment
                                     </a>

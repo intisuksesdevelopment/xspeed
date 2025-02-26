@@ -8,6 +8,8 @@ use App\Constants\CommonConstants;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\NotFoundException;
 use Illuminate\Support\AlreadyExistException;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class SalesService{
     public static function getPaginated(Request $request)
@@ -43,10 +45,72 @@ class SalesService{
     public static function save(Request $request)
     {
         try {
+            dd($request->all());
+
+            //validate item is not empty
+
+            $items = $request->input('itemSalesList');
+            if (empty($items)) {
+                throw new NotFoundException("Item is empty");
+            }
+
+            $sales = Sale::where('trx_id', $request->input('trx_id'))->first();
+            if ($sales) {
+                throw new AlreadyExistException("trx_id : {$request->input('trx_id')}");
+            } else {
+
+                $subtotal = 0;
+                $total = 0;
+
+                foreach ($items as $item) {
+                    $saleData = new SaleData();
+                    $saleData->fill($item);
+                    $saleData->sales_id = $sales->id;
+                    $saleData->save();
+                    $total += $saleData->item_total;
+                }
+
+                $tax = 0;
+                $disc = 0;
+                $dp = 0;  
+                $up = 0;
+                $charge = 0;
+                $subTotalItem = 0;
+                $finalTotal = 0;
+                $paymentRemaining = 0;
+                $paymentChange = 0;
+                $paymentStatus = 0;
+                $paymentAt = null;
+                $expiredDate = null;
+                $paymentId = null;
+                $paymentData = null;
+                $currency = 'IDR';
+                $createdBy = Auth::user()->nik;
+                $processBy = null;
+                $confirmBy = null;  
+                $sales = new Sale();
+                $request['uuid'] = Str::uuid();
+                $request['name'] = $request->input('type').'-'.$request->input('trx_id');
+                $sales->fill($request->all());
+                $sales->save();
+                $total = 0;
+                
+                foreach ($items as $item) {
+                    $saleData = new SaleData();
+                    $saleData->fill($item);
+                    $saleData->sales_id = $sales->id;
+                    $saleData->save();
+                    $total += $saleData->item_total;
+                }
+                $sales->total = $total;
+                $sales->update();
+                return response()->json(['success' => true, 'message' => 'Add successfully!']);
+            }
             $data           = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
             $sale           = Sale::whereRaw('LOWER(sale) = ?', [strtolower($data['sale'])])->first();  
 
+            dd($request->all());
             if ($sale) {  
                 throw new AlreadyExistException("sale : {$sale->sale}");
             } else {  

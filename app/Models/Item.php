@@ -42,7 +42,7 @@ class Item extends Model
         'history_log',
     ];
     protected $hidden = [
-        'id',
+        'id','basic_price'
     ];
     public function validateAttributes($attributes, $id = null)
     {

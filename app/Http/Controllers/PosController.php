@@ -33,7 +33,7 @@ class PosController extends Controller
 
     public function add(Request $request)
     {
-        dd($request->all());
-        return CategoryService::save($request);
+       
+        return SalesService::save($request);
     }
 }

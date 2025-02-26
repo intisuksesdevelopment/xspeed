@@ -11,6 +11,7 @@ class Sale extends Model
     use HasFactory;
 
     protected $fillable = [
+        'uuid',
         'trx_id',
         'type',
         'name',

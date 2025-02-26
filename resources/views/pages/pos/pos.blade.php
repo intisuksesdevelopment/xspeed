@@ -227,6 +227,16 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div id="div-cash">
+                                                <div class="mb-3 input-blocks">
+                                                    <label class="form-label">Payment Amount</label>
+                                                    <input type="text" class="form-control" id="payment_total" name="payment_total" onchange="updatePaymentChange()" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                                </div>
+                                                <div class="mb-3 input-blocks">
+                                                    <label class="form-label">Payment Change</label>
+                                                    <input type="text" class="form-control" id="payment_change" name="payment_change" readonly>
+                                                </div>
+                                            </div>
                                             <div class="mb-3 input-blocks" id="div-bank">
                                                 <label class="form-label">Bank</label>
                                                 <select class="select" name="bank" id="bank-select">

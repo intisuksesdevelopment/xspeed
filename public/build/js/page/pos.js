@@ -261,6 +261,19 @@ document.addEventListener('DOMContentLoaded', function() {
             itemSalesList = itemSalesList.filter(item => item.id !== id);
             console.log('Item removed:', itemSalesList);
         }
+        function updatePaymentChange() {
+            // Get the payment total input value
+            const paymentTotalInput = document.getElementById('payment_total');
+            const totalAmountDue = document.getElementById('total');
+            const paymentTotal = parseFloat(paymentTotalInput.value) || 0; // Convert to number, default to 0 if empty
+    
+            // Calculate the payment change
+            const paymentChange = paymentTotal - totalAmountDue.value;
+    
+            // Update the payment change field
+            const paymentChangeInput = document.getElementById('payment_change');
+            paymentChangeInput.value = paymentChange >= 0 ? paymentChange.toFixed(2) : '0.00'; // Ensure 2 decimal places
+        }
         function paymentMethodChange() {
             const paymentSelect = document.getElementById('payment-method-select');
             const selectedPaymentMethod = paymentSelect.options[paymentSelect.selectedIndex].text;
@@ -274,6 +287,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             switch (selectedPaymentMethod) {
                 case 'Cash':
+                    document.getElementById('div-cash').classList.remove('d-none');
+
                     break;
                 case 'Bank Transfer':
                     document.getElementById('div-bank').classList.remove('d-none');
@@ -462,6 +477,9 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         window.printTransaction = function(sale) {
             paymentMethodChange();  
+        };
+        window.updatePaymentChange = function() {
+            updatePaymentChange();  
         };
 
 

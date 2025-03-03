@@ -21702,7 +21702,7 @@ body.mini-sidebar.expand-menu .sidebar .sidebar-menu > ul > li.submenu-open ul l
   display: flex;
 }
 .login-wrapper.bg-img {
-  background-image: url(../src/img/authentication/login-img.jpg);
+  background-image: url(../src/img/authentication/login-img.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

@@ -219,6 +219,38 @@
                                 <div class="block-section payment-method">
                                     <h6>Payment Method</h6>
                                     <div class="row d-flex align-items-center justify-content-center methods">
+                                        {{-- <div class="row align-items-center justify-content-center methods g-2 mb-4">
+                                            <div class="col-sm-6 col-md-4 col-xl d-flex">
+                                                <a href="javascript:void(0);" class="payment-item flex-fill active" data-bs-toggle="modal" data-bs-target="#payment-cash">
+                                                    <img src="build/src/img/icons/money.svg" alt="img">
+                                                    <p class="fw-medium">Cash</p>
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4 col-xl d-flex">
+                                                <a href="javascript:void(0);" class="payment-item flex-fill" data-bs-toggle="modal" data-bs-target="#payment-card">
+                                                    <img src="build/src/img/icons/card.svg" alt="img">
+                                                    <p class="fw-medium">Card</p>
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4 col-xl d-flex">
+                                                <a href="javascript:void(0);" class="payment-item flex-fill" data-bs-toggle="modal" data-bs-target="#payment-points">
+                                                    <img src="build/src/img/icons/stars.svg" alt="img">
+                                                    <p class="fw-medium">Points</p>
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4 col-xl d-flex">
+                                                <a href="javascript:void(0);" class="payment-item flex-fill" data-bs-toggle="modal" data-bs-target="#payment-deposit">
+                                                    <img src="build/src/img/icons/wallet.svg" alt="img">
+                                                    <p class="fw-medium">Deposit</p>
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4 col-xl d-flex">
+                                                <a href="javascript:void(0);" class="payment-item flex-fill" data-bs-toggle="modal" data-bs-target="#payment-cheque">
+                                                    <img src="build/src/img/icons/cheque.svg" alt="img">
+                                                    <p class="fw-medium">Cheque</p>
+                                                </a>
+                                            </div>
+                                        </div> --}}
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12">
                                             <div class="input-blocks mb-3 ">
                                                 <select class="select" name="payment_method" id="payment-method-select" onchange="paymentMethodChange()">
@@ -317,68 +349,7 @@
     const encodedItems = "{{ base64_encode(json_encode($items)) }}";
     const encodedCustomers = "{{ base64_encode(json_encode($customers)) }}";
     const productCategoryRoute = @json(route('product-category', ['category_id' => 'CATEGORY_ID']));
-    function submitOrder(status) {
-            const form = document.getElementById('posAddForm');
-            const formData = new FormData(form);
-            formData.append('itemSalesList', JSON.stringify(itemSalesList));
-            formData.append('status', status);
 
-            Swal.fire({
-                title: "Processing...",
-                text: "Please wait.",
-                icon: "info",
-                showConfirmButton: false,
-                allowOutsideClick: false
-            });
-
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                },
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                Swal.close();
-
-                const modalId = data.success ? targetModal : 'danger-alert-modal';
-                const messageId = data.success ? 'success-message' : 'danger-message';
-                let modalMessage = data.success ? data.message : 'Submission failed';
-
-                // Handle nested error messages
-                if (!data.success && data.message) {
-                    if (typeof data.message === 'object') {
-                        modalMessage = Object.values(data.message).flat().join(', ');
-                    } else {
-                        modalMessage = data.message;
-                    }
-                }
-
-                document.getElementById(messageId).textContent = modalMessage;
-                new bootstrap.Modal(document.getElementById(modalId)).show();
-
-                console.error(modalMessage, data.error);
-
-                document.getElementsByName('cancel-button').forEach(button => button.click());
-
-                if (data.success) {
-                    setTimeout(() => {
-                        if (data.redirect) {
-                            window.location.href = data.redirect;
-                        } else {
-                            window.location.reload();
-                        }
-                    }, 2000);
-                }
-            })
-            .catch(error => {
-                Swal.close();
-                document.getElementById('error-message').textContent = error.message || 'An error occurred';
-                new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
-                console.error('Submission failed:', error);
-            });
-        }
 
     </script>
 @endsection

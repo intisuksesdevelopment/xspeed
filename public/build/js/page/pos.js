@@ -347,16 +347,17 @@ document.addEventListener('DOMContentLoaded', function() {
         function validatePayment() {
             const paymentSelect = document.getElementById('payment-method-select');
             const selectedPaymentMethod = paymentSelect.options[paymentSelect.selectedIndex].text;
-
+            let message = "";
             switch (selectedPaymentMethod) {
                 case 'Cash':
-                    if(document.getElementById('payment_total').value == ''){
-                        alert('Please fill the payment total');
-                        return false;
+                    if(document.getElementById('payment_total').value == ''||
+                       document.getElementById('payment_total').value ==0){
+                        message = 'Please fill the payment total';
                     }
-                    if(document.getElementById('total').value < ''){
-                        alert('Amount paid must be greater than total');
-                        return false;
+                    if(
+                        document.getElementById('payment_total').value <
+                        document.getElementById('total').value ){
+                        message = 'Amount paid must be greater than total';
                     }
                     break;
                 case 'Bank Transfer':
@@ -376,7 +377,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 default:
                     return true;
                 }
+                
+                if (message=='')return true;
+                showWarning(message);
+                
+                return false;
         }
+
+
+        function formatThousandSeparator(input) {
+            // Hapus semua karakter non-digit
+            let value = input.value.replace(/[^0-9]/g, '');
+    
+            // Format angka dengan thousand separator
+            if (value.length > 3) {
+                value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+    
+            // Update nilai input
+            input.value = value;
+    
+            // Panggil fungsi lain jika diperlukan, misalnya updatePaymentChange()
+            updatePaymentChange();
+        }
+
+
         function submitOrder(status) {
             if(!validatePayment()){return;};
            const form = document.getElementById('posAddForm');
@@ -580,7 +605,9 @@ document.addEventListener('DOMContentLoaded', function() {
         window.submitOrder = function(id) {
             submitOrder(id);  
         };
-
+        window.formatThousandSeparator = function(input) {
+            formatThousandSeparator(input);  
+        };
         //INIT FUNCTION
 
         document.getElementById('transaction-id').innerText = generateTransactionID();

@@ -262,11 +262,11 @@
                                             <div id="div-cash">
                                                 <div class="mb-3 input-blocks">
                                                     <label class="form-label">Payment Amount</label>
-                                                    <input type="text" class="form-control" id="payment_total" name="payment_total" onchange="updatePaymentChange()" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                                    <input type="text" class="form-control" id="payment_total" name="payment_total" placeholder="0" oninput="formatThousandSeparator(this)">
                                                 </div>
                                                 <div class="mb-3 input-blocks">
                                                     <label class="form-label">Payment Change</label>
-                                                    <input type="text" class="form-control" id="payment_change" name="payment_change" readonly>
+                                                    <input type="text" class="form-control" id="payment_change" name="payment_change" placeholder="0" readonly>
                                                 </div>
                                             </div>
                                             <div class="mb-3 input-blocks" id="div-bank">
@@ -331,7 +331,8 @@
                                         Delete
                                     </a>
                                     <a href="javascript:void(0);" class="btn btn-success btn-icon flex-fill"
-                                        data-bs-toggle="modal" data-bs-target="#payment-completed" onclick="submitOrder(0)">
+                                        {{-- data-bs-toggle="modal" data-bs-target="#payment-completed"  --}}
+                                        onclick="submitOrder(0)">
                                         <span class="me-1 d-flex align-items-center"><i data-feather="credit-card" class="feather-16"></i></span>
                                         Payment
                                     </a>

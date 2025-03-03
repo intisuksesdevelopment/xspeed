@@ -288,7 +288,6 @@ document.addEventListener('DOMContentLoaded', function() {
             switch (selectedPaymentMethod) {
                 case 'Cash':
                     document.getElementById('div-cash').classList.remove('d-none');
-
                     break;
                 case 'Bank Transfer':
                     document.getElementById('div-bank').classList.remove('d-none');
@@ -345,6 +344,103 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error(`Item with ID ${id} does not exist.`);
             }
         }
+        function validatePayment() {
+            const paymentSelect = document.getElementById('payment-method-select');
+            const selectedPaymentMethod = paymentSelect.options[paymentSelect.selectedIndex].text;
+
+            switch (selectedPaymentMethod) {
+                case 'Cash':
+                    if(document.getElementById('payment_total').value == ''){
+                        alert('Please fill the payment total');
+                        return false;
+                    }
+                    if(document.getElementById('total').value < ''){
+                        alert('Amount paid must be greater than total');
+                        return false;
+                    }
+                    break;
+                case 'Bank Transfer':
+                    document.getElementById('div-bank').classList.remove('d-none');
+                    console.log("Payment method: Bank Transfer");
+                    break;
+                case 'Debit':
+                    document.getElementById('div-account').classList.remove('d-none');
+                    console.log("Payment method: Debit");
+                    break;
+                case 'Due Date':
+                    document.getElementById('div-duedate').classList.remove('d-none');
+                    console.log("Payment method: Due Date");
+                    break;
+                case undefined:
+                    break;
+                default:
+                    return true;
+                }
+        }
+        function submitOrder(status) {
+            if(!validatePayment()){return;};
+           const form = document.getElementById('posAddForm');
+           const formData = new FormData(form);
+           formData.append('itemSalesList', JSON.stringify(itemSalesList));
+           formData.append('status', status);
+
+           Swal.fire({
+               title: "Processing...",
+               text: "Please wait.",
+               icon: "info",
+               showConfirmButton: false,
+               allowOutsideClick: false
+           });
+
+           fetch(form.action, {
+               method: 'POST',
+               headers: {
+                   'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+               },
+               body: formData,
+           })
+           .then(response => response.json())
+           .then(data => {
+               Swal.close();
+
+               const modalId = data.success ? targetModal : 'danger-alert-modal';
+               const messageId = data.success ? 'success-message' : 'danger-message';
+               let modalMessage = data.success ? data.message : 'Submission failed';
+
+               // Handle nested error messages
+               if (!data.success && data.message) {
+                   if (typeof data.message === 'object') {
+                       modalMessage = Object.values(data.message).flat().join(', ');
+                   } else {
+                       modalMessage = data.message;
+                   }
+               }
+
+               document.getElementById(messageId).textContent = modalMessage;
+               new bootstrap.Modal(document.getElementById(modalId)).show();
+
+               console.error(modalMessage, data.error);
+
+               document.getElementsByName('cancel-button').forEach(button => button.click());
+
+               if (data.success) {
+                   setTimeout(() => {
+                       if (data.redirect) {
+                           window.location.href = data.redirect;
+                       } else {
+                           window.location.reload();
+                       }
+                   }, 2000);
+               }
+           })
+           .catch(error => {
+               Swal.close();
+               document.getElementById('error-message').textContent = error.message || 'An error occurred';
+               new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+               console.error('Submission failed:', error);
+           });
+       }
+
         document.getElementById('sales-list').addEventListener("click", function (event) {
             let target = event.target;
             let qtyItem = target.closest(".qty-item");
@@ -481,7 +577,9 @@ document.addEventListener('DOMContentLoaded', function() {
         window.updatePaymentChange = function() {
             updatePaymentChange();  
         };
-
+        window.submitOrder = function(id) {
+            submitOrder(id);  
+        };
 
         //INIT FUNCTION
 

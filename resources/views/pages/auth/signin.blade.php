@@ -8,10 +8,10 @@
                     @csrf
                     <div class="login-userset">
                         <div class="login-logo logo-normal">
-                            <img src="{{ URL::asset('/build/src/img/xpeed-logo-192x192.png') }}" alt="img">
+                            <img src="{{ URL::asset('/build/src/img/xspeed-logo-white.png') }}" alt="img">
                         </div>
                         <a href="{{ url('index') }}" class="login-logo logo-white">
-                            <img src="{{ URL::asset('/build/src/img/logo-white.png') }}" alt="">
+                            <img src="{{ URL::asset('/build/src/img/xspeed-logo-white.png') }}" alt="">
                         </a>
                         <div class="login-userheading">
                             <h3>Sign In</h3>

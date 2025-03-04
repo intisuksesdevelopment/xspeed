@@ -280,6 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             document.getElementById('payment-method-select').classList.add('d-none');
             document.getElementById('div-bank').classList.add('d-none');
+            document.getElementById('div-cash').classList.add('d-none');
             document.getElementById('div-account').classList.add('d-none');
             document.getElementById('div-credit').classList.add('d-none');
             document.getElementById('div-duedate').classList.add('d-none');
@@ -290,11 +291,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById('div-cash').classList.remove('d-none');
                     break;
                 case 'Bank Transfer':
+                    document.getElementById('div-account').classList.remove('d-none');
                     document.getElementById('div-bank').classList.remove('d-none');
                     console.log("Payment method: Bank Transfer");
                     break;
                 case 'Debit':
                     document.getElementById('div-account').classList.remove('d-none');
+                    document.getElementById('div-bank').classList.remove('d-none');
+
                     console.log("Payment method: Debit");
                     break;
                 case 'Due Date':
@@ -325,7 +329,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById('div-credit').classList.remove('d-none');
 
                 }
-                    console.log("Payment method tidak dikenal");
         }
         function openTransaction(sale) {
            
@@ -350,16 +353,18 @@ document.addEventListener('DOMContentLoaded', function() {
             let message = "";
             switch (selectedPaymentMethod) {
                 case 'Cash':
+                    
                     if(document.getElementById('payment_total').value == ''||
                        document.getElementById('payment_total').value ==0){
-                        message = 'Please fill the payment total';
-                    }
-                    if(
-                        document.getElementById('payment_total').value <
-                        document.getElementById('total').value ){
-                        message = 'Amount paid must be greater than total';
+                        message = 'Please fill the payment amount';
                     }else{
+                        let change = clearAmountFormat(document.getElementById('payment_total').value) - clearAmountFormat(document.getElementById('total').innerText);
+                        if(change<0){
+                            message = 'Amount paid must be greater than total';
+
+                        }
                     }
+                    
                     break;
                 case 'Bank Transfer':
                     document.getElementById('div-bank').classList.remove('d-none');

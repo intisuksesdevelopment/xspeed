@@ -215,7 +215,11 @@
                                     </table>
                                 </div>
                                 
-    
+                                <div class="d-grid btn-block">
+                                    <a class="btn btn-secondary" href="javascript:void(0);">
+                                        Grand Total : <span id="grandtotal">0,00</span><span> IDR</span>
+                                    </a>
+                                </div>
                                 <div class="block-section payment-method">
                                     <h6>Payment Method</h6>
                                     <div class="row d-flex align-items-center justify-content-center methods">
@@ -259,11 +263,13 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div id="div-cash">
+                                            <div id="div-payment">
                                                 <div class="mb-3 input-blocks">
                                                     <label class="form-label">Payment Amount</label>
                                                     <input type="text" class="form-control" id="payment_total" name="payment_total" placeholder="0" oninput="formatThousandSeparator(this)" onchange="calculateChange(this)">
                                                 </div>
+                                            </div>
+                                            <div id="div-cash">
                                                 <div class="mb-3 input-blocks">
                                                     <label class="form-label">Payment Change</label>
                                                     <input type="text" class="form-control" id="payment_change" name="payment_change" placeholder="0" readonly>
@@ -315,11 +321,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="d-grid btn-block">
-                                    <a class="btn btn-secondary" href="javascript:void(0);">
-                                        Grand Total : <span id="grandtotal">0,00</span><span> IDR</span>
-                                    </a>
-                                </div>
+                                
                                 <div class="btn-row d-sm-flex align-items-center justify-content-between">
                                     <a href="javascript:void(0);" class="btn btn-info btn-icon flex-fill"
                                         data-bs-toggle="modal" data-bs-target="#hold-order" onclick="submitOrder(2)">

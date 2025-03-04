@@ -358,6 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         document.getElementById('payment_total').value <
                         document.getElementById('total').value ){
                         message = 'Amount paid must be greater than total';
+                    }else{
                     }
                     break;
                 case 'Bank Transfer':
@@ -400,7 +401,15 @@ document.addEventListener('DOMContentLoaded', function() {
             // Panggil fungsi lain jika diperlukan, misalnya updatePaymentChange()
             updatePaymentChange();
         }
+        function calculateChange(input) {
+            let change = clearAmountFormat(document.getElementById('payment_total').value) - clearAmountFormat(document.getElementById('total').innerText);
+            if(change>=0){
+                document.getElementById('payment_change').value = formatRupiah(change);
+            }else{
+                document.getElementById('payment_change').value = 0;
 
+            }
+        }
 
         function submitOrder(status) {
             if(!validatePayment()){return;};
@@ -607,6 +616,9 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         window.formatThousandSeparator = function(input) {
             formatThousandSeparator(input);  
+        };
+        window.calculateChange = function(input) {
+            calculateChange(input);  
         };
         //INIT FUNCTION
 

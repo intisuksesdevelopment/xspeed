@@ -169,6 +169,16 @@ function clearDecimal(number) {
 
     return formattedNumber;
 }
+function clearAmountFormat(numberString) {
+    numberString = numberString.replace(/\./g, '').replace(',', '.');
+
+    // Convert the string to a float and then to an integer
+    let number = parseFloat(numberString);
+    let integerNumber = Math.round(number);
+
+    return integerNumber;
+}
+
 function convertTimestamp(timestamp) {
     var createdDate = new Date(timestamp);
     var formattedDate = createdDate.getDate().toString().padStart(2, '0') + '-' +

@@ -262,7 +262,7 @@
                                             <div id="div-cash">
                                                 <div class="mb-3 input-blocks">
                                                     <label class="form-label">Payment Amount</label>
-                                                    <input type="text" class="form-control" id="payment_total" name="payment_total" placeholder="0" oninput="formatThousandSeparator(this)">
+                                                    <input type="text" class="form-control" id="payment_total" name="payment_total" placeholder="0" oninput="formatThousandSeparator(this)" onchange="calculateChange(this)">
                                                 </div>
                                                 <div class="mb-3 input-blocks">
                                                     <label class="form-label">Payment Change</label>

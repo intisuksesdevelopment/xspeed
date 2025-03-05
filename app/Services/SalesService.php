@@ -45,8 +45,10 @@ class SalesService{
     public static function save(Request $request)
     {
         try {
-            dd($request->all());
-
+            
+            $request['payment_total'] = UtilService::clearNumberFormat($request->input('payment_total'));
+            $request['payment_change'] = UtilService::clearNumberFormat($request->input('payment_change'));
+            
             //validate item is not empty
 
             $items = $request->input('itemSalesList');
@@ -58,25 +60,22 @@ class SalesService{
             if ($sales) {
                 throw new AlreadyExistException("trx_id : {$request->input('trx_id')}");
             } else {
-
-                $subtotal = 0;
-                $total = 0;
-
-                foreach ($items as $item) {
-                    $saleData = new SaleData();
-                    $saleData->fill($item);
-                    $saleData->sales_id = $sales->id;
-                    $saleData->save();
-                    $total += $saleData->item_total;
-                }
-
-                $tax = 0;
-                $disc = 0;
+                $tax = $request->input('tax')/100;
+                $disc = $request->input('discount')/100;
+                $shipping = $request->input('shipping');
                 $dp = 0;  
                 $up = 0;
                 $charge = 0;
                 $subTotalItem = 0;
                 $finalTotal = 0;
+                $subtotal = 0;
+                $total = 0;
+                $items = json_decode($items, true);
+                foreach ($items as $item) {
+                    $subtotal += ($item['qty'] * $item['sell_price']);
+                }
+                dd($subtotal) ;
+
                 $paymentRemaining = 0;
                 $paymentChange = 0;
                 $paymentStatus = 0;

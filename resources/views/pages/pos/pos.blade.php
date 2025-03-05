@@ -286,17 +286,17 @@
                                             <div id="div-account">
                                                 <div class="mb-3 input-blocks">
                                                     <label class="form-label">Account Number</label>
-                                                    <input type="text" class="form-control" name="account_number">
+                                                    <input type="text" class="form-control" id="account_number" name="account_number">
                                                 </div>
                                                 <div class="mb-3 input-blocks">
                                                     <label class="form-label">Account Name</label>
-                                                    <input type="text" class="form-control" name="account_name">
+                                                    <input type="text" class="form-control" id="account_name" name="account_name">
                                                 </div>
                                             </div>
                                             <div id="div-credit">
                                                 <div class="mb-3 input-blocks">
                                                     <label class="form-label">Card Number</label>
-                                                    <input type="text" class="form-control" name="card_number">
+                                                    <input type="text" class="form-control" id="card_number" name="card_number">
                                                 </div>
                                                 <div class="mb-3 input-blocks">
                                                     <label class="form-label">Installment</label>
@@ -310,7 +310,7 @@
                                                     <label>Due Date</label>
                                                     <div class="input-groupicon calender-input">
                                                         <i data-feather="calendar" class="info-img"></i>
-                                                        <input type="text" class="datetimepicker" id="date" style="z-index: 1000;position: relative;"
+                                                        <input type="text" class="datetimepicker" id="due-date" name="due-date" style="z-index: 1000;position: relative;"
                                                             placeholder="Choose">
                                                     </div>
                                                 </div>

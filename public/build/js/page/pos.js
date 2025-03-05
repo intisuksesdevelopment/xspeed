@@ -286,6 +286,16 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('div-duedate').classList.add('d-none');
             document.getElementById('payment-method-select').classList.add('d-none');
 
+            document.getElementById('payment_change').value=0;
+            document.getElementById('bank-select').value=0;
+            document.getElementById('account_number').value=null;
+            document.getElementById('account_name').value=null;
+            document.getElementById('due-date').value=null;
+            document.getElementById('card_number').value=null;
+            document.getElementById('installment-select').value=null;
+
+
+
             switch (selectedPaymentMethod) {
                 case 'Cash':
                     document.getElementById('div-cash').classList.remove('d-none');

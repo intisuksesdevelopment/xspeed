@@ -50,4 +50,11 @@ class UtilService
             throw new \Exception('Exchange rate not found');
         }
     }
+    public static function clearNumberFormat($numberString) {
+        // Remove dots as the thousands separator and replace the comma with a dot
+        $cleanString = str_replace(['.', ','], ['', '.'], $numberString);
+    
+        // Convert to integer
+        return intval($cleanString);
+    }
 }

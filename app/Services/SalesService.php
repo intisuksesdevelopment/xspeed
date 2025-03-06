@@ -71,6 +71,11 @@ class SalesService{
                 $subtotal = 0;
                 $total = 0;
                 $items = json_decode($items, true);
+                $checkStock = ItemService::checkStock($items);
+                dd($checkStock) ;
+                if ($checkStock['not_available']) {
+                    throw new NotFoundException("Stock not enough for: " . implode(", ", array_column($checkStock['not_available'], 'uuid')));
+                }
                 foreach ($items as $item) {
                     $subtotal += ($item['qty'] * $item['sell_price']);
                 }

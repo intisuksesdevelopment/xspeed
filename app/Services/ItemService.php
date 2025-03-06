@@ -160,4 +160,22 @@ class ItemService
         return response()->json($items);
     }
 
+    public static function checkStock($items){
+        $stock['available'] = [];
+        $stock['not_available'] = [];
+        foreach ($items as $item) {
+            
+            $itemSelect = Item::where('uuid', $item['uuid'])->first();
+            $remaining = $itemSelect->stock - $item['qty'];
+            dd($remaining);
+            if($remaining >= 0){
+                $stock['available'][] = $item;
+            }else{
+                $stock['not_available'][] = $item;
+            }
+        }
+        
+        return $stock;
+    }
+
 }

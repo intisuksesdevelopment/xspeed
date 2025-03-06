@@ -491,6 +491,14 @@ document.addEventListener('DOMContentLoaded', function() {
        }
 
         document.getElementById('sales-list').addEventListener("click", function (event) {
+            updateQty(event);
+        });
+        document.getElementById('sales-list').addEventListener("input", function (event) {
+            updateQty(event);
+
+        });
+
+        function updateQty(event){
             let target = event.target;
             let qtyItem = target.closest(".qty-item");
 
@@ -529,7 +537,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 return item;
             });
-        });
+            calculateTotals();
+        }
         document.getElementById('posAddForm').addEventListener('submit', function(event) {
             event.preventDefault();
         

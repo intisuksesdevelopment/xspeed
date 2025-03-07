@@ -71,8 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const productItems = salesList.querySelectorAll('.product-list');
         
             productItems.forEach(function(productItem) {
+                let inputField = productItem.querySelector("input");
+                let itemId = inputField.id.replace("qty-", ""); // Extract itemId
+    
+                const price = parseFloat(document.getElementById(`sales-price-${itemId}`).textContent);
                 const qty = parseFloat(productItem.querySelector('input[name="qty"]').value);
-                const price = parseFloat(productItem.querySelector('.info p').innerText.replace('$', ''));
                 subtotal += qty * price;
             });
             let taxRate = parseFloat(taxSelect.value) / 100 || 0; 
@@ -213,13 +216,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="info">
                                 <span>PT0005</span>
                                 <h6><a href="javascript:void(0);">${itemName}</a></h6>
-                                <p>${itemPrice}</p>
+                                <p>${formatRupiah(itemPrice)}</p>
                             </div>
                         </div>
                         <div class="qty-item text-center">
                             <div class="d-none">
                                 <span id="sales-stock-${itemId}">${itemStock}</span>
-                                <span id="sales-price-${itemId}">${itemPrice}</span>
+                                <span class="price" id="sales-price-${itemId}">${itemPrice}</span>
                             </div>
                             <a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="minus"><i data-feather="minus-circle" class="feather-14"></i></a>
                             <input type="text" class="form-control text-center" id="qty-${itemId}" name="qty" value="${itemQty}">
@@ -517,7 +520,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (qty > 1) {
                     qty--;
                     inputField.value = qty;
-                    infoDiv.textContent = (price * qty).toFixed(2); // Update total price
+                    infoDiv.textContent = formatRupiah(price * qty);
                 }
             }
 
@@ -526,7 +529,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (qty < stock) {
                     qty++;
                     inputField.value = qty;
-                    infoDiv.textContent = (price * qty).toFixed(2); // Update total price
+                    infoDiv.textContent = formatRupiah(price * qty);
                 } else {
                     alert("Stock limit reached!");
                 }

@@ -128,5 +128,13 @@ class CustomerService
             ], 500);
         }
     }
+    public static function getDetail($code)
+    {
+        $customer = Customer::where('code', $code)->first();
+        if (! $customer) {
+            throw new NotFoundException("code : " . $code);
+        }
+        return $customer;
+    }
 
 }

@@ -239,11 +239,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 salesList.innerHTML += productHtml;
                 feather.replace();
             });
-            
+            updateSalesItemCount();
         }
         function addProductToSalesList(item) {
             // Check if the item already exists in the sales list
-            let existingItem = itemSalesList.find(i => i.id === item.id);
+            let existingItem = itemSalesList.find(i => i.uuid === item.uuid);
         
             if (existingItem) {
                 // If the item exists, update its quantity

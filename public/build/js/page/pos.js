@@ -193,57 +193,124 @@ document.addEventListener('DOMContentLoaded', function() {
                 addProductToSalesList(selectedItem);
             }
         });
-        function addProductToSalesList(item) {
-            const itemId = item.sku;
-            let itemQty = 1;
-            const itemName = item.name;
-            const itemImage = item.image_url;
-            const itemPrice = item.sell_price;
-            const itemStock = item.stock;
-
-            let existingProduct = salesList.querySelector(`.product-info[data-item="${itemId}"]`);
-            if (existingProduct) {
-                let qtyInput = document.getElementById("qty-" + itemId);
-                itemQty = parseInt(qtyInput.value) + 1;
-                qtyInput.value = itemQty; // Update the quantity input value
-            } else {
+        function renderSalesList(){
+            
+            salesList.innerHTML = '';
+            itemSalesList.forEach(function(item) {
+                let salesListHtml = ``;
+                const itemId = item.sku;
+                const itemName = item.name;
+                const itemImage = item.image_url;
+                const itemPrice = item.sell_price;
+                const itemStock = item.stock;
+                const itemQty = item.qty ?? 1;
                 let productHtml = `
-                    <div class="product-list d-flex align-items-center justify-content-between" id="sales-item-${itemId}">
-                        <div class="d-flex align-items-center product-info" data-item="${itemId}">
-                            <a href="javascript:void(0);" class="img-bg">
-                                <img src="${itemImage}" alt="Products">
-                            </a>
-                            <div class="info">
-                                <span>PT0005</span>
-                                <h6><a href="javascript:void(0);">${itemName}</a></h6>
-                                <p>${formatRupiah(itemPrice)}</p>
+                        <div class="product-list d-flex align-items-center justify-content-between" id="sales-item-${itemId}">
+                            <div class="d-flex align-items-center product-info" data-item="${itemId}">
+                                <a href="javascript:void(0);" class="img-bg">
+                                    <img src="${itemImage}" alt="Products">
+                                </a>
+                                <div class="info">
+                                    <span>PT0005</span>
+                                    <h6><a href="javascript:void(0);">${itemName}</a></h6>
+                                    <p>${formatRupiah(itemPrice*itemQty)}</p>
+                                </div>
+                            </div>
+                            <div class="qty-item text-center">
+                                <div class="d-none">
+                                    <span id="sales-stock-${itemId}">${itemStock}</span>
+                                    <span class="price" id="sales-price-${itemId}">${itemPrice}</span>
+                                </div>
+                                <a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="minus"><i data-feather="minus-circle" class="feather-14"></i></a>
+                                <input type="text" class="form-control text-center" id="qty-${itemId}" name="qty" value="${itemQty}">
+                                <a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="plus"><i data-feather="plus-circle" class="feather-14"></i></a>
+                            </div>
+                            <div class="d-flex align-items-center action">
+                                <a class="btn-icon edit-icon me-2" href="#" data-bs-toggle="modal" data-bs-target="#edit-product">
+                                    <i data-feather="edit" class="feather-14"></i>
+                                </a>
+                                <a class="btn-icon delete-icon confirm-text" href="javascript:void(0);" onclick="removeSalesItem('${itemId}')">
+                                    <i data-feather="trash-2" class="feather-14"></i>
+                                </a>
                             </div>
                         </div>
-                        <div class="qty-item text-center">
-                            <div class="d-none">
-                                <span id="sales-stock-${itemId}">${itemStock}</span>
-                                <span class="price" id="sales-price-${itemId}">${itemPrice}</span>
-                            </div>
-                            <a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="minus"><i data-feather="minus-circle" class="feather-14"></i></a>
-                            <input type="text" class="form-control text-center" id="qty-${itemId}" name="qty" value="${itemQty}">
-                            <a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="plus"><i data-feather="plus-circle" class="feather-14"></i></a>
-                        </div>
-                        <div class="d-flex align-items-center action">
-                            <a class="btn-icon edit-icon me-2" href="#" data-bs-toggle="modal" data-bs-target="#edit-product">
-                                <i data-feather="edit" class="feather-14"></i>
-                            </a>
-                            <a class="btn-icon delete-icon confirm-text" href="javascript:void(0);" onclick="removeSalesItem('${itemId}')">
-                                <i data-feather="trash-2" class="feather-14"></i>
-                            </a>
-                        </div>
-                    </div>
-                `;
+                    `;
+
                 salesList.innerHTML += productHtml;
                 feather.replace();
-            }
-            updateSalesItemCount();
-            addItem(item);
+            });
+            
         }
+        function addProductToSalesList(item) {
+            // Check if the item already exists in the sales list
+            let existingItem = itemSalesList.find(i => i.id === item.id);
+        
+            if (existingItem) {
+                // If the item exists, update its quantity
+                existingItem.qty += 1; // Increment by item's qty or default to 1 if qty is not provided
+                console.log(`Item updated:`, existingItem);
+            } else {
+                // If the item doesn't exist, add it to the sales list
+                item.qty = item.qty || 1; // Ensure a default quantity of 1 if qty is not provided
+                itemSalesList.push(item);
+                console.log(`Item added:`, item);
+            }
+        
+            // Re-render the sales list to reflect the changes
+            renderSalesList();
+        }
+        
+        // function addProductToSalesList(item) {
+        //     const itemId = item.sku;
+        //     let itemQty = 1;
+        //     const itemName = item.name;
+        //     const itemImage = item.image_url;
+        //     const itemPrice = item.sell_price;
+        //     const itemStock = item.stock;
+
+        //     let existingProduct = salesList.querySelector(`.product-info[data-item="${itemId}"]`);
+        //     if (existingProduct) {
+        //         let qtyInput = document.getElementById("qty-" + itemId);
+        //         itemQty = parseInt(qtyInput.value) + 1;
+        //         qtyInput.value = itemQty; // Update the quantity input value
+        //     } else {
+        //         let productHtml = `
+        //             <div class="product-list d-flex align-items-center justify-content-between" id="sales-item-${itemId}">
+        //                 <div class="d-flex align-items-center product-info" data-item="${itemId}">
+        //                     <a href="javascript:void(0);" class="img-bg">
+        //                         <img src="${itemImage}" alt="Products">
+        //                     </a>
+        //                     <div class="info">
+        //                         <span>PT0005</span>
+        //                         <h6><a href="javascript:void(0);">${itemName}</a></h6>
+        //                         <p>${formatRupiah(itemPrice)}</p>
+        //                     </div>
+        //                 </div>
+        //                 <div class="qty-item text-center">
+        //                     <div class="d-none">
+        //                         <span id="sales-stock-${itemId}">${itemStock}</span>
+        //                         <span class="price" id="sales-price-${itemId}">${itemPrice}</span>
+        //                     </div>
+        //                     <a href="javascript:void(0);" class="dec d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="minus"><i data-feather="minus-circle" class="feather-14"></i></a>
+        //                     <input type="text" class="form-control text-center" id="qty-${itemId}" name="qty" value="${itemQty}">
+        //                     <a href="javascript:void(0);" class="inc d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="plus"><i data-feather="plus-circle" class="feather-14"></i></a>
+        //                 </div>
+        //                 <div class="d-flex align-items-center action">
+        //                     <a class="btn-icon edit-icon me-2" href="#" data-bs-toggle="modal" data-bs-target="#edit-product">
+        //                         <i data-feather="edit" class="feather-14"></i>
+        //                     </a>
+        //                     <a class="btn-icon delete-icon confirm-text" href="javascript:void(0);" onclick="removeSalesItem('${itemId}')">
+        //                         <i data-feather="trash-2" class="feather-14"></i>
+        //                     </a>
+        //                 </div>
+        //             </div>
+        //         `;
+        //         salesList.innerHTML += productHtml;
+        //         feather.replace();
+        //     }
+        //     updateSalesItemCount();
+        //     addItem(item);
+        // }
         function addItem(item) {
             let existingItem = itemSalesList.find(i => i.id === item.id);
         
@@ -537,8 +604,8 @@ document.addEventListener('DOMContentLoaded', function() {
             itemSalesList.map(item => {
                 if (item.sku === itemId) {
                     item.qty = qty;
+                    return item;
                 }
-                return item;
             });
             calculateTotals();
         }

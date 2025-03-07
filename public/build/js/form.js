@@ -146,8 +146,12 @@ function deleteData(routeName, id, csrfToken) {
   
 }
 function formatRupiah(number) {
-    // Ensure the number has two decimal places
-    let formattedNumber = number.toFixed(2);
+    let formattedNumber = number;
+    
+    // Ensure the input is a number or a valid string representation of a number
+    if (typeof number === 'number' || !isNaN(number)) {
+        formattedNumber = parseFloat(number).toFixed(2); // Parse and ensure two decimal places
+    }
 
     // Replace the decimal point with a comma
     formattedNumber = formattedNumber.replace('.', ',');
@@ -156,6 +160,7 @@ function formatRupiah(number) {
     formattedNumber = formattedNumber.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
     return formattedNumber;
+    
 }
 function clearDecimal(number) {
     // Convert the number to a string if it isn't already

@@ -3,13 +3,14 @@ namespace App\Services;
 
 use App\Models\Sale;
 use App\Models\SaleData;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Services\UtilService;
 use App\Constants\CommonConstants;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\NotFoundException;
 use Illuminate\Support\AlreadyExistException;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
 
 class SalesService{
     public static function getPaginated(Request $request)
@@ -62,7 +63,7 @@ class SalesService{
             } else {
                 $tax = $request->input('tax')/100;
                 $disc = $request->input('discount')/100;
-                $shipping = $request->input('shipping');
+                $shipping = $request->input('shipping')??0;
                 $dp = 0;  
                 $up = 0;
                 $charge = 0;
@@ -72,32 +73,53 @@ class SalesService{
                 $total = 0;
                 $items = json_decode($items, true);
                 $checkStock = ItemService::checkStock($items);
-                dd($checkStock) ;
                 if ($checkStock['not_available']) {
-                    throw new NotFoundException("Stock not enough for: " . implode(", ", array_column($checkStock['not_available'], 'uuid')));
+                    throw new NotFoundException("Stock not enough for: " . implode(", ", array_column($checkStock['not_available'], 'name')));
                 }
                 foreach ($items as $item) {
                     $subtotal += ($item['qty'] * $item['sell_price']);
+                    $subTotalItem +=$item['qty']  ;
                 }
-                dd($subtotal) ;
-
-                $paymentRemaining = 0;
-                $paymentChange = 0;
-                $paymentStatus = 0;
-                $paymentAt = null;
-                $expiredDate = null;
-                $paymentId = null;
-                $paymentData = null;
-                $currency = 'IDR';
-                $createdBy = Auth::user()->nik;
-                $processBy = null;
-                $confirmBy = null;  
-                $sales = new Sale();
+                $tax = $subtotal * $tax;
+                $disc = $subtotal * $disc;
+                $total = $subtotal + $tax + $shipping - $disc;
+                
                 $request['uuid'] = Str::uuid();
                 $request['name'] = $request->input('type').'-'.$request->input('trx_id');
+                $request['tax_percent'] = $request->input('tax');
+                $request['tax_total'] = $tax;
+                $request['disc_percent'] = $request->input('discount');
+                $request['disc_total'] = $disc;
+                $request['dp_total'] = $request->input('dp_total')??0;
+                $request['up_total'] = $request->input('up_total')??0;
+                $request['sub_total'] = $subtotal;
+                $request['charge_data'] = $request->input('charge_data')??"[]";
+                $request['charge_total'] = $request->input('charge_total')??0;
+                $request['sub_total_item'] = $subTotalItem;
+                $request['final_total'] = $total;
+
+                $request['payment_id'] =$request->input('payment_method')??12;
+                $request['payment_desc'] =$request->input('payment_desc')??null;
+                $request['payment_date'] =$request->input('payment_date')??null;
+                $request['payment_amount'] =UtilService::clearNumberFormat($request->input('payment_total')??0);
+                $request['payment_change'] =$request->input('payment_change')??0;
+                $request['payment_remaining'] =$request->input('payment_remaining')??0;
+                $request['payment_status'] =$request->input('status')??0;
+                $request['payment_at'] =date('Y-m-d H:i:s');
+                $request['currency'] =$request->input('currency')??'idr';
+                $request['created_by'] =Auth::user()->nik;
+                $request['status'] =0;
+
+                $custData = CustomerService::getDetail($request->input('customer'));
+                $request['cust_id'] =$custData['id'];
+                $request['cust_address'] =$custData['address'];
+                $request['cust_phone'] =$custData['phone'];
+                $request['cust_name'] =$custData['name'];
+                $request['cust_email'] =$custData['email'];
+
+                $sales = new Sale();
                 $sales->fill($request->all());
                 $sales->save();
-                $total = 0;
                 
                 foreach ($items as $item) {
                     $saleData = new SaleData();
@@ -125,6 +147,9 @@ class SalesService{
     
                 return response()->json(['success' => true, 'message' => 'Add successfully!']);
             }  
+        } catch (NotFoundException $e) {
+            Log::error($e->getMessage());
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());
             return response()->json(['success' => false, 'message' => $e->getMessage()]);

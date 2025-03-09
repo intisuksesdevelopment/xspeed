@@ -10,7 +10,6 @@ class SaleData extends Model
     use HasFactory;
     protected $table = 'sales_data';
     protected $fillable = [
-        'uuid',
         'sales_id',
         'item_id',
         'item_code',

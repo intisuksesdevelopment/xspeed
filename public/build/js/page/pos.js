@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </table>
                         </div>
                     </div>
-                    <p class="p-4">${sale.description}</p>
+                    <p class="p-4">${sale.description ?? ""}</p>
                     <div class="btn-row d-sm-flex align-items-center justify-content-between">
                         <a href="javascript:void(0);" class="btn btn-info btn-icon flex-fill" onclick="openTransaction(${sale})">Open</a>
                         <a href="javascript:void(0);" class="btn btn-success btn-icon flex-fill" onclick="printTransaction(${sale})">Print</a>
@@ -431,9 +431,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const paymentSelect = document.getElementById('payment-method-select');
             const selectedPaymentMethod = paymentSelect.options[paymentSelect.selectedIndex].text;
             let message = "";
+            
+            let payment_desc = selectedPaymentMethod;
             switch (selectedPaymentMethod) {
                 case 'Cash':
-                    
                     if(document.getElementById('payment_total').value == ''||
                        document.getElementById('payment_total').value ==0){
                         message = 'Please fill the payment amount';
@@ -447,14 +448,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     break;
                 case 'Bank Transfer':
+                    payment_desc = payment_desc + ' ' + document.getElementById('bank-select').value + ' ' + document.getElementById('account_number').value + ' - ' + document.getElementById('account_name').value;
                     document.getElementById('div-bank').classList.remove('d-none');
                     console.log("Payment method: Bank Transfer");
                     break;
                 case 'Debit':
+                    payment_desc = payment_desc + ' ' + document.getElementById('bank-select').value + ' ' + document.getElementById('card_number').value + ' - ' + document.getElementById('installment-select').value;
                     document.getElementById('div-account').classList.remove('d-none');
                     console.log("Payment method: Debit");
                     break;
                 case 'Due Date':
+                    payment_desc = payment_desc + ' ' + document.getElementById('due-date').value ;
+
                     document.getElementById('div-duedate').classList.remove('d-none');
                     console.log("Payment method: Due Date");
                     break;
@@ -463,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 default:
                     return true;
                 }
-                
+                document.getElementById('payment-desc').value = payment_desc;
                 if (message=='')return true;
                 showWarning(message);
                 
@@ -492,10 +497,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('payment_change').value = formatRupiah(change);
             }else{
                 document.getElementById('payment_change').value = 0;
-
             }
         }
+        function paymentFull() {
 
+            document.getElementById('payment_total').value = removeDecimal(document.getElementById('grandtotal').innerText);
+           
+        }
         function submitOrder(status) {
             if(!validatePayment()){return;};
            const form = document.getElementById('posAddForm');
@@ -522,7 +530,7 @@ document.addEventListener('DOMContentLoaded', function() {
            .then(data => {
                Swal.close();
 
-               const modalId = data.success ? targetModal : 'danger-alert-modal';
+               const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
                const messageId = data.success ? 'success-message' : 'danger-message';
                let modalMessage = data.success ? data.message : 'Submission failed';
 
@@ -713,6 +721,9 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         window.calculateChange = function(input) {
             calculateChange(input);  
+        };
+        window.paymentFull = function(input) {
+            paymentFull(input);  
         };
         //INIT FUNCTION
 

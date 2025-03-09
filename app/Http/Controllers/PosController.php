@@ -23,10 +23,17 @@ class PosController extends Controller
         ]);
         $data['items'] = ItemService::getActive($request);
         $data['categories'] = CategoryService::getActive($request);
-        $data['sales'] = SalesService::getActive($request);
         $data['customers']    = CustomerService::getActive($request);
         $data['paymentMethods']    = PaymentService::getActive($request);
         $data['banks']    = BankService::getActive($request);
+        $request = new Request([
+            'per_page' => 10,
+            'sortBy' => 'created_at',
+            'sortDirection' => 'desc',
+            'page' => 1
+        ]);
+        
+        $data['sales'] = SalesService::getActive($request);
         UtilService::convertToIdr(100, 'USD');
         return view('pages.pos.pos',$data);
     }

@@ -223,38 +223,6 @@
                                 <div class="block-section payment-method">
                                     <h6>Payment Method</h6>
                                     <div class="row d-flex align-items-center justify-content-center methods">
-                                        {{-- <div class="row align-items-center justify-content-center methods g-2 mb-4">
-                                            <div class="col-sm-6 col-md-4 col-xl d-flex">
-                                                <a href="javascript:void(0);" class="payment-item flex-fill active" data-bs-toggle="modal" data-bs-target="#payment-cash">
-                                                    <img src="build/src/img/icons/money.svg" alt="img">
-                                                    <p class="fw-medium">Cash</p>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-6 col-md-4 col-xl d-flex">
-                                                <a href="javascript:void(0);" class="payment-item flex-fill" data-bs-toggle="modal" data-bs-target="#payment-card">
-                                                    <img src="build/src/img/icons/card.svg" alt="img">
-                                                    <p class="fw-medium">Card</p>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-6 col-md-4 col-xl d-flex">
-                                                <a href="javascript:void(0);" class="payment-item flex-fill" data-bs-toggle="modal" data-bs-target="#payment-points">
-                                                    <img src="build/src/img/icons/stars.svg" alt="img">
-                                                    <p class="fw-medium">Points</p>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-6 col-md-4 col-xl d-flex">
-                                                <a href="javascript:void(0);" class="payment-item flex-fill" data-bs-toggle="modal" data-bs-target="#payment-deposit">
-                                                    <img src="build/src/img/icons/wallet.svg" alt="img">
-                                                    <p class="fw-medium">Deposit</p>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-6 col-md-4 col-xl d-flex">
-                                                <a href="javascript:void(0);" class="payment-item flex-fill" data-bs-toggle="modal" data-bs-target="#payment-cheque">
-                                                    <img src="build/src/img/icons/cheque.svg" alt="img">
-                                                    <p class="fw-medium">Cheque</p>
-                                                </a>
-                                            </div>
-                                        </div> --}}
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12">
                                             <div class="input-blocks mb-3 ">
                                                 <select class="select" name="payment_method" id="payment-method-select" onchange="paymentMethodChange()">
@@ -266,7 +234,11 @@
                                             <div id="div-payment">
                                                 <div class="mb-3 input-blocks">
                                                     <label class="form-label">Payment Amount</label>
-                                                    <input type="text" class="form-control" id="payment_total" name="payment_total" placeholder="0" oninput="formatThousandSeparator(this)" onchange="calculateChange(this)">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="payment_total" name="payment_total" placeholder="0" oninput="formatThousandSeparator(this)" onchange="calculateChange(this)">
+                                                        <button type="button" class="col-lg-3 btn btn-primary ms-2" onclick="paymentFull()">Payment Full</button>
+    
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div id="div-cash">
@@ -315,9 +287,16 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                           
-                                          
-                                            
+                                            <div class="d-none">
+                                                <input type="text"  id="payment-desc" name="payment_desc" >
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="input-blocks summer-description-box transfer mb-3">
+                                                    <label>Notes</label>
+                                                    <textarea name="description" class="form-control h-100" rows="5" maxlength="300"></textarea>
+                                                    <p class="mt-1">Maximum 300 Characters</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

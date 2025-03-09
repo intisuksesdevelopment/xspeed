@@ -30,6 +30,7 @@ class SalesService{
 
     public static function getActive(Request $request)
     {
+        
         $perPage = $request->input('per_page', CommonConstants::PAGE);
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', 'created_at');
@@ -40,6 +41,7 @@ class SalesService{
         foreach ($sales as $sale) {
             $sale->availability = $sale->isAvailable();
         }
+
         return $sales;
     }
 
@@ -99,8 +101,9 @@ class SalesService{
                 $request['final_total'] = $total;
 
                 $request['payment_id'] =$request->input('payment_method')??12;
-                $request['payment_desc'] =$request->input('payment_desc')??null;
+                $request['payment_data'] =$request->input('payment_desc')??null;
                 $request['payment_date'] =$request->input('payment_date')??null;
+                $request['description'] =$request->input('description')??null;
                 $request['payment_amount'] =UtilService::clearNumberFormat($request->input('payment_total')??0);
                 $request['payment_change'] =$request->input('payment_change')??0;
                 $request['payment_remaining'] =$request->input('payment_remaining')??0;
@@ -123,30 +126,25 @@ class SalesService{
                 
                 foreach ($items as $item) {
                     $saleData = new SaleData();
-                    $saleData->fill($item);
-                    $saleData->sales_id = $sales->id;
-                    $saleData->save();
-                    $total += $saleData->item_total;
-                }
-                $sales->total = $total;
-                $sales->update();
-                return response()->json(['success' => true, 'message' => 'Add successfully!']);
-            }
-            $data           = $request->all();
-            $data['status'] = $request->has('status') ? 0 : 1;
-            $sale           = Sale::whereRaw('LOWER(sale) = ?', [strtolower($data['sale'])])->first();  
+                    $saleData['sales_id'] =  $sales->id;
+                    $itemData = ItemService::getDetail($item['uuid']);
+                    $item['item_id'] = $itemData['id'];
+                    $item['item_id'] = $itemData['id'];
+                    $item['item_name'] = $itemData['name'];
+                    $item['item_code'] = $itemData['sku'];
+                    $item['item_unit'] = $itemData['unit'];
+                    $item['item_desc'] = $itemData['item_desc'];
+                    $item['item_amount'] = $item['qty'];
+                    $item['item_price'] = $itemData['sell_price'];
+                    $item['item_total'] = $itemData['sell_price']* $item['qty'];
+                    $item['created_at'] =date('Y-m-d H:i:s');
+                    $item['status'] =0;
 
-            dd($request->all());
-            if ($sale) {  
-                throw new AlreadyExistException("sale : {$sale->sale}");
-            } else {  
-                $sale = new Sale();
-                // $supplier->validateAttributes($data);
-                $sale->fill($data);
-                $sale->save();
-    
+                    $saleData->fill($item);
+                    $saleData->save();
+                }
                 return response()->json(['success' => true, 'message' => 'Add successfully!']);
-            }  
+            }            
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
             return response()->json(['success' => false, 'message' => $e->getMessage()]);

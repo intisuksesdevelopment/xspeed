@@ -174,6 +174,13 @@ function clearDecimal(number) {
 
     return formattedNumber;
 }
+function removeDecimal(numberString) {
+    // Replace commas and dots to normalize the format
+    let [integerPart] = numberString.split(',');
+
+    // Return the integer part only
+    return integerPart;
+}
 function clearAmountFormat(numberString) {
     numberString = numberString.replace(/\./g, '').replace(',', '.');
 

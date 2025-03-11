@@ -10,14 +10,15 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\SubCategoryController;
-use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -148,8 +149,15 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('pos')->group(function () {
         Route::get('/', [PosController::class, 'index'])->name('pos');
         Route::post('/add', [PosController::class, 'add'])->name('pos-add');
-        Route::post('/update', [UserController::class, 'update'])->name('user-update');
-        Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
+        Route::post('/update', [UserController::class, 'update'])->name('pos-update');
+        Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('pos-delete');
+    });
+    Route::prefix('order')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('order');
+        Route::get('/add', [OrderController::class, 'addForm'])->name('order-add');
+        Route::post('/add', [OrderController::class, 'add'])->name('order-add');
+        Route::post('/update', [OrderController::class, 'update'])->name('order-update');
+        Route::delete('/delete/{id}', [OrderController::class, 'delete'])->name('order-delete');
     });
 
 });

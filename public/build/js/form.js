@@ -145,6 +145,14 @@ function deleteData(routeName, id, csrfToken) {
     });
   
 }
+function generateTransactionID($type) {
+    const unixTimestamp = Math.floor(Date.now() / 1000);
+    const randomNumber = Math.floor(100000 + Math.random() * 900000);
+    const transactionId = unixTimestamp+'/'+$type+'/'+randomNumber;
+    document.getElementById('trx_id').value = transactionId;
+    return transactionId;
+
+}
 function formatRupiah(number) {
     let formattedNumber = number;
     

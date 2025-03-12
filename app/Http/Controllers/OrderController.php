@@ -8,6 +8,7 @@ use App\Services\UnitService;
 use App\Services\BrandService;
 use App\Services\OrderService;
 use App\Services\CategoryService;
+use App\Services\SupplierService;
 use App\Services\WarehouseService;
 use App\Services\SubCategoryService;
 use Illuminate\Pagination\Paginator;
@@ -23,6 +24,7 @@ class OrderController extends Controller
 
     public function addForm(Request $request)
     {
+        $data['suppliers']    = SupplierService::getActive($request);
         $data['categories']    = CategoryService::getActive($request);
         $data['subcategories'] = SubCategoryService::getActive($request);
         $data['warehouses']    = WarehouseService::getActive($request);

@@ -160,17 +160,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         function reset() {
             itemSalesList = [];
-            document.getElementById('transaction-id').innerText = generateTransactionID();
+            document.getElementById('transaction-id').innerText = generateTransactionID('SLS');
             updateSalesItemCount();
             calculateTotals();
             salesList.innerHTML = '';
-        }
-        function generateTransactionID() {
-            const unixTimestamp = Math.floor(Date.now() / 1000);
-            const randomNumber = Math.floor(100000 + Math.random() * 900000);
-            const transactionId = unixTimestamp+'/SLS/'+randomNumber;
-            document.getElementById('trx_id').value = transactionId;
-            return transactionId;
         }
         function updateSalesItemCount() {
             const itemCount = salesList.querySelectorAll('.product-list').length;

@@ -40,19 +40,28 @@
                                 <div class="accordion-body">
                                     <div class="row">
                                         <div class="col-lg-4 col-sm-6 col-12">
+                                            <span>Transaction ID : #<span id="transaction-id" ></span></span>
+                                            <span class="d-none">Transaction ID : #<input id="trx_id" name="trx_id"></span>
+                                            <span class="d-none">Transaction ID : #<input id="type" name="type" value="sales"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
-                                                <label class="form-label">Product Name</label>
-                                                <input type="text" class="form-control" name="name">
+                                                <label class="form-label">Supplier</label>
+                                                <select class="select2 form-control" id="supplier-select" name="supplier_id">
+                                                    @foreach($suppliers as $supplier)
+                                                    <option value="{{ $supplier['uuid']}}" selected>{{
+                                                        $supplier['name']}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
-                                                <label class="form-label">Warehouse</label>
-                                                <select class="select2 form-control" id="warehouse_id" name="warehouse_id">
-                                                    @foreach($warehouses as $warehouse)
-                                                    <option value="{{ $warehouse['id']}}" selected>{{
-                                                        $warehouse['name']}}</option>
-                                                    @endforeach
+                                                <label class="form-label">Contact Sales</label>
+                                                <select class="select2 form-control" id="contact-select" name="warehouse_id">
+                                                   
                                                 </select>
                                             </div>
                                         </div>

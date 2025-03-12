@@ -15111,7 +15111,7 @@
 
 @if(Route::is(['users']))
 <!-- Add User -->
-	<div class="modal fade" id="add-units">
+	<div class="modal fade" id="add-users">
 			<div class="modal-dialog modal-dialog-centered custom-modal-two">
 				<div class="modal-content">
 					<div class="page-wrapper-new p-0">
@@ -15433,6 +15433,97 @@
 			</div>
 		</div>
 		<!-- /Edit Supplier -->
+@endif
+
+@if(Route::is(['order','order-add']))
+    <!--add popup -->
+    <div class="modal fade" id="add-order-item">
+        <div class="modal-dialog add-centered">
+            <div class="modal-content">
+                <div class="page-wrapper p-0 m-0">
+                    <div class="content p-0">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4> Add Product</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="sales-list">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <div class="mb-3 add-product">
+                                                <label class="form-label">Brand</label>
+                                                <select class="select2 form-control" id="brand_id" name="brand_id">
+                                                    @foreach($brands as $brand)
+                                                    <option value="{{ $brand['id']}}" selected>{{ $brand['name']}}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 add-product">
+                                                <label class="form-label">Category</label>
+                                                <select class="select2 form-control" name="category_id"
+                                                        id="category_id">
+                                                        @foreach($categories as $category)
+                                                        <option value="{{ $category['id']}}" selected>{{
+                                                            $category['name']}}</option>
+                                                        @endforeach
+                                                    </select>
+                                            </div>
+                                            <div class="mb-3 add-product">
+                                                <label class="form-label">Sub Category</label>
+                                                <select class="select2 form-control" name="subcategory_id"
+                                                        id="subcategory_id">
+                                                       
+                                                </select>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="table-responsive no-pagination">
+                                            <table class="table  datanew">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product</th>
+                                                        <th>Qty</th>
+                                                        <th>Purchase Price($)</th>
+                                                        <th>Discount($)</th>
+                                                        <th>Tax(%)</th>
+                                                        <th>Tax Amount($)</th>
+                                                        <th>Unit Cost($)</th>
+                                                        <th>Total Cost(%)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /add popup -->
 @endif
 <div id="success-alert-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm">

@@ -357,6 +357,12 @@
                         data-feather="download" class="me-2"></i>{{ $li_4 }}</a>
             </div>
         @endif
+        @if (Route::is(['order','order-add']))
+            <div class="page-btn">
+                <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-order-item"><i
+                        data-feather="plus-circle" class="me-2"></i>Add Product</a>
+            </div>
+        @endif
     </div>
 @endif
 

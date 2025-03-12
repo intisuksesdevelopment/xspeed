@@ -60,138 +60,32 @@
                                         <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
                                                 <label class="form-label">Contact Sales</label>
-                                                <select class="select2 form-control" id="contact-select" name="warehouse_id">
-                                                   
-                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
-                                                <label class="form-label">Rack</label>
-                                                <select class="select2 form-control" id="rack_id" name="rack_id">
-                                                    @foreach($racks as $rack)
-                                                    <option value="{{ $rack['id']}}" selected>{{ $rack['name']}}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="addservice-info">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-sm-6 col-12">
-                                                <div class="mb-3 add-product">
-                                                    <div class="add-newplus">
-                                                        <label class="form-label">Brand</label>
-                                                        <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                            data-bs-target="#add-units-brand"><i
-                                                                data-feather="plus-circle"
-                                                                class="plus-down-add"></i><span>Add New</span></a>
+                                                    <div class="flex flex-row content-center gap-2 font-bold text-xs uppercase text-primarydark">
+                                                        <span class="font-medium">Nama :</span><span class="" id="add-view-supplier-contact-name">Jakson</span>
                                                     </div>
-                                                    <select class="select2 form-control" id="brand_id" name="brand_id">
-                                                        @foreach($brands as $brand)
-                                                        <option value="{{ $brand['id']}}" selected>{{ $brand['name']}}
-                                                        </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-sm-6 col-12">
-                                                <div class="mb-3 add-product">
-                                                    <div class="add-newplus">
-                                                        <label class="form-label">Category</label>
-                                                        <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                            data-bs-target="#add-units-category"><i
-                                                                data-feather="plus-circle"
-                                                                class="plus-down-add"></i><span>Add
-                                                                New</span></a>
+                                                    <div class="flex flex-row content-center gap-2 font-bold text-xs uppercase text-primarydark">
+                                                        <span class="font-medium">Divisi :</span><span class="" id="add-view-supplier-contact-position">admin</span>
                                                     </div>
-                                                    <select class="select2 form-control" name="category_id"
-                                                        id="category_id">
-                                                        @foreach($categories as $category)
-                                                        <option value="{{ $category['id']}}" selected>{{
-                                                            $category['name']}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-sm-6 col-12">
-                                                <div class="mb-3 add-product">
-                                                    <label class="form-label">Sub Category</label>
-                                                    <select class="select2 form-control" name="subcategory_id"
-                                                        id="subcategory_id">
-                                                        {{-- @foreach($subcategories as $subcategory)
-                                                        <option value="{{ $subcategory['id']}}" selected>{{
-                                                            $subcategory['name']}}</option>
-                                                        @endforeach --}}
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="add-product-new">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-sm-6 col-12">
-                                                <div class="mb-3 add-product">
-                                                    <div class="add-newplus">
-                                                        <label class="form-label">Unit</label>
-                                                        <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                            data-bs-target="#add-unit"><i data-feather="plus-circle"
-                                                                class="plus-down-add"></i><span>Add New</span></a>
+                                                    <div class="flex flex-row content-center gap-2 pb-1 border-b-2 border-primarydark font-bold text-xs uppercase text-primarydark">
+                                                        <span class="font-medium">Telepon :</span><span class="text-[10px] font-semibold" id="add-view-supplier-contact-phone">08123456789</span>
                                                     </div>
-                                                    <select class="select2 form-control" name="unit">
-
-                                                        @foreach($units as $unit)
-                                                        <option value="{{ $unit['unit']}}" selected>{{ $unit['unit'].' -
-                                                            '.$unit['name']}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
+                                                    <div>
+                                                        <span class="font-bold uppercase text-primarydark" id="add-view-supplier-name">rcb indonesia</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class=" uppercase text-primarydark text-[10px] font-semibold" id="add-view-supplier-address">jl. lenteng agung raya no. 5, jakarta selatan dki jakarta 12620</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class=" text-primarydark text-[10px] font-semibold" id="add-view-supplier-email">rcbindonesia@gmail.com</span>
+                                                    </div>
                                             </div>
-                                            <div class="col-lg-4 col-sm-6 col-12">
-                                                <div class="input-blocks add-product list">
-                                                    <label>Sku</label>
-                                                    <input type="text" class="form-control list"
-                                                        placeholder="Please Enter Item Code" name="sku" id="sku-input">
-                                                    <button type="submit" class="btn btn-primaryadd"
-                                                        id="generate-sku-btn">
-                                                        Generate Sku
-                                                    </button>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-lg-4 col-sm-6 col-12">
-                                                <div class="input-blocks add-product list">
-                                                    <label>Barcode</label>
-                                                    <input type="text" class="form-control list"
-                                                        placeholder="Please Enter Item Barcode" name="barcode" id="barcode-input">
-                                                    <button type="submit" class="btn btn-primaryadd"
-                                                        id="generate-barcode-btn">
-                                                        Generate Barcode
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-4 col-sm-6 col-12">
-                                                <div class="mb-3 add-product">
-                                                    <label class="form-label">Color</label>
-                                                    <input type="text" class="form-control" name="color">
-                                                </div>
-                                            </div>
-
                                         </div>
                                     </div>
-                                    <!-- Editor -->
-                                    <div class="col-lg-12">
-                                        <div class="input-blocks summer-description-box transfer mb-3">
-                                            <label>Description</label>
-                                            <textarea class="form-control h-100" rows="5" name="desc"></textarea>
-                                            <p class="mt-1">Maximum 60 Characters</p>
-                                        </div>
-                                    </div>
-                                    <!-- /Editor -->
+                                   
                                 </div>
                             </div>
                         </div>
@@ -203,8 +97,7 @@
                                     aria-controls="collapseTwo">
                                     <div class="text-editor add-list">
                                         <div class="addproduct-icon list icon">
-                                            <h5><i data-feather="life-buoy" class="add-info"></i><span>Pricing &
-                                                    Stocks</span></h5>
+                                            <h5><i data-feather="life-buoy" class="add-info"></i><span>Product Orders</span></h5>
                                             <a href="javascript:void(0);"><i data-feather="chevron-down"
                                                     class="chevron-down-add"></i></a>
                                         </div>
@@ -224,116 +117,73 @@
                                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                                             aria-labelledby="pills-home-tab">
                                             <div class="row">
-                                                <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="input-blocks add-product">
-                                                        <label>Basic Price</label>
-                                                        <input type="number" class="form-control" value="0"
-                                                            name="basic_price">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="input-blocks add-product">
-                                                        <label>Sell Price</label>
-                                                        <input type="number" class="form-control" value="0"
-                                                            name="sell_price">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="mb-3 add-product">
-                                                        <label class="form-label">Currency</label>
-                                                        <select class="select2 form-control" name="currency">
-                                                            <option value="IDR" selected>Indonesian Rupiah (IDR)
-                                                            </option>
-                                                            <option value="USD">US Dollar (USD)</option>
-                                                            <option value="EUR">Euro (EUR)</option>
-                                                            <option value="JPY">Japanese Yen (JPY)</option>
-                                                            <option value="MYR">Malaysian Ringgit (MYR)</option>
-                                                            <option value="THB">Thai Baht (THB)</option>
-                                                            <option value="SGD">Singapore Dollar (SGD)</option>
-                                                            <option value="CNY">Chinese Yuan (CNY)</option>
-                                                        </select>
+                                                <div class="col-lg-12 col-sm-6 col-12">
+                                                    <div class="table-responsive product-list">
+                                                        <table class="table datanew">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="no-sort">
+                                                                        <label class="checkboxs">
+                                                                            <input type="checkbox" id="select-all">
+                                                                            <span class="checkmarks"></span>
+                                                                        </label>
+                                                                    </th>
+                                                                    <th>Product</th>
+                                                                    <th>SKU</th>
+                                                                    <th>Category</th>
+                                                                    <th>Brand</th>
+                                                                    <th>Sell Price</th>
+                                                                    <th>Unit</th>
+                                                                    <th>Qty</th>
+                                                                    <th>Created by</th>
+                                                                    <th>Status</th>
+                                                                    <th class="no-sort">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                               
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="input-blocks add-product">
-                                                        <label>Quantity</label>
-                                                        <input type="number" class="form-control" value="0"
-                                                            name="stock">
-                                                    </div>
+                                                <div class="col-lg-8 col-sm-6 col-12">
                                                 </div>
                                                 <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="input-blocks add-product">
-                                                        <label>Quantity Alert</label>
-                                                        <input type="number" class="form-control" value="0"
-                                                            name="stock_min">
+                                                    <div class="order-total">
+                                                        <table class="table table-responsive table-borderless">
+                                                            <tr>
+                                                                <td>Sub Total</td>
+                                                                <td class="text-end" id="subtotal">0,00</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Tax (<span id="tax-value">10</span>%)</td>
+                                                                <td class="text-end" id="tax">0,00</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Shipping</td>
+                                                                <td class="text-end" id="shipping">0,00</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="danger">Discount (<span id="discount-value">0</span>%)</td>
+                                                                <td class="danger text-end" id="discount">0,00</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Total</td>
+                                                                <td class="text-end"><span  id="total">0,00</span> IDR</td>
+                                                            </tr>
+                                                        </table>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="mb-3 add-product">
-                                                        <label class="form-label">Status</label>
-                                                        <select class="select form-control" name="status">
-                                                            <option value="0" selected>Available</option>
-                                                            <option value="1">Not Available</option>
-                                                        </select>
+                                                    
+                                                    <div class="d-grid btn-block">
+                                                        <a class="btn btn-secondary" href="javascript:void(0);">
+                                                            Grand Total : <span id="grandtotal">0,00</span><span> IDR</span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="accordion-card-one accordion" id="accordionExample3">
-                                                <div class="accordion-item">
-                                                    <div class="accordion-header" id="headingThree">
-                                                        <div class="accordion-button" data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseThree"
-                                                            aria-controls="collapseThree">
-                                                            <div class="addproduct-icon list">
-                                                                <h5><i data-feather="image"
-                                                                        class="add-info"></i><span>Images</span></h5>
-                                                                <a href="javascript:void(0);"><i
-                                                                        data-feather="chevron-down"
-                                                                        class="chevron-down-add"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="collapseThree" class="accordion-collapse collapse show"
-                                                        aria-labelledby="headingThree"
-                                                        data-bs-parent="#accordionExample3">
-                                                        <div class="accordion-body">
-                                                            <div class="text-editor add-list add">
-                                                                <div class="col-lg-12">
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-3 col-sm-6 col-12">
-                                                            <div class="input-blocks add-product">
-                                                                <label>Url Imaage 1</label>
-                                                                <input type="text" class="form-control" name="image1">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-sm-6 col-12">
-                                                            <div class="input-blocks add-product">
-                                                                <label>Url Imaage 2</label>
-                                                                <input type="text" class="form-control" name="image2">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-sm-6 col-12">
-                                                            <div class="input-blocks add-product">
-                                                                <label>Url Imaage 3</label>
-                                                                <input type="text" class="form-control" name="image3">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-sm-6 col-12">
-                                                            <div class="input-blocks add-product">
-                                                                <label>Url Imaage 4</label>
-                                                                <input type="text" class="form-control" name="image4">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                           
                                         </div>
 
                                     </div>

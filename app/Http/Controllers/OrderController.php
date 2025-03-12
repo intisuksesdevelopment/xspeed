@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\ItemService;
 use App\Services\RackService;
 use App\Services\UnitService;
 use App\Services\BrandService;
@@ -31,6 +32,7 @@ class OrderController extends Controller
         $data['racks']         = RackService::getActive($request);
         $data['brands']        = BrandService::getActive($request);
         $data['units']         = UnitService::getActive($request);
+        $data['items']         = ItemService::getActive($request);
         return view('pages.orders.order-add', $data);
     }
 }

@@ -207,28 +207,12 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var categories = @json($categories);
-        var subcategories = @json($subcategories);
-        var brands = @json($brands);
-        // Event listener for category dropdown change
-        $('#category_id').on('change', function() {
-            var selectedCategoryId = $(this).val();
-            $('#subcategory_id').empty();
-            $.each(subcategories, function(index, subcategory) {
-                if (subcategory.category_id == selectedCategoryId) {
-                    var option = $('<option>', {
-                        value: subcategory.id,
-                        text: subcategory.name
-                    });
-                    $('#subcategory_id').append(option);
-
-                    // Select the first option that is appended
-                    if (index === 0) {
-                        $('#subcategory_id').val(subcategory.id);
-                    }
-                }
-            });
-        });
+        const encodedItems = "{{ base64_encode(json_encode($items)) }}";
+        const encodedBrands = "{{ base64_encode(json_encode($brands)) }}";
+        const encodedCategories = "{{ base64_encode(json_encode($categories)) }}";
+        const encodedSubcategories = "{{ base64_encode(json_encode($subcategories)) }}";
+        const productCategoryRoute = @json(route('product-category', ['category_id' => 'CATEGORY_ID']));
+       
 // Example function to generate a SKU (you can customize this as needed)
     function generateSKU(category, brand, id) {
         const catCode = category.replace(/\s+/g, '').toUpperCase();

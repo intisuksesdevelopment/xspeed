@@ -15457,27 +15457,19 @@
                                         <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
                                                 <label class="form-label">Brand</label>
-                                                <select class="select2 form-control" id="brand_id" name="brand_id">
-                                                    @foreach($brands as $brand)
-                                                    <option value="{{ $brand['id']}}" selected>{{ $brand['name']}}
-                                                    </option>
-                                                    @endforeach
+                                                <select class="select2 form-control" id="brand-list" name="brand_id">
+                                                  
                                                 </select>
                                             </div>
                                             <div class="mb-3 add-product">
                                                 <label class="form-label">Category</label>
-                                                <select class="select2 form-control" name="category_id"
-                                                        id="category_id">
-                                                        @foreach($categories as $category)
-                                                        <option value="{{ $category['id']}}" selected>{{
-                                                            $category['name']}}</option>
-                                                        @endforeach
-                                                    </select>
+                                                <select class="select2 form-control" id="category-list" name="category_id">
+                                                     
+                                                </select>
                                             </div>
                                             <div class="mb-3 add-product">
                                                 <label class="form-label">Sub Category</label>
-                                                <select class="select2 form-control" name="subcategory_id"
-                                                        id="subcategory_id">
+                                                <select class="select2 form-control" id="subcategory-list" name="subcategory_id">
                                                        
                                                 </select>
                                             </div>

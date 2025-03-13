@@ -1,7 +1,7 @@
 let itemOrderList = [];
 document.addEventListener('DOMContentLoaded', function() {
     const items = JSON.parse(atob(encodedItems));
-    const contacts = JSON.parse(atob(encodedContacts));
+    const brands = JSON.parse(atob(encodedBrands));
     const categories = JSON.parse(atob(encodedCategories));
     const subcategories = JSON.parse(atob(encodedSubcategories));
 
@@ -36,6 +36,29 @@ document.addEventListener('DOMContentLoaded', function() {
               });
 
         }
+        document.getElementById('supplier-list').addEventListener("change", function (event) {
+            const supplierId = this.value; // Get the selected supplier UUID
+            const contactSelect = document.getElementById('contact-select');
+        
+            // Clear existing options
+            contactSelect.innerHTML = '';
+        
+            if (supplierId) {
+                // Fetch contacts based on the selected supplier
+                fetch(`/api/contacts?supplier_id=${supplierId}`) // Replace with your API endpoint
+                    .then(response => response.json())
+                    .then(data => {
+                        // Populate the contact-select dropdown
+                        data.forEach(contact => {
+                            const option = document.createElement('option');
+                            option.value = contact.uuid; // Assuming the API returns UUIDs
+                            option.textContent = contact.name; // Assuming the API returns names
+                            contactSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching contacts:', error));
+            }
+        });   
     //INITIALIZE
     document.getElementById('transaction-id').innerText = generateTransactionID('ORD');
     setBrandsList();

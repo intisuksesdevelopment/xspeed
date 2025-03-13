@@ -60,6 +60,9 @@
                                         <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
                                                 <label class="form-label">Contact Sales</label>
+                                                <select class="select2 form-control" id="contact-select" name="contact_id">
+                                                 
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-sm-6 col-12">
@@ -206,40 +209,12 @@
     </div>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+
         const encodedItems = "{{ base64_encode(json_encode($items)) }}";
         const encodedBrands = "{{ base64_encode(json_encode($brands)) }}";
         const encodedCategories = "{{ base64_encode(json_encode($categories)) }}";
         const encodedSubcategories = "{{ base64_encode(json_encode($subcategories)) }}";
         const productCategoryRoute = @json(route('product-category', ['category_id' => 'CATEGORY_ID']));
        
-// Example function to generate a SKU (you can customize this as needed)
-    function generateSKU(category, brand, id) {
-        const catCode = category.replace(/\s+/g, '').toUpperCase();
-        const brandCode = brand.replace(/\s+/g, '').toUpperCase();
-        const uniqueId = id.toString();
-        return `${catCode}-${brandCode}-${uniqueId}`;
-    }
-
-    document.getElementById('generate-sku-btn').addEventListener('click', function(event) {
-        event.preventDefault();
-
-        var categoryCode = (categories.find(cat => cat.id == $('#category_id').val()) != null) ? categories.find(cat => cat.id == $('#category_id').val()).code : 'common';
-        var brandCode = (brands.find(brand => brand.id == $('#brand_id').val()) != null) ? brands.find(brand => brand.id == $('#brand_id').val()).code : '';
-
-        const id = Math.floor(Math.random() * 1000000);
-
-        const sku = generateSKU(categoryCode, brandCode, id);
-        document.getElementById('sku-input').value = sku;
-    });
-    document.getElementById('generate-barcode-btn').addEventListener('click', function(event) {
-        event.preventDefault();
-        var timestampValue = Math.floor(Date.now() / 1000); 
-        document.getElementById('barcode-input').value = timestampValue;
-    });
-
-    $('#category_id').trigger('change');
-        submitForm('productAddForm', 'submit-add-button',null,null);
-    });
 </script>
 @endsection

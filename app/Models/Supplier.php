@@ -29,6 +29,10 @@ class Supplier extends Model
         'updated_by',
     ];
 
+    
+    protected $hidden = [
+        'id'
+    ];
     public function isAvailable()
     {
         return $this['status'] == 0 ? 'Available' : 'Not Available';

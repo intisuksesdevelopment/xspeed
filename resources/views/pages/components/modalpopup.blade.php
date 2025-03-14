@@ -15435,7 +15435,7 @@
 		<!-- /Edit Supplier -->
 @endif
 
-@if(Route::is(['order','order-add']))
+@if(Route::is(['order','order-add-form']))
     <!--add popup -->
     <div class="modal fade" id="add-order-item">
         <div class="modal-dialog add-centered">
@@ -15454,6 +15454,14 @@
                             <div class="card-body">
                                 <form action="sales-list">
                                     <div class="row">
+                                        <div class="col-lg- col-sm-6 col-12">
+                                            <div class="mb-3 add-product">
+                                                <label class="form-label">Product Name</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
                                                 <label class="form-label">Brand</label>
@@ -15461,12 +15469,16 @@
                                                   
                                                 </select>
                                             </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
                                                 <label class="form-label">Category</label>
                                                 <select class="select2 form-control" id="category-list" name="category_id">
                                                      
                                                 </select>
                                             </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
                                                 <label class="form-label">Sub Category</label>
                                                 <select class="select2 form-control" id="subcategory-list" name="subcategory_id">
@@ -15474,35 +15486,28 @@
                                                 </select>
                                             </div>
                                         </div>
-                                       
                                     </div>
                                     <div class="row">
 
                                         <div class="table-responsive no-pagination">
-                                            <table class="table  datanew">
+                                            <table class="table datanew" id="item-list">
                                                 <thead>
                                                     <tr>
+                                                        <th class="no-sort">
+                                                            <label class="checkboxs">
+                                                                <input type="checkbox" id="select-all">
+                                                                <span class="checkmarks"></span>
+                                                            </label>
+                                                        </th>
                                                         <th>Product</th>
+                                                        <th>Sku</th>
                                                         <th>Qty</th>
-                                                        <th>Purchase Price($)</th>
-                                                        <th>Discount($)</th>
-                                                        <th>Tax(%)</th>
-                                                        <th>Tax Amount($)</th>
-                                                        <th>Unit Cost($)</th>
-                                                        <th>Total Cost(%)</th>
+                                                        <th>Currency</th>
+                                                        <th>Basic Price</th>
+                                                        <th>Total Cost</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>

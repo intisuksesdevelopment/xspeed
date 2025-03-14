@@ -23,6 +23,11 @@ class Contact extends Model
         'created_by',
         'updated_by',
     ];
+    
+    protected $hidden = [
+        'id'
+    ];
+
     public function isAvailable()
     {
         return $this['status'] == 0 ? 'Available' : 'Not Available';

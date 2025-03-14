@@ -68,22 +68,22 @@
                                         <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
                                                     <div class="flex flex-row content-center gap-2 font-bold text-xs uppercase text-primarydark">
-                                                        <span class="font-medium">Nama :</span><span class="" id="add-view-supplier-contact-name">Jakson</span>
+                                                        <span class="font-medium">Nama :</span><span class="" id="contact-name">Jakson</span>
                                                     </div>
                                                     <div class="flex flex-row content-center gap-2 font-bold text-xs uppercase text-primarydark">
-                                                        <span class="font-medium">Divisi :</span><span class="" id="add-view-supplier-contact-position">admin</span>
+                                                        <span class="font-medium">Divisi :</span><span class="" id="contact-position">admin</span>
                                                     </div>
                                                     <div class="flex flex-row content-center gap-2 pb-1 border-b-2 border-primarydark font-bold text-xs uppercase text-primarydark">
-                                                        <span class="font-medium">Telepon :</span><span class="text-[10px] font-semibold" id="add-view-supplier-contact-phone">08123456789</span>
+                                                        <span class="font-medium">Telepon :</span><span class="text-[10px] font-semibold" id="contact-phone">08123456789</span>
                                                     </div>
                                                     <div>
-                                                        <span class="font-bold uppercase text-primarydark" id="add-view-supplier-name">rcb indonesia</span>
+                                                        <span class="font-bold uppercase text-primarydark" id="supplier-name"></span>
                                                     </div>
                                                     <div>
-                                                        <span class=" uppercase text-primarydark text-[10px] font-semibold" id="add-view-supplier-address">jl. lenteng agung raya no. 5, jakarta selatan dki jakarta 12620</span>
+                                                        <span class=" uppercase text-primarydark text-[10px] font-semibold" id="supplier-address"></span>
                                                     </div>
                                                     <div>
-                                                        <span class=" text-primarydark text-[10px] font-semibold" id="add-view-supplier-email">rcbindonesia@gmail.com</span>
+                                                        <span class=" text-primarydark text-[10px] font-semibold" id="supplier-email"></span>
                                                     </div>
                                             </div>
                                         </div>

@@ -200,7 +200,7 @@
 @endif
 
 
-@if (Route::is(['product-add','stock-add-form','pos','order-add']))
+@if (Route::is(['product-add','stock-add-form','pos','order-add-form']))
 <script src="{{ URL::asset('/build/js/custom-select2.js') }}"></script>
 @endif
 
@@ -208,7 +208,7 @@
 <script src="{{ URL::asset('/build/js/page/pos.js') }}"></script>
 @endif
 
-@if (Route::is(['order','order-add']))
+@if (Route::is(['order','order-add-form']))
 <script src="{{ URL::asset('/build/js/page/order.js') }}"></script>
 @endif
 

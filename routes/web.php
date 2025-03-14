@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Services\ContactService;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\FileController;
@@ -36,10 +37,14 @@ Route::prefix('upload')->group(function () {
 });
 
 
+Route::prefix('contact')->group(function () {
+    Route::get('/{supplierUuid}', [ContactService::class, 'get']);
+    Route::get('/{supplierUuid}', [ContactService::class, 'get']);
+});
 Route::prefix('sales')->group(function () {
     Route::get('/', [SalesController::class, 'index'])->name('sales-list');
     Route::get('/add', [SalesController::class, 'addForm'])->name('sales-add-form');
-    Route::post('/add', [SalesController::class, 'add'])->name('sales-add-form');
+    Route::post('/add', [SalesController::class, 'add'])->name('sales-add');
     Route::get('/{id}', [SalesController::class, 'detail'])->name('sales-detail');
 
 
@@ -52,7 +57,7 @@ Route::prefix('stock')->group(function () {
 });
 Route::prefix('product')->group(function () {
     Route::get('/', [ItemController::class, 'index'])->name('product-list');
-    Route::get('/add', [ItemController::class, 'addForm'])->name('product-add');
+    Route::get('/add', [ItemController::class, 'addForm'])->name('product-add-form');
     Route::post('/add', [ItemController::class, 'add'])->name('product-add');
     Route::get('/edit/{uuid}', [ItemController::class, 'editForm'])->name('product-edit-form');
     Route::post('/edit', [ItemController::class, 'edit'])->name('product-edit');
@@ -154,7 +159,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::prefix('order')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('order');
-        Route::get('/add', [OrderController::class, 'addForm'])->name('order-add');
+        Route::get('/add', [OrderController::class, 'addForm'])->name('order-add-form');
         Route::post('/add', [OrderController::class, 'add'])->name('order-add');
         Route::post('/update', [OrderController::class, 'update'])->name('order-update');
         Route::delete('/delete/{id}', [OrderController::class, 'delete'])->name('order-delete');
@@ -175,7 +180,7 @@ Route::get('/', function () {
 
 Route::get('/index', function () {
     return view('index');
-})->name('index');
+});
 
 // Route::get('/product-list', function () {
 //     return view('product-list');

@@ -3,6 +3,7 @@ namespace App\Services;
 
 use Log;
 use App\Models\Contact;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class ContactService
@@ -12,24 +13,27 @@ class ContactService
         // Log the request for debugging purposes (optional)
         Log::info("Fetching contact for supplier ID: {$supplierId}");
 
-                                    // Retrieve additional data from the request, if needed
-        $filters = $request->all(); // Get all request data
+        $supplier = Supplier::where('uuid', $supplierId)->first();
 
-        // Logic to fetch contact data (e.g., from a database)
-        $contact = Contact::where('supplier_id', $supplierId)->first();
+        $contacts = Contact::where('ref', 'supplier')
+        ->where('ref_id', $supplier['id']??0)->get();
+        
 
-        // Check if contact exists
-        if (! $contact) {
-            return response()->json([
-                'message' => "No contact found for supplier ID: {$supplierId}",
-            ], 404);
+        if (!$contacts || $contacts->isEmpty()) {
+            $contacts = Contact::where('uuid', $supplierId)->get();
+            if (! $contacts) {
+                return response()->json([
+                    'message' => "No contact found for supplier ID: {$supplierId}",
+                ], 404);
+            }
+        }else{
+            foreach ($contacts as $contact) {
+                $contact['supplier_name'] = $supplier['name'];
+                $contact['supplier_address'] = $supplier['address'];
+            }
         }
 
-        // Return the contact data as JSON
-        return response()->json([
-            'message' => "Contact found successfully.",
-            'data'    => $contact,
-        ], 200);
+        return $contacts;
     }
 
 }

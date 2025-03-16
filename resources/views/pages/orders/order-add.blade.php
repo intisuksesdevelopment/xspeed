@@ -122,7 +122,7 @@
                                             <div class="row">
                                                 <div class="col-lg-12 col-sm-6 col-12">
                                                     <div class="table-responsive product-list">
-                                                        <table class="table datanew">
+                                                        <table class="table datanew  table-hover">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="no-sort">
@@ -137,7 +137,7 @@
                                                                     <th>Brand</th>
                                                                     <th>Sell Price</th>
                                                                     <th>Unit</th>
-                                                                    <th>Qty</th>
+                                                                    <th>Stock</th>
                                                                     <th>Created by</th>
                                                                     <th>Status</th>
                                                                     <th class="no-sort">Action</th>

@@ -15489,13 +15489,13 @@
                                     </div>
                                     <div class="row">
 
-                                        <div class="table-responsive no-pagination">
+                                        <div class="table-responsive product-list">
                                             <table class="table datanew" id="item-list">
                                                 <thead>
-                                                    <tr>
+                                                    <tr style="cursor: pointer">
                                                         <th class="no-sort">
                                                             <label class="checkboxs">
-                                                                <input type="checkbox" id="select-all">
+                                                                <input type="checkbox" id="select-all-product">
                                                                 <span class="checkmarks"></span>
                                                             </label>
                                                         </th>
@@ -15503,7 +15503,7 @@
                                                         <th>Sku</th>
                                                         <th>Qty</th>
                                                         <th>Currency</th>
-                                                        <th>Basic Price</th>
+                                                        <th>Sell Price</th>
                                                         <th>Total Cost</th>
                                                     </tr>
                                                 </thead>
@@ -15512,6 +15512,10 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <div class="modal-footer-btn">
+										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
+										<button type="submit" class="btn btn-submit">Submit</button>
+									</div>
                                 </form>
                             </div>
                         </div>

@@ -75,18 +75,18 @@ document.addEventListener('DOMContentLoaded', function() {
         
                 // Tambahkan kolom-kolom ke dalam baris
                 row.innerHTML = `
-                    <td class="sorting_1">
+                    <td class="sorting_1" style="cursor: pointer;">
                         <label class="checkboxs">
                             <input type="checkbox">
                             <span class="checkmarks"></span>
                         </label>
                     </td>
-                    <td>${item.name }</td>
-                    <td>${item.sku }</td>
-                    <td>${item.stock}</td>
-                    <td>${item.currency}</td>
-                    <td>${item.sell_price}</td>
-                    <td>${item.stock*item.sell_price}</td>
+                    <td style="cursor: pointer;">${item.name }</td>
+                    <td style="cursor: pointer;">${item.sku }</td>
+                    <td style="cursor: pointer;">${item.stock}</td>
+                    <td style="cursor: pointer;">${item.currency}</td>
+                    <td style="cursor: pointer;">${item.sell_price}</td>
+                    <td style="cursor: pointer;">${item.stock*item.sell_price}</td>
                 `;
         
                 // Tambahkan baris baru ke dalam tabel
@@ -114,16 +114,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 let item = items.filter(item => item.sku === sku)[0];
                 itemOrderList.push(item);
             }
+            renderOrderList();
         }
         function removeDataItem(sku) {
             itemOrderList = itemOrderList.filter(item => item.sku !== sku);
         }
-        $('#item-list tbody tr').on('dblclick', function () {
-            console.log('Row double-clicked:', this);
-    
-            // Close the modal
-            $('#your-modal-id').modal('hide'); // For Bootstrap modals, this will hide it
-            console.log('Modal closed');
+        $(document).on('dblclick', '#item-list tbody tr', function () {
+            const clickedRow = $(this);
+            const sku = clickedRow.find('td:nth-child(3)').text().trim();
+            addDataItem(sku);
+            $('#add-order-item').modal('hide');
         });
         function renderOrderList() {
             // Get the table body

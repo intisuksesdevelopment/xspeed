@@ -68,13 +68,13 @@
                                         <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
                                                     <div class="flex flex-row content-center gap-2 font-bold text-xs uppercase text-primarydark">
-                                                        <span class="font-medium">Nama :</span><span class="" id="contact-name">Jakson</span>
+                                                        <span class="font-medium">Nama :</span><span class="" id="contact-name"></span>
                                                     </div>
                                                     <div class="flex flex-row content-center gap-2 font-bold text-xs uppercase text-primarydark">
-                                                        <span class="font-medium">Divisi :</span><span class="" id="contact-position">admin</span>
+                                                        <span class="font-medium">Divisi :</span><span class="" id="contact-position"></span>
                                                     </div>
                                                     <div class="flex flex-row content-center gap-2 pb-1 border-b-2 border-primarydark font-bold text-xs uppercase text-primarydark">
-                                                        <span class="font-medium">Telepon :</span><span class="text-[10px] font-semibold" id="contact-phone">08123456789</span>
+                                                        <span class="font-medium">Telepon :</span><span class="text-[10px] font-semibold" id="contact-phone"></span>
                                                     </div>
                                                     <div>
                                                         <span class="font-bold uppercase text-primarydark" id="supplier-name"></span>
@@ -121,33 +121,38 @@
                                             aria-labelledby="pills-home-tab">
                                             <div class="row">
                                                 <div class="col-lg-12 col-sm-6 col-12">
-                                                    <div class="table-responsive product-list">
-                                                        <table class="table datanew  table-hover">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="no-sort">
-                                                                        <label class="checkboxs">
-                                                                            <input type="checkbox" id="select-all">
-                                                                            <span class="checkmarks"></span>
-                                                                        </label>
-                                                                    </th>
-                                                                    <th>Product</th>
-                                                                    <th>SKU</th>
-                                                                    <th>Category</th>
-                                                                    <th>Brand</th>
-                                                                    <th>Sell Price</th>
-                                                                    <th>Unit</th>
-                                                                    <th>Stock</th>
-                                                                    <th>Created by</th>
-                                                                    <th>Status</th>
-                                                                    <th class="no-sort">Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                               
-                                                            </tbody>
-                                                        </table>
+                                                    <div  id="order-list">
+                                                        <div class="table-responsive product-list">
+                                                            <table class="table datanew  table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="no-sort">
+                                                                            <label class="checkboxs">
+                                                                                <input type="checkbox" id="select-all">
+                                                                                <span class="checkmarks"></span>
+                                                                            </label>
+                                                                        </th>
+                                                                        <th>Product</th>
+                                                                        <th>SKU</th>
+                                                                        <th>Category</th>
+                                                                        <th>Brand</th>
+                                                                        <th>Sell Price</th>
+                                                                        <th>Unit</th>
+                                                                        <th>Stock</th>
+                                                                        <th>Order</th>
+                                                                        <th>Total</th>
+                                                                        <th>Created by</th>
+                                                                        <th>Status</th>
+                                                                        <th class="no-sort">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                   
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -160,14 +165,14 @@
                                                                 <td>Sub Total</td>
                                                                 <td class="text-end" id="subtotal">0,00</td>
                                                             </tr>
-                                                            <tr>
+                                                            {{-- <tr>
                                                                 <td>Tax (<span id="tax-value">10</span>%)</td>
                                                                 <td class="text-end" id="tax">0,00</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Shipping</td>
                                                                 <td class="text-end" id="shipping">0,00</td>
-                                                            </tr>
+                                                            </tr> --}}
                                                             <tr>
                                                                 <td class="danger">Discount (<span id="discount-value">0</span>%)</td>
                                                                 <td class="danger text-end" id="discount">0,00</td>
@@ -179,7 +184,7 @@
                                                         </table>
                                                     </div>
                                                     
-                                                    <div class="d-grid btn-block">
+                                                    <div class="d-grid btn-block mb-3">
                                                         <a class="btn btn-secondary" href="javascript:void(0);">
                                                             Grand Total : <span id="grandtotal">0,00</span><span> IDR</span>
                                                         </a>
@@ -214,6 +219,7 @@
         const encodedBrands = "{{ base64_encode(json_encode($brands)) }}";
         const encodedCategories = "{{ base64_encode(json_encode($categories)) }}";
         const encodedSubcategories = "{{ base64_encode(json_encode($subcategories)) }}";
+        const encodedSuppliers = "{{ base64_encode(json_encode($suppliers)) }}";
         const productCategoryRoute = @json(route('product-category', ['category_id' => 'CATEGORY_ID']));
        
 </script>

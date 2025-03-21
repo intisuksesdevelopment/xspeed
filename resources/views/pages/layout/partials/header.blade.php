@@ -86,7 +86,7 @@
 
 
         <!-- Select Store -->
-        <li class="nav-item dropdown has-arrow main-drop select-store-dropdown">
+        {{-- <li class="nav-item dropdown has-arrow main-drop select-store-dropdown">
             <a href="javascript:void(0);" class="dropdown-toggle nav-link select-store" data-bs-toggle="dropdown">
                 <span class="user-info">
                     <span class="user-letter">
@@ -116,11 +116,11 @@
                     Grocery Eden
                 </a>
             </div>
-        </li>
+        </li> --}}
         <!-- /Select Store -->
 
         <!-- Flag -->
-        <li class="nav-item dropdown has-arrow flag-nav nav-item-box">
+        {{-- <li class="nav-item dropdown has-arrow flag-nav nav-item-box">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);" role="button">
                 <img src="{{ URL::asset('/build/src/img/flags/us.png') }}" alt="Language" class="img-fluid">
             </a>
@@ -138,7 +138,7 @@
                     <img src="{{ URL::asset('/build/src/img/flags/de.png') }}" alt="" height="16"> German
                 </a>
             </div>
-        </li>
+        </li> --}}
         <!-- /Flag -->
 
         <li class="nav-item nav-item-box">
@@ -271,8 +271,8 @@
                             class="img-fluid">
                     </span>
                     <span class="user-detail">
-                        <span class="user-name">John Smilga</span>
-                        <span class="user-role">Super Admin</span>
+                        <span class="user-name">{{ Auth::user()->name; }}</span>
+                        <span class="user-role">{{ Auth::user()->role; }}</span>
                     </span>
                 </span>
             </a>
@@ -283,8 +283,8 @@
                                 alt="">
                             <span class="status online"></span></span>
                         <div class="profilesets">
-                            <h6>John Smilga</h6>
-                            <h5>Super Admin</h5>
+                            <h6>{{ Auth::user()->name; }}</h6>
+                            <h5>{{ Auth::user()->role; }}</h5>
                         </div>
                     </div>
                     <hr class="m-0">

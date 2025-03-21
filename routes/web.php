@@ -174,12 +174,12 @@ Route::post('custom-login', [CustomAuthController::class, 'customSignin'])->name
 Route::post('custom-register', [CustomAuthController::class, 'customRegister'])->name('register.custom');
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/dashboard', function () {
+    return view('pages.dashboard.index');
+})->name('dashboard.index');
 
 Route::get('/index', function () {
-    return view('index');
+    return view('dashboard.index');
 });
 
 // Route::get('/product-list', function () {

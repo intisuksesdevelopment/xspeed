@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const brands = JSON.parse(atob(encodedBrands));
     const categories = JSON.parse(atob(encodedCategories));
     const subcategories = JSON.parse(atob(encodedSubcategories));
+    const suppliers = JSON.parse(atob(encodedSuppliers));
 
  
         $('#category_id').on('change', function() {
@@ -116,6 +117,58 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             renderOrderList();
         }
+        function updateQty(id, qty) {
+            // Find the index of the item with the specified id
+            let itemIndex = itemOrderList.findIndex(item => item.id === id);
+            if (itemIndex !== -1) {
+                // Update the quantity of the found item
+                itemOrderList[itemIndex].qty = qty;
+                console.log('Item updated:', itemOrderList[itemIndex]);
+            } else {
+                console.error(`Item with ID ${id} does not exist.`);
+            }
+        }
+        function updateQty(event){
+            let target = event.target;
+            let qtyItem = target.closest(".qty-item");
+
+            if (!qtyItem) return; // If not clicking inside qty-item, do nothing
+
+            let inputField = qtyItem.querySelector("input");
+            let itemId = inputField.id.replace("qty-", ""); // Extract itemId
+
+            let stock = parseInt(document.getElementById(`sales-stock-${itemId}`).textContent, 10);
+            let price = parseFloat(document.getElementById(`sales-price-${itemId}`).textContent);
+            let infoDiv = qtyItem.closest(".product-list").querySelector(".info p"); // Get price display
+            let qty = parseInt(inputField.value, 10);
+
+            // Handle decrement (-)
+            if (target.closest(".dec")) {
+                if (qty > 1) {
+                    qty--;
+                    inputField.value = qty;
+                    infoDiv.textContent = formatRupiah(price * qty);
+                }
+            }
+
+            // Handle increment (+)
+            if (target.closest(".inc")) {
+                if (qty < stock) {
+                    qty++;
+                    inputField.value = qty;
+                    infoDiv.textContent = formatRupiah(price * qty);
+                } else {
+                    alert("Stock limit reached!");
+                }
+            }
+            itemOrderList.map(item => {
+                if (item.sku === itemId) {
+                    item.qty = qty;
+                    return item;
+                }
+            });
+            calculateTotals();
+        }
         function removeDataItem(sku) {
             itemOrderList = itemOrderList.filter(item => item.sku !== sku);
         }
@@ -138,9 +191,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const itemBrand = item.brand.code || 'N/A';
                 const itemPrice = item.sell_price;
                 const itemUnit = item.unit || 'N/A';
-                const itemStock = item.stock ?? 1;
+                const itemStock = item.stock;
                 const itemCreatedBy = item.created_by || 'Unknown';
                 const itemStatus = item.availability || 'Unknown';
+                const itemQty = item.qty ?? 1;
         
                 // Create table row HTML
                 let rowHtml = `
@@ -158,17 +212,19 @@ document.addEventListener('DOMContentLoaded', function() {
                         <td>${itemBrand}</td>
                         <td>${formatRupiah(itemPrice)}</td>
                         <td>${itemUnit}</td>
+                        <td>${itemStock}</td>
                         <td>
-                            <div class="row">
+                            <div     class="row qty-item">
                                 <div class="d-none">
                                     <span id="sales-stock-${itemId}">${itemStock}</span>
                                     <span class="price" id="sales-price-${itemId}">${itemPrice}</span>
                                 </div>
                                 <a href="javascript:void(0);" class="dec col d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="minus"><i data-feather="minus-circle" class="feather-14"></i></a>
-                                <input type="text" class="col form-control text-center" id="qty-${itemId}" name="qty" value="${itemStock}">
+                                <input type="text" class="col form-control text-center" id="qty-${itemId}" name="qty" value="${itemQty}">
                                 <a href="javascript:void(0);" class="inc col d-flex justify-content-center align-items-center" data-bs-toggle="tooltip" data-bs-placement="top" title="plus"><i data-feather="plus-circle" class="feather-14"></i></a>
                             </div> 
                         </td>
+                        <td><div class="info"><p>${formatRupiah(itemPrice*itemQty)}</p></div></td>
                         <td>${itemCreatedBy}</td>
                         <td>${itemStatus}</td>
                         <td>
@@ -191,8 +247,63 @@ document.addEventListener('DOMContentLoaded', function() {
         
             // Update item count
             // updateOrderItemCount();
+            calculateTotals();
         }
+        function calculateTotals() {
+            let subtotal = 0;
+            const productItems = document.getElementById('order-list').querySelectorAll('.product-list');
+
+            itemOrderList.forEach(function(item) {
+                let itemId = item.sku;
+                const price = parseFloat(document.getElementById(`sales-price-${itemId}`).textContent);
+                const qty = parseFloat(document.getElementById(`qty-${itemId}`).value);
+                subtotal += qty * price;
+            });
         
+            // productItems.forEach(function(productItem) {
+            //     let inputField = productItem.querySelector("input");
+            //     let itemId = inputField.id.replace("qty-", ""); // Extract itemId
+    
+            //     const price = parseFloat(document.getElementById(`sales-price-${itemId}`).textContent);
+            //     const qty = parseFloat(productItem.querySelector('input[name="qty"]').value);
+            //     subtotal += qty * price;
+            // });
+            // let taxRate = parseFloat(taxSelect.value) / 100 || 0; 
+            // let shippingCost = parseFloat(shippingSelect.value) || 0;
+            let discountRate = parseFloat(document.getElementById('discount-value').textContent) / 100 || 0;
+            // let customer = customers.filter(customer => customer.code === customerSelect.value)[0];
+            // if(discountRate!=parseFloat(customer.discount) / 100){
+            //     if (customer.discount != 0) {
+            //         discountRate = parseFloat(customer.discount) / 100;
+            //         $("#discount-select").val(parseFloat(customer.discount).toString()).change();
+                    
+            //     }
+            // }
+
+            
+            
+        
+            // const tax = subtotal * taxRate;
+            const discount = subtotal * discountRate;
+            const total = subtotal - discount;
+        
+            const options = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+            // document.getElementById('tax-value').innerText = taxRate*100;
+            document.getElementById('discount-value').innerText = discountRate*100;
+            document.getElementById('subtotal').innerText = subtotal.toLocaleString('de-DE', options);
+            // document.getElementById('tax').innerText = tax.toLocaleString('de-DE', options);
+            // document.getElementById('shipping').innerText = shippingCost.toLocaleString('de-DE', options);
+            document.getElementById('discount').innerText = `-${discount.toLocaleString('de-DE', options)}`;
+            document.getElementById('total').innerText = total.toLocaleString('de-DE', options);
+            document.getElementById('grandtotal').innerText = total.toLocaleString('de-DE', options);
+        }
+        document.getElementById('order-list').addEventListener("click", function (event) {
+            updateQty(event);
+        });
+        document.getElementById('order-list').addEventListener("input", function (event) {
+            updateQty(event);
+
+        });
         $('#select-all-product').on('change', function () {
             const isChecked = $(this).prop('checked');
             const table = $('#item-list').DataTable();
@@ -217,6 +328,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 contactSelect.innerHTML = '';
         
                 if (supplierId) {
+                    let supplier = suppliers.filter(supplier => supplier.uuid === supplierId)[0];
+                    document.getElementById('contact-name').textContent = '';
+                    document.getElementById('contact-position').textContent = '';
+                    document.getElementById('contact-phone').textContent = '';
+                    document.getElementById('supplier-name').textContent = '';
+                    document.getElementById('supplier-address').textContent = '';
+                    document.getElementById('supplier-email').textContent = '';
+
+                    document.getElementById('discount-value').innerText = supplier.discount;
+                    
                     console.log(`Fetching contacts for supplier ID: ${supplierId}`);
                     // Fetch contacts based on the selected supplier
                     fetch(`/contact/${supplierId}`) // Replace with your API endpoint
@@ -236,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 contactSelect.appendChild(option);
                             });
                             
-                            
+                        
                             document.getElementById('supplier-name').textContent = data[0].supplier_name || '-';
                             document.getElementById('supplier-address').textContent = data[0].supplier_address || '-';
                             $('#contact-select').trigger('change');
@@ -278,6 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
     //INITIALIZE
     document.getElementById('transaction-id').innerText = generateTransactionID('ORD');
+    $('#supplier-select').trigger('change');
     setBrandsList();
     setCategoryList();
     initItems();

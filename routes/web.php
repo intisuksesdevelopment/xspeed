@@ -17,6 +17,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\SubCategoryController;
@@ -174,14 +175,23 @@ Route::post('custom-login', [CustomAuthController::class, 'customSignin'])->name
 Route::post('custom-register', [CustomAuthController::class, 'customRegister'])->name('register.custom');
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
-Route::get('/dashboard', function () {
-    return view('pages.dashboard.index');
-})->name('dashboard.index');
+
+//DASHBOARD
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/index', function () {
     return view('dashboard.index');
 });
 
+Route::get('/single-product',[DashboardController::class, 'getDetail'])->name('single-product');
+
+Route::get('/about', function () {
+    return view('pages.dashboard.about');
+});
+
+Route::get('/cart', function () {
+    return view('pages.dashboard.cart');
+});
 // Route::get('/product-list', function () {
 //     return view('product-list');
 // })->name('product-list');

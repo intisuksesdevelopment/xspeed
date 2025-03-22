@@ -177,21 +177,14 @@ Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout')
 
 
 //DASHBOARD
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-Route::get('/index', function () {
-    return view('dashboard.index');
+Route::prefix('dashboard')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('main');
+    Route::get('/single-product', [DashboardController::class, 'getDetail'])->name('single-product');
+    Route::get('/about', [DashboardController::class, 'about']);
 });
 
-Route::get('/single-product',[DashboardController::class, 'getDetail'])->name('single-product');
 
-Route::get('/about', function () {
-    return view('pages.dashboard.about');
-});
 
-Route::get('/cart', function () {
-    return view('pages.dashboard.cart');
-});
 // Route::get('/product-list', function () {
 //     return view('product-list');
 // })->name('product-list');

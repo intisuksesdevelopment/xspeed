@@ -57,7 +57,7 @@
 		</div>
 	</div> --}}
 	<!--PreLoader Ends-->
-	@if (Route::is(['dashboard']))
+	@if (Route::is(['main']))
 			@include('pages.dashboard.partials.index')
 	@endif
 	@if (Route::is(['single-product']))

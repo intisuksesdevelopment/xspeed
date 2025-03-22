@@ -150,7 +150,7 @@
 					<div class="col-lg-3 col-md-6 text-center">
 						<div class="single-product-item">
 							<div class="product-image">
-								<a href="single-product/?uuid={{ $product['uuid'] }}"> <img src="{{ $product['image_url'] }}" alt="product"></a>
+								<a href="./single-product/?uuid={{ $product['uuid'] }}"> <img src="{{ $product['image_url'] }}" alt="product"></a>
 							</div>
 							<h6>{{ strtoupper($product->name) }}</h6>
 							<h5 class="product-price">{{ \App\Services\UtilService::formatCurrency($product['sell_price'], $product['currency']) }}</h5>

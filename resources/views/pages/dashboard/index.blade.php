@@ -64,7 +64,7 @@
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a href="index.html">
+							<a href="dashboard">
 								<img src="/build/plugins/dashboard/assets/img/logo-expeed3.png" alt="">
 							</a>
 						</div>
@@ -108,7 +108,7 @@
 								</li> -->
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+										<a class="shopping-cart" href="cart"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
@@ -208,7 +208,7 @@
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product.html"><img src="/build/plugins/dashboard/assets/img/products/accosato.jpg" alt=""></a>
+							<a href="single-product"><img src="/build/plugins/dashboard/assets/img/products/accosato.jpg" alt=""></a>
 						</div>
 						<h6>ACCOSSATO HANDLE KOPLING LEVER ASSY CLUTCH CF009N 24 MM ITALY</h6>
 						<h5 class="product-price">Rp. 1.999.000</h5>
@@ -218,7 +218,7 @@
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product.html"><img src="/build/plugins/dashboard/assets/img/products/accosato.jpg" alt=""></a>
+							<a href="single-product"><img src="/build/plugins/dashboard/assets/img/products/accosato.jpg" alt=""></a>
 						</div>
 						<h6>ACCOSSATO HANDLE KOPLING LEVER ASSY CLUTCH CF009N 24 MM ITALY</h6>
 						<h5 class="product-price">Rp. 1.999.000</h5>
@@ -228,7 +228,7 @@
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product.html"><img src="/build/plugins/dashboard/assets/img/products/accosato.jpg" alt=""></a>
+							<a href="single-product"><img src="/build/plugins/dashboard/assets/img/products/accosato.jpg" alt=""></a>
 						</div>
 						<h6>ACCOSSATO HANDLE KOPLING LEVER ASSY CLUTCH CF009N 24 MM ITALY</h6>
 						<h5 class="product-price">Rp. 1.999.000</h5>
@@ -238,7 +238,7 @@
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product.html"><img src="/build/plugins/dashboard/assets/img/products/accosato.jpg" alt=""></a>
+							<a href="single-product"><img src="/build/plugins/dashboard/assets/img/products/accosato.jpg" alt=""></a>
 						</div>
 						<h6>ACCOSSATO HANDLE KOPLING LEVER ASSY CLUTCH CF009N 24 MM ITALY</h6>
 						<h5 class="product-price">Rp. 1.999.000</h5>

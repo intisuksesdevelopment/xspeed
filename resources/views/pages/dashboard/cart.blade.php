@@ -1,37 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
-
-	<!-- title -->
-	<title>Single Product</title>
-
-	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
-	<!-- google font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-	<!-- fontawesome -->
-	<link rel="stylesheet" href="assets/css/all.min.css">
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-	<!-- owl carousel -->
-	<link rel="stylesheet" href="assets/css/owl.carousel.css">
-	<!-- magnific popup -->
-	<link rel="stylesheet" href="assets/css/magnific-popup.css">
-	<!-- animate css -->
-	<link rel="stylesheet" href="assets/css/animate.css">
-	<!-- mean menu css -->
-	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
-	<!-- main style -->
-	<link rel="stylesheet" href="assets/css/main.css">
-	<!-- responsive -->
-	<link rel="stylesheet" href="assets/css/responsive.css">
-
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+	
+		<!-- title -->
+		<title>ExpeedShop</title>
+	
+		<!-- favicon -->
+		<link rel="shortcut icon" type="image/png" href="dashboard/assets/img/logo-expeed3.png">
+		<!-- google font -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+		<!-- fontawesome -->
+	
+		<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/all.min.css')}}">
+		<!-- bootstrap -->
+		<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/bootstrap/css/bootstrap.min.css')}}">
+		<!-- owl carousel -->
+		<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/owl.carousel.css')}}">
+		<!-- magnific popup -->
+		<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/magnific-popup.css')}}">
+		<!-- animate css -->
+		<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/animate.css')}}">
+		<!-- mean menu css -->
+		<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/meanmenu.min.css')}}">
+		<!-- main style -->
+		<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/main.css')}}">
+		<!-- responsive -->
+		<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/responsive.css')}}">
+		<style>  
+			h1 {  
+				text-align: center; /* Menengahka <h1> */  
+				font-weight: bold;  
+				margin-bottom: 20px;  
+				color: aliceblue;
+			}  
+			p {  
+				text-align: center; /* Menengahkan teks dalam <p> */  
+				line-height: 1.6;  
+				color: aliceblue;
+			}  
+		</style>  
+	
+	</head>
 <body>
 	
 	<!--PreLoader-->
@@ -135,8 +149,8 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>See more Details</p>
-						<h1>Single Product</h1>
+						<p>Fresh and Organic</p>
+						<h1>Cart</h1>
 					</div>
 				</div>
 			</div>
@@ -144,87 +158,97 @@
 	</div>
 	<!-- end breadcrumb section -->
 
-	<!-- single product -->
-	<div class="single-product mt-150 mb-150">
+	<!-- cart -->
+	<div class="cart-section mt-150 mb-150">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-5">
-					<div class="single-product-img">
-						<img src="assets/img/products/product-img-5.jpg" alt="">
+				<div class="col-lg-8 col-md-12">
+					<div class="cart-table-wrap">
+						<table class="cart-table">
+							<thead class="cart-table-head">
+								<tr class="table-head-row">
+									<th class="product-remove"></th>
+									<th class="product-image">Product Image</th>
+									<th class="product-name">Name</th>
+									<th class="product-price">Price</th>
+									<th class="product-quantity">Quantity</th>
+									<th class="product-total">Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="table-body-row">
+									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
+									<td class="product-image"><img src="assets/img/products/product-img-1.jpg" alt=""></td>
+									<td class="product-name">Strawberry</td>
+									<td class="product-price">$85</td>
+									<td class="product-quantity"><input type="number" placeholder="0"></td>
+									<td class="product-total">1</td>
+								</tr>
+								<tr class="table-body-row">
+									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
+									<td class="product-image"><img src="assets/img/products/product-img-2.jpg" alt=""></td>
+									<td class="product-name">Berry</td>
+									<td class="product-price">$70</td>
+									<td class="product-quantity"><input type="number" placeholder="0"></td>
+									<td class="product-total">1</td>
+								</tr>
+								<tr class="table-body-row">
+									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
+									<td class="product-image"><img src="assets/img/products/product-img-3.jpg" alt=""></td>
+									<td class="product-name">Lemon</td>
+									<td class="product-price">$35</td>
+									<td class="product-quantity"><input type="number" placeholder="0"></td>
+									<td class="product-total">1</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
-				<div class="col-md-7">
-					<div class="single-product-content">
-						<h3>Green apples have polyphenols</h3>
-						<p class="single-product-pricing"><span>Per Kg</span> $50</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta sint dignissimos, rem commodi cum voluptatem quae reprehenderit repudiandae ea tempora incidunt ipsa, quisquam animi perferendis eos eum modi! Tempora, earum.</p>
-						<div class="single-product-form">
-							<form action="index.html">
-								<input type="number" placeholder="0">
-							</form>
-							<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-							<p><strong>Categories: </strong>Fruits, Organic</p>
-						</div>
-						<h4>Share:</h4>
-						<ul class="product-share">
-							<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href=""><i class="fab fa-twitter"></i></a></li>
-							<li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
-							<li><a href=""><i class="fab fa-linkedin"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end single product -->
 
-	<!-- more products -->
-	<div class="more-products mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
-						<h3><span class="orange-text">Related</span> Products</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+				<div class="col-lg-4">
+					<div class="total-section">
+						<table class="total-table">
+							<thead class="total-table-head">
+								<tr class="table-total-row">
+									<th>Total</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="total-data">
+									<td><strong>Subtotal: </strong></td>
+									<td>$500</td>
+								</tr>
+								<tr class="total-data">
+									<td><strong>Shipping: </strong></td>
+									<td>$45</td>
+								</tr>
+								<tr class="total-data">
+									<td><strong>Total: </strong></td>
+									<td>$545</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="cart-buttons">
+							<a href="cart.html" class="boxed-btn">Update Cart</a>
+							<a href="checkout.html" class="boxed-btn black">Check Out</a>
 						</div>
-						<h3>Strawberry</h3>
-						<p class="product-price"><span>Per Kg</span> 85$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-2.jpg" alt=""></a>
+
+					<div class="coupon-section">
+						<h3>Apply Coupon</h3>
+						<div class="coupon-form-wrap">
+							<form action="index.html">
+								<p><input type="text" placeholder="Coupon"></p>
+								<p><input type="submit" value="Apply"></p>
+							</form>
 						</div>
-						<h3>Berry</h3>
-						<p class="product-price"><span>Per Kg</span> 70$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-3.jpg" alt=""></a>
-						</div>
-						<h3>Lemon</h3>
-						<p class="product-price"><span>Per Kg</span> 35$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end more products -->
+	<!-- end cart -->
 
 	<!-- logo carousel -->
 	<div class="logo-carousel-section">
@@ -324,26 +348,26 @@
 	</div>
 	<!-- end copyright -->
 	
-	<!-- jquery -->
-	<script src="assets/js/jquery-1.11.3.min.js"></script>
+	<!-- jquery -->            
+	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery-1.11.3.min.js') }}"></script>
 	<!-- bootstrap -->
-	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="{{ URL::asset('/build/plugins/dashboard/assets/bootstrap/js/bootstrap.min.js') }}"></script>
 	<!-- count down -->
-	<script src="assets/js/jquery.countdown.js"></script>
+	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery.countdown.js') }}"></script>
 	<!-- isotope -->
-	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
 	<!-- waypoints -->
-	<script src="assets/js/waypoints.js"></script>
+	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/waypoints.js') }}"></script>
 	<!-- owl carousel -->
-	<script src="assets/js/owl.carousel.min.js"></script>
+	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/owl.carousel.min.js') }}"></script>
 	<!-- magnific popup -->
-	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery.magnific-popup.min.js') }}"></script>
 	<!-- mean menu -->
-	<script src="assets/js/jquery.meanmenu.min.js"></script>
+	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery.meanmenu.min.js') }}"></script>
 	<!-- sticker js -->
-	<script src="assets/js/sticker.js"></script>
+	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/sticker.js') }}"></script>
 	<!-- main js -->
-	<script src="assets/js/main.js"></script>
+	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/main.js') }}"></script>
 
 </body>
 </html>

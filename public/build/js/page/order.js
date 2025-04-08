@@ -25,6 +25,119 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
+        function validatePayment() {
+            const paymentSelect = document.getElementById('payment-method-select');
+            const selectedPaymentMethod = paymentSelect.options[paymentSelect.selectedIndex].text;
+            let message = "";
+            
+            let payment_desc = selectedPaymentMethod;
+            switch (selectedPaymentMethod) {
+                case 'Cash':
+                    if(document.getElementById('payment_total').value == ''||
+                       document.getElementById('payment_total').value ==0){
+                        message = 'Please fill the payment amount';
+                    }else{
+                        let change = clearAmountFormat(document.getElementById('payment_total').value) - clearAmountFormat(document.getElementById('total').innerText);
+                        if(change<0){
+                            message = 'Amount paid must be greater than total';
+
+                        }
+                    }
+                    
+                    break;
+                case 'Bank Transfer':
+                    payment_desc = payment_desc + ' ' + document.getElementById('bank-select').value + ' ' + document.getElementById('account_number').value + ' - ' + document.getElementById('account_name').value;
+                    document.getElementById('div-bank').classList.remove('d-none');
+                    console.log("Payment method: Bank Transfer");
+                    break;
+                case 'Debit':
+                    payment_desc = payment_desc + ' ' + document.getElementById('bank-select').value + ' ' + document.getElementById('card_number').value + ' - ' + document.getElementById('installment-select').value;
+                    document.getElementById('div-account').classList.remove('d-none');
+                    console.log("Payment method: Debit");
+                    break;
+                case 'Due Date':
+                    payment_desc = payment_desc + ' ' + document.getElementById('due-date').value ;
+
+                    document.getElementById('div-duedate').classList.remove('d-none');
+                    console.log("Payment method: Due Date");
+                    break;
+                case undefined:
+                    break;
+                default:
+                    return true;
+                }
+                document.getElementById('payment-desc').value = payment_desc;
+                if (message=='')return true;
+                showWarning(message);
+                
+                return false;
+        }
+        function paymentMethodChange() {
+            const paymentSelect = document.getElementById('payment-method-select');
+            const selectedPaymentMethod = paymentSelect.options[paymentSelect.selectedIndex].text;
+
+            document.getElementById('payment-method-select').classList.add('d-none');
+            document.getElementById('div-bank').classList.add('d-none');
+            document.getElementById('div-cash').classList.add('d-none');
+            document.getElementById('div-account').classList.add('d-none');
+            document.getElementById('div-credit').classList.add('d-none');
+            document.getElementById('div-duedate').classList.add('d-none');
+            document.getElementById('payment-method-select').classList.add('d-none');
+
+            document.getElementById('payment_change').value=0;
+            document.getElementById('bank-select').value=0;
+            document.getElementById('account_number').value=null;
+            document.getElementById('account_name').value=null;
+            document.getElementById('due-date').value=null;
+            document.getElementById('card_number').value=null;
+            document.getElementById('installment-select').value=null;
+
+
+
+            switch (selectedPaymentMethod) {
+                case 'Cash':
+                    document.getElementById('div-cash').classList.remove('d-none');
+                    break;
+                case 'Bank Transfer':
+                    document.getElementById('div-account').classList.remove('d-none');
+                    document.getElementById('div-bank').classList.remove('d-none');
+                    console.log("Payment method: Bank Transfer");
+                    break;
+                case 'Debit':
+                    document.getElementById('div-account').classList.remove('d-none');
+                    document.getElementById('div-bank').classList.remove('d-none');
+
+                    console.log("Payment method: Debit");
+                    break;
+                case 'Due Date':
+                    document.getElementById('div-duedate').classList.remove('d-none');
+                    console.log("Payment method: Due Date");
+                    break;
+                case undefined:
+                    break;
+                default:
+                    console.log("Payment method: Credit");
+
+                    const installmentSelect = document.getElementById('installment-select');
+                
+                    const selectedOption = paymentSelect.options[paymentSelect.selectedIndex];
+                    const methods = JSON.parse(selectedOption.getAttribute('data-method'));
+                
+                    // Kosongkan opsi sebelumnya
+                    installmentSelect.innerHTML = '';
+                
+                    // Tambahkan opsi baru
+                    methods.forEach(function(method) {
+                        const option = document.createElement('option');
+                        option.value = method;
+                        option.text = method;
+                        installmentSelect.appendChild(option);
+                    });
+                    document.getElementById('div-bank').classList.remove('d-none');
+                    document.getElementById('div-credit').classList.remove('d-none');
+
+                }
+        }
         function setBrandsList(){
             const brandList = $("#brand-list");
             const formattedBrands = brands.map(brand => ({
@@ -113,6 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function addDataItem(sku) {
             if (!itemOrderList.some(itemOrder => itemOrder.sku === sku)) { 
                 let item = items.filter(item => item.sku === sku)[0];
+                item.qty = 1;
                 itemOrderList.push(item);
             }
             renderOrderList();
@@ -395,8 +509,84 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log('No contact selected');
                 }
             });
-        
-        
+            document.getElementById('orderAddForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+            
+                let form = this;
+                let formData = new FormData(form);
+                let submitButton = document.getElementById('submit-add-button');
+                submitButton.disabled = true;
+            
+                // Include itemOrderList in the form data
+                formData.append('itemOrderList', JSON.stringify(itemOrderList));
+            
+                Swal.fire({
+                    title: "Processing...",
+                    text: "Please wait.",
+                    icon: "info",
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+            
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                    },
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    Swal.close();
+                    submitButton.disabled = false;
+            
+                    const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
+                    const messageId = data.success ? 'success-message' : 'danger-message';
+                    let modalMessage = data.success ? data.message : 'Submission failed';
+            
+                    // Handle nested error messages
+                    if (!data.success && data.message) {
+                        if (typeof data.message === 'object') {
+                            modalMessage = Object.values(data.message).flat().join(', ');
+                        } else {
+                            modalMessage = data.message;
+                        }
+                        if (modalMessage.includes("already exists.")) {
+                            // Generate a new transaction ID
+                            document.getElementById('transaction-id').innerText = generateTransactionID('ORD');
+                            modalMessage = "An error occurred. Please try again.";
+            
+                        }
+                    }
+                    document.getElementById(messageId).textContent = modalMessage;
+                    new bootstrap.Modal(document.getElementById(modalId)).show();
+            
+                    console.error(modalMessage, data.error);
+            
+                    document.getElementsByName('cancel-button').forEach(button => button.click());
+            
+                    if (data.success) {
+                        setTimeout(() => {
+                            if (redirect) {
+                                window.location.href = redirect;
+                            } else {
+                                window.location.reload();
+                            }
+                        }, 2000);
+                    }
+                })
+                .catch(error => {
+                    Swal.close();
+                    submitButton.disabled = false;
+                    document.getElementById('danger-message').textContent = error.message || 'An error occurred';
+                    new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                    console.error('Submission failed:', error);
+                });
+            });
+    
+            window.paymentMethodChange = function() {
+                paymentMethodChange();  
+            };
     //INITIALIZE
     document.getElementById('transaction-id').innerText = generateTransactionID('ORD');
     $('#supplier-select').trigger('change');
@@ -404,6 +594,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setCategoryList();
     initItems();
 
+    paymentMethodChange();
 });
 
 

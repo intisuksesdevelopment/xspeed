@@ -29,12 +29,12 @@
                         <li class="{{ Request::is('add-product','edit-product') ? 'active' : '' }}"><a
                                 href="{{ route('product-add') }}"><i data-feather="plus-square"></i><span>Create
                                     Product</span></a></li>
-                        <li class="{{ Request::is('expired-products') ? 'active' : '' }}"><a
+                        {{-- <li class="{{ Request::is('expired-products') ? 'active' : '' }}"><a
                                 href="{{ url('expired-products') }}"><i data-feather="codesandbox"></i><span>Expired
                                     Products</span></a></li>
                         <li class="{{ Request::is('low-stocks') ? 'active' : '' }}"><a
                                 href="{{ url('low-stocks') }}"><i data-feather="trending-down"></i><span>Low
-                                    Stocks</span></a></li>
+                                    Stocks</span></a></li> --}}
                         <li class="{{ Request::is('category') ? 'active' : '' }}"><a
                                 href="{{ url('category') }}"><i
                                     data-feather="codepen"></i><span>Category</span></a></li>
@@ -45,14 +45,14 @@
                                 href="{{ url('brands') }}"><i data-feather="tag"></i><span>Brands</span></a></li>
                         <li class="{{ Request::is('units') ? 'active' : '' }}"><a href="{{ url('units') }}"><i
                                     data-feather="speaker"></i><span>Units</span></a></li>
-                        <li class="{{ Request::is('varriant-attributes') ? 'active' : '' }}"><a
+                        {{-- <li class="{{ Request::is('varriant-attributes') ? 'active' : '' }}"><a
                                 href="{{ url('varriant-attributes') }}"><i data-feather="layers"></i><span>Variant
-                                    Attributes</span></a></li>
+                                    Attributes</span></a></li> --}}
                         <li class="{{ Request::is('racks') ? 'active' : '' }}"><a
                                 href="{{ url('racks') }}"><i data-feather="layers"></i><span>Racks</span></a></li>
-                        <li class="{{ Request::is('warranty') ? 'active' : '' }}"><a href="{{ url('warranty') }}"><i
+                        {{-- <li class="{{ Request::is('warranty') ? 'active' : '' }}"><a href="{{ url('warranty') }}"><i
                                     data-feather="bookmark"></i><span>Warranties</span></a>
-                        </li>
+                        </li> --}}
                         <li class="{{ Request::is('barcode') ? 'active' : '' }}"><a href="{{ url('barcode') }}"><i
                                     data-feather="align-justify"></i><span>Print
                                     Barcode</span></a></li>
@@ -76,12 +76,12 @@
                     </ul>
                 </li>
                 <li class="submenu-open">
-                    <h6 class="submenu-hdr">Sales</h6>
+                    <h6 class="submenu-hdr">Sales & Orders</h6>
                     <ul>
                         <li class="{{ Request::is('sales-list') ? 'active' : '' }}"><a
                                 href="{{ url('sales-list') }}"><i
                                     data-feather="shopping-cart"></i><span>Sales</span></a></li>
-                        <li class="{{ Request::is('invoice-report') ? 'active' : '' }}"><a
+                        {{-- <li class="{{ Request::is('invoice-report') ? 'active' : '' }}"><a
                                 href="{{ url('invoice-report') }}"><i
                                     data-feather="file-text"></i><span>Invoices</span></a></li>
                         <li class="{{ Request::is('sales-returns') ? 'active' : '' }}"><a
@@ -90,11 +90,19 @@
                         <li class="{{ Request::is('quotation-list') ? 'active' : '' }}"><a
                                 href="{{ url('quotation-list') }}"><i
                                     data-feather="save"></i><span>Quotation</span></a>
-                        </li>
+                        </li> --}}
                         <li class="{{ Request::is('pos') ? 'active' : '' }}"><a href="{{ url('pos') }}"><i
                                     data-feather="hard-drive"></i><span>POS</span></a></li>
+                        
+                        <li class="{{ Request::is('order') ? 'active' : '' }}"><a
+                            href="{{ url('order') }}"><i
+                                data-feather="shopping-cart"></i><span>Orders</span></a></li>
+                        <li class="{{ Request::is('order-add-form') ? 'active' : '' }}"><a
+                            href="{{ url('order-add-form') }}"><i
+                                data-feather="shopping-cart"></i><span>Orders Add</span></a></li>
                     </ul>
                 </li>
+                
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Promo</h6>
                     <ul>
@@ -117,7 +125,7 @@
                                     Return</span></a></li>
                     </ul>
                 </li>
-                <li class="submenu-open">
+                {{-- <li class="submenu-open">
                     <h6 class="submenu-hdr">Finance & Accounts</h6>
                     <ul>
                         <li class="submenu">
@@ -134,7 +142,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Peoples</h6>
                     <ul>
@@ -145,7 +153,7 @@
                                 href="{{ url('suppliers') }}"><i data-feather="users"></i><span>Suppliers</span></a>
                         </li>
                         <li class="{{ Request::is('store-list') ? 'active' : '' }}"><a
-                                href="{{ url('store-list') }}"><i data-feather="home"></i><span>Stores</span></a>
+                                href="{{ url('contact-list') }}"><i data-feather="home"></i><span>Contact</span></a>
                         </li>
                         <li class="{{ Request::is('warehouses') ? 'active' : '' }}"><a
                                 href="{{ url('warehouses') }}"><i
@@ -163,7 +171,7 @@
                         <li class="{{ Request::is('purchase-report') ? 'active' : '' }}"><a
                                 href="{{ url('purchase-report') }}"><i data-feather="pie-chart"></i><span>Purchase
                                     report</span></a></li>
-                        <li class="{{ Request::is('inventory-report') ? 'active' : '' }}"><a
+                        {{-- <li class="{{ Request::is('inventory-report') ? 'active' : '' }}"><a
                                 href="{{ url('inventory-report') }}"><i data-feather="inbox"></i><span>Inventory
                                     Report</span></a></li>
                         <li class="{{ Request::is('invoice-report') ? 'active' : '' }}"><a
@@ -186,7 +194,7 @@
                                     Report</span></a></li>
                         <li class="{{ Request::is('profit-and-loss') ? 'active' : '' }}"><a
                                 href="{{ url('profit-and-loss') }}"><i data-feather="pie-chart"></i><span>Profit &
-                                    Loss</span></a></li>
+                                    Loss</span></a></li> --}}
                     </ul>
                 </li>
                 <li class="submenu-open">

@@ -10,7 +10,7 @@
 	<title>ExpeedShop</title>
 
 	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="dashboard/assets/img/logo-expeed3.png">
+	<link rel="shortcut icon" type="image/png"  href="{{ asset('dashboard/assets/img/logo-expeed3.png')}}">
 	<!-- google font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
@@ -68,7 +68,7 @@
 	<div class="footer-area">
 		<div class="container">
 			<div style="display: flex; justify-content: center;">
-				<img src="/build/plugins/dashboard/assets/img/logo-expeed3.png" alt="logo">
+				<img src="{{ asset('/build/plugins/dashboard/assets/img/logo-exspeed3.png')}}" alt="logo">
 			</div>
 			<br>
 			<h1>ABOUT US</h1>  

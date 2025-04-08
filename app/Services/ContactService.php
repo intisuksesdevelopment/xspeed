@@ -36,4 +36,12 @@ class ContactService
         return $contacts;
     }
 
+    public static function getDetail($code)
+    {
+        $customer = Contact::where('uuid', $code)->first();
+        if (! $customer) {
+            throw new NotFoundException("code : " . $code);
+        }
+        return $customer;
+    }
 }

@@ -166,7 +166,7 @@ class ItemService
         foreach ($items as $item) {
             
             $itemSelect = Item::where('uuid', $item['uuid'])->first();
-            $remaining = $itemSelect->stock - $item['qty'];
+            $remaining = $itemSelect->stock - ($item['qty']??1);
             if($remaining >= 0){
                 $stock['available'][] = $item;
             }else{

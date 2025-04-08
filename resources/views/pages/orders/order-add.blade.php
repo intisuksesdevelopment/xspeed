@@ -41,8 +41,8 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-sm-6 col-12">
                                             <span>Transaction ID : #<span id="transaction-id" ></span></span>
-                                            <span class="d-none">Transaction ID : #<input id="trx_id" name="trx_id"></span>
-                                            <span class="d-none">Transaction ID : #<input id="type" name="type" value="sales"></span>
+                                            <span class="d-none"><input id="trx_id" name="trx_id"></span>
+                                            <span class="d-none"><input id="type" name="type" value="order"></span>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -189,6 +189,86 @@
                                                             Grand Total : <span id="grandtotal">0,00</span><span> IDR</span>
                                                         </a>
                                                     </div>
+                                                    <div class="block-section payment-method">
+                                                        <h6>Payment Method</h6>
+                                                        <div class="row d-flex align-items-center justify-content-center methods">
+                                                            <div class="col-12 col-md-12 col-lg-12 col-sm-12">
+                                                                <div class="input-blocks mb-3 ">
+                                                                    <select class="select" name="payment_method" id="payment-method-select" onchange="paymentMethodChange()">
+                                                                        @foreach($paymentMethods as $paymentMethod)
+                                                                            <option value="{{ $paymentMethod['id']}}" data-method="{{ $paymentMethod['method']}}">{{ $paymentMethod['name']}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div id="div-payment">
+                                                                    <div class="mb-3 input-blocks">
+                                                                        <label class="form-label">Payment Amount</label>
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="form-control" id="payment_total" name="payment_total" placeholder="0" oninput="formatThousandSeparator(this)" onchange="calculateChange(this)">
+                                                                            <button type="button" class="col-lg-3 btn btn-primary ms-2" onclick="paymentFull()">Payment Full</button>
+                        
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="div-cash">
+                                                                    <div class="mb-3 input-blocks">
+                                                                        <label class="form-label">Payment Change</label>
+                                                                        <input type="text" class="form-control" id="payment_change" name="payment_change" placeholder="0" readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-3 input-blocks" id="div-bank">
+                                                                    <label class="form-label">Bank</label>
+                                                                    <select class="select" name="bank" id="bank-select">
+                                                                        @foreach($banks as $bank)
+                                                                            <option value="{{ $bank['code']}}">{{ $bank['name']}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div id="div-account">
+                                                                    <div class="mb-3 input-blocks">
+                                                                        <label class="form-label">Account Number</label>
+                                                                        <input type="text" class="form-control" id="account_number" name="account_number">
+                                                                    </div>
+                                                                    <div class="mb-3 input-blocks">
+                                                                        <label class="form-label">Account Name</label>
+                                                                        <input type="text" class="form-control" id="account_name" name="account_name">
+                                                                    </div>
+                                                                </div>
+                                                                <div id="div-credit">
+                                                                    <div class="mb-3 input-blocks">
+                                                                        <label class="form-label">Card Number</label>
+                                                                        <input type="text" class="form-control" id="card_number" name="card_number">
+                                                                    </div>
+                                                                    <div class="mb-3 input-blocks">
+                                                                        <label class="form-label">Installment</label>
+                                                                        <select class="select" name="installment" id="installment-select">
+                                                                           
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="div-duedate">
+                                                                    <div class="input-blocks">
+                                                                        <label>Due Date</label>
+                                                                        <div class="input-groupicon calender-input">
+                                                                            <i data-feather="calendar" class="info-img"></i>
+                                                                            <input type="text" class="datetimepicker" id="due-date" name="due-date" style="z-index: 1000;position: relative;"
+                                                                                placeholder="Choose">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-none">
+                                                                    <input type="text"  id="payment-desc" name="payment_desc" >
+                                                                </div>
+                                                                <div class="col-lg-12">
+                                                                    <div class="input-blocks summer-description-box transfer mb-3">
+                                                                        <label>Notes</label>
+                                                                        <textarea name="description" class="form-control h-100" rows="5" maxlength="300"></textarea>
+                                                                        <p class="mt-1">Maximum 300 Characters</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                            
@@ -205,7 +285,7 @@
                 <div class="btn-addproduct mb-4">
                     <button type="button" class="btn btn-cancel me-2"
                         onclick="window.location.href='{{ url('product') }}'">Cancel</button>
-                    <button type="submit" class="btn btn-submit" id="submit-add-button">Save Product</button>
+                    <button type="submit" class="btn btn-submit" id="submit-add-button">Save Order</button>
                 </div>
             </div>
         </form>

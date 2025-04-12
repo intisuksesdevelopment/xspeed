@@ -20,4 +20,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME}}
           password: ${{ secrets.FTP_PASSWORD}}
           local-dir: ./
-          server-dir: domains/intisuksesdevelopment.my.id/public-html/ftp/
+          server-dir: /home/intisuks/domains/intisuksesdevelopment.my.id/public-html/ftp/

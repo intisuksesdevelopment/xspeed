@@ -3,7 +3,7 @@ name: Deploy to hosting
 on:
   push:
     branches:
-      - deploy
+      - production
 
 jobs:
   deploy:

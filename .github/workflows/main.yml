@@ -12,8 +12,12 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        
       - name: Check Current Directory
         run: pwd
+
+      - name: Check List Directory
+        run: ls
       
       - name: Ensure Build Directory Exists
         run: mkdir -p ./build

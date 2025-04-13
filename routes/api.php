@@ -1,12 +1,11 @@
 <?php
 
-use App\Services\ContactService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PosController;
+use App\Http\Controllers\ItemController;
 
-Route::prefix('api')->group(function () {
-    Route::prefix('pos')->group(function () {
-        Route::post('/add', [PosController::class, 'add'])->name('pos-add');
-    });
-});
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
 
+Route::post('/uploads', [ItemController::class, 'upload'])->name('product-upload');

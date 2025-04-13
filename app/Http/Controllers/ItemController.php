@@ -1,14 +1,15 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Services\BrandService;
-use App\Services\CategoryService;
+use Illuminate\Http\Request;
 use App\Services\ItemService;
 use App\Services\RackService;
-use App\Services\SubCategoryService;
 use App\Services\UnitService;
+use App\Services\BrandService;
+use App\Services\ExcelService;
+use App\Services\CategoryService;
 use App\Services\WarehouseService;
-use Illuminate\Http\Request;
+use App\Services\SubCategoryService;
 use Illuminate\Pagination\Paginator;
 
 class ItemController extends Controller
@@ -73,4 +74,20 @@ class ItemController extends Controller
     {
         return ItemService::getItemsByCategory($category_id);
     }
+    public function upload(Request $request)
+    {   
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv|max:2048',
+        ]);
+
+        $file = $request->file('file');
+
+        try {
+            ExcelService::import($file, null);
+            return response()->json(['message' => 'File berhasil diimpor'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
 }

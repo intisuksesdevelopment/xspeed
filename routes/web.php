@@ -21,6 +21,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\SubCategoryController;
+use Illuminate\Support\Facades\Artisan;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -182,6 +185,96 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/single-product', [DashboardController::class, 'getDetail'])->name('single-product');
     Route::get('/about', [DashboardController::class, 'about']);
 });
+
+
+
+//CLEAR CACHE
+Route::get('/clear-all-cache', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    return 'All caches have been cleared!';
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

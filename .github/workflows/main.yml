@@ -21,7 +21,10 @@ jobs:
       
       - name: Ensure Build Directory Exists
         run: mkdir -p build
-      
+        
+      - name: Check New Created Directory
+        run: ls
+        
       - name: Move Build Folder Contents
         run: mv /public/build/{.,}* ./build/
         

@@ -180,35 +180,34 @@ class ItemService
     public static function uploadItem($row){
         $item = new Item();
         $item->uuid = (string) Str::uuid();
-        $item->name = $row[1];
-        $item->sku = $row[2]??;
+        $item->sku = $row[1];
         $item->description = $row[2];
         return $row;
     }
 
 }
 
-uuid
-name
-sku
-barcode
-category_id
-subcategory_id
-brand_id
-warehouse_id
-rack_id
-basic_price
-sell_price
-unit
-color
-stock
-stock_min
-currency
-description
-image_url
-status
-created_by
-updated_by
-created_at
-updated_at
-history_log
+// uuid
+// name
+// sku
+// barcode
+// category_id
+// subcategory_id
+// brand_id
+// warehouse_id
+// rack_id
+// basic_price
+// sell_price
+// unit
+// color
+// stock
+// stock_min
+// currency
+// description
+// image_url
+// status
+// created_by
+// updated_by
+// created_at
+// updated_at
+// history_log

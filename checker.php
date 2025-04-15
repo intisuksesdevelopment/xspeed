@@ -3,7 +3,8 @@
 // Simpan sebagai check-permission.php di root folder Laravel, lalu akses via browser
 
 // Security precaution
-if (!isset($_SERVER['HTTP_HOST']) || $_SERVER['REMOTE_ADDR'] !== '127.0.0.1') {
+
+if (!isset($_SERVER['HTTP_HOST']) || $_SERVER['REMOTE_ADDR'] !== '103.114.137.242') {
     die('Akses ditolak! File ini hanya untuk pemeriksaan internal.');
 }
 

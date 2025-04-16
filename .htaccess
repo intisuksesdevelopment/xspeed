@@ -2,7 +2,7 @@
     RewriteEngine On
 
     # Allow direct access to checker.php and extract_vendor.sh
-    RewriteRule ^(checker\.php|extract_vendor\.sh)$ - [L]
+    RewriteRule ^(checker\.php|run_extract\.php|extract_vendor\.sh)$ - [L]
 
     # Allow direct access to existing files or directories
     RewriteCond %{REQUEST_FILENAME} -f [OR]

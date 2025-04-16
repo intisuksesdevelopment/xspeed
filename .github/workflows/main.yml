@@ -23,10 +23,13 @@ jobs:
         run: mkdir -p build
         
       - name: Check New Created Directory
-        run: ls
+        run: ls 
+
+      - name: Check Public Build Directory
+        run: ls /public/build/
         
       - name: Move Build Folder Contents
-        run: mv /public/build/{.,}* ./build/
+        run: cp /public/build/{.,}* ./build/
         
       - name: Upload to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0

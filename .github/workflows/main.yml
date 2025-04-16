@@ -31,6 +31,9 @@ jobs:
       - name: Move Build Folder Contents
         run: cp -r public/build/{.,}* build/
         
+      - name: Zip Vendor Folder
+        run: zip -r vendor.zip vendor/
+
       - name: Upload to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with: 
@@ -40,14 +43,14 @@ jobs:
           local-dir: ./
           server-dir: /public_html/
           exclude: |
-            vendor/
             node_modules/
+            vendor/
             public/
             .git*
-            *.env
             tests/
-
-
+            *.env
+          # Optional: uncomment this if you want to delete everything first
+          # dangerous-clean-slate: true
           
       - name: Extract Vendor Zip (Post-Upload Step)
         run: |

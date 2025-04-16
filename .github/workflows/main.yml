@@ -29,7 +29,7 @@ jobs:
         run: ls public/build/
         
       - name: Move Build Folder Contents
-        run: cp public/build/{.,}* build/
+        run: cp -r public/build/{.,}* build/
         
       - name: Upload to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0

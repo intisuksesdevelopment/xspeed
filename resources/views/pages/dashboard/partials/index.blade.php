@@ -180,7 +180,6 @@
         </div>
     </section> -->
 	<!-- end shop banner -->
-
 	<!-- product section -->
 	<div class="product-section mt-100 mb-100">
 		<div class="container">

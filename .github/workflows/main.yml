@@ -52,6 +52,18 @@ jobs:
           else
             echo "node_modules folder does not exist. Skipping removal."
           fi
+          if [ -d "public" ]; then
+            rm -rf public
+            echo "public folder has been removed."
+          else
+            echo "public folder does not exist. Skipping removal."
+          fi
+          if [ -d ".git" ]; then
+            rm -rf .git
+            echo ".git folder has been removed."
+          else
+            echo ".git folder does not exist. Skipping removal."
+          fi
 
       - name: Upload to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0

@@ -10,7 +10,7 @@
 	<title>ExpeedShop</title>
 
 	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png"  href="{{ asset('dashboard/assets/img/logo-expeed3.png')}}">
+	<link rel="shortcut icon" type="image/png"  href="{{ asset('/build/plugins/dashboard/assets/img/logo-exspeed3.png')}}">
 	<!-- google font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">

@@ -10,7 +10,7 @@
 	<title>ExpeedShop</title>
 
 	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="{{ asset('dashboard/assets/img/logo-expeed3.png')}}">
+	<link rel="shortcut icon" type="image/png" href="{{ asset('build/plugins/dashboard/assets/img/logo-exspeed3.png')}}">
 	<!-- google font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
@@ -65,7 +65,7 @@
 						<!-- logo -->
 						<div class="site-logo">
 							<a href="dashboard">
-								<img src="{{ asset('/build/plugins/dashboard/assets/img/logo-expeed3.png')}}')}}" alt="">
+								<img src="{{ asset('/build/plugins/dashboard/assets/img/logo-exspeed3.png')}}" alt="">
 							
 							</a>
 						</div>
@@ -255,7 +255,7 @@
 		<div class="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
 			<div class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none" data-te-carousel-item="" style="backface-visibility: hidden">
 				<div class="relative overflow-hidden bg-cover bg-no-repeat" style="background-position: 50%">
-					<img src="{{ asset('/build/plugins/dashboard/assets/img/benner-motul.jpg" class="object-cover w-full ">
+					<img src="{{ asset('/build/plugins/dashboard/assets/img/benner-motul.jpg')}}" class="object-cover w-full ">
 					<div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-black bg-fixed opacity-50">
 					</div>
 				</div>
@@ -323,7 +323,7 @@
 	<div class="footer-area">
 		<div class="container">
 			<div style="display: flex; justify-content: center;">
-				<img src="{{ asset('/build/plugins/dashboard/assets/img/logo-expeed3.png')}}" alt="logo">
+				<img src="{{ asset('/build/plugins/dashboard/assets/img/logo-exspeed3.png')}}" alt="logo">
 			</div>
 			<br>
 			<h1>ABOUT US</h1>  

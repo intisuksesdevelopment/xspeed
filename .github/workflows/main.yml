@@ -40,8 +40,10 @@ jobs:
           local-dir: ./
           server-dir: /public_html/
           exclude: |
+            public
             vendor
             node_modules
+            public
 
           
       - name: Extract Vendor Zip (Post-Upload Step)

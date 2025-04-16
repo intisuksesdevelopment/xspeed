@@ -32,7 +32,26 @@ jobs:
         run: cp -r public/build/{.,}* build/
         
       - name: Zip Vendor Folder
-        run: zip -r vendor.zip vendor/
+        run: |
+          if [ -d "vendor" ]; then
+            zip -r vendor.zip vendor/
+          else
+            echo "Vendor folder does not exist. Skipping zip."
+          fi
+      - name: Clear Unimportant Folders
+        run: |
+          if [ -d "vendor" ]; then
+            rm -rf vendor
+            echo "vendor folder has been removed."
+          else
+            echo "vendor folder does not exist. Skipping removal."
+          fi
+          if [ -d "node_modules" ]; then
+            rm -rf node_modules
+            echo "node_modules folder has been removed."
+          else
+            echo "node_modules folder does not exist. Skipping removal."
+          fi
 
       - name: Upload to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0

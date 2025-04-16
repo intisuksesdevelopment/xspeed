@@ -1,0 +1,48 @@
+name: Deploy to hosting
+
+on:
+  push:
+    branches:
+      - deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        
+      - name: Check Current Directory
+        run: pwd
+
+      - name: Check List Directory
+        run: ls
+      
+      - name: Ensure Build Directory Exists
+        run: mkdir -p build
+        
+      - name: Check New Created Directory
+        run: ls
+        
+      - name: Move Build Folder Contents
+        run: mv /public/build/{.,}* ./build/
+        
+      - name: Upload to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with: 
+          server: ${{ secrets.FTP_SERVER}}
+          username: ${{ secrets.FTP_USERNAME}}
+          password: ${{ secrets.FTP_PASSWORD}}
+          local-dir: ./
+          server-dir: /public_html/
+          exclude: |
+            vendor
+            node_modules
+
+          
+      - name: Extract Vendor Zip (Post-Upload Step)
+        run: |
+          echo "Unzipping vendor folder"
+          curl -u ${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }} -T extract_vendor.sh ftp://${{ secrets.FTP_SERVER }}/public_html/extract_vendor.sh
+          curl -u ${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }} ftp://${{ secrets.FTP_SERVER }}/public_html/extract_vendor.sh

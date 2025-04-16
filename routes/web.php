@@ -180,6 +180,10 @@ Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout')
 
 
 //DASHBOARD
+Route::get('/', function () {
+    return redirect('/dashboard');
+});
+
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('main');
     Route::get('/single-product', [DashboardController::class, 'getDetail'])->name('single-product');

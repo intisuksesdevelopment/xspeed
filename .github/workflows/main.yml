@@ -23,16 +23,54 @@ jobs:
         run: mkdir -p build
         
       - name: Check New Created Directory
-        run: ls
+        run: ls 
+
+      - name: Check Public Build Directory
+        run: ls public/build/
         
       - name: Move Build Folder Contents
-        run: mv public/build/{.,}* build/
+        run: cp -r public/build/{.,}* build/
         
+      - name: Clear Unimportant Folders
+        run: |
+          if [ -d "vendor" ]; then
+            rm -rf vendor
+            echo "vendor folder has been removed."
+          else
+            echo "vendor folder does not exist. Skipping removal."
+          fi
+          if [ -d "node_modules" ]; then
+            rm -rf node_modules
+            echo "node_modules folder has been removed."
+          else
+            echo "node_modules folder does not exist. Skipping removal."
+          fi
+          if [ -d "public" ]; then
+            rm -rf public
+            echo "public folder has been removed."
+          else
+            echo "public folder does not exist. Skipping removal."
+          fi
+          if [ -d ".git" ]; then
+            rm -rf .git
+            echo ".git folder has been removed."
+          else
+            echo ".git folder does not exist. Skipping removal."
+          fi
       - name: Upload to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with: 
-          server: ${{ secrets.FTP_SERVER}}
-          username: ${{ secrets.FTP_USERNAME}}
-          password: ${{ secrets.FTP_PASSWORD}}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
           server-dir: /public_html/
+          exclude: |
+            node_modules/
+            vendor/
+            public/
+            .git*
+            tests/
+            *.env
+          # Optional: uncomment this if you want to delete everything first
+          # dangerous-clean-slate: true

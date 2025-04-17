@@ -6,7 +6,7 @@
 					<!-- logo -->
 					<div class="site-logo">
 						<a href="/dashboard">
-							<img src="{{ asset('/build/plugins/dashboard/assets/img/logo-expeed3.png')}}" alt="">
+							<img src="{{ asset('/build/plugins/dashboard/assets/img/logo-exspeed3.png')}}" alt="">
 						</a>
 					</div>
 					<!-- logo -->

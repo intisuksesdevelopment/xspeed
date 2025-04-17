@@ -154,7 +154,9 @@ Route::get('register', [LoginController::class, 'registrationForm'])->name('regi
 Route::post('register', [LoginController::class, 'registration'])->name('register');
 
 //AUTH ROUTE**
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/', [CustomAuthController::class, 'dashboard'])->name('dashboard');
+
     Route::prefix('pos')->group(function () {
         Route::get('/', [PosController::class, 'index'])->name('pos');
         Route::post('/add', [PosController::class, 'add'])->name('pos-add');
@@ -171,7 +173,6 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Route::get('index', [CustomAuthController::class, 'dashboard'])->name('dashboard');
 // Route::get('signin', [CustomAuthController::class, 'index'])->name('signin');
 Route::post('custom-login', [CustomAuthController::class, 'customSignin'])->name('signin.custom');
 // Route::get('register', [CustomAuthController::class, 'registration'])->name('register');
@@ -180,6 +181,10 @@ Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout')
 
 
 //DASHBOARD
+Route::get('/', function () {
+    return redirect('/dashboard');
+});
+
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('main');
     Route::get('/single-product', [DashboardController::class, 'getDetail'])->name('single-product');

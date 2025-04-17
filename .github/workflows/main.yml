@@ -28,6 +28,32 @@ jobs:
       - name: Move Build Folder Contents
         run: mv /public/build/{.,}* ./build/
         
+      - name: Clear Unimportant Folders
+        run: |
+          if [ -d "vendor" ]; then
+            rm -rf vendor
+            echo "vendor folder has been removed."
+          else
+            echo "vendor folder does not exist. Skipping removal."
+          fi
+          if [ -d "node_modules" ]; then
+            rm -rf node_modules
+            echo "node_modules folder has been removed."
+          else
+            echo "node_modules folder does not exist. Skipping removal."
+          fi
+          if [ -d "public" ]; then
+            rm -rf public
+            echo "public folder has been removed."
+          else
+            echo "public folder does not exist. Skipping removal."
+          fi
+          if [ -d ".git" ]; then
+            rm -rf .git
+            echo ".git folder has been removed."
+          else
+            echo ".git folder does not exist. Skipping removal."
+          fi
       - name: Upload to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with: 

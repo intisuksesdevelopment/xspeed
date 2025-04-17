@@ -159,7 +159,11 @@ class ItemService
         $items = Item::where('category_id', $category_id)->where('status',0)->with(['category'])->get();
         return response()->json($items);
     }
-
+    public static function getWithMinStock()
+    {
+        $items = Item::whereColumn('stock', '<=', 'stock_min')->get();
+        return $items;
+    }
     public static function checkStock($items){
         $stock['available'] = [];
         $stock['not_available'] = [];

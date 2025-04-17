@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Services\ItemService;
 use App\Services\CustomerService;
 use App\Services\SupplierService;
 use App\Http\Controllers\Controller;
@@ -93,6 +94,14 @@ class CustomAuthController extends Controller
     {
         $data['countCustomer'] = CustomerService::countAll();
         $data['countSupplier'] = SupplierService::countAll();
+        $request = new Request([
+            'per_page' => 5,
+            'sortBy' => 'created_at',
+            'sortDirection' => 'desc',
+            'page' => 1
+        ]);
+        $data['dataNewProduct'] = ItemService::getPaginated($request);
+        $data['dataMinStockProduct'] = ItemService::getWithMinStock();
         return view('pages.admin.index', $data);
     }
 

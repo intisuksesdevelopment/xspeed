@@ -156,50 +156,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($dataNewProduct as $index => $product)
                                         <tr>
-                                            <td>1</td>
+                                            <td>{{ $index + 1 }}</td>
                                             <td class="productimgname">
                                                 <a href="{{ url('product-list') }}" class="product-img">
-                                                    <img src="{{ URL::asset('/build/img/products/stock-img-01.png') }}"
-                                                        alt="product">
+                                                    <img src="{{ URL::asset($product->image_url) }}" alt="product">
                                                 </a>
-                                                <a href="{{ url('product-list') }}">Lenevo 3rd Generation</a>
+                                                <a href="{{ url('product-list') }}">{{ $product->name }}</a>
                                             </td>
-                                            <td>$12500</td>
+                                            <td>{{\App\Services\UtilService::formatCurrency($product->sell_price,$product->currency) }}</td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td class="productimgname">
-                                                <a href="{{ url('product-list') }}" class="product-img">
-                                                    <img src="{{ URL::asset('/build/img/products/stock-img-06.png') }}"
-                                                        alt="product">
-                                                </a>
-                                                <a href="{{ url('product-list') }}">Bold V3.2</a>
-                                            </td>
-                                            <td>$1600</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td class="productimgname">
-                                                <a href="{{ url('product-list') }}" class="product-img">
-                                                    <img src="{{ URL::asset('/build/img/products/stock-img-02.png') }}"
-                                                        alt="product">
-                                                </a>
-                                                <a href="{{ url('product-list') }}">Nike Jordan</a>
-                                            </td>
-                                            <td>$2000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td class="productimgname">
-                                                <a href="{{ url('product-list') }}" class="product-img">
-                                                    <img src="{{ URL::asset('/build/img/products/stock-img-03.png') }}"
-                                                        alt="product">
-                                                </a>
-                                                <a href="{{ url('product-list') }}">Apple Series 5 Watch</a>
-                                            </td>
-                                            <td>$800</td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -209,7 +177,7 @@
             </div>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Expired Products</h4>
+                    <h4 class="card-title">Low Stock </h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive dataview">
@@ -224,162 +192,45 @@
                                     </th>
                                     <th>Product</th>
                                     <th>SKU</th>
-                                    <th>Manufactured Date</th>
-                                    <th>Expired Date</th>
+                                    <th>Stock</th>
+                                    <th>Stock Minimum</th>
                                     <th class="no-sort">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <div class="productimgname">
-                                            <a href="javascript:void(0);" class="product-img stock-img">
-                                                <img src="{{ URL::asset('/build/img/products/expire-product-01.png') }}"
-                                                    alt="product">
-                                            </a>
-                                            <a href="javascript:void(0);">Red Premium Handy </a>
-                                        </div>
-                                    </td>
-                                    <td><a href="javascript:void(0);">PT006</a></td>
-                                    <td>17 Jan 2023</td>
-                                    <td>29 Mar 2023</td>
-                                    <td class="action-table-data">
-                                        <div class="edit-delete-action">
-                                            <a class="me-2 p-2" href="#">
-                                                <i data-feather="edit" class="feather-edit"></i>
-                                            </a>
-                                            <a class=" confirm-text p-2" href="javascript:void(0);">
-                                                <i data-feather="trash-2" class="feather-trash-2"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <div class="productimgname">
-                                            <a href="javascript:void(0);" class="product-img stock-img">
-                                                <img src="{{ URL::asset('/build/img/products/expire-product-02.png') }}"
-                                                    alt="product">
-                                            </a>
-                                            <a href="javascript:void(0);">Iphone 14 Pro</a>
-                                        </div>
-                                    </td>
-                                    <td><a href="javascript:void(0);">PT007</a></td>
-                                    <td>22 Feb 2023</td>
-                                    <td>04 Apr 2023</td>
-                                    <td class="action-table-data">
-                                        <div class="edit-delete-action">
-                                            <a class="me-2 p-2" href="#">
-                                                <i data-feather="edit" class="feather-edit"></i>
-                                            </a>
-                                            <a class="confirm-text p-2" href="javascript:void(0);">
-                                                <i data-feather="trash-2" class="feather-trash-2"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <div class="productimgname">
-                                            <a href="javascript:void(0);" class="product-img stock-img">
-                                                <img src="{{ URL::asset('/build/img/products/expire-product-03.png') }}"
-                                                    alt="product">
-                                            </a>
-                                            <a href="javascript:void(0);">Black Slim 200 </a>
-                                        </div>
-                                    </td>
-                                    <td><a href="javascript:void(0);">PT008</a></td>
-                                    <td>18 Mar 2023</td>
-                                    <td>13 May 2023</td>
-                                    <td class="action-table-data">
-                                        <div class="edit-delete-action">
-                                            <a class="me-2 p-2" href="#">
-                                                <i data-feather="edit" class="feather-edit"></i>
-                                            </a>
-                                            <a class=" confirm-text p-2" href="javascript:void(0);">
-                                                <i data-feather="trash-2" class="feather-trash-2"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <div class="productimgname">
-                                            <a href="javascript:void(0);" class="product-img stock-img">
-                                                <img src="{{ URL::asset('/build/img/products/expire-product-04.png') }}"
-                                                    alt="product">
-                                            </a>
-                                            <a href="javascript:void(0);">Woodcraft Sandal</a>
-                                        </div>
-                                    </td>
-                                    <td><a href="javascript:void(0);">PT009</a></td>
-                                    <td>29 Mar 2023</td>
-                                    <td>27 May 2023</td>
-                                    <td class="action-table-data">
-                                        <div class="edit-delete-action">
-                                            <a class="me-2 p-2" href="#">
-                                                <i data-feather="edit" class="feather-edit"></i>
-                                            </a>
-                                            <a class=" confirm-text p-2" href="javascript:void(0);">
-                                                <i data-feather="trash-2" class="feather-trash-2"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <div class="productimgname">
-                                            <a href="javascript:void(0);" class="product-img stock-img">
-                                                <img src="{{ URL::asset('/build/img/products/stock-img-03.png') }}"
-                                                    alt="product">
-                                            </a>
-                                            <a href="javascript:void(0);">Apple Series 5 Watch </a>
-                                        </div>
-                                    </td>
-                                    <td><a href="javascript:void(0);">PT010</a></td>
-                                    <td>24 Mar 2023</td>
-                                    <td>26 May 2023</td>
-                                    <td class="action-table-data">
-                                        <div class="edit-delete-action">
-                                            <a class="me-2 p-2" href="#">
-                                                <i data-feather="edit" class="feather-edit"></i>
-                                            </a>
-                                            <a class=" confirm-text p-2" href="javascript:void(0);">
-                                                <i data-feather="trash-2" class="feather-trash-2"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                
+                                @foreach ($dataMinStockProduct as $index => $product)
+                                        <tr>
+                                            <td>
+                                                <label class="checkboxs">
+                                                    <input type="checkbox">
+                                                    <span class="checkmarks"></span>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <div class="productimgname">
+                                                    <a href="javascript:void(0);" class="product-img stock-img">
+                                                        <img src="{{ URL::asset($product->image_url) }}" alt="{{ $product->name }}">
+                                                    </a>
+                                                    <a href="javascript:void(0);">{{ $product->name }}</a>
+                                                </div>
+                                            </td>
+                                            <td><a href="javascript:void(0);">{{ $product->sku }}</a></td>
+                                            <td>{{ $product->stock }}</td>
+                                            <td>{{ $product->stock_min }}</td>
+                                            <td class="action-table-data">
+                                                <div class="edit-delete-action">
+                                                    <a class="me-2 p-2" href="{{ route('edit-product', $product->uuid) }}">
+                                                        <i data-feather="edit" class="feather-edit"></i>
+                                                    </a>
+                                                    <a class="confirm-text p-2" href="javascript:void(0);" onclick="deleteProduct({{ $product->uuid }})">
+                                                        <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                @endforeach
+                              
                             </tbody>
                         </table>
                     </div>

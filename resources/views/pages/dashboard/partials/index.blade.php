@@ -6,7 +6,7 @@
 						<!-- logo -->
 						<div class="site-logo">
 							<a href="/dashboard">
-								<img src="{{ asset('/plugins/dashboard/assets/img/logo-expeed3.png')}}" alt="">
+								<img src="{{  asset('build/plugins/dashboard/assets/img/logo-exspeed3.png')}}" alt="">
 							</a>
 						</div>
 						<!-- logo -->
@@ -112,19 +112,19 @@
 				<div class="col-lg-12">
 					<div class="logo-carousel-inner">
 						<div class="single-logo-item">
-							<img src="{{ asset('/plugins/dashboard/assets/img/company-logos/1.png')}}" alt="">
+							<img src="{{  asset('build/plugins/dashboard/assets/img/company-logos/1.png')}}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="{{ asset('/plugins/dashboard/assets/img/company-logos/2.png')}}" alt="">
+							<img src="{{  asset('build/plugins/dashboard/assets/img/company-logos/2.png')}}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="{{ asset('/plugins/dashboard/assets/img/company-logos/3.png')}}" alt="">
+							<img src="{{  asset('build/plugins/dashboard/assets/img/company-logos/3.png')}}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="{{ asset('/plugins/dashboard/assets/img/company-logos/4.png')}}" alt="">
+							<img src="{{  asset('build/plugins/dashboard/assets/img/company-logos/4.png')}}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="{{ asset('/plugins/dashboard/assets/img/company-logos/5.png')}}" alt="">
+							<img src="{{  asset('build/plugins/dashboard/assets/img/company-logos/5.png')}}" alt="">
 						</div>
 					</div>
 				</div>
@@ -166,7 +166,7 @@
 		<div class="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
 			<div class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none" data-te-carousel-item="" style="backface-visibility: hidden">
 				<div class="relative overflow-hidden bg-cover bg-no-repeat" style="background-position: 50%">
-					<img src="{{ asset('/plugins/dashboard/assets/img/benner-motul.jpg')}}" class="object-cover w-full ">
+					<img src="{{  asset('build/plugins/dashboard/assets/img/benner-motul.jpg')}}" class="object-cover w-full ">
 					<div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-black bg-fixed opacity-50">
 					</div>
 				</div>
@@ -180,7 +180,6 @@
         </div>
     </section> -->
 	<!-- end shop banner -->
-
 	<!-- product section -->
 	<div class="product-section mt-100 mb-100">
 		<div class="container">
@@ -189,7 +188,7 @@
 					<div class="col-lg-3 col-md-6 text-center">
 						<div class="single-product-item">
 							<div class="product-image">
-								<img src="{{ $brand['image_url'] }}')}}" alt="product">
+								<img src="{{ $brand['image_url'] }}" alt="product">
 							</div>
 							<h6>{{ strtoupper($brand->name) }}</h6>
 						</div>

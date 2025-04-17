@@ -1,10 +1,14 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Pastikan file di dalam "build" bisa diakses langsung
+    # Allow direct access to checker.php and extract_vendor.sh
+    RewriteRule ^(checker\.php|run_extract\.php|extract_vendor\.sh)$ - [L]
+
+    # Allow direct access to existing files or directories
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
 
+    # Redirect all other requests to index.php
     RewriteRule ^ index.php [L]
 </IfModule>

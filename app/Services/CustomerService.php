@@ -136,5 +136,10 @@ class CustomerService
         }
         return $customer;
     }
+    public static function countAll()
+    {
+        $count = Customer::where('status', 0)->count();
+        return $count;
+    }
 
 }

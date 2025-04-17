@@ -128,5 +128,9 @@ class SupplierService
             ], 500);
         }
     }
-
+    public static function countAll()
+    {
+        $count = Supplier::where('status', 0)->count();
+        return $count;
+    }
 }

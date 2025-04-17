@@ -31,40 +31,6 @@ jobs:
       - name: Move Build Folder Contents
         run: cp -r public/build/{.,}* build/
         
-      - name: Zip Vendor Folder
-        run: |
-          if [ -d "vendor" ]; then
-            zip -r vendor.zip vendor/
-          else
-            echo "Vendor folder does not exist. Skipping zip."
-          fi
-      - name: Clear Unimportant Folders
-        run: |
-          if [ -d "vendor" ]; then
-            rm -rf vendor
-            echo "vendor folder has been removed."
-          else
-            echo "vendor folder does not exist. Skipping removal."
-          fi
-          if [ -d "node_modules" ]; then
-            rm -rf node_modules
-            echo "node_modules folder has been removed."
-          else
-            echo "node_modules folder does not exist. Skipping removal."
-          fi
-          if [ -d "public" ]; then
-            rm -rf public
-            echo "public folder has been removed."
-          else
-            echo "public folder does not exist. Skipping removal."
-          fi
-          if [ -d ".git" ]; then
-            rm -rf .git
-            echo ".git folder has been removed."
-          else
-            echo ".git folder does not exist. Skipping removal."
-          fi
-
       - name: Upload to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with: 
@@ -82,6 +48,3 @@ jobs:
             *.env
           # Optional: uncomment this if you want to delete everything first
           # dangerous-clean-slate: true
-      - name: Run extract_vendor.sh remotely
-        run: |
-          curl https://intisuksesdevelopment.my.id/run_extract.php

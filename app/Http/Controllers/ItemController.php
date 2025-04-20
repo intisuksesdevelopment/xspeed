@@ -52,7 +52,16 @@ class ItemController extends Controller
         $data['units']         = UnitService::getActive($request);
         return view('pages.products.product-edit', $data);
     }
-
+    public function barcode(Request $request)
+    {
+        $data['categories']    = CategoryService::getActive($request);
+        $data['subcategories'] = SubCategoryService::getActive($request);
+        $data['warehouses']    = WarehouseService::getActive($request);
+        $data['racks']         = RackService::getActive($request);
+        $data['brands']        = BrandService::getActive($request);
+        $data['units']         = UnitService::getActive($request);
+        return view('pages.products.product-barcode', $data);
+    }
     public function add(Request $request)
     {
         return ItemService::save($request);

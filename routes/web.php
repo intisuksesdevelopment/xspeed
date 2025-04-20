@@ -4,6 +4,7 @@
 use App\Services\ContactService;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PosController;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RackController;
@@ -21,10 +22,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\SubCategoryController;
-use Illuminate\Support\Facades\Artisan;
+use App\Http\Middleware\LocalizationMiddleware;
 
+use Illuminate\Support\Facades\Log;
 
-
+use Illuminate\Support\Facades\Session;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,106 +43,6 @@ Route::prefix('upload')->group(function () {
 });
 
 
-Route::prefix('contact')->group(function () {
-    Route::get('/{supplierUuid}', [ContactService::class, 'get']);
-    Route::get('/{supplierUuid}', [ContactService::class, 'get']);
-});
-Route::prefix('sales')->group(function () {
-    Route::get('/', [SalesController::class, 'index'])->name('sales-list');
-    Route::get('/add', [SalesController::class, 'addForm'])->name('sales-add-form');
-    Route::post('/add', [SalesController::class, 'add'])->name('sales-add');
-    Route::get('/{id}', [SalesController::class, 'detail'])->name('sales-detail');
-
-
-});
-Route::prefix('stock')->group(function () {
-    Route::get('/', [StockController::class, 'index'])->name('stock-list');
-    Route::get('/add', [StockController::class, 'addForm'])->name('stock-add-form');
-    Route::post('/add', [StockController::class, 'add'])->name('stock-add');
-
-});
-Route::prefix('product')->group(function () {
-    Route::get('/', [ItemController::class, 'index'])->name('product-list');
-    Route::get('/add', [ItemController::class, 'addForm'])->name('product-add-form');
-    Route::post('/add', [ItemController::class, 'add'])->name('product-add');
-    Route::get('/edit/{uuid}', [ItemController::class, 'editForm'])->name('product-edit-form');
-    Route::post('/edit', [ItemController::class, 'edit'])->name('product-edit');
-    Route::get('/detail/{uuid}', [ItemController::class, 'detail'])->name('product-detail');
-    Route::delete('/delete/{uuid}', [ItemController::class, 'delete'])->name('product-delete');
-    Route::get('/category/{category_id}', [ItemController::class, 'getItemsByCategory'])->name('product-category');
-
-});
-
-Route::prefix('category')->group(function () {
-    Route::get('/', [CategoryController::class, 'index'])->name('category');
-    Route::get('/{id}', [CategoryController::class, 'detail'])->name('category-detail');
-    Route::post('/add', [CategoryController::class, 'add'])->name('category-add');
-    Route::post('/update', [CategoryController::class, 'update'])->name('category-update');
-    Route::delete('/delete/{id}', [CategoryController::class, 'delete'])->name('category-delete');
-});
-Route::prefix('subcategory')->group(function () {
-    Route::get('/', [SubCategoryController::class, 'index'])->name('subcategory');
-    Route::get('/{id}', [SubCategoryController::class, 'detail'])->name('subcategory-detail');
-    Route::post('/add', [SubCategoryController::class, 'add'])->name('subcategory-add');
-    Route::post('/update', [SubCategoryController::class, 'update'])->name('subcategory-update');
-    Route::delete('/delete/{id}', [SubCategoryController::class, 'delete'])->name('subcategory-delete');
-});
-
-Route::prefix('suppliers')->group(function () {
-    Route::get('/', [SupplierController::class, 'index'])->name('suppliers');
-    Route::post('/add', [SupplierController::class, 'add'])->name('supplier-add');
-    Route::post('/update', [SupplierController::class, 'update'])->name('supplier-update');
-    Route::delete('/delete/{id}', [SupplierController::class, 'delete'])->name('supplier-delete');
-});
-
-Route::prefix('warehouses')->group(function () {
-    Route::get('/', [WarehouseController::class, 'index'])->name('warehouses');
-    Route::post('/add', [WarehouseController::class, 'add'])->name('warehouse-add');
-    Route::post('/update', [WarehouseController::class, 'update'])->name('warehouse-update');
-    Route::delete('/delete/{id}', [WarehouseController::class, 'delete'])->name('warehouse-delete');
-});
-
-Route::prefix('brands')->group(function () {
-    Route::get('/', [BrandController::class, 'index'])->name('brands');
-    Route::post('/add', [BrandController::class, 'add'])->name('brand-add');
-    Route::post('/update', [BrandController::class, 'update'])->name('brand-update');
-    Route::delete('/delete/{id}', [BrandController::class, 'delete'])->name('brand-delete');
-});
-
-Route::prefix('racks')->group(function () {
-    Route::get('/', [RackController::class, 'index'])->name('racks');
-    Route::post('/add', [RackController::class, 'add'])->name('rack-add');
-    Route::post('/update', [RackController::class, 'update'])->name('rack-update');
-    Route::delete('/delete/{id}', [RackController::class, 'delete'])->name('rack-delete');
-});
-
-Route::prefix('units')->group(function () {
-    Route::get('/', [UnitController::class, 'index'])->name('units');
-    Route::post('/add', [UnitController::class, 'add'])->name('unit-add');
-    Route::post('/update', [UnitController::class, 'update'])->name('unit-update');
-    Route::delete('/delete/{id}', [UnitController::class, 'delete'])->name('unit-delete');
-});
-
-
-Route::prefix('users')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('users');
-    Route::post('/add', [UserController::class, 'add'])->name('user-add');
-    Route::post('/update', [UserController::class, 'update'])->name('user-update');
-    Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
-});
-
-Route::prefix('customers')->group(function () {
-    Route::get('/', [CustomerController::class, 'index'])->name('customers');
-    Route::post('/add', [CustomerController::class, 'add'])->name('customer-add');
-    Route::post('/update', [CustomerController::class, 'update'])->name('customer-update');
-    Route::delete('/delete/{id}', [CustomerController::class, 'delete'])->name('customer-delete');
-});
-Route::prefix('pos')->group(function () {
-    Route::get('/', [PosController::class, 'index'])->name('pos');
-    Route::post('/add', [PosController::class, 'add'])->name('pos-add');
-    Route::post('/update', [UserController::class, 'update'])->name('user-update');
-    Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
-});
 
 
 
@@ -154,8 +56,9 @@ Route::get('register', [LoginController::class, 'registrationForm'])->name('regi
 Route::post('register', [LoginController::class, 'registration'])->name('register');
 
 //AUTH ROUTE**
-Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('/', [CustomAuthController::class, 'dashboard'])->name('dashboard');
+Route::middleware(['auth',LocalizationMiddleware::class])->prefix('admin')->group(function () {
+    Route::get('/', [CustomAuthController::class, 'adminDashboard'])->name('admin-dashboard');
+    Route::get('/dashboard/sales', [CustomAuthController::class, 'salesDashboard'])->name('sales-dashboard');
 
     Route::prefix('pos')->group(function () {
         Route::get('/', [PosController::class, 'index'])->name('pos');
@@ -164,12 +67,114 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('pos-delete');
     });
     Route::prefix('order')->group(function () {
-        Route::get('/', [OrderController::class, 'index'])->name('order');
+        Route::get('/', [OrderController::class, 'index'])->name('order-list');
         Route::get('/add', [OrderController::class, 'addForm'])->name('order-add-form');
         Route::post('/add', [OrderController::class, 'add'])->name('order-add');
         Route::post('/update', [OrderController::class, 'update'])->name('order-update');
         Route::delete('/delete/{id}', [OrderController::class, 'delete'])->name('order-delete');
     });
+    Route::prefix('product')->group(function () {
+        Route::get('/', [ItemController::class, 'index'])->name('product-list');
+        Route::get('/add', [ItemController::class, 'addForm'])->name('product-add-form');
+        Route::post('/add', [ItemController::class, 'add'])->name('product-add');
+        Route::get('/edit/{uuid}', [ItemController::class, 'editForm'])->name('product-edit-form');
+        Route::post('/edit', [ItemController::class, 'edit'])->name('product-edit');
+        Route::get('/detail/{uuid}', [ItemController::class, 'detail'])->name('product-detail');
+        Route::delete('/delete/{uuid}', [ItemController::class, 'delete'])->name('product-delete');
+        Route::get('/category/{category_id}', [ItemController::class, 'getItemsByCategory'])->name('product-category');
+        Route::get('/barcode', [ItemController::class, 'barcode'])->name('product-barcode');
+    });
+    Route::prefix('contact')->group(function () {
+        Route::get('/{supplierUuid}', [ContactService::class, 'get']);
+        Route::get('/{supplierUuid}', [ContactService::class, 'get']);
+    });
+    Route::prefix('sales')->group(function () {
+        Route::get('/', [SalesController::class, 'index'])->name('sales-list');
+        Route::get('/add', [SalesController::class, 'addForm'])->name('sales-add-form');
+        Route::post('/add', [SalesController::class, 'add'])->name('sales-add');
+        Route::get('/{id}', [SalesController::class, 'detail'])->name('sales-detail');
+        Route::get('/invoice/list', [SalesController::class, 'invoices'])->name('sales-invoices');
+    
+    
+    });
+    Route::prefix('stock')->group(function () {
+        Route::get('/', [StockController::class, 'index'])->name('stock-list');
+        Route::get('/add', [StockController::class, 'addForm'])->name('stock-add-form');
+        Route::post('/add', [StockController::class, 'add'])->name('stock-add');
+    
+    });
+
+    Route::prefix('category')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('category');
+        Route::get('/{id}', [CategoryController::class, 'detail'])->name('category-detail');
+        Route::post('/add', [CategoryController::class, 'add'])->name('category-add');
+        Route::post('/update', [CategoryController::class, 'update'])->name('category-update');
+        Route::delete('/delete/{id}', [CategoryController::class, 'delete'])->name('category-delete');
+    });
+    Route::prefix('subcategory')->group(function () {
+        Route::get('/', [SubCategoryController::class, 'index'])->name('subcategory');
+        Route::get('/{id}', [SubCategoryController::class, 'detail'])->name('subcategory-detail');
+        Route::post('/add', [SubCategoryController::class, 'add'])->name('subcategory-add');
+        Route::post('/update', [SubCategoryController::class, 'update'])->name('subcategory-update');
+        Route::delete('/delete/{id}', [SubCategoryController::class, 'delete'])->name('subcategory-delete');
+    });
+    
+    Route::prefix('suppliers')->group(function () {
+        Route::get('/', [SupplierController::class, 'index'])->name('suppliers');
+        Route::post('/add', [SupplierController::class, 'add'])->name('supplier-add');
+        Route::post('/update', [SupplierController::class, 'update'])->name('supplier-update');
+        Route::delete('/delete/{id}', [SupplierController::class, 'delete'])->name('supplier-delete');
+    });
+    
+    Route::prefix('warehouses')->group(function () {
+        Route::get('/', [WarehouseController::class, 'index'])->name('warehouses');
+        Route::post('/add', [WarehouseController::class, 'add'])->name('warehouse-add');
+        Route::post('/update', [WarehouseController::class, 'update'])->name('warehouse-update');
+        Route::delete('/delete/{id}', [WarehouseController::class, 'delete'])->name('warehouse-delete');
+    });
+    
+    Route::prefix('brands')->group(function () {
+        Route::get('/', [BrandController::class, 'index'])->name('brands');
+        Route::post('/add', [BrandController::class, 'add'])->name('brand-add');
+        Route::post('/update', [BrandController::class, 'update'])->name('brand-update');
+        Route::delete('/delete/{id}', [BrandController::class, 'delete'])->name('brand-delete');
+    });
+    
+    Route::prefix('racks')->group(function () {
+        Route::get('/', [RackController::class, 'index'])->name('racks');
+        Route::post('/add', [RackController::class, 'add'])->name('rack-add');
+        Route::post('/update', [RackController::class, 'update'])->name('rack-update');
+        Route::delete('/delete/{id}', [RackController::class, 'delete'])->name('rack-delete');
+    });
+    
+    Route::prefix('units')->group(function () {
+        Route::get('/', [UnitController::class, 'index'])->name('units');
+        Route::post('/add', [UnitController::class, 'add'])->name('unit-add');
+        Route::post('/update', [UnitController::class, 'update'])->name('unit-update');
+        Route::delete('/delete/{id}', [UnitController::class, 'delete'])->name('unit-delete');
+    });
+    
+    
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('users');
+        Route::post('/add', [UserController::class, 'add'])->name('user-add');
+        Route::post('/update', [UserController::class, 'update'])->name('user-update');
+        Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
+    });
+    
+    Route::prefix('customers')->group(function () {
+        Route::get('/', [CustomerController::class, 'index'])->name('customers');
+        Route::post('/add', [CustomerController::class, 'add'])->name('customer-add');
+        Route::post('/update', [CustomerController::class, 'update'])->name('customer-update');
+        Route::delete('/delete/{id}', [CustomerController::class, 'delete'])->name('customer-delete');
+    });
+    Route::prefix('pos')->group(function () {
+        Route::get('/', [PosController::class, 'index'])->name('pos');
+        Route::post('/add', [PosController::class, 'add'])->name('pos-add');
+        Route::post('/update', [UserController::class, 'update'])->name('user-update');
+        Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
+    });
+    
 
 });
 
@@ -190,6 +195,13 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/single-product', [DashboardController::class, 'getDetail'])->name('single-product');
     Route::get('/about', [DashboardController::class, 'about']);
 });
+Route::get('/set-language/{lang}', function ($lang) {
+    if (in_array($lang, ['id', 'en'])) { 
+        Session::put('locale', $lang);
+        Log::info('Session put: ' .$lang);
+    }
+    return redirect()->back();
+})->name('setLanguage');
 
 
 
@@ -205,13 +217,17 @@ Route::get('/clear-all-cache', function() {
 
 
 
-
-
-
-
-
-
-
+Route::middleware(['web'])->group(function () {
+    Route::get('/example', function () {
+        return 'Test Page';
+    });
+});
+Route::get('/example', function () {
+    return 'Test Page';
+});
+Route::get('/test-middleware', function () {
+    return 'Testing Middleware';
+});
 
 
 
@@ -339,9 +355,9 @@ Route::get('/edit-product', function () {
     return view('edit-product');
 })->name('edit-product');
 
-Route::get('/sales-dashboard', function () {
-    return view('sales-dashboard');
-})->name('sales-dashboard');
+// Route::get('/sales-dashboard', function () {
+//     return view('sales-dashboard');
+// })->name('sales-dashboard');
 
 Route::get('/video-call', function () {
     return view('video-call');

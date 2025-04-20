@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\ItemService;
+use App\Services\RackService;
+use App\Services\UnitService;
+use App\Services\BrandService;
 use App\Services\SalesService;
+use App\Services\CategoryService;
+use App\Services\WarehouseService;
+use App\Services\SubCategoryService;
 use Illuminate\Pagination\Paginator;
 
 class SalesController extends Controller
@@ -31,6 +37,13 @@ class SalesController extends Controller
         $data['brands']        = BrandService::getActive($request);
         $data['units']         = UnitService::getActive($request);
         return view('pages.products.product-add', $data);
+    }
+    public function invoices(Request $request)
+    {
+
+        Paginator::useBootstrap(); // Menggunakan Bootstrap
+        $data['sales'] = SalesService::getInvoices($request);
+        return view('pages.sales.sales-list', $data);
     }
     public function add(Request $request)
     {

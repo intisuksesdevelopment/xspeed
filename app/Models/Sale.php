@@ -73,4 +73,19 @@ class Sale extends Model
     {
         return $this['status'] == 0 ? 'Available' : 'Not Available';
     }
+    public function isPaymentStatus()
+    {
+        switch ($this['payment_status']) {
+            case 0:
+                return __('payment.paid');
+            case 1:
+                return __('payment.unpaid');
+            case 2:
+                return __('payment.hold');
+            case 3:
+                return __('payment.other');
+            default:
+                return __('payment.unkonwn');
+        }
+    }
 }

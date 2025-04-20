@@ -21,9 +21,10 @@ class SalesService{
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
-        $sales = Sales::orderBy($sortBy, $sortDirection)->paginate($perPage);
+        $sales = Sale::orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($sales as $sale) {
-            $sale->availability = $sale->isAvailable();
+            $sale->isPaymentStatus = $sale->isPaymentStatus();
+            $sale->isAvailable = $sale->isAvailable();
         }
         return $sales;
     }
@@ -248,6 +249,33 @@ class SalesService{
                 'success' => false,
                 'message' => 'An error occurred: ' . $e->getMessage(),
             ], 500);
+        }
+    }
+    public static function getInvoices(Request $request)
+    {
+
+        $perPage = $request->input('per_page', CommonConstants::PAGE);
+        // Default to 10 per page if not provided
+        $sortBy = $request->input('sortBy', 'created_at');
+        // Default to 'id' if not provided
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        // Default to 'asc' if not provided
+        $sales = Sale::where('status', 0)->orderBy($sortBy, $sortDirection)->paginate($perPage);
+        foreach ($sales as $sale) {
+            $sale->isPaymentStatus = $sale->isPaymentStatus();
+            $sale->isAvailable = $sale->isAvailable();
+            }
+        return $sales;  
+    }
+    public static function getInvoice($id)
+    {
+        $sales = Sale::where('trx_id', $id)
+                    ->where('status', 0)
+                    ->first();
+        if ($sales) {
+            return $sales;
+        } else {
+            throw new NotFoundException("id : " . $id);
         }
     }
 }

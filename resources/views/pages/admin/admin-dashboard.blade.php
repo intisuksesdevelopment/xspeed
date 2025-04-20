@@ -1,4 +1,4 @@
-<?php $page = 'index'; ?>
+<?php $page = 'admin-dashboard'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
     <div class="page-wrapper">

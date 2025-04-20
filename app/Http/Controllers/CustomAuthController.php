@@ -90,7 +90,7 @@ class CustomAuthController extends Controller
         ]);
     }
 
-    public function dashboard()
+    public function adminDashboard()
     {
         $data['countCustomer'] = CustomerService::countAll();
         $data['countSupplier'] = SupplierService::countAll();
@@ -102,9 +102,22 @@ class CustomAuthController extends Controller
         ]);
         $data['dataNewProduct'] = ItemService::getPaginated($request);
         $data['dataMinStockProduct'] = ItemService::getWithMinStock();
-        return view('pages.admin.index', $data);
+        return view('pages.admin.admin-dashboard', $data);
     }
-
+    public function salesDashboard()
+    {
+        $data['countCustomer'] = CustomerService::countAll();
+        $data['countSupplier'] = SupplierService::countAll();
+        $request = new Request([
+            'per_page' => 5,
+            'sortBy' => 'created_at',
+            'sortDirection' => 'desc',
+            'page' => 1
+        ]);
+        $data['dataNewProduct'] = ItemService::getPaginated($request);
+        $data['dataMinStockProduct'] = ItemService::getWithMinStock();
+        return view('pages.admin.sales-dashboard', $data);
+    }
     public function signOut()
     {
         Session::flush();

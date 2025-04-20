@@ -152,6 +152,22 @@
                 <span class="badge rounded-pill">1</span>
             </a>
         </li>
+        <!-- Flag -->
+        <li class="nav-item dropdown has-arrow flag-nav nav-item-box">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
+                <img src="{{ URL::asset('/build/img/flags/' . Session::get('locale') . '.png') }}" alt="Language" class="img-fluid">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a href="{{ route('setLanguage', ['lang' => 'id']) }}" class="dropdown-item {{ Session::get('locale') == 'id' ? 'active' : '' }}">
+                    <img src="{{ URL::asset('/build/img/flags/id.png') }}" alt="" height="16"> Indonesia
+                </a>
+                <a href="{{ route('setLanguage', ['lang' => 'en']) }}" class="dropdown-item {{ Session::get('locale') == 'en' ? 'active' : '' }}">
+                    <img src="{{ URL::asset('/build/img/flags/us.png') }}" alt="" height="16"> English
+                </a>
+                {{-- Tambahkan bahasa lain di sini jika diperlukan --}}
+            </div>
+        </li>
+        <!-- /Flag -->
         <!-- Notifications -->
         <li class="nav-item dropdown nav-item-box">
             <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
@@ -168,8 +184,7 @@
                             <a href="{{ url('activities') }}">
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
-                                        <img alt=""
-                                            src="{{ URL::asset('/build/src/img/profiles/avatar-02.jpg') }}">
+                                        <img alt="" src="{{ URL::asset('/build/src/img/profiles/avatar-02.jpg') }}">
                                     </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">John Doe</span> added
@@ -185,8 +200,7 @@
                             <a href="{{ url('activities') }}">
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
-                                        <img alt=""
-                                            src="{{ URL::asset('/build/src/img/profiles/avatar-03.jpg') }}">
+                                        <img alt="" src="{{ URL::asset('/build/src/img/profiles/avatar-03.jpg') }}">
                                     </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
@@ -203,8 +217,7 @@
                             <a href="{{ url('activities') }}">
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
-                                        <img alt=""
-                                            src="{{ URL::asset('/build/src/img/profiles/avatar-06.jpg') }}">
+                                        <img alt="" src="{{ URL::asset('/build/src/img/profiles/avatar-06.jpg') }}">
                                     </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">Misty Tison</span>
@@ -222,8 +235,7 @@
                             <a href="{{ url('activities') }}">
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
-                                        <img alt=""
-                                            src="{{ URL::asset('/build/src/img/profiles/avatar-17.jpg') }}">
+                                        <img alt="" src="{{ URL::asset('/build/src/img/profiles/avatar-17.jpg') }}">
                                     </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">Rolland Webber</span>
@@ -239,8 +251,7 @@
                             <a href="{{ url('activities') }}">
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
-                                        <img alt=""
-                                            src="{{ URL::asset('/build/src/img/profiles/avatar-13.jpg') }}">
+                                        <img alt="" src="{{ URL::asset('/build/src/img/profiles/avatar-13.jpg') }}">
                                     </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
@@ -267,8 +278,7 @@
             <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
                 <span class="user-info">
                     <span class="user-letter">
-                        <img src="{{ URL::asset('/build/src/img/profiles/avator1.jpg') }}" alt=""
-                            class="img-fluid">
+                        <img src="{{ URL::asset('/build/src/img/profiles/avator1.jpg') }}" alt="" class="img-fluid">
                     </span>
                     <span class="user-detail">
                         <span class="user-name">{{ Auth::user()->name; }}</span>
@@ -288,14 +298,13 @@
                         </div>
                     </div>
                     <hr class="m-0">
-                    <a class="dropdown-item" href="{{ url('profile') }}"> <i class="me-2"
-                            data-feather="user"></i> My Profile</a>
+                    <a class="dropdown-item" href="{{ url('profile') }}"> <i class="me-2" data-feather="user"></i> My
+                        Profile</a>
                     <a class="dropdown-item" href="{{ url('general-settings') }}"><i class="me-2"
                             data-feather="settings"></i>Settings</a>
                     <hr class="m-0">
                     <a class="dropdown-item logout pb-0" href="{{ url('signin') }}"><img
-                            src="{{ URL::asset('/build/src/img/icons/log-out.svg') }}" class="me-2"
-                            alt="img">Logout</a>
+                            src="{{ URL::asset('/build/src/img/icons/log-out.svg') }}" class="me-2" alt="img">Logout</a>
                 </div>
             </div>
         </li>

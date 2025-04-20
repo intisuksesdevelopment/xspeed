@@ -11,9 +11,9 @@
                                 class="{{ Request::is('index', '/', 'sales-dashboard') ? 'active subdrop' : '' }}"><i
                                     data-feather="grid"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="{{ url('index') }}"
-                                        class="{{ Request::is('index', '/') ? 'active' : '' }}">Admin Dashboard</a></li>
-                                <li><a href="{{ url('sales-dashboard') }}"
+                                <li><a href="{{ route('admin-dashboard') }}"
+                                        class="{{ Request::is('admin-dashboard', '/') ? 'active' : '' }}">Admin Dashboard</a></li>
+                                <li><a href="{{ route('sales-dashboard') }}"
                                         class="{{ Request::is('sales-dashboard') ? 'active' : '' }}">Sales Dashboard</a>
                                 </li>
                             </ul>
@@ -23,66 +23,63 @@
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Inventory</h6>
                     <ul>
-                        <li class="{{ Request::is('product-list','product-details') ? 'active' : '' }}"><a
-                                href="{{ route('product-list') }}"><i data-feather="box"></i><span>Products</span></a>
+                        <li class="{{ Request::is(ltrim(parse_url(route('product-list'), PHP_URL_PATH), '/')) ? 'active' : '' }}"><a
+                                href="{{ route('product-list') }}"><i data-feather="box"></i><span>{{ __('messages.sb.products') }}</span></a>
                         </li>
-                        <li class="{{ Request::is('add-product','edit-product') ? 'active' : '' }}"><a
-                                href="{{ route('product-add') }}"><i data-feather="plus-square"></i><span>Create
-                                    Product</span></a></li>
+                        <li class="{{ Request::is(ltrim(parse_url(route('product-add'), PHP_URL_PATH), '/')) ? 'active' : '' }}"><a
+                                href="{{ route('product-add') }}"><i data-feather="plus-square"></i><span>{{ __('messages.sb.product_create') }}</span></a></li>
                         {{-- <li class="{{ Request::is('expired-products') ? 'active' : '' }}"><a
                                 href="{{ url('expired-products') }}"><i data-feather="codesandbox"></i><span>Expired
                                     Products</span></a></li>
                         <li class="{{ Request::is('low-stocks') ? 'active' : '' }}"><a
                                 href="{{ url('low-stocks') }}"><i data-feather="trending-down"></i><span>Low
                                     Stocks</span></a></li> --}}
-                        <li class="{{ Request::is('category') ? 'active' : '' }}"><a
-                                href="{{ url('category') }}"><i
-                                    data-feather="codepen"></i><span>Category</span></a></li>
-                        <li class="{{ Request::is('subcategory') ? 'active' : '' }}"><a
-                                href="{{ url('subcategory') }}"><i data-feather="speaker"></i><span>Sub
-                                    Category</span></a></li>
-                        <li class="{{ Request::is('brands') ? 'active' : '' }}"><a
-                                href="{{ url('brands') }}"><i data-feather="tag"></i><span>Brands</span></a></li>
-                        <li class="{{ Request::is('units') ? 'active' : '' }}"><a href="{{ url('units') }}"><i
-                                    data-feather="speaker"></i><span>Units</span></a></li>
+                        <li class="{{ Request::is(ltrim(parse_url(route('category'), PHP_URL_PATH), '/')) ? 'active' : '' }}"><a
+                                href="{{ route('category') }}"><i data-feather="codepen"></i><span>{{ __('messages.sb.categories') }}</span></a></li>
+                        <li class="{{ Request::is(ltrim(parse_url(route('subcategory'), PHP_URL_PATH), '/')) ? 'active' : '' }}"><a
+                                href="{{ route('subcategory') }}"><i data-feather="speaker"></i><span>{{ __('messages.sb.sub_categories') }}</span></a></li>
+                        <li class="{{ Request::is(ltrim(parse_url(route('brands'), PHP_URL_PATH), '/')) ? 'active' : '' }}"><a
+                                href="{{ route('brands') }}"><i data-feather="tag"></i><span>{{ __('messages.sb.brands') }}</span></a></li>
+                        <li class="{{ Request::is(ltrim(parse_url(route('units'), PHP_URL_PATH), '/')) ? 'active' : '' }}"><a
+                            href="{{ route('units') }}"><i data-feather="speaker"></i><span>{{ __('messages.sb.units') }}</span></a></li>
                         {{-- <li class="{{ Request::is('varriant-attributes') ? 'active' : '' }}"><a
                                 href="{{ url('varriant-attributes') }}"><i data-feather="layers"></i><span>Variant
                                     Attributes</span></a></li> --}}
-                        <li class="{{ Request::is('racks') ? 'active' : '' }}"><a
-                                href="{{ url('racks') }}"><i data-feather="layers"></i><span>Racks</span></a></li>
+                        <li class="{{ Request::is(ltrim(parse_url(route('racks'), PHP_URL_PATH), '/')) ? 'active' : '' }}"><a
+                            href="{{ route('racks') }}"><i data-feather="layers"></i><span>{{ __('messages.sb.racks') }}</span></a></li>
                         {{-- <li class="{{ Request::is('warranty') ? 'active' : '' }}"><a href="{{ url('warranty') }}"><i
                                     data-feather="bookmark"></i><span>Warranties</span></a>
                         </li> --}}
-                        <li class="{{ Request::is('barcode') ? 'active' : '' }}"><a href="{{ url('barcode') }}"><i
-                                    data-feather="align-justify"></i><span>Print
-                                    Barcode</span></a></li>
-                        <li class="{{ Request::is('qrcode') ? 'active' : '' }}"><a href="{{ url('qrcode') }}"><i
+                        <li class="{{ Request::is(ltrim(parse_url(route('product-barcode'), PHP_URL_PATH), '/')) ? 'active' : '' }}"><a
+                            href="{{ route('product-barcode') }}"><i
+                                    data-feather="align-justify"></i><span>{{ __('messages.sb.print_barcode') }}</span></a></li>
+                        {{-- <li class="{{ Request::is('qrcode') ? 'active' : '' }}"><a href="{{ url('qrcode') }}"><i
                                     data-feather="maximize"></i><span>Print QR Code</span></a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Stock</h6>
                     <ul>
                         <li class="{{ Request::is('manage-stocks') ? 'active' : '' }}"><a
-                                href="{{ url('manage-stocks') }}"><i data-feather="package"></i><span>Manage
+                                href="{{ route('stock-list') }}"><i data-feather="package"></i><span>Manage
                                     Stock</span></a></li>
-                        <li class="{{ Request::is('stock-adjustment') ? 'active' : '' }}"><a
+                        {{-- <li class="{{ Request::is('stock-adjustment') ? 'active' : '' }}"><a
                                 href="{{ url('stock-adjustment') }}"><i data-feather="clipboard"></i><span>Stock
                                     Adjustment</span></a></li>
                         <li class="{{ Request::is('stock-transfer') ? 'active' : '' }}"><a
                                 href="{{ url('stock-transfer') }}"><i data-feather="truck"></i><span>Stock
-                                    Transfer</span></a></li>
+                                    Transfer</span></a></li> --}}
                     </ul>
                 </li>
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Sales & Orders</h6>
                     <ul>
                         <li class="{{ Request::is('sales-list') ? 'active' : '' }}"><a
-                                href="{{ url('sales-list') }}"><i
+                                href="{{ route('sales-list') }}"><i
                                     data-feather="shopping-cart"></i><span>Sales</span></a></li>
-                        {{-- <li class="{{ Request::is('invoice-report') ? 'active' : '' }}"><a
-                                href="{{ url('invoice-report') }}"><i
+                        <li class="{{ Request::is('invoice-report') ? 'active' : '' }}"><a
+                                href="{{ route('sales-invoices') }}"><i
                                     data-feather="file-text"></i><span>Invoices</span></a></li>
                         <li class="{{ Request::is('sales-returns') ? 'active' : '' }}"><a
                                 href="{{ url('sales-returns') }}"><i data-feather="copy"></i><span>Sales
@@ -90,7 +87,7 @@
                         <li class="{{ Request::is('quotation-list') ? 'active' : '' }}"><a
                                 href="{{ url('quotation-list') }}"><i
                                     data-feather="save"></i><span>Quotation</span></a>
-                        </li> --}}
+                        </li>
                         <li class="{{ Request::is('pos') ? 'active' : '' }}"><a href="{{ url('pos') }}"><i
                                     data-feather="hard-drive"></i><span>POS</span></a></li>
                         

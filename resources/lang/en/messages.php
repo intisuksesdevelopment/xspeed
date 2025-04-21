@@ -12,9 +12,4 @@ return [
     'sb.racks' => 'Racks',  
     'sb.print_barcode' => 'Print Barcode',  
 
-    'payment.paid' => 'Paid',
-    'payment.unpaid' => 'Unpaid',
-    'payment.hold' => 'On Hold',
-    'payment.other' => 'Other',
-    'payment.unkonwn' => 'Unkonwn Status',
 ];

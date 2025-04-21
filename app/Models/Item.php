@@ -109,11 +109,11 @@ class Item extends Model
     {
         switch ($this['status']) {
             case 0:
-                return 'Available';
+                return __('status.available');
             case 1:
-                return 'Deleted';
+                return __('status.deleted');
             case 2:
-                return 'Not Active';
+                return __('status.inactive');
             default:
                 return 'Unknown Status';
         }

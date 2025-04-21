@@ -91,13 +91,13 @@ class CategoryService
         }
     }
 
-    public static function update(Request $request)
+    public static function update(Request $request,String $id)
     {
         try {
             $data           = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
 
-            $category = Category::find($data['id']);
+            $category = Category::find($id);
             if (! $category) {
                 throw new NotFoundException("code : " . $data['code']);
             }

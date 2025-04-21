@@ -1,8 +1,8 @@
 <?php
 return [
-    'payment.paid' => 'Lunas',
-    'payment.unpaid' => 'Belum Lunas',
-    'payment.hold' => 'Ditahan',
-    'payment.other' => 'Lainnya',
-    'payment.unkonwn' => 'Status Tidak Dikenal',
+    'paid' => 'Lunas',
+    'unpaid' => 'Belum Lunas',
+    'hold' => 'Ditahan',
+    'other' => 'Lainnya',
+    'unknown' => 'Status Tidak Dikenal',
 ];

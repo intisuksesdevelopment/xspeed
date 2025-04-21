@@ -42,8 +42,8 @@ class SalesController extends Controller
     {
 
         Paginator::useBootstrap(); // Menggunakan Bootstrap
-        $data['sales'] = SalesService::getInvoices($request);
-        return view('pages.sales.sales-list', $data);
+        $data['sales'] = SalesService::getInvoices($request,'sales');
+        return view('pages.sales.sales-invoices', $data);
     }
     public function add(Request $request)
     {

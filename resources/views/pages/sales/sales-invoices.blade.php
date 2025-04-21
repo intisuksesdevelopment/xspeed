@@ -5,10 +5,10 @@
         <div class="content">
             @component('components.breadcrumb')
                 @slot('title')
-                    Invoice Report
+                    Sales Invoice Report
                 @endslot
                 @slot('li_1')
-                    Manage Your Invoice Report
+                    Manage Your Sales Invoice Report
                 @endslot
             @endcomponent
 
@@ -105,6 +105,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ( $sales as $sale )
                                 <tr>
                                     <td>
                                         <label class="checkboxs">
@@ -112,149 +113,24 @@
                                             <span class="checkmarks"></span>
                                         </label>
                                     </td>
-                                    <td>INV001</td>
-                                    <td>Thomas</td>
-                                    <td>19 Jan 2023</td>
-                                    <td>$1000</td>
-                                    <td>$1000</td>
-                                    <td>$0.00</td>
-                                    <td><span class="badge badge-linesuccess">Paid</span></td>
+                                    <td>{{ $sale->name }}</td>
+                                    <td>{{ $sale->cust_name }}</td>
+                                    <td>{{ $sale->created_at }}</td>
+                                    <td>{{\App\Services\UtilService::formatCurrency($sale->final_total,$sale->currency) }}</td>
+                                    <td>{{\App\Services\UtilService::formatCurrency($sale->payment_amount,$sale->currency) }}</td>
+                                    <td>{{\App\Services\UtilService::formatCurrency($sale->payment_remaining,$sale->currency) }}</td>
+                                    @if ($sale->payment_status == 0)
+                                        <td><span class="badge badge-linesuccess">{{ $sale->getPaymentStatus }}</span></td>
+                                    @elseif ($sale->payment_status == 2)
+                                        <td><span class="badge badges-warning">{{ $sale->getPaymentStatus }}</span></td>
+                                    @elseif ($sale->payment_status == 1)
+                                        <td><span class="badge badge-linedanger">{{$sale->getPaymentStatus }}</span></td>
+                                    @else
+                                        <td><span class="badge badge-lineinfo">{{ $sale->getPaymentStatus }}</span></td>      
+                                    @endif
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>INV002</td>
-                                    <td>Rose</td>
-                                    <td>25 Jan 2023</td>
-                                    <td>$1500</td>
-                                    <td>$0.00</td>
-                                    <td>$1500</td>
-                                    <td><span class="badge badge-linedanger">Unpaid</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>INV003</td>
-                                    <td>Benjamin</td>
-                                    <td>05 Feb 2023</td>
-                                    <td>$1800</td>
-                                    <td>$1800</td>
-                                    <td>$0.00</td>
-                                    <td><span class="badge badge-linesuccess">Paid</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>INV004</td>
-                                    <td>Kaitlin</td>
-                                    <td>15 Feb 2023</td>
-                                    <td>$2000</td>
-                                    <td>$1000</td>
-                                    <td>$1000</td>
-                                    <td><span class="badge badges-warning">Overdue</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>INV005</td>
-                                    <td>Lilly</td>
-                                    <td>18 Mar 2023</td>
-                                    <td>$800</td>
-                                    <td>$800</td>
-                                    <td>$0.00</td>
-                                    <td><span class="badge badge-linesuccess">Paid</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>INV006</td>
-                                    <td>Freda</td>
-                                    <td>24 Mar 2023</td>
-                                    <td>$750</td>
-                                    <td>$0.00</td>
-                                    <td>$750</td>
-                                    <td><span class="badge badge-linedanger">Unpaid</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>INV007</td>
-                                    <td>Alwin</td>
-                                    <td>12 Apr 2023</td>
-                                    <td>$1300</td>
-                                    <td>$1300</td>
-                                    <td>$0.00</td>
-                                    <td><span class="badge badge-linesuccess">Paid</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>INV008</td>
-                                    <td>Maybelle</td>
-                                    <td>24 Apr 2023</td>
-                                    <td>$1100</td>
-                                    <td>$1100</td>
-                                    <td>$0.00</td>
-                                    <td><span class="badge badge-linesuccess">Paid</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>INV009</td>
-                                    <td>Ellen</td>
-                                    <td>03 May 2023</td>
-                                    <td>$2300</td>
-                                    <td>$2300</td>
-                                    <td>$0.00</td>
-                                    <td><span class="badge badge-linesuccess">Paid</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>INV010</td>
-                                    <td>Grace</td>
-                                    <td>29 May 2023</td>
-                                    <td>$1700</td>
-                                    <td>$1700</td>
-                                    <td>$0.00</td>
-                                    <td><span class="badge badge-linesuccess">Paid</span></td>
-                                </tr>
+                                @endforeach
+                               
                             </tbody>
                         </table>
                     </div>

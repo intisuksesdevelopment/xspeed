@@ -23,7 +23,7 @@ class SalesService{
         // Default to 'asc' if not provided
         $sales = Sale::orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($sales as $sale) {
-            $sale->isPaymentStatus = $sale->isPaymentStatus();
+            $sale->getPaymentStatus = $sale->getPaymentStatus();
             $sale->isAvailable = $sale->isAvailable();
         }
         return $sales;
@@ -251,7 +251,7 @@ class SalesService{
             ], 500);
         }
     }
-    public static function getInvoices(Request $request)
+    public static function getInvoices(Request $request,$type)
     {
 
         $perPage = $request->input('per_page', CommonConstants::PAGE);
@@ -260,11 +260,14 @@ class SalesService{
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
-        $sales = Sale::where('status', 0)->orderBy($sortBy, $sortDirection)->paginate($perPage);
+        $sales = Sale::where('status', 0)
+                    ->where('type', $type)
+                    ->orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($sales as $sale) {
-            $sale->isPaymentStatus = $sale->isPaymentStatus();
+            $sale->getPaymentStatus = $sale->getPaymentStatus();
             $sale->isAvailable = $sale->isAvailable();
             }
+            
         return $sales;  
     }
     public static function getInvoice($id)

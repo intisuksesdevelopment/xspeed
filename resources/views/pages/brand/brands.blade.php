@@ -114,15 +114,15 @@
                                     <td>{{ $brand['code']}}</td>
                                     <td><span class="d-flex"><img
                                         src="{{ URL::asset($brand['image_url']) }}"
-                                        alt=""></span></td>
+                                        alt="" class="img-fluid rounded"></span></td>
                                     <td>{{ $brand['name']}}</td>
                                     <td class="d-inline-block text-truncate">{{ $brand['description']}}</td>
                                     <td>{{ $brand['created_at']}}</td>
                                     <td>
                                         @if ($brand['status']==0)
-                                        <span class="badge badge-linesuccess">{{ $brand['availability']}}</span>
+                                            <span class="badge badge-linesuccess">{{ $brand['availability']}}</span>
                                         @else
-                                        <span class="badge badge-danger">{{ $brand['availability']}}</span>
+                                            <span class="badge badge-linedanger">{{ $brand['availability']}}</span>
                                         @endif
                                     </td>
                                     <td class="action-table-data">

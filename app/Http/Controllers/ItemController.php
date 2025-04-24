@@ -22,14 +22,12 @@ class ItemController extends Controller
     }
     public function index(Request $request)
     {
-        Paginator::useBootstrap();
-        $items          = ItemService::getPaginated($request);
-        $items          = $this->itemService->getPaginated($request);
-        $itemsWithoutId = $items->map(function ($item) {
-            return $item->getWithoutId(true);
-        });
-        // dd($itemsWithoutId);
-        return view('pages.products.product-list', ['items' => $itemsWithoutId]);
+        $data['categories']    = CategoryService::getActive($request);
+        $data['subcategories'] = SubCategoryService::getActive($request);
+        $data['warehouses']    = WarehouseService::getActive($request);
+        $data['racks']         = RackService::getActive($request);
+        $data['brands']        = BrandService::getActive($request);
+        return view('pages.products.product-list',$data);
     }
     public function addForm(Request $request)
     {
@@ -98,5 +96,10 @@ class ItemController extends Controller
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
+
+    public function getData(Request $request){
+        return ItemService::getData($request);
+    }
+
 
 }

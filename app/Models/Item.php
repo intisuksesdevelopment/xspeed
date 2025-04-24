@@ -113,7 +113,7 @@ class Item extends Model
             case 1:
                 return __('status.deleted');
             case 2:
-                return __('status.inactive');
+                return __('status.notactive');
             default:
                 return 'Unknown Status';
         }

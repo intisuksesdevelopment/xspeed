@@ -116,7 +116,7 @@
                                         @if ($unit['status']==0)
                                         <span class="badge badge-linesuccess">{{ $unit['availability']}}</span>
                                         @else
-                                        <span class="badge badge-danger">{{ $unit['availability']}}</span>
+                                        <span class="badge badge-linedanger">{{ $unit['availability']}}</span>
                                         @endif
                                     </td>
                                     <td class="action-table-data">

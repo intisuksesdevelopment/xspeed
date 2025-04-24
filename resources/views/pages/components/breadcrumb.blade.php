@@ -100,19 +100,19 @@
         </div>
         <ul class="table-top-head">
             <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img
+                <a data-bs-toggle="tooltip" data-bs-placement="top" id="pdf-btn" title="Pdf"><img
                         src="{{ URL::asset('/build/img/icons/pdf.svg') }}" alt="img"></a>
             </li>
             <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img
+                <a data-bs-toggle="tooltip" data-bs-placement="top" id="excel-btn" title="Excel"><img
                         src="{{ URL::asset('/build/img/icons/excel.svg') }}" alt="img"></a>
             </li>
             <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i data-feather="printer"
+                <a data-bs-toggle="tooltip" data-bs-placement="top" id="print-btn" title="Print"><i data-feather="printer"
                         class="feather-rotate-ccw"></i></a>
             </li>
             <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh"><i data-feather="rotate-ccw"
+                <a data-bs-toggle="tooltip" data-bs-placement="top" id="refresh-btn" title="Refresh"><i data-feather="rotate-ccw"
                         class="feather-rotate-ccw"></i></a>
             </li>
             <li>

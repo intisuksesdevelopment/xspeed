@@ -125,7 +125,7 @@
                                         @if ($user['status'] == 0)  
                                             <span class="badge badge-linesuccess">Active</span>  
                                         @else  
-                                            <span class="badge badge-danger">Inactive</span>  
+                                            <span class="badge badge-linedanger">Inactive</span>  
                                         @endif  
                                     </td>  
                                     <td class="action-table-data">  

@@ -1,9 +1,9 @@
 <?php
 namespace App\Services;
 
+use App\Constants\CommonConstants;
 use App\Models\Brand;
 use Illuminate\Http\Request;
-use App\Constants\CommonConstants;
 use Illuminate\Support\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
 
@@ -127,6 +127,16 @@ class BrandService
                 'message' => 'An error occurred: ' . $e->getMessage(),
             ], 500);
         }
+    }
+    public static function getIdByCode($code)
+    {
+        $brand = Brand::where('code', $code)->first();
+
+        if (! $brand) {
+            throw new NotFoundException("Brand not found with code: " . $code);
+        }
+
+        return $brand->id;
     }
 
 }

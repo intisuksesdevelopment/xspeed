@@ -9,3 +9,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/uploads', [ItemController::class, 'upload'])->name('product-upload');
+Route::get('/product', [ItemController::class, 'getData'])->name('api-product-list');

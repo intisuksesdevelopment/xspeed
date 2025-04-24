@@ -1,3 +1,99 @@
+function initDataTable({
+    tableId,
+    ajaxUrl,
+    filters = {},
+    columns = [],
+    order ,
+    localStorageKey,
+    exportUrl,
+}) {
+    let $table = $('#' + tableId);
+
+    const dataTableInstance = $table.DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: ajaxUrl,
+            data: function (d) {
+                Object.keys(filters).forEach((key) => {
+                    d[key] = $(filters[key]).val();
+                });
+            },
+            dataSrc: function (json) {
+                if (localStorageKey) {
+                    localStorage.setItem(localStorageKey, JSON.stringify(json));
+                }
+                return json.data;
+            },
+        },
+        columns: columns,
+        columnDefs: [
+            { orderable: false, targets: 'no-sort' },
+        ],
+        language: {
+            paginate: {
+                previous: "<",
+                next: ">",
+            },
+        },
+        order: order,
+    });
+
+    // Filter redraw
+    Object.keys(filters).forEach((key) => {
+        $(filters[key]).on('change', function () {
+            dataTableInstance.draw();
+        });
+    });
+    $('#sorting').on('change', function () {
+        dataTableInstance.draw(); // Apply sorting to the "created_at" column
+    });
+    $('#search-btn,#refresh-btn').on('click', function () {
+        dataTableInstance.draw(); // Apply sorting to the "created_at" column
+    });
+    $('#excel-btn').on('click', function () {
+        $.ajax({
+            url: exportUrl, // URL ekspor
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Tambahkan CSRF Token
+            },
+            data: function (d) {
+                Object.keys(filters).forEach((key) => {
+                    d[key] = $(filters[key]).val();
+                });
+            },
+            xhrFields: {
+                responseType: 'blob' // Pastikan respons berupa file Excel
+            },
+            success: function (response) {
+                // Buat download file Excel
+                let blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'product-data-' + new Date().toISOString().replace(/[:.]/g, '-') + '.xlsx'; // Dinamis nama file
+                link.click();
+            },
+            error: function (xhr, status, error) {
+                console.error('Error exporting data:', error);
+                alert('Failed to export data. Please check your filters or try again.');
+            }
+        });
+    });
+    // Select all checkboxes
+    $(`#${tableId} #select-all`).on('click', function () {
+        let checked = this.checked;
+        $(`#${tableId} tbody input[type="checkbox"]`).prop('checked', checked);
+    });
+
+    return dataTableInstance;
+}
+
+
+
+
+
+
 function submitForm(formId, submitButtonId, statusCheckboxId = null,redirect = null) {
     document.getElementById(formId).addEventListener('submit', function(event) {
         event.preventDefault();

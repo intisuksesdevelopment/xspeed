@@ -104,7 +104,7 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-                submitForm('userLoginForm', 'submit-login-button',null,'{{ route("product-list") }}');
+                submitForm('userLoginForm', 'submit-login-button',null,'{{ route("admin-dashboard") }}');
             });
     </script>
 @endsection

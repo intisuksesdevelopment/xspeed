@@ -25,8 +25,11 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Middleware\LocalizationMiddleware;
 
 use Illuminate\Support\Facades\Log;
-
 use Illuminate\Support\Facades\Session;
+use App\Exports\ItemsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,6 +86,10 @@ Route::middleware(['auth',LocalizationMiddleware::class])->prefix('admin')->grou
         Route::delete('/delete/{uuid}', [ItemController::class, 'delete'])->name('product-delete');
         Route::get('/category/{category_id}', [ItemController::class, 'getItemsByCategory'])->name('product-category');
         Route::get('/barcode', [ItemController::class, 'barcode'])->name('product-barcode');
+        Route::post('/export-products', function (Request $request) {
+            return Excel::download(new ItemsExport($request->all()), 'product-data'. now()->format('Y-m-d_H-i-s') .'.xlsx');
+        })->name('product-excel-export');
+        
     });
     Route::prefix('contact')->group(function () {
         Route::get('/{supplierUuid}', [ContactService::class, 'get']);

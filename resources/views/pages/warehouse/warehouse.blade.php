@@ -222,7 +222,7 @@
                                         @if ($warehouse['status']==0)
                                         <span class="badge badge-linesuccess">{{ $warehouse['availability']}}</span>
                                         @else
-                                        <span class="badge badge-danger">{{ $warehouse['availability']}}</span>
+                                        <span class="badge badge-linedanger">{{ $warehouse['availability']}}</span>
                                         @endif
                                     </td>
                                     <td class="action-table-data">

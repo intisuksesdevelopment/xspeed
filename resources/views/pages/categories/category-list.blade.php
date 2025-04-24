@@ -94,7 +94,7 @@
                                     </label>
                                 </th>
                                 <th>Code</th>
-                                <th>Category</th>
+                                <th>Name</th>
                                 <th>Created On</th>
                                 <th>Status</th>
                                 <th class="no-sort">Action</th>
@@ -116,7 +116,7 @@
                                     @if ($category['status']==0)
                                     <span class="badge badge-linesuccess">{{ $category['availability']}}</span>
                                     @else
-                                    <span class="badge badge-danger">{{ $category['availability']}}</span>
+                                    <span class="badge badge-linedanger">{{ $category['availability']}}</span>
                                     @endif
                                 </td>
                                 <td class="action-table-data">

@@ -97,8 +97,7 @@
                                         <span class="checkmarks"></span>
                                     </label>
                                 </th>
-                                <th>Image</th>
-                                <th>Sub Category</th>
+                                <th>Name</th>
                                 <th>Parent category</th>
                                 <th>Category Code</th>
                                 <th>Description</th>
@@ -116,11 +115,6 @@
                                         <span class="checkmarks"></span>
                                     </label>
                                 </td>
-                                <td>
-                                    <a class="product-img">
-                                        <img src="{{ URL::asset('/build/img/products/product1.jpg') }}" alt="product">
-                                    </a>
-                                </td>
                                 <td>{{ $subcategory['name']}}</td>
                                 <td>{{ $subcategory['category']['name']}}</td>
                                 <td>{{ $subcategory['code']}}</td>
@@ -130,7 +124,7 @@
                                     @if ($subcategory['status']==0)
                                     <span class="badge badge-linesuccess">{{ $subcategory['availability']}}</span>
                                     @else
-                                    <span class="badge badge-danger">{{ $subcategory['availability']}}</span>
+                                    <span class="badge badge-linedanger">{{ $subcategory['availability']}}</span>
                                     @endif
                                 </td>
                                 <td class="action-table-data">

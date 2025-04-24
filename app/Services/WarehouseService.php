@@ -128,5 +128,15 @@ class WarehouseService
             ], 500);
         }
     }
+    public static function getIdByCode($code)
+{
+    $warehouse = Warehouse::where('code', $code)->first();
+
+    if (!$warehouse) {
+        throw new NotFoundException("Warehouse not found with code: " . $code);
+    }
+
+    return $warehouse->id;
+}
 
 }

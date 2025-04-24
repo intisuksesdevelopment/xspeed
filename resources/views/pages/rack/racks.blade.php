@@ -122,7 +122,7 @@
                                         @if ($rack['status']==0)
                                         <span class="badge badge-linesuccess">{{ $rack['availability']}}</span>
                                         @else
-                                        <span class="badge badge-danger">{{ $rack['availability']}}</span>
+                                        <span class="badge badge-linedanger">{{ $rack['availability']}}</span>
                                         @endif
                                     </td>
                                     <td class="action-table-data">

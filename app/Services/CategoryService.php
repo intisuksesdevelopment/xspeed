@@ -6,8 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\NotFoundException;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class CategoryService
 {
     public static function getPaginated(Request $request)
@@ -32,7 +31,7 @@ class CategoryService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
-        $categories = Category::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
+        $categories = Category::where('status', 0)->orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($categories as $category) {
             $category->availability = $category->isAvailable();
             $category->countItems = $category->countItems();
@@ -45,11 +44,11 @@ class CategoryService
             $category = Category::where('code', $code)->first();
 
             if (! $category) {
-                throw new NotFoundException("code : {$code}");
+                throw new NotFoundHttpException("code : {$code}");
             }
             $category->status = $category->isAvailable();
             return $category;
-        } catch (NotFoundException $e) {
+        } catch (NotFoundHttpException $e) {
             Log::error($e->getMessage());
             return response()->json([
                 'success' => false,
@@ -99,7 +98,7 @@ class CategoryService
 
             $category = Category::find($id);
             if (! $category) {
-                throw new NotFoundException("code : " . $data['code']);
+                throw new NotFoundHttpException("code : " . $data['code']);
             }
             $category->validateAttributes($data);
             $category->fill($data);
@@ -109,7 +108,7 @@ class CategoryService
                 'success' => true,
                 'message' => 'Update successfully!',
             ]);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundHttpException $e) {
             Log::error($e->getMessage());
             return response()->json([
                 'success' => false,
@@ -129,7 +128,7 @@ class CategoryService
         try {
             $category = Category::find($id);
             if (! $category) {
-                throw new NotFoundException("id : " . $id);
+                throw new NotFoundHttpException("id : " . $id);
             }
             $category->status = 1;
             $category->update();
@@ -138,7 +137,7 @@ class CategoryService
                 'success' => true,
                 'message' => 'Removed successfully!',
             ]);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundHttpException $e) {
             Log::error($e->getMessage());
             return response()->json([
                 'success' => false,

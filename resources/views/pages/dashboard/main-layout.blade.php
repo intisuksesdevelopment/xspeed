@@ -63,7 +63,9 @@
 	@if (Route::is(['single-product']))
 		@include('pages.dashboard.partials.single-product')
 	@endif
-
+	@if (Route::is(['list-product']))
+		@include('pages.dashboard.partials.list-product')
+	@endif
 	<!-- footer -->
 	<div class="footer-area">
 		<div class="container">
@@ -148,6 +150,9 @@
 	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/sticker.js') }}"></script>
 	<!-- main js -->
 	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/main.js') }}"></script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    
 
 </body>
 </html>

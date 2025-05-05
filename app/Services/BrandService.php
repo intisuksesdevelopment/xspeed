@@ -18,7 +18,7 @@ class BrandService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
-        $brands = Brand::orderBy($sortBy, $sortDirection)->paginate($perPage);
+        $brands = Brand::where('status',0)->orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($brands as $brand) {
             $brand->availability = $brand->isAvailable();
         }

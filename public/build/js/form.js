@@ -8,7 +8,6 @@ function initDataTable({
     exportUrl,
 }) {
     let $table = $('#' + tableId);
-
     const dataTableInstance = $table.DataTable({
         processing: true,
         serverSide: true,

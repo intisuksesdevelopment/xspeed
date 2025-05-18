@@ -98,9 +98,77 @@
 	<!-- end breadcrumb section -->
 
 	<!-- single product -->
-	<div class="single-product mt-150 mb-150">
+	<div class=" mt-150 mb-150">
 		<div class="container">
-			<div class="row">
+			<div class="row g-4">
+				<div class="col-md-2 col-3">
+					<div class="swiper thumbnail-slider swiper-vertical">
+						<div class="swiper-wrapper">
+							@foreach($data['product']['images'] as $image)
+								<div class="swiper-slide">
+									<img src="{{ $image['path'] }}" class="img-fluid thumbnail-img" onclick="changePreview(this)">
+								</div>
+							@endforeach
+							
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5 col-5 text-center">
+					<img id="main-preview" style="max-width: 100%;" 
+						 src="{{ $data['product']['image_url'] }}"
+						 class="main-preview">
+				</div>
+		
+				<div class="col-md-5 col-4">
+					<h3>{{ $data['product']['name'] }}</h3>
+					<h4 class="text-danger">{{ \App\Services\UtilService::formatCurrency($data['product']['sell_price'], $data['product']['currency']) }}</h4>
+					<p class="text-secondary text-left">{{ $data['product']['description'] }}</p>
+					<p class="text-secondary text-left"><strong>Availability:</strong> <span class="text-success">{{ $data['product']['stock'] }} in stock</span></p>
+		
+					<div class="mb-3">
+						<strong>Color:</strong><br>
+						@php
+							$colorsString = $data['product']['color'] ?? ''; 
+							$colorsArray = explode(',', $colorsString);
+						@endphp
+						@foreach ($colorsArray as $color)
+							<button class="btn btn-outline-secondary me-2">{{ trim(strtoupper($color)) }}</button>
+						@endforeach
+					</div>
+		
+					<div class="mb-3">
+						<strong>Quantity:</strong><br>
+						<div class="input-group" style="width: 150px;">
+							<button class="btn btn-outline-secondary" type="button" onclick="adjustQty(-1)">−</button>
+							<input type="text" class="form-control text-center" id="qty" value="1">
+							<button class="btn btn-outline-secondary" type="button" onclick="adjustQty(1)">+</button>
+						</div>
+					</div>
+		
+						@php
+							$linkurls = $data['product']['link_url'] ?? ''; 
+							$linksArray  = json_decode($linkurls, true);
+						@endphp
+
+					<div class="mt-3">
+						<strong>Checkout in:</strong><br>
+						<?php if (!empty($linksArray)): ?>
+							<?php foreach ($linksArray as $linkItem): ?>
+								<a href="<?= $linkItem['link'] ?>" target="_blank" class="btn btn-outline-secondary me-2 mb-2 text-white" style="background-color: #051922; color: #000; border-color: #F5F5F5;">
+									<?= $linkItem['name'] ?>
+								</a>
+							<?php endforeach; ?>
+						<?php else: ?>
+							<p>There are no purchase links available.</p>
+						<?php endif; ?>
+					</div>
+		
+					<p><strong>SKU:</strong> NHFL5</p>
+					<p><strong>Vendor:</strong> Gold Ring</p>
+					<p><strong>Category:</strong> Rings</p>
+				</div>
+			</div>
+			{{-- <div class="row">
 				<div class="col-md-5">
 					<div class="single-product-img">
 						<img src="{{ $data['product']['image_url'] }}" alt="">
@@ -119,7 +187,7 @@
 							</form>
 							<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 							<p><strong>Categories: </strong>{{ $data['product']['category']['name'] }}</p>
-						</div> --}}
+						</div>
 						<h4>Share:</h4>
 						<ul class="product-share">
 							<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
@@ -129,7 +197,7 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div> --}}
 		</div>
 	</div>
 	<!-- end single product -->
@@ -148,7 +216,7 @@
 			<div class="row">
 				@foreach($data['products'] as $product)
 					<div class="col-lg-3 col-md-6 text-center">
-						<div class="single-product-item bg-white p-5" style="position: relative;">
+						<div class="single-product-item bg-white" style="position: relative;">
 							<div class="product-image">
 								<a href="./dashboard/single-product/?uuid={{ $product['uuid'] }}">
 									<img src="{{ $product['image_url'] }}" alt="product" style="width: 175px; height: 175px; object-fit: cover; border-radius: 10px;">
@@ -235,3 +303,17 @@
         transition: transform 0.3s ease;
     }
 </style>
+<script>
+	 function changePreview(img) {
+        document.getElementById('main-preview').src = img.src;
+        document.querySelectorAll('.thumbnail-img').forEach(el => el.classList.remove('active'));
+        img.classList.add('active');
+    }
+
+    function adjustQty(amount) {
+        const qtyInput = document.getElementById('qty');
+        let qty = parseInt(qtyInput.value) || 1;
+        qty = Math.max(1, qty + amount);
+        qtyInput.value = qty;
+    }
+</script>

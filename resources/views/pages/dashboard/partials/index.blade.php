@@ -369,13 +369,15 @@
 					<div class="swiper-wrapper">
 					  @foreach($data['categories'] as $category)
 					  <div class="col-lg-3 col-md-6 text-center swiper-slide">
-						  <div class="single-product card border-0" style="transition: transform 0.3s, box-shadow 0.3s;">
-							  <div class="product-image">
-								  <img src="{{ $category['image_url'] }}" alt="product" class="img-fluid"
-									  style="width: 175px; height: 175px; object-fit: cover; border-radius: 10px;">
-							  </div>
-							  <h6 class="text-dark p-3">{{ strtoupper($category->name) }}</h6>
-						  </div>
+						<a href="dashboard/{{ strtoupper($category->code).'/list-product' }}" class="text-decoration-none">
+							<div class="single-product card border-0" style="transition: transform 0.3s, box-shadow 0.3s;">
+								<div class="product-image">
+									<img src="{{ $category['image_url'] }}" alt="product" class="img-fluid"
+										style="width: 175px; height: 175px; object-fit: cover; border-radius: 10px;">
+								</div>
+								<h6 class="text-dark p-3">{{ strtoupper($category->name) }}</h6>
+							</div>
+						</a>
 					  </div>
 					  @endforeach
 					</div>

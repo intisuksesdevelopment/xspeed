@@ -67,6 +67,9 @@
 	@if (Route::is(['list-product']))
 		@include('pages.dashboard.partials.list-product')
 	@endif
+	@if (Route::is(['all-product']))
+		@include('pages.dashboard.partials.all-product')
+	@endif
 	<!-- footer -->
 	<div class="footer-area">
 		<div class="container">

@@ -1,3 +1,30 @@
+<style>
+	.swiper {
+      width: 100%;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      width: 300px;
+      height: 300px;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+    }
+	.card-product-group {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .card-product-group:hover {
+        transform: translateY(-5px); /* Sedikit mengangkat card */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Menambahkan shadow */
+    }
+</style>
 <div class="top-header-area" id="sticker">
 	<div class="container">
 		<div class="row">
@@ -226,7 +253,39 @@
 				@endphp
 
 				@foreach($groupedProducts as $sku => $products)
-				<div class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center mb-4">
+				<div class="card-product-group col-lg-2 border border-solid position-relative m-1">
+					<a href="./dashboard/single-product/?uuid={{ $products[0]['uuid'] }}" class="d-block text-decoration-none">
+						<figure class="m-0" style="width: 100%; height: 175px; overflow: hidden;">
+							<img src="{{ $products[0]['image_url'] }}" alt="" class="img-fluid">
+						</figure>
+						<div class="p-2">
+							{{-- @if({{ $products[0]['discount']!= null }})
+								<div class="position-absolute top-0 start-0 bg-danger text-white p-1 rounded small fw-bold" style="margin: 10px;">
+									SALE<br>10%
+								</div>
+							@endif --}}
+							<p class=" small text-muted mb-1 text-decoration-none">
+								<a href="" class="text-decoration-none text-muted">
+									{{ strtoupper($products[0]->category->name) }}
+								</a>
+							</p>
+							<p class=" mb-1 text-decoration-none">
+								<a href="" class="text-decoration-none text-dark">
+									{{ strtoupper($products[0]->name) }}
+								</a>
+							</p>
+							<p class=" small text-danger text- mb-0">
+								<strong>{{ \App\Services\UtilService::formatCurrency($products[0]->sell_price) }}</strong>
+							</p>
+							{{-- @if({{ $products[0]['discount']!= null }})
+								<p class="product-price-old small text-decoration-line-through text-muted mb-0">
+									{{ \App\Services\UtilService::formatCurrency($products[0]->sell_price) }}
+								</p>
+							@endif --}}
+						</div>
+					</a>
+				</div>
+				{{-- <div class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center mb-4">
 					<!-- Card -->
 					<div class="card__article position-relative">
 						<!-- Product Image -->
@@ -267,7 +326,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> --}}
 				@endforeach
 
 
@@ -305,21 +364,47 @@
 <div class="product-section mt-100 mb-100 bg-dark text-light p-5">
 	<div class="container">
 		<div class="row">
-			@foreach($data['categories'] as $category)
-			<div class="col-lg-3 col-md-6 text-center p-5">
-				<div class="single-product card border-0" style="transition: transform 0.3s, box-shadow 0.3s;">
-					<div class="product-image">
-						<img src="{{ $category['image_url'] }}" alt="product" class="img-fluid"
-							style="width: 175px; height: 175px; object-fit: cover; border-radius: 10px;">
+			<div class="col-lg-12">
+				<div class="swiper mySwiper">
+					<div class="swiper-wrapper">
+					  @foreach($data['categories'] as $category)
+					  <div class="col-lg-3 col-md-6 text-center swiper-slide">
+						  <div class="single-product card border-0" style="transition: transform 0.3s, box-shadow 0.3s;">
+							  <div class="product-image">
+								  <img src="{{ $category['image_url'] }}" alt="product" class="img-fluid"
+									  style="width: 175px; height: 175px; object-fit: cover; border-radius: 10px;">
+							  </div>
+							  <h6 class="text-dark p-3">{{ strtoupper($category->name) }}</h6>
+						  </div>
+					  </div>
+					  @endforeach
 					</div>
-					<h6 class="text-dark p-3">{{ strtoupper($category->name) }}</h6>
 				</div>
 			</div>
-			@endforeach
 		</div>
+		
 	</div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
+<script>
+    var swiper = new Swiper(".mySwiper", {
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+      },
+    });
+  </script>
 <!-- Tambahkan CSS untuk hover effect -->
 <style>
 	.single-product:hover {

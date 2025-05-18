@@ -51,6 +51,7 @@ class ItemService
             throw new NotFoundException("uuid : {$uuid}");
         }
         $item->status = $item->isAvailable();
+        $item->images = $item->images()->get();
         return $item;
     }
     public static function getId($uuid)

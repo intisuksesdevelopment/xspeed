@@ -31,7 +31,8 @@
 	<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/main.css')}}">
 	<!-- responsive -->
 	<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/responsive.css')}}">
-	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 	<style>  
         h1 {  
             text-align: center; /* Menengahka <h1> */  
@@ -152,7 +153,7 @@
 	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/main.js') }}"></script>
 	
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    
+
 
 </body>
 </html>

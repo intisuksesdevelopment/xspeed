@@ -2,10 +2,11 @@
 namespace App\Models;
 
 use App\Models\Item;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\SubCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
@@ -55,5 +56,9 @@ class Category extends Model
     public function getItemCountAttribute()
     {
         return $this->items()->count();
+    }
+    public function subcategories()
+    {
+        return $this->hasMany(SubCategory::class, 'category_id');
     }
 }

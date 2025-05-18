@@ -24,6 +24,12 @@ class DashboardController extends Controller
         $data['brands'] = BrandService::getActive($request);
         return view('pages.dashboard.main-layout', ['data' => $data]);
     }
+    public function getAll(Request $request)
+    {
+        
+        $data['categories'] = CategoryService::getActive($request);
+        return view('pages.dashboard.main-layout', ['data' => $data]);
+    }
     public function getDetail(Request $request)
     {
         $data['product'] = ItemService::getDetail($request->uuid);

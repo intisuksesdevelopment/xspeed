@@ -52,7 +52,7 @@ class Item extends Model
             'uuid'           => 'required|uuid|unique:items,uuid,' . $id,
             'name'           => 'required|string',
             'category_id'    => 'required|integer',
-            'subcategory_id' => 'nullable|integer',
+            'sub_category_id' => 'nullable|integer',
             'warehouse_id'   => 'required|integer',
             'rack_id'        => 'required|integer',
             'basic_price'    => 'required|numeric',

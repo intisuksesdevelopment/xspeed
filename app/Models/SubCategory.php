@@ -43,5 +43,13 @@ class SubCategory extends Model
     public function isAvailable()
     {
         return $this['status'] == 0 ? 'Available' : 'Not Available';
+    } public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    public function countItems()
+    {
+        return $this->items()->count();
     }
 }

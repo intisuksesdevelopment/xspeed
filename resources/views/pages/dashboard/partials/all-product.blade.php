@@ -51,6 +51,29 @@
             margin-bottom: 15px;
             border-radius: 5px;
         }
+		.collapse-manual {
+        display: none;
+    }
+    .show-manual {
+        display: block;
+    }
+    .collapse-icon {
+        transition: transform 0.2s ease-in-out;
+    }
+    .sidebar-toggle .collapse-icon {
+        transform: rotate(0deg); /* Ikon menghadap ke kanan secara default */
+    }
+    .sidebar-toggle.open .collapse-icon {
+        transform: rotate(90deg); /* Ikon menghadap ke bawah saat terbuka */
+    }
+	.product-card {
+		transition: box-shadow 0.3s ease-in-out; /* Efek transisi yang lebih halus */
+		}
+
+		.product-card:hover {
+		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+		cursor: pointer;
+		}
     </style>
     <div class="container-fluid">
         <div class="row">
@@ -60,27 +83,35 @@
                 </div>
 				@foreach ($data["categories"] as $category)
 					<div class="sidebar-item">
-						<div class="d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#{{ $category->code }}-sub">
-							<div>{{ $category->name }} <span class="text-muted">({{ $category->product_count }})</span></div>
+						<div class="d-flex justify-content-between align-items-center sidebar-toggle px-2" data-target="#{{ $category->code }}-sub">
+							<div>{{ $category->name }} <span class="text-muted">({{ $category->countItems }})</span></div>
 							@if($category->subcategories->isNotEmpty())
-								<i class="bi bi-plus"></i>
+								<i class="bi bi-caret-right-fill collapse-icon"></i>
 							@endif
 						</div>
 						@if($category->subcategories->isNotEmpty())
-							@foreach ($category->subcategories as $subcategory)
-								<div class="collapse" id="{{ $category->code }}-sub">
-									<a href="#" class="sidebar-link ms-3">{{ $subcategory->name }} ({{ $subcategory->product_count }})</a>
-								</div>
-							@endforeach
+							<div class="subcategory-list collapse-manual px-3" id="{{ $category->code }}-sub">
+								@foreach ($category->subcategories as $subcategory)
+									<a href="#" class="sidebar-link ms-3">{{ $subcategory->name }} ({{ $subcategory->countItems }})</a>
+								@endforeach
+							</div>
 						@endif
-						
 					</div>
 				@endforeach
+				<div class="sidebar-item">
+					<a href="#" class="sidebar-link">Knalpot</a>
+				</div>
+				<div class="sidebar-item">
+					<a href="#" class="sidebar-link">Filter Knalpot</a>
+				</div>
+				<div class="sidebar-item">
+					<a href="#" class="sidebar-link">Aksesoris Knalpot</a>
+				</div>
             </div>
 
             <div class="col-md-9 product-grid">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2>Knalpot</h2>
+                    <h2>Daftar Produk</h2>
                     <a href="#" class="text-decoration-none text-muted">Lihat Semua 40,592 Produk <i class="bi bi-chevron-right"></i></a>
                 </div>
 
@@ -117,146 +148,64 @@
                     </div>
                 </div>
 
-                <div class="row row-cols-2 row-cols-md-4 g-3">
-                    <div class="col">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <img src="https://img.webike-cdn.net/s202/catalogue/images/12345/akrapovic-full.jpg" alt="Knalpot Full System" class="product-image">
-                            </div>
-                            <div class="product-details">
-                                <h6 class="fw-bold mb-1">Knalpot Full System</h6>
-                                <p class="text-muted small mb-0">(13,204)</p>
-                                <a href="#" class="btn btn-outline-secondary btn-sm mt-2">Lihat Semua Produk <i class="bi bi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <img src="https://img.webike-cdn.net/s202/catalogue/images/67890/peredam.jpg" alt="Peredam Panas Knalpot" class="product-image">
-                            </div>
-                            <div class="product-details">
-                                <h6 class="fw-bold mb-1">Peredam Panas Knalpot</h6>
-                                <p class="text-muted small mb-0">(95)</p>
-                                <a href="#" class="btn btn-outline-secondary btn-sm mt-2">Lihat Semua Produk <i class="bi bi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <img src="https://img.webike-cdn.net/s202/catalogue/images/11223/glasswool.jpg" alt="Glass Wool" class="product-image">
-                            </div>
-                            <div class="product-details">
-                                <h6 class="fw-bold mb-1">Glass Wool</h6>
-                                <p class="text-muted small mb-0">(133)</p>
-                                <a href="#" class="btn btn-outline-secondary btn-sm mt-2">Lihat Semua Produk <i class="bi bi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <img src="https://img.webike-cdn.net/s202/catalogue/images/44556/gasket.jpg" alt="Gasket Knalpot" class="product-image">
-                            </div>
-                            <div class="product-details">
-                                <h6 class="fw-bold mb-1">Gasket Knalpot</h6>
-                                <p class="text-muted small mb-0">(1,227)</p>
-                                <a href="#" class="btn btn-outline-secondary btn-sm mt-2">Lihat Semua Produk <i class="bi bi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row row-cols-2 row-cols-md-4 p-3">
+					<div class="product-card col-lg-2 border border-solid position-relative m-1">
+						<a href="www.google.com" class="d-block text-decoration-none">
+							<figure class="m-0">
+								<img src="https://img.webike-cdn.net/s202/catalogue/images/44098/0096_TS.jpg" class="img-fluid">
+							</figure>
+							<div class="p-2">
+								<p class=" small text-muted mb-1 text-decoration-none text-left"><a href="" class="text-decoration-none text-muted">YAMAHA</a></p>
+								<h6 class="mb-1 text-decoration-none"><a href="" class="text-decoration-none text-dark  text-left">Rangka R25 fullset</a></h6>
+								<p class="fw-bold text-danger mb-0 text-right"><strong>2.500.000 IDR</strong></p>
+								<p class="small text-muted mb-0  text-right" style="text-decoration: line-through;">3.000.000 IDR</p>
+							</div>
+						</a>
+					</div>
+					<div class="product-card col-lg-2 border border-solid position-relative m-1">
+						<a href="www.google.com" class="d-block text-decoration-none">
+							<figure class="m-0">
+								<img src="https://img.webike-cdn.net/s202/catalogue/images/44098/0096_TS.jpg" class="img-fluid">
+							</figure>
+							<div class="p-2">
+								<p class=" small text-muted mb-1 text-decoration-none text-left"><a href="" class="text-decoration-none text-muted">YAMAHA</a></p>
+								<h6 class="mb-1 text-decoration-none"><a href="" class="text-decoration-none text-dark  text-left">Rangka R25 fullset</a></h6>
+								<p class="fw-bold text-danger mb-0 text-right"><strong>2.500.000 IDR</strong></p>
+								<p class="small text-muted mb-0  text-right" style="text-decoration: line-through;">3.000.000 IDR</p>
+							</div>
+						</a>
+					</div>
                 </div>
+				
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+	<script>
         document.addEventListener('DOMContentLoaded', () => {
-            const collapseElements = document.querySelectorAll('.sidebar-item [data-bs-toggle="collapse"]');
-            collapseElements.forEach(collapseElement => {
-                const plusIcon = document.createElement('i');
-                plusIcon.classList.add('bi', 'bi-plus');
-                const targetDiv = collapseElement.querySelector('.d-flex');
-                if (targetDiv) {
-                    targetDiv.appendChild(plusIcon);
-                } else {
-                    console.error("Elemen .d-flex tidak ditemukan di dalam .sidebar-item dengan collapse");
-                }
+            const toggleElements = document.querySelectorAll('.sidebar-toggle');
 
-                collapseElement.addEventListener('click', function() {
-                    const targetId = this.getAttribute('data-bs-target');
-                    const collapseTarget = document.querySelector(targetId);
-                    const currentIcon = this.querySelector('.bi');
+            toggleElements.forEach(toggleElement => {
+                toggleElement.addEventListener('click', function() {
+                    const targetSelector = this.getAttribute('data-target');
+                    const targetElement = document.querySelector(targetSelector);
+                    const collapseIcon = this.querySelector('.collapse-icon');
 
-                    if (collapseTarget) {
-                        const bsCollapse = bootstrap.Collapse.getOrCreateInstance(collapseTarget);
-                        if (bsCollapse._element.classList.contains('show')) {
-                            bsCollapse.hide();
-                            if (currentIcon) {
-                                currentIcon.classList.remove('bi-dash');
-                                currentIcon.classList.add('bi-plus');
-                            }
-                        } else {
-                            bsCollapse.show();
-                            if (currentIcon) {
-                                currentIcon.classList.remove('bi-plus');
-                                currentIcon.classList.add('bi-dash');
-                            } else {
-                                const newMinusIcon = document.createElement('i');
-                                newMinusIcon.classList.add('bi', 'bi-dash');
-                                const targetDivIcon = this.querySelector('.d-flex');
-                                if (targetDivIcon) {
-                                    targetDivIcon.appendChild(newMinusIcon);
-                                }
-                            }
+                    if (targetElement) {
+                        targetElement.classList.toggle('show-manual');
+                        this.classList.toggle('open'); // Tambahkan/hapus kelas 'open' pada toggle
+
+                        if (collapseIcon) {
+                            collapseIcon.classList.toggle('bi-caret-right-fill');
+                            collapseIcon.classList.toggle('bi-caret-down-fill');
                         }
                     }
-
-                    // Tutup dropdown lain saat satu dibuka
-                    const allCollapses = document.querySelectorAll('.collapse');
-                    allCollapses.forEach(collapse => {
-                        if (collapse.id !== targetId) {
-                            const bsCollapseOther = bootstrap.Collapse.getOrCreateInstance(collapse);
-                            if (bsCollapseOther._element.classList.contains('show')) {
-                                bsCollapseOther.hide();
-                                const otherIcon = document.querySelector(`[data-bs-target="#${collapse.id}"] .bi`);
-                                if (otherIcon) {
-                                    otherIcon.classList.remove('bi-dash');
-                                    otherIcon.classList.add('bi-plus');
-                                }
-                            }
-                        }
-                    });
                 });
 
-                // Inisialisasi Bootstrap Collapse
-                const targetId = collapseElement.getAttribute('data-bs-target');
-                const collapseTargetInitial = document.querySelector(targetId);
-                if (collapseTargetInitial) {
-                    bootstrap.Collapse.getOrCreateInstance(collapseTargetInitial);
-                }
-            });
-
-            // Inisialisasi collapse yang tidak di-toggle langsung
-            const nonToggleCollapses = document.querySelectorAll('.collapse:not([data-bs-toggle])');
-            nonToggleCollapses.forEach(collapse => {
-                bootstrap.Collapse.getOrCreateInstance(collapse);
-            });
-
-            // Tambahkan ikon + hanya pada sidebar-item yang memiliki collapse target
-            const sidebarItems = document.querySelectorAll('.sidebar-item');
-            sidebarItems.forEach(item => {
-                const collapseTargetId = item.querySelector('[data-bs-toggle="collapse"]')?.getAttribute('data-bs-target');
-                if (collapseTargetId) {
-                    const plusIcon = document.createElement('i');
-                    plusIcon.classList.add('bi', 'bi-plus');
-                    const targetDiv = item.querySelector('.d-flex');
-                    if (targetDiv) {
-                        targetDiv.appendChild(plusIcon);
-                    }
-                }
+                // Inisialisasi: sembunyikan dropdown
+                const subcategoryLists = document.querySelectorAll('.subcategory-list');
+                subcategoryLists.forEach(list => {
+                    list.classList.add('collapse-manual');
+                });
             });
         });
     </script>

@@ -36,6 +36,9 @@ class CategoryService
             $category->availability = $category->isAvailable();
             $category->countItems = $category->countItems();
             $category->subcategories = $category->subcategories()->get();
+            foreach ($category->subcategories as $subcategory) {
+                $subcategory->countItems = $subcategory->countItems();
+            }
         }
         return $categories;
     }

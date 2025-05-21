@@ -51,12 +51,22 @@
             margin-bottom: 15px;
             border-radius: 5px;
         }
-		.collapse-manual {
-        display: none;
-    }
-    .show-manual {
-        display: block;
-    }
+    .collapse-manual {
+    transition: transform 0.2s ease-in-out;
+    transform-origin: top;
+    transform: scaleY(0);
+    height: 0; /* Tambahkan height: 0 untuk memastikan tidak ada ruang kosong */
+    overflow: hidden; /* Sembunyikan konten yang melebihi tinggi 0 */
+    display: block; /* Tetap block agar transisi scaleY berfungsi */
+}
+
+.show-manual {
+    transition: transform 0.2s ease-in-out;
+    transform-origin: top;
+    transform: scaleY(1);
+    height: auto; /* Biarkan tinggi menyesuaikan konten */
+    display: block;
+}
     .collapse-icon {
         transition: transform 0.2s ease-in-out;
     }
@@ -207,5 +217,6 @@
                     list.classList.add('collapse-manual');
                 });
             });
+            
         });
     </script>

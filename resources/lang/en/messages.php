@@ -2,6 +2,7 @@
 return [
     'welcome' => 'Welcome',
     'dashboard' => 'Dashboard',
+    'category' => 'Category',
 
     'sb.products' => 'Products',
     'sb.product_create' => 'Create Product',

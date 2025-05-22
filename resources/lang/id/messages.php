@@ -2,6 +2,7 @@
 return [
     'welcome' => 'Selamat Datang',
     'dashboard' => 'Dasbor',
+    'category' => 'Kategori',
 
     'sb.products' => 'Daftar Produk',
     'sb.product_create' => 'Buat Produk',

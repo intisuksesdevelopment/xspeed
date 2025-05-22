@@ -84,6 +84,27 @@
 		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 		cursor: pointer;
 		}
+        .breadcrumb {
+  font-size: 0.9em;
+  color: #555;
+}
+
+    .breadcrumb a {
+    color: #051922;
+    text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+    text-decoration: underline;
+    }
+
+    .breadcrumb .separator {
+    margin: 0 5px;
+    }
+
+    .breadcrumb span {
+    font-weight: bold;
+    }
     </style>
     <!-- breadcrumb-section -->
 	<div class="breadcrumb-section breadcrumb-bg">
@@ -99,6 +120,11 @@
 	</div>
 	<!-- end breadcrumb section -->
     <div class="container-fluid">
+       <div class="breadcrumb bg-light">
+            <a href="{{ url('dashboard') }}">{{ __('messages.dashboard') }}</a>
+            <span class="separator">/</span>
+            <span >{{ __('messages.category') }}</span>
+        </div>
         <div class="row">
             <div class="col-md-3 sidebar">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -133,11 +159,6 @@
             </div>
 
             <div class="col-md-9 product-grid">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2>Daftar Produk</h2>
-                    <a href="#" class="text-decoration-none text-muted">Lihat Semua 40,592 Produk <i class="bi bi-chevron-right"></i></a>
-                </div>
-
                 <div class="filter-bar mb-3">
                     <h5>Belanja Berdasarkan Model</h5>
                     <div class="row gx-2 align-items-center">

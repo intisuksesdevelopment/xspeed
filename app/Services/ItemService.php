@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\NotFoundException;
 use Illuminate\Support\AlreadyExistException;
-
+use Illuminate\Http\JsonResponse;
 class ItemService
 {
 
@@ -159,22 +159,20 @@ class ItemService
             ], 500);
         }
     }
-    public static function getItemsByCategory($categoryId = null, $isPaging = false, $perPage = 10): JsonResponse
-{
-    $query = Item::query()->where('status', 0)->with(['category']);
+    public static function getItemsByCategory($categoryId = null, bool $isPaging = false, int $perPage = 10)
+    {
+        $query = Item::query()->where('status', 0)->with(['category']);
 
-    if ($categoryId !== null) {
-        $query->where('category_id', $categoryId);
+        if ($categoryId !== null) {
+            $query->where('category_id', $categoryId);
+        }
+
+        if ($isPaging) {
+            return $query->paginate($perPage); // Kembalikan objek Paginator langsung
+        } else {
+            return new JsonResponse($query->get());
+        }
     }
-
-    if ($isPaging) {
-        $products = $query->paginate($perPage);
-    } else {
-        $products = $query->get();
-    }
-
-    return$products;
-}
    
     public static function getWithMinStock()
     {

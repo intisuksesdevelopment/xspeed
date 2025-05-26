@@ -3,6 +3,8 @@ return [
     'welcome' => 'Welcome',
     'dashboard' => 'Dashboard',
     'category' => 'Category',
+    'detail' => 'Detail',
+    'product' => 'Product',
 
     'sb.products' => 'Products',
     'sb.product_create' => 'Create Product',

@@ -191,7 +191,26 @@
                         <i class="bi bi-person"></i> Mybike: <a href="#" class="text-decoration-none text-muted">Masuk untuk Mengakses Motor Saya</a>
                     </div>
                 </div>
-
+                <div class="row">
+                    @foreach ($data['products'] as $product)
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <img src="{{ asset($product->image_path) }}" class="card-img-top" alt="{{ $product->name }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $product->name }}</h5>
+                                    <p class="card-text">
+                                        <del>TK {{ $product->price }}</del>
+                                        TK {{ $product->discount_price ?? $product->price }}
+                                    </p>
+                                    <a href="{{ route('single-product') }}?uuid={{ $product->uuid }}">{{ __('messages.detail') }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="d-flex justify-content-center">
+                    {{ $data['products']->links() }}
+                </div>
                 <div class="row row-cols-2 row-cols-md-4 p-3">
 					<div class="product-card col-lg-2 border border-solid position-relative m-1">
 						<a href="www.google.com" class="d-block text-decoration-none">

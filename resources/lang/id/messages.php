@@ -3,6 +3,8 @@ return [
     'welcome' => 'Selamat Datang',
     'dashboard' => 'Dasbor',
     'category' => 'Kategori',
+    'detail' => 'Detil',
+    'product' => 'Produk',
 
     'sb.products' => 'Daftar Produk',
     'sb.product_create' => 'Buat Produk',

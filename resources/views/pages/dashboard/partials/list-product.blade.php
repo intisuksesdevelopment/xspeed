@@ -140,7 +140,7 @@
 						<div class="single-product-item bg-white ">
 							<!-- Product Image -->
 							<div class="product-image">
-								<a href="./dashboard/single-product/?uuid={{ $product->uuid }}">
+								<a href="{{ route('single-product') }}?uuid={{ $product->uuid }}">
 									<img src="{{ $product->image_url }}" alt="product" class="img-fluid" style="max-width: 120px; height: 120px; object-fit: cover; border-radius: 5px;">
 								</a>
 							</div>

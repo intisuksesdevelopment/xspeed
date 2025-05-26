@@ -27,16 +27,16 @@ class DashboardController extends Controller
     public function getAll(Request $request)
     {
         
-        $data['categories'] = CategoryService::getActive($request);
+        $data['categories'] = CategoryService::getActive($request, false);
 
-            $data['products'] = ItemService::getItemsByCategory($request->categoryCode,true,10);
-            if($data['products']==null) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'products not found',
-                ], 404);
-            }
-        
+
+        $data['products'] = ItemService::getItemsByCategory($request->categoryCode,true,10);
+        if($data['products']==null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'products not found',
+            ], 404);
+        }
         return view('pages.dashboard.main-layout', ['data' => $data]);
     }
     public function getDetail(Request $request)

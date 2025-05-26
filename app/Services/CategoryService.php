@@ -23,25 +23,29 @@ class CategoryService
         }
         return $categories;
     }
-    public static function getActive(Request $request)
-    {
-        $perPage = $request->input('per_page', CommonConstants::PAGE);
-        // Default to 10 per page if not provided
-        $sortBy = $request->input('sortBy', CommonConstants::SORT);
-        // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
-        // Default to 'asc' if not provided
-        $categories = Category::where('status', 0)->orderBy($sortBy, $sortDirection)->paginate($perPage);
-        foreach ($categories as $category) {
-            $category->availability = $category->isAvailable();
-            $category->countItems = $category->countItems();
-            $category->subcategories = $category->subcategories()->get();
-            foreach ($category->subcategories as $subcategory) {
-                $subcategory->countItems = $subcategory->countItems();
-            }
-        }
-        return $categories;
+    public static function getActive(Request $request, bool $isPaging = false, int $perPage = CommonConstants::PAGE)
+{
+    $query = Category::where('status', 0)->orderBy(
+        $request->input('sortBy', CommonConstants::SORT),
+        $request->input('sortDirection', CommonConstants::DIRECTION)
+    );
+
+    if ($isPaging) {
+        $categories = $query->paginate($perPage);
+    } else {
+        $categories = $query->get();
     }
+
+    foreach ($categories as $category) {
+        $category->availability = $category->isAvailable();
+        $category->countItems = $category->countItems();
+        $category->subcategories = $category->subcategories()->get();
+        foreach ($category->subcategories as $subcategory) {
+            $subcategory->countItems = $subcategory->countItems();
+        }
+    }
+    return $categories;
+}
     public static function getDetail($code)
     {
         try {

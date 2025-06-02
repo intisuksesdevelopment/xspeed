@@ -201,6 +201,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('main');
     Route::get('/single-product', [DashboardController::class, 'getDetail'])->name('single-product');
     Route::get('/all-product', [DashboardController::class, 'getAll'])->name('all-product');
+    Route::get('/all-product/{categoryCode}', [DashboardController::class, 'getAll'])->name('all-product-category');
     Route::get('{categoryCode}/list-product', [DashboardController::class, 'getList'])->name('list-product');
     Route::get('/about', [DashboardController::class, 'about']);
 });

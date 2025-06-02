@@ -1,29 +1,107 @@
 <style>
 	.swiper {
-      width: 100%;
-      padding-top: 50px;
-      padding-bottom: 50px;
-    }
+		width: 100%;
+		padding-top: 50px;
+		padding-bottom: 50px;
+	}
 
-    .swiper-slide {
-      background-position: center;
-      background-size: cover;
-      width: 300px;
-      height: 300px;
-    }
+	.swiper-slide {
+		background-position: center;
+		background-size: cover;
+		width: 300px;
+		height: 300px;
+	}
 
-    .swiper-slide img {
-      display: block;
-      width: 100%;
-    }
+	.swiper-slide img {
+		display: block;
+		width: 100%;
+	}
+
 	.card-product-group {
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
+		transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+	}
 
-    .card-product-group:hover {
-        transform: translateY(-5px); /* Sedikit mengangkat card */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Menambahkan shadow */
-    }
+	.card-product-group:hover {
+		transform: translateY(-5px);
+		/* Sedikit mengangkat card */
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		/* Menambahkan shadow */
+	}
+
+	@media (max-width: 767.98px) {
+		.carousel-item img {
+			object-fit: contain !important;
+			height: auto;
+		}
+
+		.single-logo-item {
+			max-width: 80px;
+		}
+
+		.product-section {
+			padding: 1rem !important;
+		}
+
+		.swiper-slide {
+			width: 160px !important;
+		}
+
+		.product-section h3 {
+			font-size: 1.25rem;
+		}
+	}
+
+	.hero-area {
+		padding: 0;
+		margin: 0;
+	}
+
+	.carousel-control-prev,
+	.carousel-control-next {
+		top: 50%;
+		transform: translateY(-50%);
+		bottom: auto;
+	}
+
+	.hero-area,
+	.carousel-item,
+	.carousel-inner {
+		height: auto;
+	}
+
+	.carousel-item img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.logo-carousel-section {
+		padding: 2rem 0;
+		background-color: #fff;
+	}
+
+	.logo-carousel-inner {
+		row-gap: 1rem;
+		column-gap: 1.5rem;
+	}
+
+	.single-logo-item {
+		text-align: center;
+		flex: 0 1 auto;
+		max-width: 100px;
+		margin: 0 auto;
+	}
+
+
+	.logo-img {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+	}
 </style>
 <div class="top-header-area" id="sticker">
 	<div class="container">
@@ -31,49 +109,17 @@
 			<div class="col-lg-12 col-sm-12 text-center">
 				<div class="main-menu-wrap">
 					<!-- logo -->
-					<div class="site-logo">
-						<a href="/dashboard">
-							<img src="{{  asset('build/plugins/dashboard/assets/img/logo-exspeed3.png')}}" alt="">
+					<div class="site-logo d-none d-md-block">
+						<a href="{{ route('main') }}">
+							<img src="{{ asset('build/plugins/dashboard/assets/img/logo-exspeed3.png') }}" alt="">
 						</a>
 					</div>
+
 					<!-- logo -->
 
 					<!-- menu start -->
 					<nav class="main-menu">
 						<ul>
-							<!-- <li class="current-list-item"><a href="#">Home</a>
-									<ul class="sub-menu">
-										<li><a href="index.html">Static Home</a></li>
-										<li><a href="index_2.html">Slider Home</a></li>
-									</ul>
-								</li>
-								<li><a href="about.html">About</a></li>
-								<li><a href="#">Pages</a>
-									<ul class="sub-menu">
-										<li><a href="404.html">404 page</a></li>
-										<li><a href="about.html">About</a></li>
-										<li><a href="cart.html">Cart</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="contact.html">Contact</a></li>
-										<li><a href="news.html">News</a></li>
-										<li><a href="shop.html">Shop</a></li>
-									</ul>
-								</li>
-								<li><a href="news.html">News</a>
-									<ul class="sub-menu">
-										<li><a href="news.html">News</a></li>
-										<li><a href="single-news.html">Single News</a></li>
-									</ul>
-								</li>
-								<li><a href="contact.html">Contact</a></li>
-								<li><a href="shop.html">Shop</a>
-									<ul class="sub-menu">
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="single-product.html">Single Product</a></li>
-										<li><a href="cart.html">Cart</a></li>
-									</ul>
-								</li> -->
 							<li>
 								<div class="header-icons">
 									{{-- <a class="shopping-cart" href="cart"><i class="fas fa-shopping-cart"></i></a>
@@ -83,8 +129,8 @@
 							</li>
 						</ul>
 					</nav>
-					<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-					<div class="mobile-menu"></div>
+					{{-- <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a> --}}
+					{{-- <div class="mobile-menu"></div> --}}
 					<!-- menu end -->
 				</div>
 			</div>
@@ -126,108 +172,47 @@
 		<div class="carousel-inner">
 			<div class="carousel-item active">
 				<img src="{{ asset('build/plugins/dashboard/assets/img/benner-brembo.jpg') }}" class="d-block w-100"
-					alt="Slider 1" style=" object-fit: cover;">
-				<div class="carousel-caption d-none d-md-block">
-					{{-- <h5>Slider 1 Title</h5>
-					<p>Deskripsi gambar pertama.</p> --}}
-				</div>
+					alt="Slider 1" style="object-fit: cover;">
+				<div class="carousel-caption d-none d-md-block"></div>
 			</div>
 			<div class="carousel-item">
 				<img src="{{ asset('build/plugins/dashboard/assets/img/benner-brembo.jpg') }}" class="d-block w-100"
-					alt="Slider 2" style=" object-fit: cover;">
-				<div class="carousel-caption d-none d-md-block">
-					{{-- <h5>Slider 2 Title</h5>
-					<p>Deskripsi gambar kedua.</p> --}}
-				</div>
+					alt="Slider 2" style="object-fit: cover;">
+				<div class="carousel-caption d-none d-md-block"></div>
 			</div>
 			<div class="carousel-item">
 				<img src="{{ asset('build/plugins/dashboard/assets/img/benner-brembo.jpg') }}" class="d-block w-100"
-					alt="Slider 3" style=" object-fit: cover;">
-				<div class="carousel-caption d-none d-md-block">
-					{{-- <h5>Slider 3 Title</h5>
-					<p>Deskripsi gambar ketiga.</p> --}}
-				</div>
+					alt="Slider 3" style="object-fit: cover;">
+				<div class="carousel-caption d-none d-md-block"></div>
 			</div>
 		</div>
 
-		<!-- Controls -->
-		<a class="carousel-control-prev" href="#jumbotronSlider" role="button" data-slide="prev">
+		<!-- Controls (only on desktop) -->
+		<a class="carousel-control-prev d-none d-md-block" href="#jumbotronSlider" role="button" data-slide="prev">
 			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 			<span class="sr-only">Previous</span>
 		</a>
-		<a class="carousel-control-next" href="#jumbotronSlider" role="button" data-slide="next">
+		<a class="carousel-control-next d-none d-md-block" href="#jumbotronSlider" role="button" data-slide="next">
 			<span class="carousel-control-next-icon" aria-hidden="true"></span>
 			<span class="sr-only">Next</span>
 		</a>
 	</div>
-
-	{{-- <div id="jumbotronSlider" class="carousel slide" data-bs-ride="carousel">
-		<!-- Indicators -->
-		<div class="carousel-indicators">
-			<button type="button" data-bs-target="#jumbotronSlider" data-bs-slide-to="0" class="active"
-				aria-current="true" aria-label="Slide 1"></button>
-			<button type="button" data-bs-target="#jumbotronSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
-			<button type="button" data-bs-target="#jumbotronSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
-		</div>
-
-		<!-- Slides -->
-		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<img src="{{  asset('build/plugins/dashboard/assets/img/benner-brembo.jpg')}}" class="d-block w-100"
-					alt="Slider 1" style="height: 700px; object-fit: cover;">
-				<div class="carousel-caption d-none d-md-block">
-					<h5>Caption for Slider 1</h5>
-					<p>Description for the first slider image.</p>
-				</div>
-			</div>
-			<div class="carousel-item">
-				<img src="{{  asset('build/plugins/dashboard/assets/img/benner-brembo.jpg')}}" class="d-block w-100"
-					alt="Slider 2" style="height: 700px; object-fit: cover;">
-				<div class="carousel-caption d-none d-md-block">
-					<h5>Caption for Slider 2</h5>
-					<p>Description for the second slider image.</p>
-				</div>
-			</div>
-			<div class="carousel-item">
-				<img src="{{  asset('build/plugins/dashboard/assets/img/benner-brembo.jpg')}}" class="d-block w-100"
-					alt="Slider 3" style="height: 700px; object-fit: cover;">
-				<div class="carousel-caption d-none d-md-block">
-					<h5>Caption for Slider 3</h5>
-					<p>Description for the third slider image.</p>
-				</div>
-			</div>
-		</div>
-
-		<!-- Controls -->
-		<button class="carousel-control-prev" type="button" data-bs-target="#jumbotronSlider" data-bs-slide="prev">
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			<span class="visually-hidden">Previous</span>
-		</button>
-		<button class="carousel-control-next" type="button" data-bs-target="#jumbotronSlider" data-bs-slide="next">
-			<span class="carousel-control-next-icon" aria-hidden="true"></span>
-			<span class="visually-hidden">Next</span>
-		</button>
-	</div> --}}
 </div>
-<!-- end hero area -->
+
+<!-- Responsive optimization -->
+<style>
+
+</style>
 
 <!-- logo carousel -->
-<div class="logo-carousel-section">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="logo-carousel-inner d-flex flex-wrap justify-content-center align-items-center gap-4">
-					@foreach ( $data['brands'] as $brand )
-					<div class="single-logo-item">
-						<img src="{{  $brand->image_url }}" alt="{{ $brand->name }}" class="logo-img">
-					</div>
-					@endforeach
-				</div>
-			</div>
-
-		</div>
+<div class="logo-carousel-inner d-flex flex-wrap justify-content-center align-items-center">
+	@foreach ($data['brands'] as $brand)
+	<div class="single-logo-item">
+		<img src="{{ $brand->image_url }}" alt="{{ $brand->name }}" class="logo-img">
 	</div>
+	@endforeach
 </div>
+
 <!-- end logo carousel -->
 
 <!-- product section -->
@@ -237,104 +222,51 @@
 			<div class="col-lg-8 offset-lg-2 text-center">
 				<div class="section-title">
 					<h3><span class="orange-text">New</span> Ready Stock !</h3>
-					<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p> -->
 				</div>
 			</div>
 		</div>
 
 		<div class="container mt-5">
 			<div class="row justify-content-center g-5">
-				<!-- Loop over products -->
+				{{-- Grouping and showing products --}}
 				@php
-				$groupedProducts = [];
-				foreach($data['products'] as $product) {
-					$groupedProducts[$product->sku][] = $product;
-				}
+					$groupedProducts = [];
+					foreach($data['products'] as $product) {
+						$groupedProducts[$product->sku][] = $product;
+					}
 				@endphp
 
 				@foreach($groupedProducts as $sku => $products)
-				<div class="card-product-group col-lg-2 border border-solid position-relative m-1">
-					<a href="./dashboard/single-product/?uuid={{ $products[0]['uuid'] }}" class="d-block text-decoration-none">
-						<figure class="m-0" style="width: 100%; height: 175px; overflow: hidden;">
-							<img src="{{ $products[0]['image_url'] }}" alt="" class="img-fluid">
-						</figure>
-						<div class="p-2">
-							{{-- @if({{ $products[0]['discount']!= null }})
-								<div class="position-absolute top-0 start-0 bg-danger text-white p-1 rounded small fw-bold" style="margin: 10px;">
-									SALE<br>10%
-								</div>
-							@endif --}}
-							<p class=" small text-muted mb-1 text-decoration-none">
-								<a href="" class="text-decoration-none text-muted">
-									{{ strtoupper($products[0]->category->name) }}
-								</a>
-							</p>
-							<p class=" mb-1 text-decoration-none">
-								<a href="" class="text-decoration-none text-dark">
-									{{ strtoupper($products[0]->name) }}
-								</a>
-							</p>
-							<p class=" small text-danger text- mb-0">
-								<strong>{{ \App\Services\UtilService::formatCurrency($products[0]->sell_price) }}</strong>
-							</p>
-							{{-- @if({{ $products[0]['discount']!= null }})
-								<p class="product-price-old small text-decoration-line-through text-muted mb-0">
-									{{ \App\Services\UtilService::formatCurrency($products[0]->sell_price) }}
-								</p>
-							@endif --}}
+				<div class="col-6 col-md-3 col-lg-2 p-2">
+					<div class="card h-100 shadow-sm d-flex flex-column">
+						<div style="height: 160px; overflow: hidden; border: 1px solid #dee2e6; border-radius: 5px; display: flex; justify-content: center; align-items: center;">
+							<img src="{{ $products[0]->image_url }}" class="w-100 h-100 object-fit-cover" style="object-fit: cover;" alt="{{ $products[0]->name }}">
 						</div>
-					</a>
-				</div>
-				{{-- <div class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center mb-4">
-					<!-- Card -->
-					<div class="card__article position-relative">
-						<!-- Product Image -->
-						<img src="{{ $products[0]['image_url'] }}" alt="{{ $products[0]['name'] }}" class="card__img">
-
-						<!-- Card Data -->
-						<div class="card__data">
-							<span class="card__description text-secondary" style="font-size: 10px">
-								{{ strtoupper($products[0]->category->name) }}
-							</span>
-							<h2 class="card__title" style="font-size: 12px">{{ strtoupper($products[0]->name) }}</h2>
-							<p style="font-size: 10px">{{ Str::limit(strtoupper($products[0]->description), 50) }}</p>
-						
-							<!-- Display Size if Available -->
-							@if($products[0]->size != null)
-							<div class="size-selector">
-								@foreach($products as $product)
-								<button class="size-btn" data-price="{{ $product->sell_price }}"
-									onclick="updatePrice('{{ $sku }}', '{{ $product->size }}', '{{ $product->sell_price }}')">
-									{{ strtoupper($product->size) }}
-								</button>
-								@endforeach
+						<div class="card-body d-flex flex-column justify-content-between">
+							<div>
+								<p class="text-muted text-left small mb-1">{{ $products[0]->category->name }}</p>
+								<h6 class="text-dark mb-2 text-truncate">{{ $products[0]->name }}</h6>
 							</div>
-							@endif
-
-							<!-- Price -->
-							<div class="text-white">
-								<h6 class="card__ text-white" id="price-{{ $sku }}" style="font-size: 10px">
-									{{ \App\Services\UtilService::formatCurrency($products[0]->sell_price) }}
-								</h6>
-							</div>
-
-							<!-- Product Detail Link -->
-							<div class="text-center mt-2">
-								<a class="card__button text-center"
-									href="./dashboard/single-product/?uuid={{ $products[0]['uuid'] }}"
-									style=" color: #FBBD15;">Detail</a>
+							<div>
+								<p class="text-danger text-right fw-bold mb-0">
+									{{ \App\Services\UtilService::formatCurrency($products[0]->sell_price, $products[0]->currency) }}
+								</p>
 							</div>
 						</div>
 					</div>
-				</div> --}}
+				</div>
 				@endforeach
+			</div>
 
-
+			{{-- View More Button --}}
+			<div class="row mt-4">
+				<div class="col-12 text-center">
+					<a href="{{ route('all-product') }}" class="btn btn-outline-dark px-4 py-2 rounded-pill">
+						View More
+					</a>
+				</div>
 			</div>
 		</div>
-
-
-
 	</div>
 </div>
 <!-- end product section -->
@@ -354,61 +286,75 @@
 	</div>
 </div>
 
-<!-- shop banner -->
-<!-- <section class="shop-banner">
-    	<div class="container">
-        </div>
-    </section> -->
-<!-- end shop banner -->
-<!-- product section -->
-<div class="product-section mt-100 mb-100 bg-dark text-light p-5">
+<div class="product-section mt-100 mb-5 bg-dark text-light px-3 py-4 py-md-5">
 	<div class="container">
 		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="section-title mb-4">
+					<h3 class="text-light mb-1">
+						<span class="orange-text">More</span> Category!
+					</h3>
+					<div class="underline mx-auto mt-2" style="width: 50px; height: 3px; background: orange;"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-lg-12">
-				<div class="swiper mySwiper">
+				<div class="swiper mySwiper overflow-hidden">
 					<div class="swiper-wrapper">
-					  @foreach($data['categories'] as $category)
-					  <div class="col-lg-3 col-md-6 text-center swiper-slide">
-						<a href="dashboard/{{ strtoupper($category->code).'/list-product' }}" class="text-decoration-none">
-							<div class="single-product card border-0" style="transition: transform 0.3s, box-shadow 0.3s;">
-								<div class="product-image">
-									<img src="{{ $category['image_url'] }}" alt="product" class="img-fluid"
-										style="width: 175px; height: 175px; object-fit: cover; border-radius: 10px;">
+						@foreach($data['categories'] as $category)
+						<div class="swiper-slide text-center">
+							<a href="{{ route('all-product-category', ['categoryCode' => $category->code]) }}" style="color: inherit; text-decoration: none;"
+								class="text-decoration-none d-block px-2">
+								<div class="card border-0 shadow-sm bg-white">
+									<div class="product-image p-2">
+										<img src="{{ $category['image_url'] }}" alt="product" class="img-fluid rounded"
+											style="width: 150px; height: 150px; object-fit: cover;">
+									</div>
+									<h6 class="text-dark mb-3">{{ strtoupper($category->name) }}</h6>
 								</div>
-								<h6 class="text-dark p-3">{{ strtoupper($category->name) }}</h6>
-							</div>
-						</a>
-					  </div>
-					  @endforeach
+							</a>
+						</div>
+						@endforeach
 					</div>
 				</div>
 			</div>
 		</div>
-		
 	</div>
 </div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
-    var swiper = new Swiper(".mySwiper", {
-      effect: "coverflow",
-      grabCursor: true,
-      centeredSlides: true,
-      slidesPerView: "auto",
-      coverflowEffect: {
-        rotate: 50,
-        stretch: 0,
-        depth: 100,
-        modifier: 1,
-        slideShadows: true,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-      },
-    });
-  </script>
+	var swiper = new Swiper(".mySwiper", {
+		effect: "coverflow",
+		grabCursor: true,
+		centeredSlides: true,
+		slidesPerView: "auto",
+		coverflowEffect: {
+			rotate: 30,
+			stretch: 0,
+			depth: 100,
+			modifier: 1,
+			slideShadows: false, // Nonaktifkan bayangan panjang
+		},
+		pagination: {
+			el: ".swiper-pagination",
+		},
+		});
+
+
+</script>
 <!-- Tambahkan CSS untuk hover effect -->
 <style>
+	.swiper-slide {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
 	.single-product:hover {
 		transform: scale(1.05);
 		/* Membesar saat hover */

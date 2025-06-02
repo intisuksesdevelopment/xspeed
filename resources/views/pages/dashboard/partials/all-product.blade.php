@@ -155,6 +155,21 @@
     background-color: var(--bs-pagination-disabled-bg);
     border-color: var(--bs-pagination-disabled-border-color);
 }
+.breadcrumb{
+    background-color: transparent; /* Make the background transparent */
+    padding: 0.5rem; /* Adjust padding as needed */
+    margin-bottom: 1rem; /* Space below the breadcrumb */
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  content: var(--bs-breadcrumb-divider, "/"); /* Default separator is '/' */
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  color: #6c757d !important; /* Light gray color */
+}
+
+.breadcrumb-item.active {
+  color: #212529; /* Dark text for the active item */
+}
     </style>
     <!-- breadcrumb-section -->
 	<div class="breadcrumb-section breadcrumb-bg">
@@ -162,14 +177,22 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<h2 class=" text-light">PRODUCTsS</h2>
+						<h2 class=" text-light">{{ strtoupper(__('messages.product')) }}</h2>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- end breadcrumb section -->
-    <div class="container-fluid">
+    <div class="container-fluid bg-light">
+        <div class="row">
+           <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '/';">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('main') }}">{{ strtoupper(__('messages.dashboard')) }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ strtoupper(__('messages.category')) }}</li>
+                </ol>
+            </nav>
+        </div>
         <div class="row">
             <div class="col-md-3 sidebar">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -178,7 +201,13 @@
 				@foreach ($data["categories"] as $category)
 					<div class="sidebar-item">
 						<div class="d-flex justify-content-between align-items-center sidebar-toggle px-2" data-target="#{{ $category->code }}-sub">
-							<div>{{ $category->name }} <span class="text-muted">({{ $category->countItems }})</span></div>
+                            @if($category->subcategories->isEmpty())
+							    <div>
+                                    <a href="{{ route('all-product-category', ['categoryCode' => $category->code]) }}" style="color: inherit; text-decoration: none;">{{ $category->name }} ({{ $category->countItems }})</a>  
+                                </div>
+                            @else
+                            	<div>{{ $category->name }} <span class="text-muted">({{ $category->countItems }})</span></div>
+                            @endif
 							@if($category->subcategories->isNotEmpty())
 								<i class="bi bi-caret-right-fill collapse-icon"></i>
 							@endif
@@ -186,78 +215,48 @@
 						@if($category->subcategories->isNotEmpty())
 							<div class="subcategory-list collapse-manual px-3" id="{{ $category->code }}-sub">
 								@foreach ($category->subcategories as $subcategory)
-									<a href="#" class="sidebar-link ms-3">{{ $subcategory->name }} ({{ $subcategory->countItems }})</a>
+									<a href="{{ route('all-product-category', ['categoryCode' => $category->code]) }}" class="sidebar-link ms-3">{{ $subcategory->name }} ({{ $subcategory->countItems }})</a>
 								@endforeach
 							</div>
 						@endif
 					</div>
 				@endforeach
-				<div class="sidebar-item">
-					<a href="#" class="sidebar-link">Knalpot</a>
-				</div>
-				<div class="sidebar-item">
-					<a href="#" class="sidebar-link">Filter Knalpot</a>
-				</div>
-				<div class="sidebar-item">
-					<a href="#" class="sidebar-link">Aksesoris Knalpot</a>
-				</div>
             </div>
 
             <div class="col-md-9 product-grid">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2>Daftar Produk</h2>
-                    <a href="#" class="text-decoration-none text-muted">Lihat Semua 40,592 Produk <i class="bi bi-chevron-right"></i></a>
-                </div>
-
-                <div class="filter-bar mb-3">
-                    <h5>Belanja Berdasarkan Model</h5>
-                    <div class="row gx-2 align-items-center">
-                        <div class="col-md-3">
-                            <select class="form-select form-select-sm">
-                                <option selected>Produsen</option>
-                                <option value="1">Akrapovic</option>
-                                <option value="2">Yoshimura</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-select form-select-sm">
-                                <option selected>Kapasitas Mesin</option>
-                                <option value="1">150cc</option>
-                                <option value="2">250cc</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-select form-select-sm">
-                                <option selected>Model</option>
-                                <option value="1">R25</option>
-                                <option value="2">Ninja 250</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <button class="btn btn-danger btn-sm w-100">CARI PRODUK PER MODEL</button>
-                        </div>
-                    </div>
-                    <div class="mt-2">
-                        <i class="bi bi-person"></i> Mybike: <a href="#" class="text-decoration-none text-muted">Masuk untuk Mengakses Motor Saya</a>
-                    </div>
-                </div>
                 <div class="row row-cols-2 row-cols-md-4 p-3">
                     @foreach ($data['products']->items() as $product)
-                        <div class="product-card col-lg-2 border border-solid position-relative m-1">
-                            <a href="www.google.com" class="d-block text-decoration-none">
-                                <figure class="m-0">
-                                    <img src="{{$product->image_url}}" class="img-fluid">
-                                </figure>
-                                <div class="p-2">
-                                    <p class=" small text-muted mb-1 text-decoration-none text-left"><a href="" class="text-decoration-none text-muted">{{$product->category->name}}</a></p>
-                                    <h6 class="mb-1 text-decoration-none"><a href="" class="text-decoration-none text-dark  text-left">{{$product->name}}</a></h6>
-                                    <p class="fw-bold text-danger mb-0 text-right"><strong>{{\App\Services\UtilService::formatCurrency($product->sell_price, $product->currency)}}</strong></p>
-                                    <p class="small text-muted mb-0  text-right" style="text-decoration: line-through;">3.000.000 IDR</p>
+                        <div class="col-6 col-md-3 col-lg-2 my-2">
+                            <div class="card h-100 shadow-sm d-flex flex-column">
+                                {{-- Gambar --}}
+                                <div style="height: 160px; overflow: hidden; border 1px solid #dee2e6; border-radius: 5px; display: flex; justify-content: center; align-items: center;">
+                                    <img src="{{ $product->image_url }}" class="w-100 h-100 object-fit-cover" style="object-fit: cover;" alt="{{ $product->name }}">
                                 </div>
-                            </a>
+
+                                {{-- Info Produk --}}
+                                <div class="card-body d-flex flex-column justify-content-between">
+                                    <div>
+                                        <p class="text-muted text-left small mb-1">{{ $product->category->name }}</p>
+                                        <h6 class="text-dark mb-2 text-truncate">{{ $product->name }}</h6>
+                                    </div>
+                                    <div>
+                                        <p class="text-danger text-right fw-bold mb-0">{{ \App\Services\UtilService::formatCurrency($product->sell_price, $product->currency) }}</p>
+                                        {{-- <p class="text-muted small text-right text-decoration-line-through mb-0">3.000.000 IDR</p> --}}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     @endforeach
+
+
+
+
                 </div>
+              @if ($data['products']->isEmpty())
+                <div style="display: flex; justify-content: center;">
+                    <p class="text-secondary">Produk is empty</p>
+                </div>
+            @else
                 <div class="row row-cols-2 row-cols-md-4 p-3 justify-content-end">
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
@@ -266,7 +265,7 @@
                             @else
                                 <li class="page-item"><a class="page-link" href="{{ $data['products']->previousPageUrl() }}" rel="prev">Previous</a></li>
                             @endif
-                
+
                             @foreach ($data['products']->getUrlRange(1, $data['products']->lastPage()) as $page => $url)
                                 @if ($page == $data['products']->currentPage())
                                     <li class="page-item active" aria-current="page"><span class="page-link">{{ $page }}</span></li>
@@ -274,7 +273,7 @@
                                     <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
                                 @endif
                             @endforeach
-                
+
                             @if ($data['products']->hasMorePages())
                                 <li class="page-item"><a class="page-link" href="{{ $data['products']->nextPageUrl() }}" rel="next">Next</a></li>
                             @else
@@ -283,6 +282,7 @@
                         </ul>
                     </nav>
                 </div>
+            @endif
                 {{-- <div class="row row-cols-2 row-cols-md-4 p-3">
 					<div class="product-card col-lg-2 border border-solid position-relative m-1">
 						<a href="www.google.com" class="d-block text-decoration-none">

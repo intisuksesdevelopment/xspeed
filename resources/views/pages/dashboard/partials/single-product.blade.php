@@ -134,8 +134,7 @@
 							<button class="btn btn-outline-secondary me-2">{{ trim(strtoupper($color)) }}</button>
 						@endforeach
 					</div>
-		
-					<div class="mb-3">
+					<div class="mb-3 d-none">
 						<strong>Quantity:</strong><br>
 						<div class="input-group" style="width: 150px;">
 							<button class="btn btn-outline-secondary" type="button" onclick="adjustQty(-1)">−</button>
@@ -161,10 +160,6 @@
 							<p>There are no purchase links available.</p>
 						<?php endif; ?>
 					</div>
-		
-					<p><strong>SKU:</strong> NHFL5</p>
-					<p><strong>Vendor:</strong> Gold Ring</p>
-					<p><strong>Category:</strong> Rings</p>
 				</div>
 			</div>
 			{{-- <div class="row">
@@ -212,27 +207,30 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				@foreach($data['products'] as $product)
-					<div class="col-lg-3 col-md-6 text-center">
-						<div class="single-product-item bg-white" style="position: relative;">
-							<div class="product-image">
-								<a href="./dashboard/single-product/?uuid={{ $product['uuid'] }}">
-									<img src="{{ $product['image_url'] }}" alt="product" style="width: 175px; height: 175px; object-fit: cover; border-radius: 10px;">
-								</a>
-							</div>
-							<h6>{{ strtoupper($product->name) }}</h6>
-							<h5 class="product-price">{{ \App\Services\UtilService::formatCurrency($product['sell_price'], $product['currency']) }}</h5>
-							<!-- Links container for hover effect -->
-							<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none; flex-direction: column; background-color: rgba(255, 255, 255, 0.9); padding: 10px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-								@foreach(json_decode($product['link_url']) as $link)
-									<a href="{{ $link->link }}" target="_blank" style="margin: 5px 0; text-decoration: none; color: #007bff;">{{ $link->name }}</a>
-								@endforeach
-								<a href="./dashboard/single-product/?uuid={{ $product['uuid'] }}" style="margin: 5px 0; text-decoration: none; color: #007bff;">Detail</a>
-							</div>
-						</div>
-					</div>
-				@endforeach
+			<div class="row p-5">
+				  @foreach ($data['products'] as $product)
+                        <div class="col-6 col-md-3 col-lg-2">
+                            <div class="card h-100 shadow-sm d-flex flex-column">
+                                {{-- Gambar --}}
+                                <div style="height: 160px; overflow: hidden; border 1px solid #dee2e6; border-radius: 5px; display: flex; justify-content: center; align-items: center;">
+                                    <img src="{{ $product->image_url }}" class="w-100 h-100 object-fit-cover" style="object-fit: cover;" alt="{{ $product->name }}">
+                                </div>
+
+                                {{-- Info Produk --}}
+                                <div class="card-body d-flex flex-column justify-content-between">
+                                    <div>
+                                        <p class="text-muted text-left small mb-1">{{ $product->category->name }}</p>
+                                        <h6 class="text-dark mb-2 text-truncate">{{ $product->name }}</h6>
+                                    </div>
+                                    <div>
+                                        <p class="text-danger text-right fw-bold mb-0">{{ \App\Services\UtilService::formatCurrency($product->sell_price, $product->currency) }}</p>
+                                        {{-- <p class="text-muted small text-right text-decoration-line-through mb-0">3.000.000 IDR</p> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+			
 			</div>
 		</div>
 	</div>

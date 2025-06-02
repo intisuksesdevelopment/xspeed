@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+	<meta name="description"
+		content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
 	<!-- title -->
 	<title>ExpeedShop</title>
 
 	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png"  href="{{ asset('/build/plugins/dashboard/assets/img/logo-exspeed3.png')}}">
+	<link rel="shortcut icon" type="image/png"
+		href="{{ asset('/build/plugins/dashboard/assets/img/logo-exspeed3.png')}}">
 	<!-- google font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
@@ -33,24 +36,27 @@
 	<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/responsive.css')}}">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-	<style>  
-        h1 {  
-            text-align: center; /* Menengahka <h1> */  
-            font-weight: bold;  
-            margin-bottom: 20px;  
+	<style>
+		h1 {
+			text-align: center;
+			/* Menengahka <h1> */
+			font-weight: bold;
+			margin-bottom: 20px;
 			color: aliceblue;
-        }  
-        p {  
-            text-align: center; /* Menengahkan teks dalam <p> */  
-            line-height: 1.6;  
+		}
+
+		p {
+			text-align: center;
+			/* Menengahkan teks dalam <p> */
+			line-height: 1.6;
 			color: aliceblue;
-        }  
-    </style>  
+		}
+	</style>
 
 </head>
 
 <body>
-				
+
 	<!--PreLoader-->
 	{{-- <div class="loader">
 		<div class="loader-inner">
@@ -59,61 +65,83 @@
 	</div> --}}
 	<!--PreLoader Ends-->
 	@if (Route::is(['main']))
-			@include('pages.dashboard.partials.index')
+	@include('pages.dashboard.partials.index')
 	@endif
 	@if (Route::is(['single-product']))
-		@include('pages.dashboard.partials.single-product')
+	@include('pages.dashboard.partials.single-product')
 	@endif
 	@if (Route::is(['list-product']))
-		@include('pages.dashboard.partials.list-product')
+	@include('pages.dashboard.partials.list-product')
 	@endif
-	@if (Route::is(['all-product']))
-		@include('pages.dashboard.partials.all-product')
+	@if (Route::is(['all-product'])||Route::is(['all-product-category']))
+	@include('pages.dashboard.partials.all-product')
 	@endif
 	<!-- footer -->
-	<div class="footer-area">
+	<div class="footer-area text-light py-5">
 		<div class="container">
-			<div style="display: flex; justify-content: center;">
-				<img src="{{ asset('/build/plugins/dashboard/assets/img/logo-exspeed3.png')}}" alt="logo">
+			<div class="d-flex justify-content-center mb-3">
+				<img src="{{ asset('/build/plugins/dashboard/assets/img/logo-exspeed3.png')}}" alt="logo"
+					class="img-fluid" style="max-width: 180px;">
 			</div>
-			<br>
-			<h1>ABOUT US</h1>  
 
-			<p>  
-				Buy various products at the Xspeedshop Store online now. You can buy products from the   
-				Xspeedshop Store safely & easily from Bandung City. Want to shop more economically &   
-				affordably at the Xspeedshop Store? You can use the 0% Installment feature from   
-				various banks and the Free Shipping feature at the Xspeedshop Store so you can shop   
-				online comfortably at Tokopedia. Buy various latest products at the Xspeedshop Store   
-				easily from the palm of your hand using the Tokopedia Application. Also keep checking   
-				the Xspeedshop Store for updates on Products, Voucher Codes to the Latest Promos   
-				from the Latest Xspeedshop Store online at Tokopedia!  
-			</p>  
+			<h3 class="text-center mb-4">ABOUT US</h3>
+
+			<p class="text-center mx-auto" style="max-width: 800px; font-size: 0.95rem;">
+				Buy various products at the Xspeedshop Store online now. You can buy products from the
+				Xspeedshop Store safely & easily from Bandung City. Want to shop more economically &
+				affordably at the Xspeedshop Store? You can use the 0% Installment feature from
+				various banks and the Free Shipping feature at the Xspeedshop Store so you can shop
+				online comfortably at Tokopedia. Buy various latest products at the Xspeedshop Store
+				easily from the palm of your hand using the Tokopedia Application. Also keep checking
+				the Xspeedshop Store for updates on Products, Voucher Codes to the Latest Promos
+				from the Latest Xspeedshop Store online at Tokopedia!
+			</p>
 		</div>
 	</div>
 	<!-- end footer -->
-	
+
+
 	<!-- copyright -->
-	<div class="copyright">
+	<div class="copyright bg-dark text-light py-3">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2025 - <a href="https://imransdesign.com/">Exspeed Shop</a>,  All Rights Reserved.</p>
+			<div class="row align-items-center">
+
+				<!-- Left -->
+				<div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+					<p class="mb-0 small">
+						Copyright &copy; 2025 -
+						<a href="https://imransdesign.com/" class="text-light text-decoration-underline">Exspeed
+							Shop</a>, All Rights Reserved.
+					</p>
 				</div>
-				<div class="col-lg-6 text-right col-md-12">
+
+				<!-- Right -->
+				<div class="col-md-6 text-center text-md-end">
 					<div class="social-icons">
-						<ul>
-							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						<ul class="list-inline mb-0">
+							<li class="list-inline-item me-2">
+								<a href="#" target="_blank" class="text-light"><i class="fab fa-facebook-f"></i></a>
+							</li>
+							<li class="list-inline-item me-2">
+								<a href="#" target="_blank" class="text-light"><i class="fab fa-twitter"></i></a>
+							</li>
+							<li class="list-inline-item me-2">
+								<a href="#" target="_blank" class="text-light"><i class="fab fa-instagram"></i></a>
+							</li>
+							<li class="list-inline-item me-2">
+								<a href="#" target="_blank" class="text-light"><i class="fab fa-linkedin"></i></a>
+							</li>
+							<li class="list-inline-item">
+								<a href="#" target="_blank" class="text-light"><i class="fab fa-dribbble"></i></a>
+							</li>
 						</ul>
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
+
 	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery-1.11.3.min.js') }}">
 		function formatRupiah(number) {
 			let formattedNumber = number;
@@ -134,7 +162,7 @@
 		}
 	</script>
 	<!-- end copyright -->
-	<!-- jquery -->            
+	<!-- jquery -->
 	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery-1.11.3.min.js') }}"></script>
 	<!-- bootstrap -->
 	<script src="{{ URL::asset('/build/plugins/dashboard/assets/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -154,9 +182,10 @@
 	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/sticker.js') }}"></script>
 	<!-- main js -->
 	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/main.js') }}"></script>
-	
+
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
 
 </body>
+
 </html>

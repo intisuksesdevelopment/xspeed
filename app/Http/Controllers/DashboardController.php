@@ -24,13 +24,15 @@ class DashboardController extends Controller
         $data['brands'] = BrandService::getActive($request);
         return view('pages.dashboard.main-layout', ['data' => $data]);
     }
-    public function getAll(Request $request)
+    public function getAll(Request $request, ?string $categoryCode = null)
     {
-        
+
         $data['categories'] = CategoryService::getActive($request, false);
-
-
+        if ($categoryCode) {
+            $request->categoryCode = $data['categories']->firstWhere('code', $categoryCode)->id;
+        }
         $data['products'] = ItemService::getItemsByCategory($request->categoryCode,true,10);
+
         if($data['products']==null) {
             return response()->json([
                 'success' => false,
@@ -42,7 +44,7 @@ class DashboardController extends Controller
     public function getDetail(Request $request)
     {
         $data['product'] = ItemService::getDetail($request->uuid);
-        $request->merge(['per_page' => 4]);
+        $request->merge(['per_page' => 6]);
         $data['products'] = ItemService::getPaginated($request);
         $data['brands'] = BrandService::getActive($request);
 

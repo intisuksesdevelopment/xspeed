@@ -65,11 +65,11 @@
                                     </li> --}}
                                     <li>
                                         <h4>Basic Price</h4>
-                                        <h6>{{$item['basic_price']}}</h6>
+                                        <h6>{{$item['basic_price']??0}}</h6>
                                     </li>
                                     <li>
                                         <h4>Sell Price</h4>
-                                        <h6>{{$item['sell_price']}}</h6>
+                                        <h6>{{$item['sell_price']??0}}</h6>
                                     </li>
                                     <li>
                                         <h4>Status</h4>

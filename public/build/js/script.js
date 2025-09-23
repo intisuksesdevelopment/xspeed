@@ -1630,7 +1630,6 @@ function toggleFullscreen(elem) {
 		if ($('#phone').length > 0) {
 			var input = document.querySelector("#phone");
 			window.intlTelInput(input, {
-				initialCountry: 'id',
 				utilsScript: "assets/plugins/intltelinput/js/utils.js",
 			});
 		}

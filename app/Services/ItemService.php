@@ -206,81 +206,63 @@ class ItemService
         return $row;
     }
 
-    public static function getData(Request $request)
+public static function getData(Request $request)
 {
-    // Ambil parameter filter & sorting
-    $search = $request->input('searchInput');
+    $search    = $request->input('searchInput') ?? $request->input('search.value');
     $warehouse = $request->input('filterWarehouse');
-    $brand = $request->input('filterBrand');
-    
-    // Ambil info kolom urutan (order)
+    $brand     = $request->input('filterBrand');
+
     $columnIndex = $request->input('order.0.column');
-    $orderBy = $request->input("columns.$columnIndex.name");
-    $sortBy = $request->input('order.0.dir') === 'desc' ? 'desc' : 'asc';
+    $orderBy     = $request->input("columns.$columnIndex.name");
+    $sortBy      = $request->input('order.0.dir') === 'desc' ? 'desc' : 'asc';
 
-    // // Cache key berdasarkan semua input
-    // $cacheKey = 'datatable_products_' . md5(json_encode([
-    //     'search' => $search,
-    //     'warehouse' => $warehouse,
-    //     'brand' => $brand,
-    //     'orderBy' => $orderBy,
-    //     'sortBy' => $sortBy,
-    //     'page' => $request->input('start'),
-    // ]));
-
-    // return 
-    // Cache::remember($cacheKey, now()->addMinutes(5), function () use ($search, $warehouse, $brand, $orderBy, $sortBy) {
-        $query = Item::with(['category', 'brand'])
-            ->when($search, function ($q) use ($search) {
-                $q->where(function ($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%")
-                      ->orWhere('sku', 'like', "%{$search}%");
-                });
-            })
-            ->when($warehouse, function ($q) use ($warehouse) {
-                $warehouseId = WarehouseService::getIdByCode($warehouse);
-                if ($warehouseId) {
-                    $q->where('warehouse_id', $warehouseId);
-                }
-            })
-            ->when($brand, function ($q) use ($brand) {
-                $brandId = BrandService::getIdByCode($brand);
-                if ($brandId) {
-                    $q->where('brand_id', $brandId);
-                }
+    $query = Item::with(['category', 'brand'])
+        ->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('sku', 'like', "%{$search}%");
             });
+        })
+        ->when($warehouse, function ($q) use ($warehouse) {
+            if ($id = WarehouseService::getIdByCode($warehouse)) {
+                $q->where('warehouse_id', $id);
+            }
+        })
+        ->when($brand, function ($q) use ($brand) {
+            if ($id = BrandService::getIdByCode($brand)) {
+                $q->where('brand_id', $id);
+            }
+        });
 
-        // Sorting dinamis (pastikan kolom ada di tabel item)
-        $sortableColumns = ['name', 'sku', 'sell_price', 'unit', 'stock', 'created_at','status'];
-        if (in_array($orderBy, $sortableColumns)) {
-            $query->orderBy($orderBy, $sortBy);
-        }
-        return DataTables::of($query)
-            ->addColumn('checkbox', function ($row) {
-                return '<label class="checkboxs">
-                            <input type="checkbox" value="' . $row->id . '">
-                            <span class="checkmarks"></span>
-                        </label>';
-            })
-            ->addColumn('product', function ($row) {
-                return view('pages.products.product-column', compact('row'))->render();
-            })
-            ->addColumn('category', fn($row) => $row->category->code ?? 'N/A')
-            ->addColumn('brand', fn($row) => $row->brand->code ?? 'N/A')
-            ->addColumn('created_at', fn($row) => UtilService::formatDate($row->created_at) ?? 'N/A')
-            ->addColumn('status', function ($row) {
+    $sortable = ['name','sku','sell_price','unit','stock','created_at','status'];
+    if ($orderBy && in_array($orderBy, $sortable)) {
+        $query->orderBy($orderBy, $sortBy);
+    } else {
+        $query->orderBy('created_at', 'desc');
+    }
+
+    return DataTables::of($query)
+        ->addColumn('checkbox', fn($row) => 
+            '<label class="checkboxs">
+                <input type="checkbox" value="'.$row->id.'">
+                <span class="checkmarks"></span>
+            </label>'
+        )
+        ->addColumn('product', fn($row) => view('pages.products.product-column', compact('row'))->render())
+        ->addColumn('category', fn($row) => $row->category->code ?? 'N/A')
+        ->addColumn('brand', fn($row) => $row->brand->code ?? 'N/A')
+        ->addColumn('created_at', fn($row) => UtilService::formatDate($row->created_at) ?? 'N/A')
+        ->addColumn('status', function ($row) {
                 $availability = $row->isAvailable();
                 return $row->status == 0
                     ? '<span class="badge badge-linesuccess">' . $availability . '</span>'
                     : '<span class="badge badge-linedanger">' . $availability . '</span>';
             })
-            ->addColumn('actions', function ($row) {
-                return view('pages.products.product-actions', compact('row'))->render();
-            })
-            ->rawColumns(['checkbox', 'product', 'status', 'actions', 'created_at'])
-            ->make(true);
-    // });
+        ->addColumn('actions', fn($row) => view('pages.products.product-actions', compact('row'))->render())
+        ->rawColumns(['checkbox','product','status','actions','created_at'])
+        ->make(true);
 }
+
 
     
 

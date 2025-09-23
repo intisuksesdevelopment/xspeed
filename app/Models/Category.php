@@ -51,7 +51,9 @@ class Category extends Model
 
     public function countItems()
     {
-        return $this->items()->count();
+        return $this->items()
+        ->where('status', 0)
+        ->count();
     }
     public function getItemCountAttribute()
     {

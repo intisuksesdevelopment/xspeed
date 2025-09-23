@@ -222,6 +222,7 @@
 			<div class="col-lg-8 offset-lg-2 text-center">
 				<div class="section-title">
 					<h3><span class="orange-text">New</span> Ready Stock !</h3>
+					<p>Discover our latest products, now available for immediate purchase. Don't miss out on these new arrivals!</p>
 				</div>
 			</div>
 		</div>
@@ -230,32 +231,38 @@
 			<div class="row justify-content-center g-5">
 				{{-- Grouping and showing products --}}
 				@php
-					$groupedProducts = [];
-					foreach($data['products'] as $product) {
-						$groupedProducts[$product->sku][] = $product;
-					}
+				$groupedProducts = [];
+				foreach($data['products'] as $product) {
+				$groupedProducts[$product->sku][] = $product;
+				}
 				@endphp
 
 				@foreach($groupedProducts as $sku => $products)
 				<div class="col-6 col-md-3 col-lg-2 p-2">
-					<div class="card h-100 shadow-sm d-flex flex-column">
-						<div style="height: 160px; overflow: hidden; border: 1px solid #dee2e6; border-radius: 5px; display: flex; justify-content: center; align-items: center;">
-							<img src="{{ $products[0]->image_url }}" class="w-100 h-100 object-fit-cover" style="object-fit: cover;" alt="{{ $products[0]->name }}">
-						</div>
-						<div class="card-body d-flex flex-column justify-content-between">
-							<div>
-								<p class="text-muted text-left small mb-1">{{ $products[0]->category->name }}</p>
-								<h6 class="text-dark mb-2 text-truncate">{{ $products[0]->name }}</h6>
+					<a href="{{ route('single-product', ['uuid' => $products[0]->uuid]) }}" class="text-decoration-none text-dark">
+						<div class="card h-100 shadow-sm d-flex flex-column">
+							<div
+								style="height: 160px; overflow: hidden; border: 1px solid #dee2e6; border-radius: 5px; display: flex; justify-content: center; align-items: center;">
+								<img src="{{ $products[0]->image_url }}" class="w-100 h-100 object-fit-cover"
+									style="object-fit: cover;" alt="{{ $products[0]->name }}">
 							</div>
-							<div>
-								<p class="text-danger text-right fw-bold mb-0">
-									{{ \App\Services\UtilService::formatCurrency($products[0]->sell_price, $products[0]->currency) }}
-								</p>
+							<div class="card-body d-flex flex-column justify-content-between">
+								<div>
+									<p class="text-muted text-left small mb-1">{{ $products[0]->category->name }}</p>
+									<h6 class="text-dark mb-2 text-truncate">{{ $products[0]->name }}</h6>
+								</div>
+								<div>
+									<p class="text-danger text-right fw-bold mb-0">
+										{{ \App\Services\UtilService::formatCurrency($products[0]->sell_price,
+										$products[0]->currency) }}
+									</p>
+								</div>
 							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 				@endforeach
+
 			</div>
 
 			{{-- View More Button --}}
@@ -294,6 +301,8 @@
 					<h3 class="text-light mb-1">
 						<span class="orange-text">More</span> Category!
 					</h3>
+					<p class="text-light mb-0">Explore our wide range of categories to find the perfect products for your needs.</p>
+					{{-- <p class="text-muted mb-0">See more Details</p> --}}
 					<div class="underline mx-auto mt-2" style="width: 50px; height: 3px; background: orange;"></div>
 				</div>
 			</div>
@@ -304,7 +313,8 @@
 					<div class="swiper-wrapper">
 						@foreach($data['categories'] as $category)
 						<div class="swiper-slide text-center">
-							<a href="{{ route('all-product-category', ['categoryCode' => $category->code]) }}" style="color: inherit; text-decoration: none;"
+							<a href="{{ route('all-product-category', ['categoryCode' => $category->code]) }}"
+								style="color: inherit; text-decoration: none;"
 								class="text-decoration-none d-block px-2">
 								<div class="card border-0 shadow-sm bg-white">
 									<div class="product-image p-2">

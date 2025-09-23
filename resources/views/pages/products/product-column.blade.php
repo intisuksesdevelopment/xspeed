@@ -12,5 +12,6 @@
             <img src="{{ URL::asset('/build/img/products/product15.jpg') }}" alt="product" class="img-fluid rounded">
         </a>
     @endif
-    <a href="javascript:void(0);">{{ $row->name }}</a>
+    <a href="{{ route('product-edit-form', ['uuid' => $row->uuid]) }}">{{ $row->name }}</a>
+    
 </div>

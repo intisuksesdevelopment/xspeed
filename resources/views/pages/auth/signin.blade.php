@@ -21,7 +21,7 @@
                             <label class="form-label">Nik / Email Address</label>
                             <div class="form-addons">
                                 <input type="text" class="form- control" id="email" name="email"
-                                    value="admin@example.com">
+                                    value="{{ old('email', Auth::user()->email ?? '') }}">
                                 <img src="{{ URL::asset('/build/src/img/icons/mail.svg') }}" alt="img">
                             </div>
                             <div class="text-danger pt-2">

@@ -17,6 +17,7 @@
 	<!-- google font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+
 	<!-- fontawesome -->
 
 	<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/all.min.css')}}">
@@ -77,14 +78,14 @@
 	@include('pages.dashboard.partials.all-product')
 	@endif
 	<!-- footer -->
-	<div class="footer-area text-light py-5">
+	<div class="footer-area text-light py-5 d-none">
 		<div class="container">
 			<div class="d-flex justify-content-center mb-3">
 				<img src="{{ asset('/build/plugins/dashboard/assets/img/logo-exspeed3.png')}}" alt="logo"
 					class="img-fluid" style="max-width: 180px;">
 			</div>
 
-			<h3 class="text-center mb-4">ABOUT US</h3>
+			<h3 class="text-center mb-4 text-red-600">ABOUT US</h3>
 
 			<p class="text-center mx-auto" style="max-width: 800px; font-size: 0.95rem;">
 				Buy various products at the Xspeedshop Store online now. You can buy products from the
@@ -102,7 +103,7 @@
 
 
 	<!-- copyright -->
-	<div class="copyright bg-dark text-light py-3">
+	<div class="copyright bg-dark text-light py-3 d-none">
 		<div class="container">
 			<div class="row align-items-center">
 

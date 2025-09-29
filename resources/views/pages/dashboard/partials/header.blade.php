@@ -95,7 +95,63 @@
             <span class="fw-bold text-white">SHOP BY CATEGORIES</span>
             <button id="closeSidebar" class="btn-close btn-close-white" aria-label="Close sidebar"></button>
         </div>
+
+
+        {{-- @foreach ($data["categories"] as $category)
+        <div class="sidebar-item">
+            <div class="d-flex justify-content-between align-items-center sidebar-toggle px-2"
+                data-target="#{{ $category->code }}-sub">
+                @if($category->subcategories->isEmpty())
+                <div>
+                    <a href="{{ route('all-product-category', ['categoryCode' => $category->code]) }}"
+                        style="sidebar-link color: inherit; text-decoration: none;">{{ $category->name }} ({{
+                        $category->countItems }})</a>
+                </div>
+                @else
+                <div>{{ $category->name }} <span class="text-muted">({{ $category->countItems }})</span></div>
+                @endif
+                @if($category->subcategories->isNotEmpty())
+                <i class="bi bi-caret-right-fill collapse-icon"></i>
+                @endif
+            </div>
+            @if($category->subcategories->isNotEmpty())
+            <div class="subcategory-list collapse-manual px-3" id="{{ $category->code }}-sub">
+                @foreach ($category->subcategories as $subcategory)
+                <a href="{{ route('all-product-category', ['categoryCode' => $category->code]) }}"
+                    class="sidebar-link ms-3">{{ $subcategory->name }} ({{ $subcategory->countItems }})</a>
+                @endforeach
+            </div>
+            @endif
+        </div>
+        @endforeach --}}
+
         <ul class="list-unstyled m-0 p-0">
+            @foreach ($data["categories"] as $category)
+            <li>
+                @if($category->subcategories->isEmpty())
+                <a href="{{ route('all-product-category', ['categoryCode' => $category->code]) }}"
+                    class="sidebar-link"><i class="bi bi-shirt me-2"></i> {{ $category->name }} ({{
+                    $category->countItems }})</a>
+                @else
+                <a class="sidebar-link"> {{ $category->name }} ({{
+                    $category->countItems }})
+                    @if($category->subcategories->isNotEmpty())
+                    <ul class="list-unstyled " id="{{ $category->code }}-sub">
+                        @foreach ($category->subcategories as $subcategory)
+                        <li>
+                            <a href="{{ route('all-product-category', ['categoryCode' => $category->code]) }}"
+                                class="sidebar-link ms-3">{{ $subcategory->name }} ({{ $subcategory->countItems }})</a>
+                        </li>
+                        @endforeach
+                    </ul>
+                    @endif
+                </a>
+                @endif
+            </li>
+            @endforeach
+
+
+
             <li><a href="#" class="sidebar-link"><i class="bi bi-shirt me-2"></i> Fashion</a></li>
             <li><a href="#" class="sidebar-link"><i class="bi bi-phone me-2"></i> Phone & Tablet</a></li>
             <li><a href="#" class="sidebar-link"><i class="bi bi-laptop me-2"></i> Laptop & Computer</a></li>
@@ -215,6 +271,14 @@
 
         .custom-breadcrumb {
             --bs-breadcrumb-divider: '>';
+        }
+
+        .collapse-icon {
+            transition: transform 0.2s ease;
+        }
+
+        a[aria-expanded="true"] .collapse-icon {
+            transform: rotate(90deg);
         }
     </style>
 

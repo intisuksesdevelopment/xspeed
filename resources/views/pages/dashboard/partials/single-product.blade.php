@@ -3,45 +3,38 @@
 <div class="container pt-5" style="padding-top: 100px !important;">
     <div class="row g-4">
         <!-- LEFT: Thumbnail + Main Image -->
-        <div class="col-md-6 d-flex gap-3">
-            <div class="d-flex flex-column mx-3">
+        <div class="col-md-7 row">
+            <!-- Thumbnail column -->
+            <div class="col-3 d-flex flex-column align-items-end">
                 @php
-                $allImages = array_merge(
-                [ ['path' => $data['product']['image_url']] ],
-                $data['product']['images']->toArray()
-                );
+                $allImages = $data['product']['images']->toArray();
                 @endphp
                 @foreach($allImages as $image)
-                <div class="col-1">
+                <div class="mb-2">
                     <img src="{{ $image['path'] }}" class="border rounded thumbnail-img" onclick="changePreview(this)"
-                        style="width: 90px; height: 90px; object-fit: cover;">
-
+                        style="width: 90px; height: 90px; object-fit: cover;cursor: pointer;">
                 </div>
                 @endforeach
-                {{-- <img src="https://merto-be87.kxcdn.com/merto/wp-content/uploads/2024/05/fashion-5-300x300.jpg"
-                    class="img-thumbnail mb-2" alt="Thumb 1">
-                <img src="https://merto-be87.kxcdn.com/merto/wp-content/uploads/2024/05/fashion-5-300x300.jpg"
-                    class="img-thumbnail mb-2" alt="Thumb 2">
-                <img src="https://merto-be87.kxcdn.com/merto/wp-content/uploads/2024/05/fashion-5-300x300.jpg"
-                    class="img-thumbnail mb-2" alt="Thumb 3">
-                <img src="https://merto-be87.kxcdn.com/merto/wp-content/uploads/2024/05/fashion-5-300x300.jpg"
-                    class="img-thumbnail" alt="Thumb 4"> --}}
             </div>
-            <div class="flex-fill position-relative">
-                <span class="badge bg-danger position-absolute top-0 start-0 m-2">HOT</span>
-                <img src="https://merto-be87.kxcdn.com/merto/wp-content/uploads/2024/05/fashion-5.jpg"
-                    class="img-fluid border rounded" alt="Main Product">
-                {{-- <button class="btn btn-light position-absolute top-0 end-0 m-2 border rounded-circle">
-                    <i class="bi bi-arrows-fullscreen"></i>
-                </button> --}}
+
+            <!-- Preview image column -->
+            <div class="col-9">
+                <div class="border rounded overflow-hidden position-relative preview-container"
+                    style="width: 100%; aspect-ratio: 1/1;">
+                    <img id="preview-image" src="{{ $data['product']['image_url'] }}" class="img-fluid w-100 h-100"
+                        style="object-fit: cover; transition: transform 0.2s ease;" alt="Main Product">
+                </div>
             </div>
         </div>
 
 
+
         <!-- RIGHT: Product Info -->
-        <div class="col-md-6">
+        <div class="col-md-5">
             <p class="text-muted text-left mb-1">{{ ucwords($data['product']['category']['name']) }}</p>
             <h2 class="fw-bold">{{ ucwords($data['product']['name']) }}</h2>
+            <small class="text-muted ms-1">{{ strtoupper($data['product']['sku']) }}</small>
+
 
             <!-- Rating -->
             <div class="mb-3">
@@ -68,24 +61,22 @@
 
             <!-- Quantity + Buttons -->
             <div class="d-flex align-items-center mb-3">
-                <div class="input-group me-3" style="width: 120px;">
+                <div class="input-group mr-2" style="width: 120px;">
                     <button class="btn btn-outline-secondary">-</button>
                     <input type="text" class="form-control text-center" value="1">
                     <button class="btn btn-outline-secondary">+</button>
                 </div>
-                <button class="btn btn-dark fw-bold me-2">+ ADD TO CART</button>
-                <button class="btn btn-danger fw-bold">BUY NOW</button>
+                <button class="btn btn-dark fw-bold mr-2">+ ADD TO CART</button>
+                <button class="btn btn-success fw-bold mr-2">BUY NOW</button>
             </div>
+
+
 
             <!-- Wishlist / Compare -->
             <div class="mb-3">
                 <a href="#" class="me-3 text-muted"><i class="bi bi-heart"></i> Add to wishlist</a>
                 <a href="#" class="text-muted"><i class="bi bi-shuffle"></i> Add to compare</a>
             </div>
-
-            <!-- SKU & Category -->
-            <p class="mb-1"><strong>SKU:</strong> GWV6GFJCTH</p>
-            <p><strong>Categories:</strong> <a href="#">Accessories</a>, <a href="#">Shoes</a></p>
 
             <!-- Social Links -->
             <div class="d-flex gap-3">
@@ -97,3 +88,42 @@
         </div>
     </div>
 </div>
+
+<script>
+    const previewContainer = document.querySelector('.preview-container');
+    const previewImage = document.getElementById('preview-image');
+
+    previewContainer.addEventListener('mousemove', function (e) {
+        const rect = this.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+        previewImage.style.transformOrigin = `${x}% ${y}%`;
+        previewImage.style.transform = "scale(1.5)"; // zoom 1.5x
+    });
+
+    previewContainer.addEventListener('mouseleave', function () {
+        previewImage.style.transformOrigin = "center center";
+        previewImage.style.transform = "scale(1)";
+    });
+    function changePreview(element) {
+    const preview = document.getElementById('preview-image');
+
+    if (!preview) return; // jaga-jaga kalau element tidak ada
+
+    // Tambahkan efek fade-out dulu biar lebih smooth
+    preview.style.opacity = 0;
+
+    setTimeout(() => {
+        preview.src = element.src; // ganti gambar
+        preview.style.opacity = 1; // fade-in
+    }, 150);
+}
+
+</script>
+
+<style>
+    #preview-image {
+        transition: opacity 0.3s ease-in-out;
+    }
+</style>

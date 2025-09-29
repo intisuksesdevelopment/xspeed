@@ -48,6 +48,7 @@ class DashboardController extends Controller
         $data['products'] = ItemService::getPaginated($request);
         $data['brands'] = BrandService::getActive($request);
 
+        $data['categories'] = CategoryService::getActive($request);
         return view('pages.dashboard.main-layout', ['data' => $data]);
     }
     public function getList(Request $request)

@@ -89,80 +89,50 @@
             </div>
         </nav>
     </div>
+    <!-- Overlay -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
     <!-- ====== SIDEBAR CATEGORIES ====== -->
-    <div id="sidebarCategories" class="sidebar">
-        <div class="sidebar-header">
+    <div id="sidebarCategories" class="sidebar d-flex flex-column">
+        <div class="sidebar-header d-flex justify-content-between align-items-center p-3 bg-dark">
             <span class="fw-bold text-white">SHOP BY CATEGORIES</span>
             <button id="closeSidebar" class="btn-close btn-close-white" aria-label="Close sidebar"></button>
         </div>
 
-
-        {{-- @foreach ($data["categories"] as $category)
-        <div class="sidebar-item">
-            <div class="d-flex justify-content-between align-items-center sidebar-toggle px-2"
-                data-target="#{{ $category->code }}-sub">
-                @if($category->subcategories->isEmpty())
-                <div>
+        <!-- Scrollable body -->
+        <div class="sidebar-body flex-grow-1 overflow-auto p-2">
+            <ul class="list-unstyled m-0">
+                @foreach ($data["categories"] as $category)
+                <li>
+                    @if($category->subcategories->isEmpty())
                     <a href="{{ route('all-product-category', ['categoryCode' => $category->code]) }}"
-                        style="sidebar-link color: inherit; text-decoration: none;">{{ $category->name }} ({{
-                        $category->countItems }})</a>
-                </div>
-                @else
-                <div>{{ $category->name }} <span class="text-muted">({{ $category->countItems }})</span></div>
-                @endif
-                @if($category->subcategories->isNotEmpty())
-                <i class="bi bi-caret-right-fill collapse-icon"></i>
-                @endif
-            </div>
-            @if($category->subcategories->isNotEmpty())
-            <div class="subcategory-list collapse-manual px-3" id="{{ $category->code }}-sub">
-                @foreach ($category->subcategories as $subcategory)
-                <a href="{{ route('all-product-category', ['categoryCode' => $category->code]) }}"
-                    class="sidebar-link ms-3">{{ $subcategory->name }} ({{ $subcategory->countItems }})</a>
-                @endforeach
-            </div>
-            @endif
-        </div>
-        @endforeach --}}
+                        class="sidebar-link d-block py-2 px-2">
+                        {{ $category->name }} ({{ $category->countItems }})
+                    </a>
+                    @else
+                    <a href="{{ '#'.$category->code.'-sub' }}"
+                        class="d-flex justify-content-between align-items-center sidebar-link py-2 px-2"
+                        data-toggle="collapse" aria-expanded="false" aria-controls="{{ $category->code.'-sub' }}">
+                        <span>{{ $category->name }} ({{ $category->countItems }})</span>
+                        <i class="fa fa-chevron-right collapse-icon"></i>
+                    </a>
 
-        <ul class="list-unstyled m-0 p-0">
-            @foreach ($data["categories"] as $category)
-            <li>
-                @if($category->subcategories->isEmpty())
-                <a href="{{ route('all-product-category', ['categoryCode' => $category->code]) }}"
-                    class="sidebar-link"><i class="bi bi-shirt me-2"></i> {{ $category->name }} ({{
-                    $category->countItems }})</a>
-                @else
-                <a class="sidebar-link"> {{ $category->name }} ({{
-                    $category->countItems }})
-                    @if($category->subcategories->isNotEmpty())
-                    <ul class="list-unstyled " id="{{ $category->code }}-sub">
+                    <ul class="collapse list-unstyled pl-4 mt-1" id="{{ $category->code.'-sub' }}">
                         @foreach ($category->subcategories as $subcategory)
                         <li>
                             <a href="{{ route('all-product-category', ['categoryCode' => $category->code]) }}"
-                                class="sidebar-link ms-3">{{ $subcategory->name }} ({{ $subcategory->countItems }})</a>
+                                class="sidebar-link d-block py-1">
+                                {{ $subcategory->name }} ({{ $subcategory->countItems }})
+                            </a>
                         </li>
                         @endforeach
                     </ul>
                     @endif
-                </a>
-                @endif
-            </li>
-            @endforeach
-
-
-
-            <li><a href="#" class="sidebar-link"><i class="bi bi-shirt me-2"></i> Fashion</a></li>
-            <li><a href="#" class="sidebar-link"><i class="bi bi-phone me-2"></i> Phone & Tablet</a></li>
-            <li><a href="#" class="sidebar-link"><i class="bi bi-laptop me-2"></i> Laptop & Computer</a></li>
-            <li><a href="#" class="sidebar-link"><i class="bi bi-speaker me-2"></i> TV, Audio – Video</a></li>
-            <li><a href="#" class="sidebar-link"><i class="bi bi-camera me-2"></i> Camera & Photo</a></li>
-            <li><a href="#" class="sidebar-link"><i class="bi bi-house-door me-2"></i> Home & Decor</a></li>
-            <li><a href="#" class="sidebar-link"><i class="bi bi-heart-pulse me-2"></i> Beauty & Health</a></li>
-            <li><a href="#" class="sidebar-link"><i class="bi bi-controller me-2"></i> Game Accessories</a></li>
-            <li><a href="#" class="sidebar-link"><i class="bi bi-gear me-2"></i> Autopart</a></li>
-        </ul>
+                </li>
+                @endforeach
+            </ul>
+        </div>
     </div>
+
 
     <!-- ====== BACKDROP ====== -->
     <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
@@ -171,21 +141,41 @@
     <!-- ====== STYLING ====== -->
     <style>
         .sidebar {
-            position: fixed;
-            top: 0;
-            left: -300px;
-            width: 300px;
+            width: 280px;
             height: 100vh;
             background: #fff;
-            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-            z-index: 1050;
-            transition: left 0.3s ease;
-            display: flex;
-            flex-direction: column;
+            border-right: 1px solid #ddd;
+            position: fixed;
+            top: 0;
+            left: -280px;
+            /* tersembunyi awal */
+            z-index: 1051;
+            transition: left .3s ease;
         }
 
-        .sidebar.active {
+        .sidebar.show {
             left: 0;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .5);
+            z-index: 1050;
+            display: none;
+        }
+
+        .sidebar-overlay.show {
+            display: block;
+        }
+
+        .sidebar-body {
+            max-height: calc(100vh - 60px);
+            /* sisakan tinggi header (60px) */
+            overflow-y: auto;
         }
 
         .sidebar-header {
@@ -202,7 +192,7 @@
             align-items: center;
             padding: 0.9rem 1rem;
             text-decoration: none;
-            color: #000;
+            color: #333;
             border-bottom: 1px solid #f0f0f0;
             transition: background 0.2s;
         }
@@ -211,70 +201,8 @@
             background: #f8f9fa;
         }
 
-        .sidebar-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1040;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease;
-        }
-
-        .sidebar-backdrop.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Add custom style for btn-no-style if not defined elsewhere */
-        .btn-no-style {
-            background: none;
-            border: none;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-        }
-
-        /* Divider custom */
-        .custom-breadcrumb {
-            --bs-breadcrumb-divider: '>';
-        }
-
-        /* Style link */
-        .custom-breadcrumb a {
-            text-decoration: none;
-            color: #000;
-            /* hitam */
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
-        /* Hover efek */
-        .custom-breadcrumb a:hover {
-            text-decoration: underline;
-            color: #000;
-        }
-
-        /* Active (halaman terakhir) */
-        .custom-breadcrumb .breadcrumb-item.active {
-            color: #6c757d;
-            /* abu-abu */
-            font-weight: 400;
-        }
-
-        /* Jarak antar item biar lega */
-        .custom-breadcrumb .breadcrumb-item+.breadcrumb-item {
-            padding-left: 0.5rem;
-        }
-
-        .custom-breadcrumb {
-            --bs-breadcrumb-divider: '>';
-        }
-
         .collapse-icon {
-            transition: transform 0.2s ease;
+            transition: transform .2s ease;
         }
 
         a[aria-expanded="true"] .collapse-icon {
@@ -285,33 +213,27 @@
     <!-- ====== SCRIPT ====== -->
     <script>
         // Sidebar Toggle
-    const sidebar = document.getElementById('sidebarCategories');
-    const backdrop = document.getElementById('sidebarBackdrop');
-    const toggleBtn = document.getElementById('toggleCategories');
-    const closeBtn = document.getElementById('closeSidebar');
+    document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebarCategories");
+    const overlay = document.getElementById("sidebarOverlay");
+    const openBtn = document.getElementById("toggleCategories");
+    const closeBtn = document.getElementById("closeSidebar");
 
-    toggleBtn.addEventListener('click', () => {
-        sidebar.classList.add('active');
-        backdrop.classList.add('active');
-    });
-
-    closeBtn.addEventListener('click', () => {
-        sidebar.classList.remove('active');
-        backdrop.classList.remove('active');
-    });
-
-    backdrop.addEventListener('click', () => {
-        sidebar.classList.remove('active');
-        backdrop.classList.remove('active');
-    });
-
-    // Placeholder Language Switch Function
-    function switchLanguage(lang) {
-        // Example: Set cookie and reload, or redirect to /en/ or /id/
-        document.cookie = `lang=${lang}; path=/`;
-        location.reload(); // Or window.location.href = `/${lang}/`;
-        // In a real app, integrate with i18next or Laravel localization.
+    function openSidebar() {
+        sidebar.classList.add("show");
+        overlay.classList.add("show");
     }
+
+    function closeSidebar() {
+        sidebar.classList.remove("show");
+        overlay.classList.remove("show");
+    }
+
+    if (openBtn) openBtn.addEventListener("click", openSidebar);
+    if (closeBtn) closeBtn.addEventListener("click", closeSidebar);
+    if (overlay) overlay.addEventListener("click", closeSidebar);
+});
+
     </script>
     <div class="container mb-5">
         <div class="d-flex align-items-center justify-content-between flex-wrap">

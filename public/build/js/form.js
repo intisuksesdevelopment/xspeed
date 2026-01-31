@@ -159,11 +159,12 @@ function submitForm(formId, submitButtonId, statusCheckboxId = null,redirect = n
             }
         })
         .catch(error => {
+            console.error('Submission failed:', error);
+
             Swal.close();
             submitButton.disabled = false;
             document.getElementById('error-message').textContent = error.message || 'An error occurred';
             new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
-            console.error('Submission failed:', error);
         });
     });
 }

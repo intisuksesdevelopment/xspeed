@@ -29,20 +29,15 @@ class LoginController extends BaseController
     public function login(Request $request)
     {
         try {
-            $request->validate([
-                'email'    => 'required|email',
-                'password' => [
-                    'required',
-                    'string',
-                    'min:8',
-                    'regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).+$/',
-                    function ($attribute, $value, $fail) {
-                        if (! preg_match('/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).+$/', $value)) {
-                            return $fail('The ' . $attribute . ' must be at least 8 characters long and include at least one letter, one number, and one special character.');
-                        }
-                    },
-                ],
-            ]);
+
+           $request->validate([
+    'email' => ['required','email'],
+    'password' => [
+        'required',
+        'string',
+        Password::min(8)->letters()->numbers()->symbols(),
+    ],
+]);
 
             $credentials = $request->only('email', 'password');
 
@@ -51,7 +46,7 @@ class LoginController extends BaseController
                 $user = Auth::user();
 
                 // Check if user status is 0
-                if ($user->status === 0) {
+                if ($user->status == 0) {
                     $request->session()->regenerate();
 
                     return response()->json([

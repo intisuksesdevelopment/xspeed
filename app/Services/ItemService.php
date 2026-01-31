@@ -79,6 +79,7 @@ class ItemService
             $item              = new Item();
             $data['uuid']      = (string) Str::uuid(); // Generate a unique identifier
             $data['image_url'] = ImageService::getCoverImage($request);
+           
             // Validate and fill item attributes
             $item->validateAttributes($data);
             $item->fill($data);

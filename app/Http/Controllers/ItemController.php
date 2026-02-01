@@ -27,6 +27,7 @@ class ItemController extends Controller
         $data['warehouses']    = WarehouseService::getActive($request);
         $data['racks']         = RackService::getActive($request);
         $data['brands']        = BrandService::getActive($request);
+        \dd($data);
         return view('pages.products.product-list',$data);
     }
     public function addForm(Request $request)

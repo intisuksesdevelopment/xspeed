@@ -7,6 +7,7 @@ use App\Constants\CommonConstants;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\NotFoundException;
 use Illuminate\Support\AlreadyExistException;
+use Illuminate\Support\Facades\Cache;
 
 class WarehouseService
 {
@@ -139,4 +140,24 @@ class WarehouseService
     return $warehouse->id;
 }
 
+public static function apiGetActive(Request $request)
+{
+    $sortBy        = $request->input('sortBy', CommonConstants::SORT);
+    $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+
+    $cacheKey = "warehouses.active.{$sortBy}.{$sortDirection}";
+
+    return Cache::remember($cacheKey, now()->addMinutes(10), function () use ($sortBy, $sortDirection) {
+
+        $warehouses = Warehouse::where('status', 0)
+            ->orderBy($sortBy, $sortDirection)
+            ->get();
+
+        foreach ($warehouses as $warehouse) {
+            $warehouse->availability = $warehouse->isAvailable();
+        }
+
+        return $warehouses;
+    });
+}
 }

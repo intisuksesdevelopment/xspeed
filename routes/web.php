@@ -59,7 +59,7 @@ Route::get('register', [LoginController::class, 'registrationForm'])->name('regi
 Route::post('register', [LoginController::class, 'registration'])->name('register');
 
 //AUTH ROUTE**
-Route::middleware(['auth',LocalizationMiddleware::class])->prefix('admin')->group(function () {
+Route::middleware(['auth', LocalizationMiddleware::class])->prefix('admin')->group(function () {
     Route::get('/', [CustomAuthController::class, 'adminDashboard'])->name('admin-dashboard');
     Route::get('/dashboard/sales', [CustomAuthController::class, 'salesDashboard'])->name('sales-dashboard');
 
@@ -87,9 +87,9 @@ Route::middleware(['auth',LocalizationMiddleware::class])->prefix('admin')->grou
         Route::get('/category/{category_id}', [ItemController::class, 'getItemsByCategory'])->name('product-category');
         Route::get('/barcode', [ItemController::class, 'barcode'])->name('product-barcode');
         Route::post('/export-products', function (Request $request) {
-            return Excel::download(new ItemsExport($request->all()), 'product-data'. now()->format('Y-m-d_H-i-s') .'.xlsx');
+            return Excel::download(new ItemsExport($request->all()), 'product-data' . now()->format('Y-m-d_H-i-s') . '.xlsx');
         })->name('product-excel-export');
-        
+
     });
     Route::prefix('contact')->group(function () {
         Route::get('/{supplierUuid}', [ContactService::class, 'get']);
@@ -101,14 +101,14 @@ Route::middleware(['auth',LocalizationMiddleware::class])->prefix('admin')->grou
         Route::post('/add', [SalesController::class, 'add'])->name('sales-add');
         Route::get('/{id}', [SalesController::class, 'detail'])->name('sales-detail');
         Route::get('/invoice/list', [SalesController::class, 'invoices'])->name('sales-invoices');
-    
-    
+
+
     });
     Route::prefix('stock')->group(function () {
         Route::get('/', [StockController::class, 'index'])->name('stock-list');
         Route::get('/add', [StockController::class, 'addForm'])->name('stock-add-form');
         Route::post('/add', [StockController::class, 'add'])->name('stock-add');
-    
+
     });
 
     Route::prefix('category')->group(function () {
@@ -125,50 +125,50 @@ Route::middleware(['auth',LocalizationMiddleware::class])->prefix('admin')->grou
         Route::post('/update', [SubCategoryController::class, 'update'])->name('subcategory-update');
         Route::delete('/delete/{id}', [SubCategoryController::class, 'delete'])->name('subcategory-delete');
     });
-    
+
     Route::prefix('suppliers')->group(function () {
         Route::get('/', [SupplierController::class, 'index'])->name('suppliers');
         Route::post('/add', [SupplierController::class, 'add'])->name('supplier-add');
         Route::post('/update', [SupplierController::class, 'update'])->name('supplier-update');
         Route::delete('/delete/{id}', [SupplierController::class, 'delete'])->name('supplier-delete');
     });
-    
+
     Route::prefix('warehouses')->group(function () {
         Route::get('/', [WarehouseController::class, 'index'])->name('warehouses');
         Route::post('/add', [WarehouseController::class, 'add'])->name('warehouse-add');
         Route::post('/update', [WarehouseController::class, 'update'])->name('warehouse-update');
         Route::delete('/delete/{id}', [WarehouseController::class, 'delete'])->name('warehouse-delete');
     });
-    
+
     Route::prefix('brands')->group(function () {
         Route::get('/', [BrandController::class, 'index'])->name('brands');
         Route::post('/add', [BrandController::class, 'add'])->name('brand-add');
         Route::post('/update', [BrandController::class, 'update'])->name('brand-update');
         Route::delete('/delete/{id}', [BrandController::class, 'delete'])->name('brand-delete');
     });
-    
+
     Route::prefix('racks')->group(function () {
         Route::get('/', [RackController::class, 'index'])->name('racks');
         Route::post('/add', [RackController::class, 'add'])->name('rack-add');
         Route::post('/update', [RackController::class, 'update'])->name('rack-update');
         Route::delete('/delete/{id}', [RackController::class, 'delete'])->name('rack-delete');
     });
-    
+
     Route::prefix('units')->group(function () {
         Route::get('/', [UnitController::class, 'index'])->name('units');
         Route::post('/add', [UnitController::class, 'add'])->name('unit-add');
         Route::post('/update', [UnitController::class, 'update'])->name('unit-update');
         Route::delete('/delete/{id}', [UnitController::class, 'delete'])->name('unit-delete');
     });
-    
-    
+
+
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('users');
         Route::post('/add', [UserController::class, 'add'])->name('user-add');
         Route::post('/update', [UserController::class, 'update'])->name('user-update');
         Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
     });
-    
+
     Route::prefix('customers')->group(function () {
         Route::get('/', [CustomerController::class, 'index'])->name('customers');
         Route::post('/add', [CustomerController::class, 'add'])->name('customer-add');
@@ -181,7 +181,7 @@ Route::middleware(['auth',LocalizationMiddleware::class])->prefix('admin')->grou
         Route::post('/update', [UserController::class, 'update'])->name('user-update');
         Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
     });
-    
+
 
 });
 
@@ -206,9 +206,9 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/about', [DashboardController::class, 'about']);
 });
 Route::get('/set-language/{lang}', function ($lang) {
-    if (in_array($lang, ['id', 'en'])) { 
+    if (in_array($lang, ['id', 'en'])) {
         Session::put('locale', $lang);
-        Log::info('Session put: ' .$lang);
+        Log::info('Session put: ' . $lang);
     }
     return redirect()->back();
 })->name('setLanguage');
@@ -216,7 +216,7 @@ Route::get('/set-language/{lang}', function ($lang) {
 
 
 //CLEAR CACHE
-Route::get('/clear-all-cache', function() {
+Route::get('/clear-all-cache', function () {
     Artisan::call('cache:clear');
     Artisan::call('route:clear');
     Artisan::call('config:clear');
@@ -237,6 +237,13 @@ Route::get('/example', function () {
 });
 Route::get('/test-middleware', function () {
     return 'Testing Middleware';
+});
+Route::prefix('api')->group(function () {
+    Route::get('/posts', [UserController::class, 'storeData']);
+});
+
+Route::get('/test-shimmer', function () {
+    return view('testing-shimer');
 });
 
 

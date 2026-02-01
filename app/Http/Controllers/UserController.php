@@ -14,7 +14,8 @@ class UserController extends Controller
 {
     private $userService;
 
-    public function __construct(UserService $userService) {
+    public function __construct(UserService $userService)
+    {
         $this->userService = $userService;
     }
 
@@ -28,7 +29,7 @@ class UserController extends Controller
     public function add(Request $request)
     {
         $request->merge(['uuid' => Str::uuid()]);
-        
+
         return UserService::save($request);
     }
 
@@ -40,5 +41,21 @@ class UserController extends Controller
     public function delete($id)
     {
         return UserService::delete($id);
+    }
+    public function storeData(Request $request)
+    {
+
+        $data = [
+            [
+                'title' => 'Judul Post',
+                'content' => 'Isi dari post tersebut.',
+            ]
+
+        ];
+
+        return response()->json([
+            'message' => 'Data received successfully',
+            'data' => $data
+        ], 201);
     }
 }

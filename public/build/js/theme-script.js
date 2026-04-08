@@ -1,10 +1,8 @@
 
 function loadJS(FILE_URL, async = true) {
 	let scriptEle = document.createElement("script");
-    const baseURI = window.APP_URL || ''; // Fallback ke string kosong jika APP_URL tidak ada
-    const fullURL = baseURI +'/'+ FILE_URL;
 
-    scriptEle.setAttribute("src", fullURL);
+	scriptEle.setAttribute("src", FILE_URL);
 	scriptEle.setAttribute("type", "text/javascript");
 	scriptEle.setAttribute("async", async);
 

@@ -27,22 +27,45 @@ class ItemService
         }
         return $items;
     }
-    public static function getActive(Request $request)
-    {
-        $perPage = $request->input('per_page', CommonConstants::PAGE);
-        // Default to 10 per page if not provided
-        $sortBy = $request->input('sortBy', CommonConstants::SORT);
-        // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
-        // Default to 'asc' if not provided
-        $items = Item::with(['category', 'subcategory', 'brand', 'warehouse', 'rack', 'images'])->where('status', 0)->orderBy($sortBy, $sortDirection)->get();
-        foreach ($items as $item) {
-            $item->availability = $item->isAvailable();
-            $item->sell_price   = UtilService::convertToIdr($item->sell_price, $item->currency);
-            $item->currency     = 'IDR';
-        }
-        return $items;
+    public static function getActive($perPage = null, $sortBy = null, $sortDirection = null)
+{
+    $perPage = $perPage ?? CommonConstants::PAGE;
+    $sortBy = $sortBy ?? CommonConstants::SORT;
+    $sortDirection = $sortDirection ?? CommonConstants::DIRECTION;
+
+    // whitelist kolom biar aman
+    $allowedSort = ['id', 'name', 'sell_price', 'created_at'];
+    if (!in_array($sortBy, $allowedSort)) {
+        $sortBy = 'id';
     }
+
+    $allowedDirection = ['asc', 'desc'];
+    if (!in_array(strtolower($sortDirection), $allowedDirection)) {
+        $sortDirection = 'asc';
+    }
+
+    $items = Item::with([
+            'category',
+            'subcategory',
+            'brand',
+            'warehouse',
+            'rack',
+            'images'
+        ])
+        ->where('status', 0)
+        ->orderBy($sortBy, $sortDirection)
+        ->paginate($perPage);
+
+    // transform data
+    $items->getCollection()->transform(function ($item) {
+        $item->availability = $item->isAvailable();
+        $item->sell_price   = UtilService::convertToIdr($item->sell_price, $item->currency);
+        $item->currency     = 'IDR';
+        return $item;
+    });
+
+    return $items;
+}
     public static function getDetail($uuid)
     {
         $item = Item::where('uuid', $uuid)->with(['category', 'subcategory', 'brand', 'warehouse', 'rack', 'images'])->first();
@@ -53,6 +76,18 @@ class ItemService
         $item->status = $item->isAvailable();
         $item->images = $item->images()->get();
         return $item;
+    }
+     public static function getSearch($query, $limit = 10)
+    {
+        $items = Item::query()
+            ->when($query, function ($q) use ($query) {
+                $q->where('name', 'like', '%' . $query . '%')
+                  ->orWhere('sku', 'like', '%' . $query . '%');
+            })
+            ->limit($limit)
+            ->get();
+
+        return $items;
     }
     public static function getId($uuid)
     {

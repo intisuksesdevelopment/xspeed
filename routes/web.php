@@ -1,35 +1,34 @@
 <?php
 
 
-use App\Services\ContactService;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PosController;
-use Illuminate\Support\Facades\Artisan;
+use App\Exports\ItemsExport;
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\RackController;
-use App\Http\Controllers\UnitController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\BrandController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PosController;
+use App\Http\Controllers\RackController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\StockController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\WarehouseController;
-use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UnitController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WarehouseController;
 use App\Http\Middleware\LocalizationMiddleware;
-
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
-use App\Exports\ItemsExport;
-use Maatwebsite\Excel\Facades\Excel;
-
+use App\Services\ContactService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -20,7 +20,7 @@ class Item extends Model
         'uuid',
         'name',
         'category_id',
-        'subcategory_id',
+        'sub_category_id',
         'brand_id',
         'warehouse_id',
         'rack_id',

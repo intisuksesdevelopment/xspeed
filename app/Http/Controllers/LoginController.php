@@ -51,7 +51,7 @@ class LoginController extends BaseController
                 $user = Auth::user();
 
                 // Check if user status is 0
-                if ($user->status === 0) {
+                if ($user->status == 0) {
                     $request->session()->regenerate();
 
                     return response()->json([

@@ -395,7 +395,7 @@
 
         // Trigger change event on page load to filter subcategories for the selected category
         $('#category_id').trigger('change');
-        submitForm('productEditForm', 'submit-edit-button',null,'{{ url("product") }}');
+        submitForm('productEditForm', 'submit-edit-button',null,'{{ route("product-list") }}');
     });
 </script>
 @endsection

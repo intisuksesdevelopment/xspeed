@@ -13,27 +13,27 @@
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png"
-		href="{{ asset('/build/plugins/dashboard/assets/img/logo-exspeed3.png')}}">
+		href="{{ asset('build/assets/dashboard/assets/img/logo-exspeed3.png')}}">
 	<!-- google font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
 	<!-- fontawesome -->
 
-	<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/all.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('build/assets/dashboard/assets/css/all.min.css')}}">
 	<!-- bootstrap -->
-	<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/bootstrap/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('build/assets/dashboard/assets/bootstrap/css/bootstrap.min.css')}}">
 	<!-- owl carousel -->
-	<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/owl.carousel.css')}}">
+	<link rel="stylesheet" href="{{ asset('build/assets/dashboard/assets/css/owl.carousel.css')}}">
 	<!-- magnific popup -->
-	<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/magnific-popup.css')}}">
+	<link rel="stylesheet" href="{{ asset('build/assets/dashboard/assets/css/magnific-popup.css')}}">
 	<!-- animate css -->
-	<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/animate.css')}}">
+	<link rel="stylesheet" href="{{ asset('build/assets/dashboard/assets/css/animate.css')}}">
 	<!-- mean menu css -->
-	<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/meanmenu.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('build/assets/dashboard/assets/css/meanmenu.min.css')}}">
 	<!-- main style -->
-	<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/main.css')}}">
+	<link rel="stylesheet" href="{{ asset('build/assets/dashboard/assets/css/main.css')}}">
 	<!-- responsive -->
-	<link rel="stylesheet" href="{{ url('build/plugins/dashboard/assets/css/responsive.css')}}">
+	<link rel="stylesheet" href="{{ asset('build/assets/dashboard/assets/css/responsive.css')}}">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 	<style>
@@ -80,7 +80,7 @@
 	<div class="footer-area text-light py-5">
 		<div class="container">
 			<div class="d-flex justify-content-center mb-3">
-				<img src="{{ asset('/build/plugins/dashboard/assets/img/logo-exspeed3.png')}}" alt="logo"
+				<img src="{{ asset('/build/assets/dashboard/assets/img/logo-exspeed3.png')}}" alt="logo"
 					class="img-fluid" style="max-width: 180px;">
 			</div>
 
@@ -142,7 +142,7 @@
 		</div>
 	</div>
 
-	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery-1.11.3.min.js') }}">
+	<script src="{{ URL::asset('/build/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}">
 		function formatRupiah(number) {
 			let formattedNumber = number;
 			
@@ -163,25 +163,25 @@
 	</script>
 	<!-- end copyright -->
 	<!-- jquery -->
-	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery-1.11.3.min.js') }}"></script>
+	<script src="{{ URL::asset('/build/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}"></script>
 	<!-- bootstrap -->
-	<script src="{{ URL::asset('/build/plugins/dashboard/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+	<script src="{{ URL::asset('/build/assets/dashboard/assets/bootstrap/js/bootstrap.min.js') }}"></script>
 	<!-- count down -->
-	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery.countdown.js') }}"></script>
+	<script src="{{ URL::asset('/build/assets/dashboard/assets/js/jquery.countdown.js') }}"></script>
 	<!-- isotope -->
-	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
+	<script src="{{ URL::asset('/build/assets/dashboard/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
 	<!-- waypoints -->
-	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/waypoints.js') }}"></script>
+	<script src="{{ URL::asset('/build/assets/dashboard/assets/js/waypoints.js') }}"></script>
 	<!-- owl carousel -->
-	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/owl.carousel.min.js') }}"></script>
+	<script src="{{ URL::asset('/build/assets/dashboard/assets/js/owl.carousel.min.js') }}"></script>
 	<!-- magnific popup -->
-	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery.magnific-popup.min.js') }}"></script>
+	<script src="{{ URL::asset('/build/assets/dashboard/assets/js/jquery.magnific-popup.min.js') }}"></script>
 	<!-- mean menu -->
-	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery.meanmenu.min.js') }}"></script>
+	<script src="{{ URL::asset('/build/assets/dashboard/assets/js/jquery.meanmenu.min.js') }}"></script>
 	<!-- sticker js -->
-	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/sticker.js') }}"></script>
+	<script src="{{ URL::asset('/build/assets/dashboard/assets/js/sticker.js') }}"></script>
 	<!-- main js -->
-	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/main.js') }}"></script>
+	<script src="{{ URL::asset('/build/assets/dashboard/assets/js/main.js') }}"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 

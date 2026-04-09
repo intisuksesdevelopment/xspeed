@@ -111,7 +111,7 @@
 					<!-- logo -->
 					<div class="site-logo d-none d-md-block">
 						<a href="{{ route('main') }}">
-							<img src="{{ asset('build/plugins/dashboard/assets/img/logo-exspeed3.png') }}" alt="">
+							<img src="{{ asset('build/assets/dashboard/assets/img/logo-exspeed3.png') }}" alt="">
 						</a>
 					</div>
 
@@ -171,17 +171,17 @@
 		<!-- Slides -->
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="{{ asset('build/plugins/dashboard/assets/img/benner-brembo.jpg') }}" class="d-block w-100"
+				<img src="{{ asset('build/assets/dashboard/assets/img/benner-brembo.jpg') }}" class="d-block w-100"
 					alt="Slider 1" style="object-fit: cover;">
 				<div class="carousel-caption d-none d-md-block"></div>
 			</div>
 			<div class="carousel-item">
-				<img src="{{ asset('build/plugins/dashboard/assets/img/benner-brembo.jpg') }}" class="d-block w-100"
+				<img src="{{ asset('build/assets/dashboard/assets/img/benner-brembo.jpg') }}" class="d-block w-100"
 					alt="Slider 2" style="object-fit: cover;">
 				<div class="carousel-caption d-none d-md-block"></div>
 			</div>
 			<div class="carousel-item">
-				<img src="{{ asset('build/plugins/dashboard/assets/img/benner-brembo.jpg') }}" class="d-block w-100"
+				<img src="{{ asset('build/assets/dashboard/assets/img/benner-brembo.jpg') }}" class="d-block w-100"
 					alt="Slider 3" style="object-fit: cover;">
 				<div class="carousel-caption d-none d-md-block"></div>
 			</div>
@@ -283,7 +283,7 @@
 		<div class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
 			data-te-carousel-item="" style="backface-visibility: hidden">
 			<div class="relative overflow-hidden bg-cover bg-no-repeat" style="background-position: 50%">
-				<img src="{{  asset('build/plugins/dashboard/assets/img/benner-motul.jpg')}}"
+				<img src="{{  asset('build/assets/dashboard/assets/img/benner-motul.jpg')}}"
 					class="object-cover w-full ">
 				<div
 					class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-black bg-fixed opacity-50">

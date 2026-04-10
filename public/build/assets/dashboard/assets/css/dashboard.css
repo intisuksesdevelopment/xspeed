@@ -1,0 +1,378 @@
+/* =======================
+   🎨 COLOR VARIABLES
+======================= */
+:root {
+    --primary: #0f172a;
+    /* biru tua */
+    --secondary: #1e293b;
+    /* biru medium */
+    --accent: #facc15;
+    /* kuning */
+
+    --text-main: #ffffff;
+    --text-muted: #9ca3af;
+
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+
+/* =======================
+   🌍 GLOBAL
+======================= */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--primary);
+    color: var(--text-main);
+}
+
+* {
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-yellow:hover {
+    box-shadow: 0 0 15px rgba(250, 204, 21, 0.5);
+}
+[x-cloak] { display: none !important; }
+/* =======================
+   🧭 NAVBAR
+======================= */
+.navbar {
+    background: transparent;
+}
+
+.custom-navbar {
+    background: rgba(15, 15, 15, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Brand */
+.navbar-brand {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text-main);
+}
+
+.navbar-brand span {
+    color: var(--accent);
+}
+
+/* Nav link */
+.nav-link {
+    color: var(--text-muted) !important;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent) !important;
+}
+
+/* Button */
+.btn-admin {
+    background-color: var(--accent);
+    color: #000;
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 6px 12px;
+}
+
+
+/* =======================
+   🍔 CUSTOM TOGGLER
+======================= */
+.custom-toggler {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: var(--text-main);
+    position: relative;
+}
+
+.custom-toggler::before,
+.custom-toggler::after {
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 2px;
+    background: var(--text-main);
+    left: 0;
+}
+
+.custom-toggler::before {
+    top: -8px;
+}
+
+.custom-toggler::after {
+    top: 8px;
+}
+
+
+/* =======================
+   🚀 HERO SECTION
+======================= */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 60px 0;
+
+    background: radial-gradient(circle at right,
+            rgba(250, 204, 21, 0.1),
+            transparent 40%),
+        var(--primary);
+}
+
+/* Badge */
+.badge-custom {
+    background: rgba(250, 204, 21, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(250, 204, 21, 0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* Heading */
+.hero h1 {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.hero h1 span {
+    color: var(--accent);
+}
+
+/* Text */
+.hero p {
+    color: var(--text-muted);
+    max-width: 500px;
+}
+
+
+/* =======================
+   🔘 BUTTONS
+======================= */
+.btn-yellow {
+    background-color: var(--accent);
+    color: #000;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 10px;
+}
+
+.btn-outline {
+    border: 1px solid #374151;
+    color: var(--text-main);
+    padding: 12px 24px;
+    border-radius: 10px;
+}
+
+
+/* =======================
+   ⭐ FEATURES
+======================= */
+.features {
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.feature-item {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* =======================
+   ⭐ FONT
+======================= */
+.font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+}
+
+.font-rajdhani {
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.text-accent {
+    color: var(--accent);
+}
+
+.text-primary {
+    color: var(--primary);
+}
+
+.text-secondary {
+    color: var(--secondary);
+}
+
+/* =======================
+   ⭐ BRAND
+======================= */
+.brand-item {
+    color: #6b7280;
+    font-weight: 600;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.brand-item:hover {
+    color: #facc15;
+    cursor: pointer;
+}
+
+@media(max-width: 576px) {
+    .brand-item {
+        font-size: 14px;
+    }
+}
+
+/* =======================
+   ⭐ PRODUCT CARD
+======================= */
+/* PRODUCT CARD */
+.product-card {
+    display: block;
+    background: #111827;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+    
+}
+
+.product-card:hover {
+    border: 2px solid #ffcc00; /* Warna kuning */
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.3); /* Shadow ringan */
+    transform: scale(1.05); /* Sedikit perbesar card */
+}
+
+.product-image {
+    padding: 20px;
+    background: #0f172a;
+    text-align: center;
+}
+
+.product-image img {
+    max-height: 120px;
+    object-fit: contain;
+}
+
+.product-info {
+    padding: 15px;
+}
+
+.product-info h6 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.product-info span {
+    color: #facc15;
+    font-weight: 600;
+}
+
+/* SEARCH */
+.search-box {
+    background: #111827;
+    border: 1px solid #374151;
+    color: white;
+}
+
+.search-box:focus {
+    background: #111827;
+    color: white;
+    border-color: #facc15;
+    box-shadow: none;
+}
+
+/* =======================
+   📱 SHIMMER
+======================= */
+/* SHIMMER EFFECT */
+.shimmer {
+    background: linear-gradient(
+        90deg,
+        #1b2333 25%,
+        #2a3446 37%,
+        #1b2333 63%
+    );
+    background-size: 400% 100%;
+    animation: shimmer 1.2s ease infinite;
+    border-radius: 8px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+.shimmer-card {
+    background: #0f172a;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.shimmer-img {
+    width: 100%;
+    height: 160px;
+    margin-bottom: 10px;
+}
+
+.shimmer-line {
+    height: 12px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+}
+
+.shimmer-line.short {
+    width: 60%;
+}
+/* =======================
+   📱 RESPONSIVE
+======================= */
+/* @media (max-width: 992px) {
+    .hero {
+        text-align: center;
+    }
+
+    .hero p {
+        margin: 0 auto;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .features {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .btn-yellow,
+    .btn-outline {
+        width: 100%;
+    }
+
+    .d-flex.gap-3 {
+        flex-direction: column;
+    }
+
+    .navbar-brand {
+        font-size: 14px;
+    }
+}
+ */

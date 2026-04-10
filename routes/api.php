@@ -14,7 +14,7 @@ Route::get('/product', [ItemController::class, 'getData'])->name('api-product-al
 // Route::prefix('/api')->group(function () {
     Route::prefix('/product')->group(function () {
         // Route::get('/all', [ItemController::class, 'getData'])->name('api-product-all');
-        Route::get('/paged', [ApiController::class, 'getProductsPaged'])->name('api-product-paged');
+        Route::get('/paged', [ApiController::class, 'getProductsPaginated'])->name('api-product-paged');
         Route::get('/detail/{uuid}', [ApiController::class, 'getProductDetail'])->name('api-product-detail');
         Route::get('/search', [ApiController::class, 'quickSearch'])->name('api-product-search');
 

@@ -1,396 +1,335 @@
-<div class="top-header-area" id="sticker">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12 col-sm-12 text-center">
-				<div class="main-menu-wrap">
-					<!-- logo -->
-					<div class="site-logo">
-						<a href="/dashboard">
-							<img src="{{ asset('/build/plugins/dashboard/assets/img/logo-exspeed3.png')}}" alt="">
-						</a>
-					</div>
-					<!-- logo -->
+<link rel="stylesheet" href="{{ url('storage/assets/dashboard/assets/css/single-product.css') }}">
 
-					<!-- menu start -->
-					<nav class="main-menu">
-						<ul>
-							<!-- <li class="current-list-item"><a href="#">Home</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Static Home</a></li>
-									<li><a href="index_2.html">Slider Home</a></li>
-								</ul>
-							</li>
-							<li><a href="about.html">About</a></li>
-							<li><a href="#">Pages</a>
-								<ul class="sub-menu">
-									<li><a href="404.html">404 page</a></li>
-									<li><a href="about.html">About</a></li>
-									<li><a href="cart.html">Cart</a></li>
-									<li><a href="checkout.html">Check Out</a></li>
-									<li><a href="contact.html">Contact</a></li>
-									<li><a href="news.html">News</a></li>
-									<li><a href="shop.html">Shop</a></li>
-								</ul>
-							</li>
-							<li><a href="news.html">News</a>
-								<ul class="sub-menu">
-									<li><a href="news.html">News</a></li>
-									<li><a href="single-news.html">Single News</a></li>
-								</ul>
-							</li>
-							<li><a href="contact.html">Contact</a></li>
-							<li><a href="shop.html">Shop</a>
-								<ul class="sub-menu">
-									<li><a href="shop.html">Shop</a></li>
-									<li><a href="checkout.html">Check Out</a></li>
-									<li><a href="single-product.html">Single Product</a></li>
-									<li><a href="cart.html">Cart</a></li>
-								</ul>
-							</li> -->
-							<li>
-								<div class="header-icons">
-									{{-- <a class="shopping-cart" href="cart"><i class="fas fa-shopping-cart"></i></a>
-									--}}
-									{{-- <a class="mobile-hide search-bar-icon" href="#"><i
-											class="fas fa-search"></i></a> --}}
-								</div>
-							</li>
-						</ul>
-					</nav>
-					{{-- <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-					<div class="mobile-menu"></div> --}}
-					<!-- menu end -->
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- end header -->
-<div class="search-area">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<span class="close-btn"><i class="fas fa-window-close"></i></span>
-				<div class="search-bar">
-					<div class="search-bar-tablecell">
-						<h3>Search For:</h3>
-						<input type="text" placeholder="Keywords">
-						<button type="submit">Search <i class="fas fa-search"></i></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- end search arewa -->
-
-<!-- breadcrumb-section -->
-<div class="breadcrumb-section breadcrumb-bg">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 offset-lg-2 text-center">
-				<div class="breadcrumb-text  text-break">
-					<h1>{{ strtoupper($data['product']['name']) }}</h1>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- end breadcrumb section -->
-
-<!-- Single Product Page -->
-<div class="container my-5">
-	<div class="row">
-        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '/';">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('main') }}">{{ strtoupper(__('messages.dashboard')) }}</a>
-                </li>
-				<li class="breadcrumb-item"><a href="{{ route('all-product-category', ['categoryCode' => $data['product']['category']['code']]) }}">{{ strtoupper($data['product']['category']['name']) }}</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">{{ strtoupper($data['product']['name']) }}</li>
-            </ol>
-        </nav>
-    </div>
-	<div class="row align-items-start">
-
-		<!-- Thumbnail -->
-		<div class="col-12 col-md-2 order-2 order-md-1">
-			{{-- Mobile: Horizontal thumbnail centered --}}
-			<div class="d-block d-md-none text-center mt-3">
-				<div class="d-flex justify-content-center overflow-auto">
-					@php
-					$allImages = array_merge(
-					[ ['path' => $data['product']['image_url']] ],
-					$data['product']['images']->toArray()
-					);
-					@endphp
-					@foreach($allImages as $image)
-					<div class="me-2">
-						<img src="{{ $image['path'] }}" class="img-fluid border rounded thumbnail-img"
-							onclick="changePreview(this)"
-							style="cursor: pointer; width: 60px; height: 60px; object-fit: cover;">
-					</div>
-					@endforeach
-				</div>
-			</div>
-
-			{{-- Desktop: Vertical thumbnail --}}
-			<div class="d-none d-md-block">
-				<div class="d-flex flex-column align-items-end">
-					@foreach($allImages as $image)
-					<div class="mb-2">
-						<img src="{{ $image['path'] }}" class="img-fluid border rounded thumbnail-img"
-							onclick="changePreview(this)"
-							style="cursor: pointer; width: 60px; height: 60px; object-fit: cover;">
-					</div>
-					@endforeach
-				</div>
-			</div>
-		</div>
-
-		{{-- Main Image --}}
-		<div class="col-12 col-md-5 order-1 order-md-2 text-center">
-			<img id="mainImage" src="{{ $data['product']['image_url'] }}" class="img-fluid rounded"
-				alt="Main Product Image" style="max-height: 400px; object-fit: contain;">
-		</div>
-
-		{{-- Product Details --}}
-		<div class="col-12 col-md-5 order-3 order-md-3">
-			<div class="px-3 px-md-0">
-				<!-- Gantikan col-md-10 -->
-				<h2 class="fw-bold mt-4 mt-md-0  text-break">{{ strtoupper($data['product']['name']) }}</h2>
-				<p class="text-secondary">{{ $data['product']['description'] }}</p>
-				<p class="text-left text-danger">
-					<strong>{{ \App\Services\UtilService::formatCurrency($data['product']['sell_price'],
-						$data['product']['currency']) }}</strong>
-				</p>
-				<p class="text-left text-muted">
-					Availability: <span class="text-success">{{ $data['product']['stock'] }} in stock</span>
-				</p>
-
-				{{-- Color Picker --}}
-				@if(!empty($data['product']['color']))
-				@php $colors = explode(',', $data['product']['color']); @endphp
-				<div class="mb-3">
-					<label class="form-label">Color:</label><br>
-					@foreach($colors as $color)
-					<span class="badge bg-secondary me-1">{{ strtoupper(trim($color)) }}</span>
-					@endforeach
-				</div>
-				@endif
-
-				{{-- Checkout Links --}}
-				@if(!empty($data['product']['link_url']))
-				@php $links = json_decode($data['product']['link_url'], true); @endphp
-				<div class="mb-2">Checkout in:</div>
-				<div class="d-flex flex-wrap gap-2">
-					@foreach($links as $link)
-					<a href="{{ $link['link'] }}" target="_blank" class="btn btn-outline-dark btn-sm">{{ $link['name']
-						}}</a>
-					@endforeach
-				</div>
-				@endif
-			</div>
-		</div>
+<div class="product-page">
 
 
-	</div>
-</div>
-<!-- End Single Product Page -->
+
+    <!-- PRODUCT DETAIL -->
+
+    <section x-data="productDetail()" x-init="init()">
+        <!-- BREADCRUMB -->
+        <div class="product-breadcrumb">
+            <div class="container">
+
+                <a href="/">Dashboard</a>
+                <span>/</span>
+
+                <a x-show="product.category" :href="'/category/' + product.category_code" x-text="product.category"></a>
+
+                <span x-show="product.category">/</span>
+
+                <span class="active" x-text="product.name"></span>
+
+            </div>
+        </div>
+        <div class="product-container container">
+
+            <!-- 🔥 SHIMMER LEFT -->
+            <div class="product-gallery" x-show="loading">
+
+                <div class="product-main-image shimmer"></div>
+
+                <div class="product-thumbs">
+                    <template x-for="i in 4">
+                        <div class="thumb-shimmer shimmer"></div>
+                    </template>
+                </div>
+
+            </div>
+
+            <!-- LEFT: GALLERY -->
+            <div class="product-gallery" x-show="!loading">
+
+                <img :src="mainImage" class="product-main-image">
+
+                <div class="product-thumbs">
+                    <template x-for="img in images" :key="img">
+                        <img :src="img" @click="mainImage = img">
+                    </template>
+                </div>
+
+            </div>
+
+            <!-- RIGHT: INFO -->
+            <div class="product-info" x-show="!loading">
+
+                <div class="product-meta">
+                    <span x-text="product.category"></span>
+                    <span>•</span>
+                    <span x-text="product.brand"></span>
+                </div>
+
+                <h1 class="product-title" x-text="product.name"></h1>
+
+                <div class="product-sku" x-text="product.barcode"></div>
+
+                <div class="product-price" x-text="formatPrice(product.price)"></div>
+
+                <!-- GRID INFO -->
+                <div class="product-grid-info">
+
+                    <div>
+                        <label>Stock</label>
+                        <span x-text="product.stock"></span>
+                    </div>
+
+                    <div>
+                        <label>SKU</label>
+                        <span x-text="product.sku"></span>
+                    </div>
+
+                    <div>
+                        <label>Unit</label>
+                        <span x-text="product.unit"></span>
+                    </div>
+
+                    <div>
+                        <label>Price</label>
+                        <span x-text="formatPrice(product.price)"></span>
+                    </div>
+
+                </div>
+
+                <p class="product-desc" x-text="product.description"></p>
 
 
-<!-- more products -->
-<div class="more-products mb-150"
-	style="background-image: {{ asset('build/plugins/dashboard/assets/img/benner-brembo.jpg') }}; background-attachment: fixed; background-size: cover; background-position: center;">
-	<div class="container bg-white">
-		<div class="row">
-			<div class="col-lg-8 offset-lg-2 text-center">
-				<div class="section-title  p-5">
-					<h3><span class="orange-text">Related</span> Products</h3>
-					<p>Discover other products you might be interested in. These related items are selected based on category, features, or customer favorites.</p>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			@foreach ($data['products'] as $product)
+                <!-- CTA -->
+                <div class="product-actions">
 
-			<div class="col-6 col-md-3 col-lg-2 my-2">
-				<div class="card h-100 shadow-sm d-flex flex-column">
-					{{-- Gambar --}}
-					<div
-						style="height: 160px; overflow: hidden; border 1px solid #dee2e6; border-radius: 5px; display: flex; justify-content: center; align-items: center;">
-						<img src="{{ $product->image_url }}" class="w-100 h-100 object-fit-cover"
-							style="object-fit: cover;" alt="{{ $product->name }}">
-					</div>
+                    <!-- PRIMARY CTA -->
+                    <a :href="whatsappLink" class="btn-buy-primary">
+                        Pesan Sekarang
+                    </a>
 
-					{{-- Info Produk --}}
-					<div class="card-body d-flex flex-column justify-content-between">
-						<a href="{{ route('single-product', ['uuid' => $product->uuid]) }}"
-							class="text-decoration-none text-dark">
+                    <!-- MARKETPLACE -->
+                    <div class="marketplace-row">
+                        <template x-for="link in product.links" :key="link.link">
+                            <a :href="link.link" target="_blank" class="btn-market"
+                                :class="getMarketplaceClass(link.name)">
+                                <span x-text="'Beli di ' + link.name"></span>
+                            </a>
+                        </template>
+                    </div>
 
-							<div>
-								<p class="text-muted text-left small mb-1">{{ $product->category->name }}</p>
-								<h6 class="text-dark mb-2 text-truncate">{{ $product->name }}</h6>
-							</div>
-							<div>
-								<p class="text-danger text-right fw-bold mb-0">{{
-									\App\Services\UtilService::formatCurrency($product->sell_price, $product->currency)
-									}}</p>
-								{{-- <p class="text-muted small text-right text-decoration-line-through mb-0">3.000.000
-									IDR</p> --}}
-							</div>
+                </div>
 
-						</a>
-					</div>
-				</div>
-			</div>
-			@endforeach
+            </div>
 
-		</div>
-	</div>
+            <!-- 🔥 SHIMMER RIGHT -->
+            <div class="product-info" x-show="loading">
+
+                <div class="shimmer-line shimmer"></div>
+                <div class="shimmer-line short shimmer"></div>
+
+                <div class="shimmer-line shimmer"></div>
+                <div class="shimmer-line shimmer"></div>
+
+                <div class="product-grid-info">
+                    <template x-for="i in 4">
+                        <div class="shimmer-card shimmer"></div>
+                    </template>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- RELATED PRODUCTS -->
+    <section>
+        <div class="product-related container" x-data="relatedProducts()" x-init="init()">
+
+            <div class="section-title">RELATED PRODUCTS</div>
+
+            <!-- SHIMMER -->
+            <div class="related-grid" x-show="loading">
+                <template x-for="i in 8" :key="i">
+                    <div class="product-card">
+                        <div class="related-img shimmer"></div>
+                        <div class="related-info">
+                            <div class="shimmer-line shimmer"></div>
+                            <div class="shimmer-line short shimmer"></div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- ERROR -->
+            <div x-show="error" class="text-center text-danger">
+                Failed to load products
+            </div>
+
+            <!-- GRID -->
+            <div class="related-grid" x-show="!loading">
+
+                <template x-for="product in products" :key="product.uuid">
+
+                    <a :href="'/product/' + product.uuid" class="product-card">
+
+                        <div class="related-img">
+                            <img :src="product.image_url" />
+                        </div>
+
+                        <div class="related-info">
+                            <div class="related-name" x-text="product.name"></div>
+                            <div class="related-price" x-text="'Rp ' + Number(product.sell_price).toLocaleString()">
+                            </div>
+                        </div>
+
+                    </a>
+
+                </template>
+
+            </div>
+
+        </div>
+    </section>
 </div>
 
-<!-- end more products -->
-
-<!-- logo carousel -->
-<div class="d-none logo-carousel-inner d-flex flex-wrap justify-content-center align-items-center">
-	@foreach ($data['brands'] as $brand)
-	<div class="single-logo-item">
-		<img src="{{ $brand->image_url }}" alt="{{ $brand->name }}" class="logo-img">
-	</div>
-	@endforeach
-</div>
-<!-- end logo carousel -->
-
-
-</body>
-<style>
-	@media (max-width: 768px) {
-		.main-preview {
-			max-height: 240px;
-		}
-
-		.single-logo-item {
-			max-width: 150px;
-		}
-	}
-
-	.logo-carousel-inner {
-		scrollbar-width: none;
-		-ms-overflow-style: none;
-	}
-
-	.logo-carousel-inner::-webkit-scrollbar {
-		display: none;
-	}
-	.logo-img {
-		max-height: 40px;
-		max-width: 100%;
-		object-fit: contain;
-	}
-
-
-	.thumbnail-img:hover {
-		border: 2px solid #007bff;
-	}
-
-	.thumbnail-img.active {
-		border: 2px solid #0d6efd;
-	}
-
-	.single-product:hover {
-		transform: scale(1.05);
-		/* Membesar saat hover */
-		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-		/* Tambahkan bayangan */
-	}
-
-	.single-logo-item img {
-		width: 100%;
-		/* Makes the image fit the width of the container */
-		height: 100%;
-		/* Makes the image fit the height of the container */
-		object-fit: contain;
-		/* Ensures the image fits within the container without losing its aspect ratio */
-		transition: transform 0.3s ease;
-	}
-
-	.single-logo-item img:hover {
-		transform: scale(1.1);
-		/* Optional: Adds a hover effect to scale the image */
-	}
-
-	.more-products {
-		position: relative;
-		padding: 100px 0;
-		/* Menambahkan padding agar konten tidak tertutup oleh background */
-		color: white;
-		/* Menyesuaikan warna teks agar kontras dengan background */
-	}
-
-	/* Parallax effect */
-	.more-products {
-		background-image: url({{ asset('build/plugins/dashboard/assets/img/benner-brembo.jpg')
-	}
-	});
-	background-attachment: fixed;
-	/* Efek parallax */
-	background-size: cover;
-	/* Memastikan background mengisi area */
-	background-position: center;
-	/* Menjaga posisi background di tengah */
-	}
-
-	/* Hover effect pada produk */
-	.single-product-item:hover .product-image img {
-		transform: scale(1.05);
-		/* Memperbesar gambar sedikit saat hover */
-		transition: transform 0.3s ease;
-	}
-
-	.single-logo-item {
-		width: 150px;
-		/* Set the width for the logo container */
-		height: 100px;
-		/* Set the height for the logo container */
-		overflow: hidden;
-		/* Ensures that logos that are too large don't overflow the container */
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.single-logo-item img {
-		width: 100%;
-		/* Makes the image fit the width of the container */
-		height: 100%;
-		/* Makes the image fit the height of the container */
-		object-fit: contain;
-		/* Ensures the image fits within the container without losing its aspect ratio */
-		transition: transform 0.3s ease;
-	}
-
-	.single-logo-item img:hover {
-		transform: scale(1.1);
-		/* Optional: Adds a hover effect to scale the image */
-	}
-</style>
 <script>
-	function changePreview(img) {
-		const mainImage = document.getElementById('mainImage');
-		if (!mainImage) return;
+    const uuid = this.getUUIDFromURL();
+    const API_PRODUCT_DETAIL_URL = "/api/product/detail";
+    const API_PRODUCT_PAGED_URL = "{{ route('api-product-paged') }}";
 
-		mainImage.src = img.src;
+    function changePreview(el) {
+        const main = document.getElementById('mainImage');
+        main.style.opacity = 0;
 
-		// Optional: highlight selected thumbnail
-		document.querySelectorAll('.thumbnail-img').forEach(el => el.classList.remove('active'));
-		img.classList.add('active');
-	}
+        setTimeout(() => {
+            main.src = el.src;
+            main.style.opacity = 1;
+        }, 120);
+    }
 
-    function adjustQty(amount) {
-        const qtyInput = document.getElementById('qty');
-        let qty = parseInt(qtyInput.value) || 1;
-        qty = Math.max(1, qty + amount);
-        qtyInput.value = qty;
+    function productDetail() {
+        return {
+            product: {},
+            images: [],
+            mainImage: '',
+            loading: true,
+            error: false,
+            whatsappLink: '',
+
+            async init() {
+                if (this.loaded) return; // 🔥 anti duplicate
+                this.loaded = true;
+
+                const uuid = getUUIDFromURL();
+
+                if (!uuid) {
+                    this.error = true;
+                    this.loading = false;
+                    return;
+                }
+
+                await this.fetchDetail(uuid);
+            },
+            async fetchDetail(uuid) {
+                this.loading = true;
+                this.error = false;
+
+                try {
+                    const res = await fetch(`${API_PRODUCT_DETAIL_URL}/${uuid}`);
+
+                    if (!res.ok) throw new Error("API error");
+
+                    const json = await res.json();
+                    const data = json.data;
+
+                    this.product = {
+                        name: data.name,
+                        category: data.category?.name,
+                        category_code: data.category?.code,
+                        brand: data.brand?.name,
+                        barcode: data.barcode,
+                        price: data.sell_price,
+                        description: data.description,
+                        stock: data.stock,
+                        sku: data.sku,
+                        unit: data.unit,
+                        links: JSON.parse(data.link_url || '[]')
+                    };
+
+                    this.images = [
+                        data.image_url,
+                        ...(data.images?.map(i => i.path) || [])
+                    ];
+
+                    this.mainImage = this.images[0];
+
+                    this.whatsappLink =
+                        `https://wa.me/628123456789?text=` +
+                        encodeURIComponent(`Saya ingin pesan: ${data.name}`);
+
+                } catch (e) {
+                    console.error(e);
+                    this.error = true;
+                } finally {
+                    this.loading = false;
+                }
+            },
+
+            formatPrice(val) {
+                return "Rp " + Number(val || 0).toLocaleString();
+            },
+            getMarketplaceClass(name) {
+                if (!name) return 'mkt-default';
+
+                name = name.toLowerCase();
+
+                if (name.includes('tokopedia')) return 'mkt-tokopedia';
+                if (name.includes('shopee')) return 'mkt-shopee';
+                if (name.includes('blibli')) return 'mkt-blibli';
+                if (name.includes('lazada')) return 'mkt-lazada';
+                if (name.includes('bukalapak')) return 'mkt-bukalapak';
+
+                return 'mkt-default';
+            }
+        }
+    }
+
+    function relatedProducts() {
+        return {
+            products: [],
+            loading: false,
+            error: false,
+            initialized: false,
+
+            async init() {
+                if (this.initialized) return;
+                this.initialized = true;
+
+                await this.loadProducts();
+            },
+
+            async loadProducts() {
+                this.loading = true;
+                this.error = false;
+
+                try {
+                    const res = await fetch(API_PRODUCT_PAGED_URL + "?per_page=8");
+
+                    if (!res.ok) throw new Error("HTTP Error: " + res.status);
+
+                    const json = await res.json();
+
+                    if (!json.success) throw new Error("API failed");
+
+                    this.products = json.data.data || [];
+
+                } catch (e) {
+                    console.error(e);
+                    this.error = true;
+                } finally {
+                    this.loading = false;
+                }
+            }
+        }
+    }
+
+    function getUUIDFromURL() {
+        const url = new URL(window.location.href);
+        return url.searchParams.get("uuid");
     }
 </script>

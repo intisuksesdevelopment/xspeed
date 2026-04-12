@@ -19,7 +19,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <!-- fontawesome -->
 
@@ -37,9 +38,11 @@
 	<!-- main style -->
 	<link rel="stylesheet" href="{{ asset('build/assets/dashboard/assets/css/main.css')}}"> --}}
     <!-- responsive -->
-    <link rel="stylesheet" href="{{ asset('build/assets/dashboard/assets/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('storage/assets/dashboard/assets/css/responsive.css') }}">
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> --}}
+    <link rel="stylesheet" href="{{ url('storage/assets/dashboard/assets/css/dashboard.css') }}">
 
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         h1 {
             text-align: center;
@@ -60,7 +63,35 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg fixed-top custom-navbar px-3 px-md-4">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div>
+                <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                    ⚡ <span class="fw-bold text-white font-rajdhani">XSPEED <span
+                            class="text-accent-color">MOTOSHOP</span></span>
+                </a>
 
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+
+                    <span class="custom-toggler"></span>
+                </button>
+            </div>
+
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav align-items-lg-center gap-lg-4 mt-3 mt-lg-0 ms-auto">
+                    <li><a class="nav-link" href="#home">Home</a></li>
+                    <li><a class="nav-link" href="#products">Products</a></li>
+                    <li><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li><a class="nav-link" href="#testimonials">Testimonials</a></li>
+                    <li><a class="nav-link" href="#about">About</a></li>
+                    <li><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <!--PreLoader-->
     {{-- <div class="loader">
 		<div class="loader-inner">
@@ -81,10 +112,10 @@
         @include('pages.dashboard.partials.all-product')
     @endif
     <!-- footer -->
-    <div class="footer-area text-light py-5">
+    {{-- <div class="footer-area text-light py-5">
         <div class="container">
             <div class="d-flex justify-content-center mb-3">
-                <img src="{{ asset('/build/assets/dashboard/assets/img/logo-exspeed3.png') }}" alt="logo"
+                <img src="{{asset('storage/assets/dashboard/assets/img/logo-exspeed3.png') }}" alt="logo"
                     class="img-fluid" style="max-width: 180px;">
             </div>
 
@@ -101,54 +132,49 @@
                 from the Latest Xspeedshop Store online at Tokopedia!
             </p>
         </div>
-    </div>
+    </div> --}}
     <!-- end footer -->
 
 
-    <!-- copyright -->
-    <div class="copyright bg-dark text-light py-3">
-        <div class="container">
-            <div class="row align-items-center">
+    <section>
+        <div class="copyright bg-primary-color  py-3">
+            <div class="container">
+                <div class="row align-items-center">
 
-                <!-- Left -->
-                <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
-                    <p class="mb-0 small">
-                        Copyright &copy; 2025 -
-                        <a href="https://imransdesign.com/" class="text-light text-decoration-underline">Exspeed
-                            Shop</a>, All Rights Reserved.
-                    </p>
-                </div>
-
-                <!-- Right -->
-                <div class="col-md-6 text-center text-md-end">
-                    <div class="social-icons">
-                        <ul class="list-inline mb-0">
-                            <li class="list-inline-item me-2">
-                                <a href="#" target="_blank" class="text-light"><i
-                                        class="fab fa-facebook-f"></i></a>
-                            </li>
-                            <li class="list-inline-item me-2">
-                                <a href="#" target="_blank" class="text-light"><i class="fab fa-twitter"></i></a>
-                            </li>
-                            <li class="list-inline-item me-2">
-                                <a href="#" target="_blank" class="text-light"><i
-                                        class="fab fa-instagram"></i></a>
-                            </li>
-                            <li class="list-inline-item me-2">
-                                <a href="#" target="_blank" class="text-light"><i class="fab fa-linkedin"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#" target="_blank" class="text-light"><i class="fab fa-dribbble"></i></a>
-                            </li>
-                        </ul>
+                    <!-- Left -->
+                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0 font-accent-color">
+                        Copyright &copy; {{ date('Y') }} Exspeed Shop, All Rights Reserved.
                     </div>
-                </div>
 
+                    <!-- Right -->
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="social-icons">
+                            <ul class="list-inline mb-0 text-accent-color">
+                                <li class="list-inline-item me-2">
+                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                </li>
+                                <li class="list-inline-item me-2">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                </li>
+                                <li class="list-inline-item me-2">
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                </li>
+                                <li class="list-inline-item me-2">
+                                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <script src="{{ URL::asset('/build/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}">
+    <script src="{{ asset('storage/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}">
         function formatRupiah(number) {
             let formattedNumber = number;
 
@@ -169,10 +195,9 @@
     </script>
     <!-- end copyright -->
     <!-- jquery -->
-    <script src="{{ URL::asset('/build/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}"></script>
+    <script src="{{ asset('storage/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}"></script>
     <!-- bootstrap -->
-    <script src="
-    https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- count down -->
     {{-- <script src="{{ URL::asset('/build/assets/dashboard/assets/js/jquery.countdown.js') }}"></script> --}}
     <!-- isotope -->

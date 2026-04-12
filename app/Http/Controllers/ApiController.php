@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\BrandService;
+use App\Services\CategoryService;
 use App\Services\ItemService;
 use Illuminate\Http\Request;
 
@@ -36,6 +38,22 @@ class ApiController extends Controller
         return response()->json([
             'success' => true,
             'data' => ItemService::getSearch($query, $limit)
+        ]);
+    }
+
+        public function getBrands(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => BrandService::getActive($request)
+        ]);
+    }
+
+        public function getCategories(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => CategoryService::getActive($request)
         ]);
     }
 }

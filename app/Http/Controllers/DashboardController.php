@@ -43,12 +43,12 @@ class DashboardController extends Controller
     }
     public function getDetail(Request $request)
     {
-        $data['product'] = ItemService::getDetail($request->uuid);
-        $request->merge(['per_page' => 6]);
-        $data['products'] = ItemService::getPaginated($request);
-        $data['brands'] = BrandService::getActive($request);
+        // $data['product'] = ItemService::getDetail($request->uuid);
+        // $request->merge(['per_page' => 6]);
+        // $data['products'] = ItemService::getPaginated($request);
+        // $data['brands'] = BrandService::getActive($request);
 
-        return view('pages.dashboard.main-layout', ['data' => $data]);
+        return view('pages.dashboard.main-layout');
     }
     public function getList(Request $request)
     {

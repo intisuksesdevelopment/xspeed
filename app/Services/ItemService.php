@@ -16,17 +16,39 @@ use Illuminate\Http\JsonResponse;
 class ItemService
 {
 
-    public static function getPaginated(Request $request)
-    {
-        $perPage       = $request->input('per_page', CommonConstants::PAGE);
-        $sortBy        = $request->input('sortBy', CommonConstants::SORT);
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
-        $items         = Item::with('images')->with(['category', 'brand', 'rack'])->orderBy($sortBy, $sortDirection)->paginate($perPage);
-        foreach ($items as $item) {
-            $item->availability = $item->isAvailable();
-        }
-        return $items;
+public static function getPaginated(Request $request)
+{
+    $perPage       = $request->input('per_page', CommonConstants::PAGE);
+    $sortBy        = $request->input('sortBy', CommonConstants::SORT);
+    $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+
+    $categoryCode    = $request->input('category');
+    $subCategoryCode = $request->input('subcategory');
+
+    $query = Item::with(['images', 'category', 'brand', 'rack']);
+
+    if ($categoryCode) {
+        $query->whereHas('category', function ($q) use ($categoryCode) {
+            $q->where('code', $categoryCode);
+        });
     }
+
+    if ($subCategoryCode) {
+        $query->whereHas('subcategory', function ($q) use ($subCategoryCode) {
+            $q->where('code', $subCategoryCode);
+        });
+    }
+
+    $items = $query
+        ->orderBy($sortBy, $sortDirection)
+        ->paginate($perPage);
+
+    foreach ($items as $item) {
+        $item->availability = $item->isAvailable();
+    }
+
+    return $items;
+}
     public static function getActive(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);

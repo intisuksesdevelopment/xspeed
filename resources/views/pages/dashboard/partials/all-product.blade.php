@@ -10,12 +10,19 @@
                 <div class="category-sidebar">
 
                     <h5 class="sidebar-title">Categories</h5>
-
+                    <!-- ALL CATEGORY -->
+                    <div class="category-group">
+                        <div class="category-item" :class="{ active: !selectedCategory && !selectedSubCategory }"
+                            @click="selectAll()">
+                            <span>All Categories</span>
+                        </div>
+                    </div>
                     <template x-if="loadingCategory">
-                        <div>
-                            <div class="shimmer-line shimmer mb-2"></div>
-                            <div class="shimmer-line shimmer mb-2"></div>
-                            <div class="shimmer-line shimmer mb-2"></div>
+                        <div class="sidebar-shimmer">
+                            <div class="shimmer-line shimmer"></div>
+                            <div class="shimmer-line shimmer"></div>
+                            <div class="shimmer-line shimmer"></div>
+                            <div class="shimmer-line shimmer short"></div>
                         </div>
                     </template>
 
@@ -62,11 +69,38 @@
             <div class="col-md-9">
 
                 <div class="mb-4">
-                    <h3 class="text-accent-color">
+                    <h3 class="text-accent-color font-rajdhani">
                         <span x-text="selectedCategoryName || 'All Products'"></span>
                     </h3>
                 </div>
+                <div class="product-toolbar">
 
+                    <!-- LEFT -->
+                    <div class="toolbar-left">
+                        <span class="label">Sort by</span>
+
+                        <button @click="setSort('popular')" :class="{ active: sort === 'popular' }">Popular</button>
+                        <button @click="setSort('latest')" :class="{ active: sort === 'latest' }">Latest</button>
+                        <button @click="setSort('sales')" :class="{ active: sort === 'sales' }">Top Sales</button>
+
+                        <div class="dropdown">
+                            <select @change="setSort('price', $event.target.value)">
+                                <option value="">Price</option>
+                                <option value="asc">Lowest</option>
+                                <option value="desc">Highest</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT -->
+                    <div class="toolbar-right">
+                        <span x-text="page + '/' + lastPage"></span>
+
+                        <button @click="prevPage()" :disabled="page <= 1">‹</button>
+                        <button @click="nextPage()" :disabled="page >= lastPage">›</button>
+                    </div>
+
+                </div>
                 <!-- SHIMMER -->
                 <div class="row g-4" x-show="loadingProduct">
                     <template x-for="i in 8">
@@ -121,6 +155,18 @@
         return {
             categories: [],
             products: [],
+
+            page: 1,
+            lastPage: 1,
+
+            sort: 'latest',
+            sortDirection: 'desc',
+
+            selectedCategory: null,
+            selectedSubCategory: null,
+
+            loadingProduct: false,
+
 
             selectedCategory: null,
             selectedSubCategory: null,
@@ -181,26 +227,76 @@
                     this.loadingCategory = false;
                 }
             },
+            selectAll() {
+                this.selectedCategory = null;
+                this.selectedSubCategory = null;
+                this.selectedCategoryName = 'All Products';
 
+                this.loadProducts();
+            },
             async loadProducts() {
                 this.loadingProduct = true;
 
                 try {
-                    let url = "{{ route('api-product-paged') }}" + "?per_page=12";
+                    let url = API_PRODUCT_URL + `?per_page=12&page=${this.page}`;
 
+                    // 🔥 FILTER
                     if (this.selectedSubCategory) {
                         url += "&subcategory=" + this.selectedSubCategory;
                     } else if (this.selectedCategory) {
                         url += "&category=" + this.selectedCategory;
                     }
 
+                    // 🔥 SORTING
+                    if (this.sort === 'latest') {
+                        url += "&sortBy=created_at&sortDirection=desc";
+                    }
+                    if (this.sort === 'popular') {
+                        url += "&sortBy=views&sortDirection=desc";
+                    }
+                    if (this.sort === 'sales') {
+                        url += "&sortBy=sold&sortDirection=desc";
+                    }
+                    if (this.sort === 'price') {
+                        url += "&sortBy=sell_price&sortDirection=" + this.sortDirection;
+                    }
+
                     const res = await fetch(url);
                     const json = await res.json();
 
                     this.products = json.data.data || [];
+                    this.page = json.data.current_page;
+                    this.lastPage = json.data.last_page;
 
+                } catch (e) {
+                    console.error(e);
                 } finally {
                     this.loadingProduct = false;
+                }
+            },
+
+            setSort(type, direction = 'asc') {
+                this.sort = type;
+
+                if (type === 'price') {
+                    this.sortDirection = direction;
+                }
+
+                this.page = 1;
+                this.loadProducts();
+            },
+
+            nextPage() {
+                if (this.page < this.lastPage) {
+                    this.page++;
+                    this.loadProducts();
+                }
+            },
+
+            prevPage() {
+                if (this.page > 1) {
+                    this.page--;
+                    this.loadProducts();
                 }
             }
         }

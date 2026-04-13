@@ -6,6 +6,8 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
+   use Illuminate\Support\Facades\Cache;
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class CategoryService
 {
@@ -23,27 +25,34 @@ class CategoryService
         }
         return $categories;
     }
-    public static function getActive(Request $request, bool $isPaging = false, int $perPage = CommonConstants::PAGE)
+
+public static function getActive(Request $request, bool $isPaging = false, int $perPage = CommonConstants::PAGE)
 {
-    $query = Category::where('status', 0)->orderBy(
-        $request->input('sortBy', CommonConstants::SORT),
-        $request->input('sortDirection', CommonConstants::DIRECTION)
-    );
+    $sortBy        = $request->input('sortBy', 'id');
+    $sortDirection = $request->input('sortDirection', 'desc');
 
-    if ($isPaging) {
-        $categories = $query->paginate($perPage);
-    } else {
-        $categories = $query->get();
-    }
+    $query = Category::query()
+        ->select('id','name','code','image_url','status')
+        ->where('status', 0)
+        ->withCount('items') // 🔥 count category
+        ->with([
+            'subcategories' => function ($q) {
+                $q->select('id','category_id','name','code')
+                  ->withCount('items'); // 🔥 count subcategory
+            }
+        ])
+        ->orderBy($sortBy, $sortDirection);
 
+    // optional paging
+    $categories = $isPaging
+        ? $query->paginate($perPage)
+        : $query->get();
+
+    // optional: availability (kalau bukan query berat)
     foreach ($categories as $category) {
         $category->availability = $category->isAvailable();
-        $category->countItems = $category->countItems();
-        $category->subcategories = $category->subcategories()->get();
-        foreach ($category->subcategories as $subcategory) {
-            $subcategory->countItems = $subcategory->countItems();
-        }
     }
+
     return $categories;
 }
     public static function getDetail($code)

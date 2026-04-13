@@ -18,30 +18,65 @@ class ItemService
 
 public static function getPaginated(Request $request)
 {
-    $perPage       = $request->input('per_page', CommonConstants::PAGE);
-    $sortBy        = $request->input('sortBy', CommonConstants::SORT);
-    $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+    $perPage = $request->input('per_page', CommonConstants::PAGE);
+
+    // 🔥 whitelist biar aman
+    $allowedSort = [
+        'name',
+        'sell_price',
+        'created_at',
+        'stock'
+    ];
+
+    $sortBy = $request->input('sortBy', 'created_at');
+    $sortDirection = $request->input('sortDirection', 'desc');
+
+    if (!in_array($sortBy, $allowedSort)) {
+        $sortBy = 'created_at';
+    }
+
+    $sortDirection = strtolower($sortDirection) === 'asc' ? 'asc' : 'desc';
 
     $categoryCode    = $request->input('category');
     $subCategoryCode = $request->input('subcategory');
 
     $query = Item::with(['images', 'category', 'brand', 'rack']);
 
+    // 🔥 FILTER CATEGORY
     if ($categoryCode) {
         $query->whereHas('category', function ($q) use ($categoryCode) {
             $q->where('code', $categoryCode);
         });
     }
 
+    // 🔥 FILTER SUBCATEGORY
     if ($subCategoryCode) {
         $query->whereHas('subcategory', function ($q) use ($subCategoryCode) {
             $q->where('code', $subCategoryCode);
         });
     }
 
-    $items = $query
-        ->orderBy($sortBy, $sortDirection)
-        ->paginate($perPage);
+    // 🔥 SORTING LOGIC
+    switch ($sortBy) {
+        case 'sell_price':
+            $query->orderBy('sell_price', $sortDirection);
+            break;
+
+        case 'name':
+            $query->orderBy('name', $sortDirection);
+            break;
+
+        case 'stock':
+            $query->orderBy('stock', $sortDirection);
+            break;
+
+        case 'created_at':
+        default:
+            $query->orderBy('created_at', $sortDirection);
+            break;
+    }
+
+    $items = $query->paginate($perPage);
 
     foreach ($items as $item) {
         $item->availability = $item->isAvailable();

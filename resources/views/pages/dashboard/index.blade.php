@@ -16,21 +16,21 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
 	<!-- fontawesome -->
 
-	<link rel="stylesheet" href="{{ url('storage/assets/dashboard/assets/css/all.min.css')}}">
+	<link rel="stylesheet" href="{{ url('assets/dashboard/assets/css/all.min.css')}}">
 	<!-- bootstrap -->
-	<link rel="stylesheet" href="{{ url('storage/assets/dashboard/assets/bootstrap/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{ url('assets/dashboard/assets/bootstrap/css/bootstrap.min.css')}}">
 	<!-- owl carousel -->
-	<link rel="stylesheet" href="{{ url('storage/assets/dashboard/assets/css/owl.carousel.css')}}">
+	<link rel="stylesheet" href="{{ url('assets/dashboard/assets/css/owl.carousel.css')}}">
 	<!-- magnific popup -->
-	<link rel="stylesheet" href="{{ url('storage/assets/dashboard/assets/css/magnific-popup.css')}}">
+	<link rel="stylesheet" href="{{ url('assets/dashboard/assets/css/magnific-popup.css')}}">
 	<!-- animate css -->
-	<link rel="stylesheet" href="{{ url('storage/assets/dashboard/assets/css/animate.css')}}">
+	<link rel="stylesheet" href="{{ url('assets/dashboard/assets/css/animate.css')}}">
 	<!-- mean menu css -->
-	<link rel="stylesheet" href="{{ url('storage/assets/dashboard/assets/css/meanmenu.min.css')}}">
+	<link rel="stylesheet" href="{{ url('assets/dashboard/assets/css/meanmenu.min.css')}}">
 	<!-- main style -->
-	<link rel="stylesheet" href="{{ url('storage/assets/dashboard/assets/css/main.css')}}">
+	<link rel="stylesheet" href="{{ url('assets/dashboard/assets/css/main.css')}}">
 	<!-- responsive -->
-	<link rel="stylesheet" href="{{ url('storage/assets/dashboard/assets/css/responsive.css')}}">
+	<link rel="stylesheet" href="{{ url('assets/dashboard/assets/css/responsive.css')}}">
 	<style>  
         h1 {  
             text-align: center; /* Menengahka <h1> */  
@@ -65,7 +65,7 @@
 						<!-- logo -->
 						<div class="site-logo">
 							<a href="dashboard">
-								<img src="{{asset('storage/assets/dashboard/assets/img/logo-exspeed3.png')}}" alt="">
+								<img src="{{asset('public/assets/dashboard/assets/img/logo-exspeed3.png')}}" alt="">
 							
 							</a>
 						</div>
@@ -172,19 +172,19 @@
 				<div class="col-lg-12">
 					<div class="logo-carousel-inner">
 						<div class="single-logo-item">
-							<img src="{{asset('storage/assets/dashboard/assets/img/company-logos/1.png')}}" alt="">
+							<img src="{{asset('public/assets/dashboard/assets/img/company-logos/1.png')}}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="{{asset('storage/assets/dashboard/assets/img/company-logos/2.png')}}" alt="">
+							<img src="{{asset('public/assets/dashboard/assets/img/company-logos/2.png')}}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="{{asset('storage/assets/dashboard/assets/img/company-logos/3.png')}}" alt="">
+							<img src="{{asset('public/assets/dashboard/assets/img/company-logos/3.png')}}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="{{asset('storage/assets/dashboard/assets/img/company-logos/4.png')}}" alt="">
+							<img src="{{asset('public/assets/dashboard/assets/img/company-logos/4.png')}}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="{{asset('storage/assets/dashboard/assets/img/company-logos/5.png')}}" alt="">
+							<img src="{{asset('public/assets/dashboard/assets/img/company-logos/5.png')}}" alt="">
 						</div>
 					</div>
 				</div>
@@ -209,7 +209,7 @@
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product"><img src="{{asset('storage/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
+							<a href="single-product"><img src="{{asset('public/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
 						</div>
 						<h6>ACCOSSATO HANDLE KOPLING LEVER ASSY CLUTCH CF009N 24 MM ITALY</h6>
 						<h5 class="product-price">Rp. 1.999.000</h5>
@@ -219,7 +219,7 @@
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product"><img src="{{asset('storage/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
+							<a href="single-product"><img src="{{asset('public/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
 						</div>
 						<h6>ACCOSSATO HANDLE KOPLING LEVER ASSY CLUTCH CF009N 24 MM ITALY</h6>
 						<h5 class="product-price">Rp. 1.999.000</h5>
@@ -229,7 +229,7 @@
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product"><img src="{{asset('storage/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
+							<a href="single-product"><img src="{{asset('public/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
 						</div>
 						<h6>ACCOSSATO HANDLE KOPLING LEVER ASSY CLUTCH CF009N 24 MM ITALY</h6>
 						<h5 class="product-price">Rp. 1.999.000</h5>
@@ -239,7 +239,7 @@
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product"><img src="{{asset('storage/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
+							<a href="single-product"><img src="{{asset('public/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
 						</div>
 						<h6>ACCOSSATO HANDLE KOPLING LEVER ASSY CLUTCH CF009N 24 MM ITALY</h6>
 						<h5 class="product-price">Rp. 1.999.000</h5>
@@ -277,7 +277,7 @@
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="https://www.tokopedia.com/xspeedshop" target="_blank"><img src="{{asset('storage/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
+							<a href="https://www.tokopedia.com/xspeedshop" target="_blank"><img src="{{asset('public/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
 						</div>
 						<h6>ACCOSSATO HANDLE KOPLING LEVER ASSY CLUTCH CF009N 24 MM ITALY</h6>
 						<h5 class="product-price">Rp. 1.999.000</h5>
@@ -287,7 +287,7 @@
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="https://www.tokopedia.com/xspeedshop" target="_blank"><img src="{{asset('storage/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
+							<a href="https://www.tokopedia.com/xspeedshop" target="_blank"><img src="{{asset('public/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
 						</div>
 						<h6>ACCOSSATO HANDLE KOPLING LEVER ASSY CLUTCH CF009N 24 MM ITALY</h6>
 						<h5 class="product-price">Rp. 1.999.000</h5>
@@ -297,7 +297,7 @@
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="https://www.tokopedia.com/xspeedshop" target="_blank"><img src="{{asset('storage/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
+							<a href="https://www.tokopedia.com/xspeedshop" target="_blank"><img src="{{asset('public/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
 						</div>
 						<h6>ACCOSSATO HANDLE KOPLING LEVER ASSY CLUTCH CF009N 24 MM ITALY</h6>
 						<h5 class="product-price">Rp. 1.999.000</h5>
@@ -307,7 +307,7 @@
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="https://www.tokopedia.com/xspeedshop" target="_blank"><img src="{{asset('storage/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
+							<a href="https://www.tokopedia.com/xspeedshop" target="_blank"><img src="{{asset('public/assets/dashboard/assets/img/products/accosato.jpg')}}" alt=""></a>
 						</div>
 						<h6>ACCOSSATO HANDLE KOPLING LEVER ASSY CLUTCH CF009N 24 MM ITALY</h6>
 						<h5 class="product-price">Rp. 1.999.000</h5>
@@ -323,7 +323,7 @@
 	<div class="footer-area">
 		<div class="container">
 			<div style="display: flex; justify-content: center;">
-				<img src="{{asset('storage/assets/dashboard/assets/img/logo-exspeed3.png')}}" alt="logo">
+				<img src="{{asset('public/assets/dashboard/assets/img/logo-exspeed3.png')}}" alt="logo">
 			</div>
 			<br>
 			<h1>ABOUT US</h1>  
@@ -365,25 +365,25 @@
 	</div>
 	<!-- end copyright -->
 	<!-- jquery -->            
-	<script src="{{ asset('storage/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}"></script>
+	<script src="{{ asset('public/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}"></script>
 	<!-- bootstrap -->
-	<script src="{{ asset('storage/assets/dashboard/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('public/assets/dashboard/assets/bootstrap/js/bootstrap.min.js') }}"></script>
 	<!-- count down -->
-	<script src="{{ asset('storage/assets/dashboard/assets/js/jquery.countdown.js') }}"></script>
+	<script src="{{ asset('public/assets/dashboard/assets/js/jquery.countdown.js') }}"></script>
 	<!-- isotope -->
-	<script src="{{ asset('storage/assets/dashboard/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
+	<script src="{{ asset('public/assets/dashboard/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
 	<!-- waypoints -->
-	<script src="{{ asset('storage/assets/dashboard/assets/js/waypoints.js') }}"></script>
+	<script src="{{ asset('public/assets/dashboard/assets/js/waypoints.js') }}"></script>
 	<!-- owl carousel -->
-	<script src="{{ asset('storage/assets/dashboard/assets/js/owl.carousel.min.js') }}"></script>
+	<script src="{{ asset('public/assets/dashboard/assets/js/owl.carousel.min.js') }}"></script>
 	<!-- magnific popup -->
-	<script src="{{ asset('storage/assets/dashboard/assets/js/jquery.magnific-popup.min.js') }}"></script>
+	<script src="{{ asset('public/assets/dashboard/assets/js/jquery.magnific-popup.min.js') }}"></script>
 	<!-- mean menu -->
-	<script src="{{ asset('storage/assets/dashboard/assets/js/jquery.meanmenu.min.js') }}"></script>
+	<script src="{{ asset('public/assets/dashboard/assets/js/jquery.meanmenu.min.js') }}"></script>
 	<!-- sticker js -->
-	<script src="{{ asset('storage/assets/dashboard/assets/js/sticker.js') }}"></script>
+	<script src="{{ asset('public/assets/dashboard/assets/js/sticker.js') }}"></script>
 	<!-- main js -->
-	<script src="{{ asset('storage/assets/dashboard/assets/js/main.js') }}"></script>
+	<script src="{{ asset('public/assets/dashboard/assets/js/main.js') }}"></script>
 
 </body>
 </html>

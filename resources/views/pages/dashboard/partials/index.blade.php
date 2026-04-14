@@ -4,7 +4,7 @@
 
 <!-- HERO SECTION -->
 <section id="home" class="hero"
-    style="background-image: url('{{ asset('storage/assets/dashboard/assets/img/hero-bg.jpg') }}'); background-size: cover; background-position: center;">
+    style="background-image: url('{{ asset('public/assets/dashboard/assets/img/hero-bg.jpg') }}'); background-size: cover; background-position: center;">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
@@ -134,7 +134,7 @@
 
                                 <div class="product-image">
                                     <img :src="product.image_url ||
-                                        '{{ asset('storage/assets/dashboard/assets/img/image-not-found.jpg') }}'"
+                                        '{{ asset('public/assets/dashboard/assets/img/image-not-found.jpg') }}'"
                                         class="img-fluid">
                                 </div>
 
@@ -166,16 +166,16 @@
         <div class="swiper gallerySwiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <img src="{{ asset('storage/assets/dashboard/assets/img/gallery1.jpg') }}" class="gallery-img" />
+                    <img src="{{ asset('public/assets/dashboard/assets/img/gallery1.jpg') }}" class="gallery-img" />
                 </div>
                 <div class="swiper-slide">
-                    <img src="{{ asset('storage/assets/dashboard/assets/img/gallery2.jpg') }}" class="gallery-img" />
+                    <img src="{{ asset('public/assets/dashboard/assets/img/gallery2.jpg') }}" class="gallery-img" />
                 </div>
                 <div class="swiper-slide">
-                    <img src="{{ asset('storage/assets/dashboard/assets/img/gallery3.png') }}" class="gallery-img" />
+                    <img src="{{ asset('public/assets/dashboard/assets/img/gallery3.png') }}" class="gallery-img" />
                 </div>
                 <div class="swiper-slide">
-                    <img src="{{ asset('storage/assets/dashboard/assets/img/gallery4.jpg') }}" class="gallery-img" />
+                    <img src="{{ asset('public/assets/dashboard/assets/img/gallery4.jpg') }}" class="gallery-img" />
                 </div>
             </div>
         </div>
@@ -324,7 +324,7 @@
 </section>
 <!-- ABOUT US -->
 <section class="about"
-    style="background: url('{{ asset('storage/assets/dashboard/assets/img/detail-product-bg.jpg') }}') no-repeat center center fixed; background-size: cover;">
+    style="background: url('{{ asset('public/assets/dashboard/assets/img/detail-product-bg.jpg') }}') no-repeat center center fixed; background-size: cover;">
     <div class="overlay"></div>
     <div class="container">
         <div class="text-center mb-5">

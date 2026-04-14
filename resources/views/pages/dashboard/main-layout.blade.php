@@ -38,9 +38,9 @@
 	<!-- main style -->
 	<link rel="stylesheet" href="{{ asset('build/assets/dashboard/assets/css/main.css')}}"> --}}
     <!-- responsive -->
-    <link rel="stylesheet" href="{{ asset('storage/assets/dashboard/assets/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/assets/dashboard/assets/css/responsive.css') }}">
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> --}}
-    <link rel="stylesheet" href="{{ url('storage/assets/dashboard/assets/css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/assets/dashboard/assets/css/dashboard.css') }}">
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
@@ -115,7 +115,7 @@
     {{-- <div class="footer-area text-light py-5">
         <div class="container">
             <div class="d-flex justify-content-center mb-3">
-                <img src="{{asset('storage/assets/dashboard/assets/img/logo-exspeed3.png') }}" alt="logo"
+                <img src="{{asset('public/assets/dashboard/assets/img/logo-exspeed3.png') }}" alt="logo"
                     class="img-fluid" style="max-width: 180px;">
             </div>
 
@@ -174,7 +174,7 @@
         </div>
     </section>
 
-    <script src="{{ asset('storage/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}">
+    <script src="{{ asset('public/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}">
         function formatRupiah(number) {
             let formattedNumber = number;
 
@@ -195,7 +195,7 @@
     </script>
     <!-- end copyright -->
     <!-- jquery -->
-    <script src="{{ asset('storage/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}"></script>
+    <script src="{{ asset('public/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}"></script>
     <!-- bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- count down -->

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ url('storage/assets/dashboard/assets/css/single-product.css') }}">
+<link rel="stylesheet" href="{{ url('assets/dashboard/assets/css/single-product.css') }}">
 
 <div class="product-page">
 

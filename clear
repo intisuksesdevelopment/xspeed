@@ -1,3 +1,6 @@
+composer install --optimize-autoloader --no-dev
+composer clear-cache
+
 php artisan cache:clear
 php artisan route:clear
 php artisan config:clear

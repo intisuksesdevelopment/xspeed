@@ -17,7 +17,7 @@
    GLOBAL
 ======================= */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     background: var(--bg-dark);
     color: var(--text-main);
     overflow-x: hidden;
@@ -42,16 +42,16 @@ section {
     font-family: Orbitron, sans-serif;
 }
 
-.bg-primary-color{
+.bg-primary-color {
     background-color: var(--primary); /* atau warna primary kamu */
 }
 
-.bg-primary-color a{
-    color:var(--accent) !important;
+.bg-primary-color a {
+    color: var(--accent) !important;
 }
 
-.bg-primary-color a:hover{
-    opacity:0.8;
+.bg-primary-color a:hover {
+    opacity: 0.8;
 }
 
 /* =======================
@@ -71,10 +71,10 @@ section {
 .custom-navbar .nav-link:hover {
     color: var(--accent);
 }
-.copyright{
+.copyright {
     position: relative;
     z-index: 5;
-    color:var(--accent)
+    color: var(--accent);
 }
 /* =======================
    BUTTON
@@ -111,7 +111,8 @@ section {
 ======================= */
 .hero {
     position: relative;
-    background: url("/assets/dashboard/assets/img/hero-bg.jpg") center/cover no-repeat;
+    background: url("/assets/dashboard/assets/img/hero-bg.jpg") center/cover
+        no-repeat;
     min-height: 100vh;
     padding-top: 80px;
     background-attachment: fixed;
@@ -355,10 +356,12 @@ section {
    SHIMMER
 ======================= */
 .shimmer {
-    background: linear-gradient(90deg,
-            rgba(255, 255, 255, 0.05) 25%,
-            rgba(255, 255, 255, 0.12) 37%,
-            rgba(255, 255, 255, 0.05) 63%);
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.05) 25%,
+        rgba(255, 255, 255, 0.12) 37%,
+        rgba(255, 255, 255, 0.05) 63%
+    );
     background-size: 400% 100%;
     animation: shimmer 1.2s infinite;
 }
@@ -426,7 +429,6 @@ section {
 }
 
 @media (max-width: 768px) {
-
     #gallery {
         padding: 50px 0;
     }
@@ -450,7 +452,8 @@ section {
 ======================= */
 .testimonials {
     padding: 80px 20px;
-    background: url('/assets/dashboard/assets/img/detail-product-bg.jpg') center/cover no-repeat;
+    background: url("/assets/dashboard/assets/img/detail-product-bg.jpg")
+        center/cover no-repeat;
     position: relative;
     overflow: hidden;
 }
@@ -476,7 +479,6 @@ section {
     display: flex;
 }
 
-
 .testimonial-card {
     flex: 1;
     display: flex;
@@ -490,7 +492,9 @@ section {
     border-radius: 16px;
     padding: 20px;
     min-height: 240px;
-    transition: transform 0.25s ease, border-color 0.25s ease;
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease;
 }
 
 .testimonial-card:hover {
@@ -590,14 +594,14 @@ section {
 ======================= */
 .about {
     position: relative;
-    background: url('/assets/dashboard/assets/img/detail-product-bg.jpg') center/cover no-repeat fixed;
+    background: url("/assets/dashboard/assets/img/detail-product-bg.jpg")
+        center/cover no-repeat fixed;
 }
 
 .about .overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(rgba(11, 18, 32, 0.9),
-            rgba(11, 18, 32, 0.7));
+    background: linear-gradient(rgba(11, 18, 32, 0.9), rgba(11, 18, 32, 0.7));
     z-index: 1;
 }
 
@@ -605,7 +609,13 @@ section {
     position: relative;
     z-index: 2;
 }
+.about-title {
+    font-family: Rajdhani, sans-serif;
+}
 
+.about-description {
+    text-align: left;
+}
 .about-content,
 .stats-container {
     position: relative;
@@ -644,7 +654,61 @@ section {
     color: #ffcc00;
     font-size: 18px;
 }
+.logo-header {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px 25px;
+    border-radius: 50px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
+.main-logo {
+    height: 60px; /* Sesuaikan ukuran */
+    width: auto;
+    max-width: 200px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    transition: all 0.3s ease;
+}
+
+.main-logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 6px 12px rgba(255, 193, 7, 0.5));
+}
+
+/* Responsive Logo */
+@media (max-width: 768px) {
+    .logo-header {
+        top: 15px;
+        padding: 8px 20px;
+    }
+
+    .main-logo {
+        height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-logo {
+        height: 40px;
+    }
+}
+
+/* Pastikan overlay tidak menutupi logo */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Sedikit transparan */
+    z-index: 1;
+}
 @media (max-width: 576px) {
     .stats-container {
         grid-template-columns: repeat(2, 1fr);
@@ -664,7 +728,7 @@ section {
 
     .about-description {
         font-size: 13px;
-        text-align: center;
+        text-align: left !important;
         line-height: 1.6;
     }
 
@@ -745,7 +809,7 @@ section {
         font-size: 12px;
         line-height: 1.6;
     }
-     .social-icons a {
+    .social-icons a {
         display: inline-flex;
         width: 36px;
         height: 36px;
@@ -756,7 +820,7 @@ section {
     }
 
     .social-icons a:hover {
-        background: rgba(255,255,255,0.08);
+        background: rgba(255, 255, 255, 0.08);
     }
 }
 /* =======================

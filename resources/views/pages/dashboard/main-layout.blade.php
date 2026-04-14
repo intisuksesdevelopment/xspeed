@@ -12,7 +12,7 @@
     <title>ExpeedShop</title>
 
     <!-- favicon -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('build/assets/dashboard/assets/img/logo-exspeed3.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('/assets/dashboard/assets/img/logo-exspeed3.png') }}">
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
@@ -38,28 +38,12 @@
 	<!-- main style -->
 	<link rel="stylesheet" href="{{ asset('build/assets/dashboard/assets/css/main.css')}}"> --}}
     <!-- responsive -->
-    <link rel="stylesheet" href="{{ asset('public/assets/dashboard/assets/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/dashboard/assets/css/responsive.css') }}">
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> --}}
-    <link rel="stylesheet" href="{{ asset('public/assets/dashboard/assets/css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/dashboard/assets/css/dashboard.css') }}">
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <style>
-        h1 {
-            text-align: center;
-            /* Menengahka <h1> */
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: aliceblue;
-        }
-
-        p {
-            text-align: center;
-            /* Menengahkan teks dalam <p> */
-            line-height: 1.6;
-            color: aliceblue;
-        }
-    </style>
-
+   
 </head>
 
 <body>
@@ -115,7 +99,7 @@
     {{-- <div class="footer-area text-light py-5">
         <div class="container">
             <div class="d-flex justify-content-center mb-3">
-                <img src="{{asset('public/assets/dashboard/assets/img/logo-exspeed3.png') }}" alt="logo"
+                <img src="{{asset('/assets/dashboard/assets/img/logo-exspeed3.png') }}" alt="logo"
                     class="img-fluid" style="max-width: 180px;">
             </div>
 
@@ -174,7 +158,7 @@
         </div>
     </section>
 
-    <script src="{{ asset('public/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}">
+    <script src="{{ asset('/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}">
         function formatRupiah(number) {
             let formattedNumber = number;
 
@@ -195,7 +179,7 @@
     </script>
     <!-- end copyright -->
     <!-- jquery -->
-    <script src="{{ asset('public/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}"></script>
+    <script src="{{ asset('/assets/dashboard/assets/js/jquery-1.11.3.min.js') }}"></script>
     <!-- bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- count down -->

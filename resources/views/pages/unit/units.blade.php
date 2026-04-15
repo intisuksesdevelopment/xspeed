@@ -28,7 +28,8 @@
                         <div class="search-path">
                             <a class="btn btn-filter" id="filter_search">
                                 <i data-feather="filter" class="filter-icon"></i>
-                                <span><img src="{{ URL::asset('/build/img/icons/closes.svg') }}" alt="img"></span>
+                                <span><img src="{{ asset('assets/admin/assets/img/icons/closes.svg') }}"
+                                        alt="img"></span>
                             </a>
                         </div>
                         <div class="form-sort">
@@ -101,40 +102,39 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($units as $unit)
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>{{ $unit['unit']}}</td>
-                                    <td>{{ $unit['name']}}</td>
-                                    <td>{{ $unit['created_at']}}</td>
-                                    <td>
-                                        @if ($unit['status']==0)
-                                        <span class="badge badge-linesuccess">{{ $unit['availability']}}</span>
-                                        @else
-                                        <span class="badge badge-linedanger">{{ $unit['availability']}}</span>
-                                        @endif
-                                    </td>
-                                    <td class="action-table-data">
-                                        <div class="edit-delete-action">
-                                            <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#edit-unit"
-                                                data-id="{{ $unit['id']}}"
-                                                data-code="{{ $unit['unit']}}"
-                                                data-name="{{ $unit['name']}}"
-                                                data-status="{{ $unit['status']}}">
-                                                <i data-feather="edit" class="feather-edit"></i>
-                                            </a>
-                                            <a class="p-2" href="javascript:void(0);" onclick="deleteUnit({{ $unit['id']}})">
-                                                <i data-feather="trash-2" class="feather-trash-2"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach ($units as $unit)
+                                    <tr>
+                                        <td>
+                                            <label class="checkboxs">
+                                                <input type="checkbox">
+                                                <span class="checkmarks"></span>
+                                            </label>
+                                        </td>
+                                        <td>{{ $unit['unit'] }}</td>
+                                        <td>{{ $unit['name'] }}</td>
+                                        <td>{{ $unit['created_at'] }}</td>
+                                        <td>
+                                            @if ($unit['status'] == 0)
+                                                <span class="badge badge-linesuccess">{{ $unit['availability'] }}</span>
+                                            @else
+                                                <span class="badge badge-linedanger">{{ $unit['availability'] }}</span>
+                                            @endif
+                                        </td>
+                                        <td class="action-table-data">
+                                            <div class="edit-delete-action">
+                                                <a class="me-2 p-2" href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#edit-unit" data-id="{{ $unit['id'] }}"
+                                                    data-code="{{ $unit['unit'] }}" data-name="{{ $unit['name'] }}"
+                                                    data-status="{{ $unit['status'] }}">
+                                                    <i data-feather="edit" class="feather-edit"></i>
+                                                </a>
+                                                <a class="p-2" href="javascript:void(0);"
+                                                    onclick="deleteUnit({{ $unit['id'] }})">
+                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -147,17 +147,17 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        // custom checkbox
+            // custom checkbox
 
-        //
-        submitForm('unitAddForm', 'submit-add-button','status-add',null);
-        submitForm('unitEditForm', 'submit-edit-button','status-edit',null);
-        // Handle modal data injection
-        var editButtons = document.querySelectorAll('[data-bs-target="#edit-unit"]');
+            //
+            submitForm('unitAddForm', 'submit-add-button', 'status-add', null);
+            submitForm('unitEditForm', 'submit-edit-button', 'status-edit', null);
+            // Handle modal data injection
+            var editButtons = document.querySelectorAll('[data-bs-target="#edit-unit"]');
 
-        editButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                var unitId = this.getAttribute('data-id');
+            editButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var unitId = this.getAttribute('data-id');
                     var unitUnit = this.getAttribute('data-unit');
                     var unitName = this.getAttribute('data-name');
                     const unitStatus = this.getAttribute('data-status');
@@ -169,12 +169,12 @@
                     document.getElementById('unit').value = unitUnit;
                     document.getElementById('name').value = unitName;
                     document.getElementById('status-edit').value = unitStatus;
+                });
             });
-        });
-        window.deleteCategory = function(id) {
-                deleteData(`{{ route('unit-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+            window.deleteCategory = function(id) {
+                deleteData(`{{ route('unit-delete', ':id') }}`, id, document.querySelector(
+                    'meta[name="csrf-token"]').getAttribute('content'));
             };
-         });
-       
+        });
     </script>
 @endsection

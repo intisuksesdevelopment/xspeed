@@ -28,7 +28,8 @@
                         <div class="search-path">
                             <a class="btn btn-filter" id="filter_search">
                                 <i data-feather="filter" class="filter-icon"></i>
-                                <span><img src="{{ URL::asset('/build/img/icons/closes.svg') }}" alt="img"></span>
+                                <span><img src="{{ asset('assets/admin/assets/img/icons/closes.svg') }}"
+                                        alt="img"></span>
                             </a>
                         </div>
                         <div class="form-sort">
@@ -103,46 +104,44 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($racks as $rack)
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>{{ $rack['code']}}</td>
-                                    <td><span class="d-flex"><img
-                                        src="{{ URL::asset($rack['image_url']) }}"
-                                        alt=""></span></td>
-                                    <td>{{ $rack['name']}}</td>
-                                    <td>{{ $rack['description']}}</td>
-                                    <td>{{ $rack['created_at']}}</td>
-                                    <td>
-                                        @if ($rack['status']==0)
-                                        <span class="badge badge-linesuccess">{{ $rack['availability']}}</span>
-                                        @else
-                                        <span class="badge badge-linedanger">{{ $rack['availability']}}</span>
-                                        @endif
-                                    </td>
-                                    <td class="action-table-data">
-                                        <div class="edit-delete-action">
-                                            <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#edit-rack"
-                                                data-id="{{ $rack['id']}}"
-                                                data-code="{{ $rack['code']}}"
-                                                data-name="{{ $rack['name']}}"
-                                                data-description="{{ $rack['description']}}"
-                                                data-image="{{ $rack['image_url']}}"
-                                                data-status="{{ $rack['status']}}">
-                                                <i data-feather="edit" class="feather-edit"></i>
-                                            </a>
-                                            <a class="p-2" href="javascript:void(0);" onclick="deleteRack({{ $rack['id']}})">
-                                                <i data-feather="trash-2" class="feather-trash-2"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach ($racks as $rack)
+                                    <tr>
+                                        <td>
+                                            <label class="checkboxs">
+                                                <input type="checkbox">
+                                                <span class="checkmarks"></span>
+                                            </label>
+                                        </td>
+                                        <td>{{ $rack['code'] }}</td>
+                                        <td><span class="d-flex"><img src="{{ URL::asset($rack['image_url']) }}"
+                                                    alt=""></span></td>
+                                        <td>{{ $rack['name'] }}</td>
+                                        <td>{{ $rack['description'] }}</td>
+                                        <td>{{ $rack['created_at'] }}</td>
+                                        <td>
+                                            @if ($rack['status'] == 0)
+                                                <span class="badge badge-linesuccess">{{ $rack['availability'] }}</span>
+                                            @else
+                                                <span class="badge badge-linedanger">{{ $rack['availability'] }}</span>
+                                            @endif
+                                        </td>
+                                        <td class="action-table-data">
+                                            <div class="edit-delete-action">
+                                                <a class="me-2 p-2" href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#edit-rack" data-id="{{ $rack['id'] }}"
+                                                    data-code="{{ $rack['code'] }}" data-name="{{ $rack['name'] }}"
+                                                    data-description="{{ $rack['description'] }}"
+                                                    data-image="{{ $rack['image_url'] }}"
+                                                    data-status="{{ $rack['status'] }}">
+                                                    <i data-feather="edit" class="feather-edit"></i>
+                                                </a>
+                                                <a class="p-2" href="javascript:void(0);"
+                                                    onclick="deleteRack({{ $rack['id'] }})">
+                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -159,13 +158,13 @@
 
             // Handle form submission
 
-            submitForm('rackAddForm', 'submit-add-button','status-add',null);
-            submitForm('rackEditForm', 'submit-edit-button','status-edit',null);
+            submitForm('rackAddForm', 'submit-add-button', 'status-add', null);
+            submitForm('rackEditForm', 'submit-edit-button', 'status-edit', null);
             // Handle modal data injection
             var editButtons = document.querySelectorAll('[data-bs-target="#edit-rack"]');
 
-            editButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
+            editButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
                     var rackId = this.getAttribute('data-id');
                     var rackCode = this.getAttribute('data-code');
                     var rackName = this.getAttribute('data-name');
@@ -185,7 +184,8 @@
                 });
             });
             window.deleteRack = function(id) {
-                deleteData(`{{ route('rack-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+                deleteData(`{{ route('rack-delete', ':id') }}`, id, document.querySelector(
+                    'meta[name="csrf-token"]').getAttribute('content'));
             };
 
         });

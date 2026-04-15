@@ -29,7 +29,7 @@
                             <div class="d-flex align-items-center">
                                 <a class="btn btn-filter" id="filter_search">
                                     <i data-feather="filter" class="filter-icon"></i>
-                                    <span><img src="{{ URL::asset('/build/img/icons/closes.svg') }}" alt="img"></span>
+                                    <span><img src="{{ asset('assets/admin/assets/img/icons/closes.svg') }}" alt="img"></span>
                                 </a>
 
                             </div>

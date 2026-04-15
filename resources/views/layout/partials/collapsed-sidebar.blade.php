@@ -7,44 +7,44 @@
                     <li class="nav-item" role="presentation">
                         <a class="tablinks nav-link {{ Request::is('index', '/', 'sales-dashboard', 'video-call', 'audio-call', 'call-history', 'chat', 'calendar', 'email', 'todo', 'notes', 'file-manager', 'file-archived','file-document','file-favourites','file-manager-seleted','file-recent','file-shared','file-manager-deleted') ? 'active' : '' }}" href="#home" id="home-tab" data-bs-toggle="tab"
                             data-bs-target="#home" role="tab" aria-selected="true">
-                            <img src="{{ URL::asset('/build/img/icons/menu-icon.svg')}}" alt="">
+                            <img src="{{ asset('assets/admin/assets/img/icons/menu-icon.svg')}}" alt="">
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="tablinks nav-link {{ Request::is('product-list','product-details' ,'edit-product','add-product', 'expired-products', 'low-stocks', 'category-list', 'sub-categories', 'brand-list', 'units', 'varriant-attributes', 'warranty', 'barcode', 'qrcode') ? 'active' : '' }}" href="#messages" id="messages-tab" data-bs-toggle="tab"
                             data-bs-target="#product" role="tab" aria-selected="false">
-                            <img src="{{ URL::asset('/build/img/icons/product.svg')}}" alt="">
+                            <img src="{{ asset('assets/admin/assets/img/icons/product.svg')}}" alt="">
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="tablinks nav-link {{ Request::is('sales-list','sales-returns', 'quotation-list', 'pos', 'coupons') ? 'active' : '' }}" href="#profile" id="profile-tab" data-bs-toggle="tab"
                             data-bs-target="#sales" role="tab" aria-selected="false">
-                            <img src="{{ URL::asset('/build/img/icons/sales1.svg')}}" alt="">
+                            <img src="{{ asset('assets/admin/assets/img/icons/sales1.svg')}}" alt="">
                         </a>
                     </li>
 
                     <li class="nav-item" role="presentation">
                         <a class="tablinks nav-link {{ Request::is('expense-list','expense-category','purchase-list', 'purchase-order-report', 'purchase-returns', 'manage-stocks', 'stock-adjustment', 'stock-transfer') ? 'active' : '' }}" href="#report" id="report-tab" data-bs-toggle="tab"
                             data-bs-target="#purchase" role="tab" aria-selected="true">
-                            <img src="{{ URL::asset('/build/img/icons/purchase1.svg')}}" alt="">
+                            <img src="{{ asset('assets/admin/assets/img/icons/purchase1.svg')}}" alt="">
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="tablinks nav-link {{ Request::is('customers', 'suppliers', 'store-list', 'warehouse') ? 'active' : '' }}" href="#set" id="set-tab" data-bs-toggle="tab"
                             data-bs-target="#user" role="tab" aria-selected="true">
-                            <img src="{{ URL::asset('/build/img/icons/users1.svg')}}" alt="">
+                            <img src="{{ asset('assets/admin/assets/img/icons/users1.svg')}}" alt="">
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="tablinks nav-link {{ Request::is('employees-grid', 'employees-list','edit-employee','add-employee','department-grid', 'department-list','designation', 'shift', 'attendance-employee', 'attendance-admin', 'leaves-admin', 'leaves-employee', 'leave-types', 'holidays','payroll-list') ? 'active' : '' }}" href="#set2" id="set-tab2" data-bs-toggle="tab"
                             data-bs-target="#employee" role="tab" aria-selected="true">
-                            <img src="{{ URL::asset('/build/img/icons/calendars.svg')}}" alt="">
+                            <img src="{{ asset('assets/admin/assets/img/icons/calendars.svg')}}" alt="">
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="tablinks nav-link {{ Request::is('sales-report', 'purchase-report', 'inventory-report', 'invoice-report', 'supplier-report', 'customer-report', 'expense-report', 'income-report', 'tax-reports', 'profit-and-loss') ? 'active' : '' }}" href="#set3" id="set-tab3" data-bs-toggle="tab"
                             data-bs-target="#report" role="tab" aria-selected="true">
-                            <img src="{{ URL::asset('/build/img/icons/printer.svg')}}" alt="">
+                            <img src="{{ asset('assets/admin/assets/img/icons/printer.svg')}}" alt="">
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">

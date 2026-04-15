@@ -101,19 +101,19 @@
         <ul class="table-top-head">
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" id="pdf-btn" title="Pdf"><img
-                        src="{{ URL::asset('/build/img/icons/pdf.svg') }}" alt="img"></a>
+                        src="{{ asset('assets/admin/assets/img/icons/pdf.svg') }}" alt="img"></a>
             </li>
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" id="excel-btn" title="Excel"><img
-                        src="{{ URL::asset('/build/img/icons/excel.svg') }}" alt="img"></a>
+                        src="{{ asset('assets/admin/assets/img/icons/excel.svg') }}" alt="img"></a>
             </li>
             <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" id="print-btn" title="Print"><i data-feather="printer"
-                        class="feather-rotate-ccw"></i></a>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" id="print-btn" title="Print"><i
+                        data-feather="printer" class="feather-rotate-ccw"></i></a>
             </li>
             <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" id="refresh-btn" title="Refresh"><i data-feather="rotate-ccw"
-                        class="feather-rotate-ccw"></i></a>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" id="refresh-btn" title="Refresh"><i
+                        data-feather="rotate-ccw" class="feather-rotate-ccw"></i></a>
             </li>
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header"><i
@@ -139,10 +139,10 @@
             </div>
         @endif
         @if (Route::is(['racks']))
-        <div class="page-btn">
-            <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-rack"><i
-                    data-feather="plus-circle" class="me-2"></i> {{ $li_2 }}</a>
-        </div>
+            <div class="page-btn">
+                <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-rack"><i
+                        data-feather="plus-circle" class="me-2"></i> {{ $li_2 }}</a>
+            </div>
         @endif
         @if (Route::is(['units']))
             <div class="page-btn">
@@ -173,7 +173,7 @@
                 <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-stores"><i
                         data-feather="plus-circle" class="me-2"></i> Add Stock Opname</a>
             </div>
-            
+
             <div class="page-btn import">
                 <a href="#" class="btn btn-added color" data-bs-toggle="modal" data-bs-target="#view-notes"><i
                         data-feather="download" class="me-2"></i>Import Stock Opname</a>
@@ -357,7 +357,7 @@
                         data-feather="download" class="me-2"></i>{{ $li_4 }}</a>
             </div>
         @endif
-        @if (Route::is(['order','order-add-form']))
+        @if (Route::is(['order', 'order-add-form']))
             <div class="page-btn">
                 <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-order-item"><i
                         data-feather="plus-circle" class="me-2"></i>Add Product</a>

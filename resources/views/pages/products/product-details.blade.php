@@ -15,45 +15,46 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="bar-code-view d-none">
-                                <img src="{{ URL::asset('/build/img/barcode/barcode1.png') }}" alt="barcode">
+                                <img src="{{ asset('assets/admin/assets/img/barcode/barcode1.png') }}" alt="barcode">
                                 <a class="printimg">
-                                    <img src="{{ URL::asset('/build/img/icons/printer.svg') }}" alt="print">
+                                    <img src="{{ asset('assets/admin/assets/img/icons/printer.svg') }}" alt="print">
                                 </a>
                             </div>
                             <div class="productdetails">
                                 <ul class="product-bar">
                                     <li>
                                         <h4>Product</h4>
-                                        <h6>{{$item['name']}}</h6>
+                                        <h6>{{ $item['name'] }}</h6>
                                     </li>
                                     <li>
                                         <h4>Category</h4>
-                                        <h6>{{$item['category']['code'].' - '.$item['category']['name']}}</h6>
+                                        <h6>{{ $item['category']['code'] . ' - ' . $item['category']['name'] }}</h6>
                                     </li>
                                     <li>
                                         <h4>Sub Category</h4>
-                                        @isset($item['subcategory']) <h6>{{$item['subcategory']['code'].' - '. $item['subcategory']['name'] }}</h6>
-                                    @endisset
-                                                                        </li>
+                                        @isset($item['subcategory'])
+                                            <h6>{{ $item['subcategory']['code'] . ' - ' . $item['subcategory']['name'] }}</h6>
+                                        @endisset
+                                    </li>
                                     <li>
                                         <h4>Brand</h4>
-                                        <h6>{{$item['brand']['code'].' - '.$item['brand']['name']}}</h6>
+                                        <h6>{{ $item['brand']['code'] . ' - ' . $item['brand']['name'] }}</h6>
                                     </li>
                                     <li>
                                         <h4>Unit</h4>
-                                        <h6>{{$item['unit']}}</h6>
+                                        <h6>{{ $item['unit'] }}</h6>
                                     </li>
                                     <li>
                                         <h4>SKU</h4>
-                                        <h6>{{$item['sku']}}</h6>
+                                        <h6>{{ $item['sku'] }}</h6>
                                     </li>
                                     <li>
                                         <h4>Minimum Qty</h4>
-                                        <h6>{{$item['stock_min'].' '.$item['unit']}}</h6>
+                                        <h6>{{ $item['stock_min'] . ' ' . $item['unit'] }}</h6>
                                     </li>
                                     <li>
                                         <h4>Quantity</h4>
-                                        <h6>{{$item['stock'].' '.$item['unit']}}</h6>
+                                        <h6>{{ $item['stock'] . ' ' . $item['unit'] }}</h6>
                                     </li>
                                     {{-- <li>
                                         <h4>Tax</h4>
@@ -65,19 +66,19 @@
                                     </li> --}}
                                     <li>
                                         <h4>Basic Price</h4>
-                                        <h6>{{$item['basic_price']}}</h6>
+                                        <h6>{{ $item['basic_price'] }}</h6>
                                     </li>
                                     <li>
                                         <h4>Sell Price</h4>
-                                        <h6>{{$item['sell_price']}}</h6>
+                                        <h6>{{ $item['sell_price'] }}</h6>
                                     </li>
                                     <li>
                                         <h4>Status</h4>
-                                        <h6>{{$item['status']}}</h6>
+                                        <h6>{{ $item['status'] }}</h6>
                                     </li>
                                     <li>
                                         <h4>Description</h4>
-                                        <h6>{{$item['description']}}</h6>
+                                        <h6>{{ $item['description'] }}</h6>
 
                                     </li>
                                 </ul>
@@ -90,11 +91,11 @@
                         <div class="card-body">
                             <div class="slider-product-details">
                                 <div class="owl-carousel owl-theme product-slide">
-                                    @foreach($item['images'] as $image)
+                                    @foreach ($item['images'] as $image)
                                         <div class="slider-product">
                                             <img src="{{ $image['path'] }}" alt="img">
-                                            <h4>{{$image['name']}}</h4>
-                                            <h6>{{$image['description']}}</h6>
+                                            <h4>{{ $image['name'] }}</h4>
+                                            <h6>{{ $image['description'] }}</h6>
                                         </div>
                                     @endforeach
                                 </div>

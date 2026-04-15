@@ -29,7 +29,8 @@
                             <div class="d-flex align-items-center">
                                 <a class="btn btn-filter" id="filter_search">
                                     <i data-feather="filter" class="filter-icon"></i>
-                                    <span><img src="{{ URL::asset('/build/img/icons/closes.svg') }}" alt="img"></span>
+                                    <span><img src="{{ asset('assets/admin/assets/img/icons/closes.svg') }}"
+                                            alt="img"></span>
                                 </a>
 
                             </div>
@@ -103,7 +104,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($customers as $customer)
+                                @foreach ($customers as $customer)
                                     <tr>
                                         <td>
                                             <label class="checkboxs">
@@ -121,7 +122,7 @@
                                         <td>{{ $customer->discount }}</td>
                                         <td>{{ $customer->created_at }}</td>
                                         <td>
-                                            @if($customer->status == 0)
+                                            @if ($customer->status == 0)
                                                 <span class="badges bg-lightgreen">Active</span>
                                             @else
                                                 <span class="badges bg-lightred">Inactive</span>
@@ -130,20 +131,20 @@
                                         <td class="action-table-data">
                                             <div class="edit-delete-action">
                                                 <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#edit-customer"
-                                                    data-id="{{ $customer['id']}}"
-                                                    data-code="{{ $customer['code']}}"
-                                                    data-name="{{ $customer['name']}}"
-                                                    data-email="{{ $customer['email']}}"
-                                                    data-phone="{{ $customer['phone']}}"
-                                                    data-address="{{ $customer['address']}}"
-                                                    data-limit-transaction="{{ $customer['limit_transaction']}}"
-                                                    data-limit-debt="{{ $customer['limit_debt']}}"
-                                                    data-discount="{{ $customer['discount']}}"
-                                                    data-status="{{ $customer['status']}}">
+                                                    data-bs-target="#edit-customer" data-id="{{ $customer['id'] }}"
+                                                    data-code="{{ $customer['code'] }}"
+                                                    data-name="{{ $customer['name'] }}"
+                                                    data-email="{{ $customer['email'] }}"
+                                                    data-phone="{{ $customer['phone'] }}"
+                                                    data-address="{{ $customer['address'] }}"
+                                                    data-limit-transaction="{{ $customer['limit_transaction'] }}"
+                                                    data-limit-debt="{{ $customer['limit_debt'] }}"
+                                                    data-discount="{{ $customer['discount'] }}"
+                                                    data-status="{{ $customer['status'] }}">
                                                     <i data-feather="edit" class="feather-edit"></i>
                                                 </a>
-                                                <a class="p-2" href="javascript:void(0);" onclick="deleteCustomer({{ $customer['id']}})">
+                                                <a class="p-2" href="javascript:void(0);"
+                                                    onclick="deleteCustomer({{ $customer['id'] }})">
                                                     <i data-feather="trash-2" class="feather-trash-2"></i>
                                                 </a>
                                             </div>
@@ -196,7 +197,8 @@
             });
 
             window.deleteCustomer = function(id) {
-                deleteData(`{{ route('customer-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+                deleteData(`{{ route('customer-delete', ':id') }}`, id, document.querySelector(
+                    'meta[name="csrf-token"]').getAttribute('content'));
             };
         });
     </script>

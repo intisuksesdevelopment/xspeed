@@ -26,7 +26,8 @@
                             <div class="d-flex align-items-center">
                                 <a class="btn btn-filter" id="filter_search">
                                     <i data-feather="filter" class="filter-icon"></i>
-                                    <span><img src="{{ URL::asset('/build/img/icons/closes.svg') }}" alt="img"></span>
+                                    <span><img src="{{ asset('assets/admin/assets/img/icons/closes.svg') }}"
+                                            alt="img"></span>
                                 </a>
 
                             </div>
@@ -105,32 +106,38 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ( $sales as $sale )
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>{{ $sale->name }}</td>
-                                    <td>{{ $sale->cust_name }}</td>
-                                    <td>{{ $sale->created_at }}</td>
-                                    <td>{{\App\Services\UtilService::formatCurrency($sale->final_total,$sale->currency) }}</td>
-                                    <td>{{\App\Services\UtilService::formatCurrency($sale->payment_amount,$sale->currency) }}</td>
-                                    <td>{{\App\Services\UtilService::formatCurrency($sale->payment_remaining,$sale->currency) }}</td>
-                                    @if ($sale->payment_status == 0)
-                                        <td><span class="badge badge-linesuccess">{{ $sale->getPaymentStatus }}</span></td>
-                                    @elseif ($sale->payment_status == 2)
-                                        <td><span class="badge badges-warning">{{ $sale->getPaymentStatus }}</span></td>
-                                    @elseif ($sale->payment_status == 1)
-                                        <td><span class="badge badge-linedanger">{{$sale->getPaymentStatus }}</span></td>
-                                    @else
-                                        <td><span class="badge badge-lineinfo">{{ $sale->getPaymentStatus }}</span></td>      
-                                    @endif
-                                </tr>
+                                @foreach ($sales as $sale)
+                                    <tr>
+                                        <td>
+                                            <label class="checkboxs">
+                                                <input type="checkbox">
+                                                <span class="checkmarks"></span>
+                                            </label>
+                                        </td>
+                                        <td>{{ $sale->name }}</td>
+                                        <td>{{ $sale->cust_name }}</td>
+                                        <td>{{ $sale->created_at }}</td>
+                                        <td>{{ \App\Services\UtilService::formatCurrency($sale->final_total, $sale->currency) }}
+                                        </td>
+                                        <td>{{ \App\Services\UtilService::formatCurrency($sale->payment_amount, $sale->currency) }}
+                                        </td>
+                                        <td>{{ \App\Services\UtilService::formatCurrency($sale->payment_remaining, $sale->currency) }}
+                                        </td>
+                                        @if ($sale->payment_status == 0)
+                                            <td><span class="badge badge-linesuccess">{{ $sale->getPaymentStatus }}</span>
+                                            </td>
+                                        @elseif ($sale->payment_status == 2)
+                                            <td><span class="badge badges-warning">{{ $sale->getPaymentStatus }}</span></td>
+                                        @elseif ($sale->payment_status == 1)
+                                            <td><span class="badge badge-linedanger">{{ $sale->getPaymentStatus }}</span>
+                                            </td>
+                                        @else
+                                            <td><span class="badge badge-lineinfo">{{ $sale->getPaymentStatus }}</span>
+                                            </td>
+                                        @endif
+                                    </tr>
                                 @endforeach
-                               
+
                             </tbody>
                         </table>
                     </div>

@@ -7,7 +7,7 @@
                 <div class="col-xl-3 col-sm-6 col-12 d-flex">
                     <div class="dash-widget w-100">
                         <div class="dash-widgetimg">
-                            <span><img src="{{ URL::asset('/build/img/icons/dash1.svg') }}" alt="img"></span>
+                            <span><img src="{{ asset('assets/admin/assets/img/icons/dash1.svg') }}" alt="img"></span>
                         </div>
                         <div class="dash-widgetcontent">
                             <h5>$<span class="counters" data-count="307144.00">$307,144.00</span></h5>
@@ -18,7 +18,7 @@
                 <div class="col-xl-3 col-sm-6 col-12 d-flex">
                     <div class="dash-widget dash1 w-100">
                         <div class="dash-widgetimg">
-                            <span><img src="{{ URL::asset('/build/img/icons/dash2.svg') }}" alt="img"></span>
+                            <span><img src="{{ asset('assets/admin/assets/img/icons/dash2.svg') }}" alt="img"></span>
                         </div>
                         <div class="dash-widgetcontent">
                             <h5>$<span class="counters" data-count="4385.00">$4,385.00</span></h5>
@@ -29,7 +29,7 @@
                 <div class="col-xl-3 col-sm-6 col-12 d-flex">
                     <div class="dash-widget dash2 w-100">
                         <div class="dash-widgetimg">
-                            <span><img src="{{ URL::asset('/build/img/icons/dash3.svg') }}" alt="img"></span>
+                            <span><img src="{{ asset('assets/admin/assets/img/icons/dash3.svg') }}" alt="img"></span>
                         </div>
                         <div class="dash-widgetcontent">
                             <h5>$<span class="counters" data-count="385656.50">$385,656.50</span></h5>
@@ -40,7 +40,7 @@
                 <div class="col-xl-3 col-sm-6 col-12 d-flex">
                     <div class="dash-widget dash3 w-100">
                         <div class="dash-widgetimg">
-                            <span><img src="{{ URL::asset('/build/img/icons/dash4.svg') }}" alt="img"></span>
+                            <span><img src="{{ asset('assets/admin/assets/img/icons/dash4.svg') }}" alt="img"></span>
                         </div>
                         <div class="dash-widgetcontent">
                             <h5>$<span class="counters" data-count="40000.00">$400.00</span></h5>
@@ -77,7 +77,7 @@
                             <h5>Purchase Invoice</h5>
                         </div>
                         <div class="dash-imgs">
-                            <img src="{{ URL::asset('/build/img/icons/file-text-icon-01.svg') }}" class="img-fluid"
+                            <img src="{{ asset('assets/admin/assets/img/icons/file-text-icon-01.svg') }}" class="img-fluid"
                                 alt="icon">
                         </div>
                     </div>
@@ -157,16 +157,17 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($dataNewProduct as $index => $product)
-                                        <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td class="productimgname">
-                                                <a href="{{ url('product-list') }}" class="product-img">
-                                                    <img src="{{ URL::asset($product->image_url) }}" alt="product">
-                                                </a>
-                                                <a href="{{ url('product-list') }}">{{ $product->name }}</a>
-                                            </td>
-                                            <td>{{\App\Services\UtilService::formatCurrency($product->sell_price,$product->currency) }}</td>
-                                        </tr>
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td class="productimgname">
+                                                    <a href="{{ url('product-list') }}" class="product-img">
+                                                        <img src="{{ URL::asset($product->image_url) }}" alt="product">
+                                                    </a>
+                                                    <a href="{{ url('product-list') }}">{{ $product->name }}</a>
+                                                </td>
+                                                <td>{{ \App\Services\UtilService::formatCurrency($product->sell_price, $product->currency) }}
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -198,39 +199,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                                 @foreach ($dataMinStockProduct as $index => $product)
-                                        <tr>
-                                            <td>
-                                                <label class="checkboxs">
-                                                    <input type="checkbox">
-                                                    <span class="checkmarks"></span>
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <div class="productimgname">
-                                                    <a href="javascript:void(0);" class="product-img stock-img">
-                                                        <img src="{{ URL::asset($product->image_url) }}" alt="{{ $product->name }}">
-                                                    </a>
-                                                    <a href="javascript:void(0);">{{ $product->name }}</a>
-                                                </div>
-                                            </td>
-                                            <td><a href="javascript:void(0);">{{ $product->sku }}</a></td>
-                                            <td>{{ $product->stock }}</td>
-                                            <td>{{ $product->stock_min }}</td>
-                                            <td class="action-table-data">
-                                                <div class="edit-delete-action">
-                                                    <a class="me-2 p-2" href="{{ route('edit-product', $product->uuid) }}">
-                                                        <i data-feather="edit" class="feather-edit"></i>
-                                                    </a>
-                                                    <a class="confirm-text p-2" href="javascript:void(0);" onclick="deleteProduct({{ $product->uuid }})">
-                                                        <i data-feather="trash-2" class="feather-trash-2"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td>
+                                            <label class="checkboxs">
+                                                <input type="checkbox">
+                                                <span class="checkmarks"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <div class="productimgname">
+                                                <a href="javascript:void(0);" class="product-img stock-img">
+                                                    <img src="{{ URL::asset($product->image_url) }}"
+                                                        alt="{{ $product->name }}">
+                                                </a>
+                                                <a href="javascript:void(0);">{{ $product->name }}</a>
+                                            </div>
+                                        </td>
+                                        <td><a href="javascript:void(0);">{{ $product->sku }}</a></td>
+                                        <td>{{ $product->stock }}</td>
+                                        <td>{{ $product->stock_min }}</td>
+                                        <td class="action-table-data">
+                                            <div class="edit-delete-action">
+                                                <a class="me-2 p-2" href="{{ route('edit-product', $product->uuid) }}">
+                                                    <i data-feather="edit" class="feather-edit"></i>
+                                                </a>
+                                                <a class="confirm-text p-2" href="javascript:void(0);"
+                                                    onclick="deleteProduct({{ $product->uuid }})">
+                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
-                              
+
                             </tbody>
                         </table>
                     </div>

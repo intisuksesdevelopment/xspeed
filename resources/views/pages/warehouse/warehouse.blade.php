@@ -29,7 +29,8 @@
                             <div class="d-flex align-items-center">
                                 <a class="btn btn-filter" id="filter_search">
                                     <i data-feather="filter" class="filter-icon"></i>
-                                    <span><img src="{{ URL::asset('/build/img/icons/closes.svg') }}" alt="img"></span>
+                                    <span><img src="{{ asset('assets/admin/assets/img/icons/closes.svg') }}"
+                                            alt="img"></span>
                                 </a>
                                 <div class="layout-hide-box">
                                     <a href="javascript:void(0);" class="me-3 layout-box"><i data-feather="layout"
@@ -203,48 +204,50 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($warehouses as $warehouse)
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>{{ $warehouse['code']}}</td>
-                                    <td>{{ $warehouse['name']}}</td>
-                                    <td class="d-inline-block text-truncate">{{ $warehouse['description']}}</td>
-                                    <td>{{ $warehouse['address']}}</td>
-                                    <td>{{ $warehouse['phone']}}</td>
-                                    <td>{{ $warehouse['image_url']}}</td>
-                                    <td>{{ $warehouse['created_at']}}</td>
-                                    <td>
-                                        @if ($warehouse['status']==0)
-                                        <span class="badge badge-linesuccess">{{ $warehouse['availability']}}</span>
-                                        @else
-                                        <span class="badge badge-linedanger">{{ $warehouse['availability']}}</span>
-                                        @endif
-                                    </td>
-                                    <td class="action-table-data">
-                                        <div class="edit-delete-action">
-                                            <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#edit-warehouse"
-                                                data-id="{{ $warehouse['id']}}"
-                                                data-code="{{ $warehouse['code']}}"
-                                                data-name="{{ $warehouse['name']}}"
-                                                data-description="{{ $warehouse['description']}}"
-                                                data-phone="{{ $warehouse['phone']}}"
-                                                data-address="{{ $warehouse['address']}}"
-                                                data-image="{{ $warehouse['image_url']}}"
-                                                data-status="{{ $warehouse['status']}}">
-                                                <i data-feather="edit" class="feather-edit"></i>
-                                            </a>
-                                            <a class="p-2" href="javascript:void(0);" onclick="deleteWarehouse({{ $warehouse['id']}})">
-                                                <i data-feather="trash-2" class="feather-trash-2"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach ($warehouses as $warehouse)
+                                    <tr>
+                                        <td>
+                                            <label class="checkboxs">
+                                                <input type="checkbox">
+                                                <span class="checkmarks"></span>
+                                            </label>
+                                        </td>
+                                        <td>{{ $warehouse['code'] }}</td>
+                                        <td>{{ $warehouse['name'] }}</td>
+                                        <td class="d-inline-block text-truncate">{{ $warehouse['description'] }}</td>
+                                        <td>{{ $warehouse['address'] }}</td>
+                                        <td>{{ $warehouse['phone'] }}</td>
+                                        <td>{{ $warehouse['image_url'] }}</td>
+                                        <td>{{ $warehouse['created_at'] }}</td>
+                                        <td>
+                                            @if ($warehouse['status'] == 0)
+                                                <span
+                                                    class="badge badge-linesuccess">{{ $warehouse['availability'] }}</span>
+                                            @else
+                                                <span
+                                                    class="badge badge-linedanger">{{ $warehouse['availability'] }}</span>
+                                            @endif
+                                        </td>
+                                        <td class="action-table-data">
+                                            <div class="edit-delete-action">
+                                                <a class="me-2 p-2" href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#edit-warehouse" data-id="{{ $warehouse['id'] }}"
+                                                    data-code="{{ $warehouse['code'] }}"
+                                                    data-name="{{ $warehouse['name'] }}"
+                                                    data-description="{{ $warehouse['description'] }}"
+                                                    data-phone="{{ $warehouse['phone'] }}"
+                                                    data-address="{{ $warehouse['address'] }}"
+                                                    data-image="{{ $warehouse['image_url'] }}"
+                                                    data-status="{{ $warehouse['status'] }}">
+                                                    <i data-feather="edit" class="feather-edit"></i>
+                                                </a>
+                                                <a class="p-2" href="javascript:void(0);"
+                                                    onclick="deleteWarehouse({{ $warehouse['id'] }})">
+                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -257,13 +260,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            submitForm('warehouseAddForm', 'submit-add-button','status-add',null);
-            submitForm('warehouseEditForm', 'submit-edit-button','status-edit',null);
+            submitForm('warehouseAddForm', 'submit-add-button', 'status-add', null);
+            submitForm('warehouseEditForm', 'submit-edit-button', 'status-edit', null);
             // Handle modal data injection
             var editButtons = document.querySelectorAll('[data-bs-target="#edit-warehouse"]');
 
-            editButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
+            editButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
                     var warehouseId = this.getAttribute('data-id');
                     var warehouseCode = this.getAttribute('data-code');
                     var warehouseName = this.getAttribute('data-name');
@@ -288,7 +291,8 @@
             });
 
             window.deleteWarehouse = function(id) {
-                deleteData(`{{ route('warehouse-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+                deleteData(`{{ route('warehouse-delete', ':id') }}`, id, document.querySelector(
+                    'meta[name="csrf-token"]').getAttribute('content'));
             };
         });
     </script>

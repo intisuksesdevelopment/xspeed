@@ -28,7 +28,8 @@
                         <div class="search-path">
                             <a class="btn btn-filter" id="filter_search">
                                 <i data-feather="filter" class="filter-icon"></i>
-                                <span><img src="{{ URL::asset('/build/img/icons/closes.svg') }}" alt="img"></span>
+                                <span><img src="{{ asset('assets/admin/assets/img/icons/closes.svg') }}"
+                                        alt="img"></span>
                             </a>
                         </div>
                         <div class="form-sort">
@@ -103,46 +104,44 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($brands as $brand)
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>{{ $brand['code']}}</td>
-                                    <td><span class="d-flex"><img
-                                        src="{{ URL::asset($brand['image_url']) }}"
-                                        alt="" class="img-fluid rounded"></span></td>
-                                    <td>{{ $brand['name']}}</td>
-                                    <td class="d-inline-block text-truncate">{{ $brand['description']}}</td>
-                                    <td>{{ $brand['created_at']}}</td>
-                                    <td>
-                                        @if ($brand['status']==0)
-                                            <span class="badge badge-linesuccess">{{ $brand['availability']}}</span>
-                                        @else
-                                            <span class="badge badge-linedanger">{{ $brand['availability']}}</span>
-                                        @endif
-                                    </td>
-                                    <td class="action-table-data">
-                                        <div class="edit-delete-action">
-                                            <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#edit-brand"
-                                                data-id="{{ $brand['id']}}"
-                                                data-code="{{ $brand['code']}}"
-                                                data-name="{{ $brand['name']}}"
-                                                data-description="{{ $brand['description']}}"
-                                                data-image="{{ $brand['image_url']}}"
-                                                data-status="{{ $brand['status']}}">
-                                                <i data-feather="edit" class="feather-edit"></i>
-                                            </a>
-                                            <a class="p-2" href="javascript:void(0);" onclick="deleteBrand({{ $brand['id']}})">
-                                                <i data-feather="trash-2" class="feather-trash-2"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach ($brands as $brand)
+                                    <tr>
+                                        <td>
+                                            <label class="checkboxs">
+                                                <input type="checkbox">
+                                                <span class="checkmarks"></span>
+                                            </label>
+                                        </td>
+                                        <td>{{ $brand['code'] }}</td>
+                                        <td><span class="d-flex"><img src="{{ URL::asset($brand['image_url']) }}"
+                                                    alt="" class="img-fluid rounded"></span></td>
+                                        <td>{{ $brand['name'] }}</td>
+                                        <td class="d-inline-block text-truncate">{{ $brand['description'] }}</td>
+                                        <td>{{ $brand['created_at'] }}</td>
+                                        <td>
+                                            @if ($brand['status'] == 0)
+                                                <span class="badge badge-linesuccess">{{ $brand['availability'] }}</span>
+                                            @else
+                                                <span class="badge badge-linedanger">{{ $brand['availability'] }}</span>
+                                            @endif
+                                        </td>
+                                        <td class="action-table-data">
+                                            <div class="edit-delete-action">
+                                                <a class="me-2 p-2" href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#edit-brand" data-id="{{ $brand['id'] }}"
+                                                    data-code="{{ $brand['code'] }}" data-name="{{ $brand['name'] }}"
+                                                    data-description="{{ $brand['description'] }}"
+                                                    data-image="{{ $brand['image_url'] }}"
+                                                    data-status="{{ $brand['status'] }}">
+                                                    <i data-feather="edit" class="feather-edit"></i>
+                                                </a>
+                                                <a class="p-2" href="javascript:void(0);"
+                                                    onclick="deleteBrand({{ $brand['id'] }})">
+                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -154,18 +153,18 @@
     </div>
 
     <script>
-           document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             // custom checkbox
 
             // Handle form submission
 
-            submitForm('brandAddForm', 'submit-add-button','status-add',null);
-            submitForm('brandEditForm', 'submit-edit-button','status-edit',null);
+            submitForm('brandAddForm', 'submit-add-button', 'status-add', null);
+            submitForm('brandEditForm', 'submit-edit-button', 'status-edit', null);
             // Handle modal data injection
             var editButtons = document.querySelectorAll('[data-bs-target="#edit-brand"]');
 
-            editButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
+            editButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
                     var brandId = this.getAttribute('data-id');
                     var brandCode = this.getAttribute('data-code');
                     var brandName = this.getAttribute('data-name');
@@ -185,7 +184,8 @@
                 });
             });
             window.deleteBrand = function(id) {
-                deleteData(`{{ route('brand-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+                deleteData(`{{ route('brand-delete', ':id') }}`, id, document.querySelector(
+                    'meta[name="csrf-token"]').getAttribute('content'));
             };
 
         });

@@ -327,7 +327,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="phone-img">
-                                                                                    <img src="{{ URL::asset('/build/img/products/phone-add-2.png')}}"
+                                                                                    <img src="{{ asset('assets/admin/assets/img/products/phone-add-2.png') }}"
                                                                                         alt="image">
                                                                                     <a href="javascript:void(0);"><i
                                                                                             data-feather="x"
@@ -335,7 +335,7 @@
                                                                                 </div>
 
                                                                                 <div class="phone-img">
-                                                                                    <img src="{{ URL::asset('/build/img/products/phone-add-1.png')}}"
+                                                                                    <img src="{{ asset('assets/admin/assets/img/products/phone-add-1.png') }}"
                                                                                         alt="image">
                                                                                     <a href="javascript:void(0);"><i
                                                                                             data-feather="x"
@@ -707,7 +707,7 @@
                                                             <p>M</p>
                                                         </div>
                                                     </div>
-                                                    <!-- <a class="btn"  id="searchdiv"><img src="{{ URL::asset('/build/img/icons/search.svg')}}" alt="img"></a> -->
+                                                    <!-- <a class="btn"  id="searchdiv"><img src="{{ asset('assets/admin/assets/img/icons/search.svg') }}" alt="img"></a> -->
                                                 </form>
                                             </div>
                                         </li>
@@ -884,7 +884,8 @@
                                         <div class="image-upload download">
                                             <input type="file">
                                             <div class="image-uploads">
-                                                <img src="{{ URL::asset('/build/img/download-img.png')}}" alt="img">
+                                                <img src="{{ asset('assets/admin/assets/img/download-img.png') }}"
+                                                    alt="img">
                                                 <h4>Drag and drop a <span>file to upload</span></h4>
                                             </div>
                                         </div>
@@ -894,13 +895,15 @@
                                             <div class="col-lg-12">
                                                 <div class="add-choosen mb-3">
                                                     <div class="phone-img ms-0">
-                                                        <img src="{{ URL::asset('/build/img/products/phone-add-2.png')}}" alt="image">
+                                                        <img src="{{ asset('assets/admin/assets/img/products/phone-add-2.png') }}"
+                                                            alt="image">
                                                         <a href="javascript:void(0);"><i data-feather="x"
                                                                 class="x-square-add remove-product"></i></a>
                                                     </div>
 
                                                     <div class="phone-img">
-                                                        <img src="{{ URL::asset('/build/img/products/phone-add-1.png')}}" alt="image">
+                                                        <img src="{{ asset('assets/admin/assets/img/products/phone-add-1.png') }}"
+                                                            alt="image">
                                                         <a href="javascript:void(0);"><i data-feather="x"
                                                                 class="x-square-add remove-product"></i></a>
                                                     </div>
@@ -1039,7 +1042,8 @@
                                             <div class="image-upload download">
                                                 <input type="file">
                                                 <div class="image-uploads">
-                                                    <img src="{{ URL::asset('/build/img/download-img.png')}}" alt="img">
+                                                    <img src="{{ asset('assets/admin/assets/img/download-img.png') }}"
+                                                        alt="img">
                                                     <h4>Drag and drop a <span>file to upload</span></h4>
                                                 </div>
                                             </div>
@@ -1310,7 +1314,8 @@
                                         <div class="image-upload download">
                                             <input type="file">
                                             <div class="image-uploads">
-                                                <img src="{{ URL::asset('/build/img/download-img.png')}}" alt="img">
+                                                <img src="{{ asset('assets/admin/assets/img/download-img.png') }}"
+                                                    alt="img">
                                                 <h4>Drag and drop a <span>file to upload</span></h4>
                                             </div>
                                         </div>
@@ -1320,13 +1325,15 @@
                                             <div class="col-lg-12">
                                                 <div class="add-choosen mb-3">
                                                     <div class="phone-img ms-0">
-                                                        <img src="{{ URL::asset('/build/img/products/phone-add-2.png')}}" alt="image">
+                                                        <img src="{{ asset('assets/admin/assets/img/products/phone-add-2.png') }}"
+                                                            alt="image">
                                                         <a href="javascript:void(0);"><i data-feather="x"
                                                                 class="x-square-add remove-product"></i></a>
                                                     </div>
 
                                                     <div class="phone-img">
-                                                        <img src="{{ URL::asset('/build/img/products/phone-add-1.png')}}" alt="image">
+                                                        <img src="{{ asset('assets/admin/assets/img/products/phone-add-1.png') }}"
+                                                            alt="image">
                                                         <a href="javascript:void(0);"><i data-feather="x"
                                                                 class="x-square-add remove-product"></i></a>
                                                     </div>
@@ -1557,15 +1564,15 @@
                                 @csrf
                                 <div class="mb-3 d-none">
                                     <label class="form-label">Id</label>
-                                    <input type="text" name="id" class="form-control" >
+                                    <input type="text" name="id" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Code</label>
-                                    <input type="text" name="code" class="form-control" >
+                                    <input type="text" name="code" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Category</label>
-                                    <input type="text" name="name" class="form-control" >
+                                    <input type="text" name="name" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label>Description</label>
@@ -1576,14 +1583,16 @@
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                        <input type="checkbox" id="status-add" name="status" class="check"
+                                            checked="">
                                         <label for="status-add" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
-                                    <button type="button" class="btn btn-cancel me-2"
-                                        data-bs-dismiss="modal"  name="cancel-button">Cancel</button>
-                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save Changes</button>
+                                    <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal"
+                                        name="cancel-button">Cancel</button>
+                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save
+                                        Changes</button>
                                 </div>
                             </form>
                         </div>
@@ -1613,15 +1622,15 @@
                                 @csrf
                                 <div class="mb-3 d-none">
                                     <label class="form-label">Id</label>
-                                    <input type="text" id="id" name="id" class="form-control" >
+                                    <input type="text" id="id" name="id" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Code</label>
-                                    <input type="text" id="code" name="code" class="form-control" >
+                                    <input type="text" id="code" name="code" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Category</label>
-                                    <input type="text" id="name" name="name" class="form-control" >
+                                    <input type="text" id="name" name="name" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label>Description</label>
@@ -1632,14 +1641,16 @@
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="status-edit" name="status" class="check" checked="">
+                                        <input type="checkbox" id="status-edit" name="status" class="check"
+                                            checked="">
                                         <label for="status-edit" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
-                                    <button type="button" class="btn btn-cancel me-2"
-                                        data-bs-dismiss="modal" id="cancel-edit-button" >Cancel</button>
-                                    <button type="submit" id="submit-edit-button" class="btn btn-submit">Save Changes</button>
+                                    <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal"
+                                        id="cancel-edit-button">Cancel</button>
+                                    <button type="submit" id="submit-edit-button" class="btn btn-submit">Save
+                                        Changes</button>
                                 </div>
                             </form>
                         </div>
@@ -1680,11 +1691,13 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="add-name" class="form-label">Category Name</label>
-                                    <input id="add-name" name="name" type="text" class="form-control" value="Computers">
+                                    <input id="add-name" name="name" type="text" class="form-control"
+                                        value="Computers">
                                 </div>
                                 <div class="mb-3">
                                     <label for="add-code" class="form-label">Category Code</label>
-                                    <input id="add-code" name="code" type="text" class="form-control" value="CT001">
+                                    <input id="add-code" name="code" type="text" class="form-control"
+                                        value="CT001">
                                 </div>
                                 <div class="mb-3 input-blocks">
                                     <label for="add-description" class="form-label">Description</label>
@@ -1692,18 +1705,23 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="add-image-url" class="form-label">Icon</label>
-                                    <input id="add-image-url" name="image_url" type="text" class="form-control" value="CT001">
+                                    <input id="add-image-url" name="image_url" type="text"
+                                        class="form-control" value="CT001">
                                 </div>
                                 <div class="mb-0">
-                                    <div class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                    <div
+                                        class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="add-status" name="status" class="check" checked>
+                                        <input type="checkbox" id="add-status" name="status" class="check"
+                                            checked>
                                         <label for="add-status" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
-                                    <button type="button" id="cancel-add-button" name="cancel-button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save Changes</button>
+                                    <button type="button" id="cancel-add-button" name="cancel-button"
+                                        class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save
+                                        Changes</button>
                                 </div>
                             </form>
                         </div>
@@ -1729,7 +1747,8 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body">
-                            <form id="subCategoryEditForm" method="post" action="{{ route('subcategory-update') }}">
+                            <form id="subCategoryEditForm" method="post"
+                                action="{{ route('subcategory-update') }}">
                                 @csrf
                                 <div class="mb-3 d-none">
                                     <label for="edit-id" class="form-label">Id</label>
@@ -1743,11 +1762,13 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="edit-name" class="form-label">Category Name</label>
-                                    <input id="edit-name" name="name" type="text" class="form-control" value="Computers">
+                                    <input id="edit-name" name="name" type="text" class="form-control"
+                                        value="Computers">
                                 </div>
                                 <div class="mb-3">
                                     <label for="edit-code" class="form-label">Category Code</label>
-                                    <input id="edit-code" name="code" type="text" class="form-control" value="CT001">
+                                    <input id="edit-code" name="code" type="text" class="form-control"
+                                        value="CT001">
                                 </div>
                                 <div class="mb-3 input-blocks">
                                     <label for="edit-description" class="form-label">Description</label>
@@ -1755,18 +1776,23 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="edit-image-url" class="form-label">Icon</label>
-                                    <input id="edit-image-url" name="image_url" type="text" class="form-control" value="CT001">
+                                    <input id="edit-image-url" name="image_url" type="text"
+                                        class="form-control" value="CT001">
                                 </div>
                                 <div class="mb-0">
-                                    <div class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                    <div
+                                        class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="edit-status" name="status" class="check" checked>
+                                        <input type="checkbox" id="edit-status" name="status" class="check"
+                                            checked>
                                         <label for="edit-status" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
-                                    <button type="button" id="cancel-edit-button" name="cancel-button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" id="submit-edit-button" class="btn btn-submit">Save Changes</button>
+                                    <button type="button" id="cancel-edit-button" name="cancel-button"
+                                        class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" id="submit-edit-button" class="btn btn-submit">Save
+                                        Changes</button>
                                 </div>
                             </form>
 
@@ -1858,7 +1884,7 @@
                                 <label class="form-label">Logo</label>
                                 <div class="profile-pic-upload mb-3">
                                     <div class="profile-pic brand-pic">
-                                        <span><img src="{{ URL::asset('/build/img/brand/brand-icon-02.png')}}" alt=""></span>
+                                        <span><img src="{{ asset('assets/admin/assets/img/brand/brand-icon-02.png')}}" alt=""></span>
                                         <a href="javascript:void(0);" class="remove-photo"><i data-feather="x"
                                                 class="x-square-add"></i></a>
                                     </div>
@@ -2252,8 +2278,8 @@
                                         </p>
                                         <p>Price: $400</p>
                                         <div class="barscaner-img">
-                                            <img src="{{ URL::asset('/build/img/barcode/barcode-01.png')}}" alt="Barcode"
-                                                class="img-fluid">
+                                            <img src="{{ asset('assets/admin/assets/img/barcode/barcode-01.png') }}"
+                                                alt="Barcode" class="img-fluid">
                                         </div>
                                     </div>
                                 </div>
@@ -2271,8 +2297,8 @@
                                         </p>
                                         <p>Price: $300</p>
                                         <div class="barscaner-img">
-                                            <img src="{{ URL::asset('/build/img/barcode/barcode-02.png')}}" alt="Barcode"
-                                                class="img-fluid">
+                                            <img src="{{ asset('assets/admin/assets/img/barcode/barcode-02.png') }}"
+                                                alt="Barcode" class="img-fluid">
                                         </div>
                                     </div>
                                 </div>
@@ -2284,8 +2310,8 @@
                                         </p>
                                         <p>Price: $300</p>
                                         <div class="barscaner-img">
-                                            <img src="{{ URL::asset('/build/img/barcode/barcode-02.png')}}" alt="Barcode"
-                                                class="img-fluid">
+                                            <img src="{{ asset('assets/admin/assets/img/barcode/barcode-02.png') }}"
+                                                alt="Barcode" class="img-fluid">
                                         </div>
                                     </div>
                                 </div>
@@ -2297,8 +2323,8 @@
                                         </p>
                                         <p>Price: $300</p>
                                         <div class="barscaner-img">
-                                            <img src="{{ URL::asset('/build/img/barcode/barcode-02.png')}}" alt="Barcode"
-                                                class="img-fluid">
+                                            <img src="{{ asset('assets/admin/assets/img/barcode/barcode-02.png') }}"
+                                                alt="Barcode" class="img-fluid">
                                         </div>
                                     </div>
                                 </div>
@@ -2341,8 +2367,8 @@
                                 <div class="col-sm-4">
                                     <div class="barcode-scanner-link text-center">
                                         <div class="barscaner-img">
-                                            <img src="{{ URL::asset('/build/img/barcode/qr-code.png')}}" alt="Barcode"
-                                                class="img-fluid">
+                                            <img src="{{ asset('assets/admin/assets/img/barcode/qr-code.png') }}"
+                                                alt="Barcode" class="img-fluid">
                                         </div>
                                         <p>Ref No :32RRR554 </p>
                                     </div>
@@ -2591,7 +2617,8 @@
                                         <div class="image-upload download">
                                             <input type="file">
                                             <div class="image-uploads">
-                                                <img src="{{ URL::asset('/build/img/download-img.png')}}" alt="img">
+                                                <img src="{{ asset('assets/admin/assets/img/download-img.png') }}"
+                                                    alt="img">
                                                 <h4>Drag and drop a <span>file to upload</span></h4>
                                             </div>
                                         </div>
@@ -2601,14 +2628,14 @@
                                             <div class="col-lg-12">
                                                 <div class="add-choosen mb-3">
                                                     <div class="phone-img ms-0">
-                                                        <img src="{{ URL::asset('/build/img/products/phone-add-2.png')}}"
+                                                        <img src="{{ asset('assets/admin/assets/img/products/phone-add-2.png') }}"
                                                             alt="image">
                                                         <a href="javascript:void(0);"><i data-feather="x"
                                                                 class="x-square-add remove-product"></i></a>
                                                     </div>
 
                                                     <div class="phone-img">
-                                                        <img src="{{ URL::asset('/build/img/products/phone-add-1.png')}}"
+                                                        <img src="{{ asset('assets/admin/assets/img/products/phone-add-1.png') }}"
                                                             alt="image">
                                                         <a href="javascript:void(0);"><i data-feather="x"
                                                                 class="x-square-add remove-product"></i></a>
@@ -2691,7 +2718,7 @@
                     <div class="content">
                         <div class="text-center right-sidebar-profile mb-3">
                             <figure class="avatar">
-                                <img src="{{ URL::asset('/build/img/users/user-23.jpg')}}" alt="image">
+                                <img src="{{ asset('assets/admin/assets/img/users/user-23.jpg') }}" alt="image">
                             </figure>
                             <div class="chat-options chat-option-profile">
                                 <ul class="list-inline">
@@ -2967,7 +2994,8 @@
                     <div class="content">
                         <div class="delete-popup">
                             <div class="delete-image text-center mx-auto">
-                                <img src="{{ URL::asset('/build/img/icons/close-circle.png')}}" alt="Img" class="img-fluid">
+                                <img src="{{ asset('assets/admin/assets/img/icons/close-circle.png') }}"
+                                    alt="Img" class="img-fluid">
                             </div>
                             <div class="delete-heads">
                                 <h4>Are You Sure?</h4>
@@ -3228,7 +3256,8 @@
                     <div class="content">
                         <div class="delete-popup">
                             <div class="delete-image text-center mx-auto">
-                                <img src="{{ URL::asset('/build/img/icons/close-circle.png')}}" alt="Img" class="img-fluid">
+                                <img src="{{ asset('assets/admin/assets/img/icons/close-circle.png') }}"
+                                    alt="Img" class="img-fluid">
                             </div>
                             <div class="delete-heads">
                                 <h4>Are You Sure?</h4>
@@ -3323,7 +3352,8 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="javascript:void(0);"><img src="{{ URL::asset('/build/img/file-manager/folder-lg.png')}}" alt="Folder"></a>
+            <a href="javascript:void(0);"><img
+                    src="{{ asset('assets/admin/assets/img/file-manager/folder-lg.png') }}" alt="Folder"></a>
             <h5>Website Backup for the Design team</h5>
             <p>File Size : 616 MB</p>
         </div>
@@ -3394,22 +3424,26 @@
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 1" data-bs-original-title="Member 1"><img
-                                    src="{{ URL::asset('/build/img/avatar/avatar-1.jpg')}}" alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-1.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 2" data-bs-original-title="Member 2"><img
-                                    src="{{ URL::asset('/build/img/avatar/avatar-2.jpg')}}" alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-2.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 3" data-bs-original-title="Member 3"><img
-                                    src="{{ URL::asset('/build/img/avatar/avatar-3.jpg')}}" alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-3.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 4" data-bs-original-title="Member 4"><img
-                                    src="{{ URL::asset('/build/img/avatar/avatar-4.jpg')}}" alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-4.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);"
@@ -3426,28 +3460,33 @@
                 <ul class="mb-4">
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-1.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-1.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
-                                src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for
                             the Design team</p>
                     </li>
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-2.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-2.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Drake shared an item<br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
-                                src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for
                             the Design team</p>
                     </li>
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-3.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-3.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Melvin</p>
                                 <p class="mb-0">Commentor</p>
@@ -3456,8 +3495,9 @@
                     </li>
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-4.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-4.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Drake</p>
                                 <p class="mb-0">Editor</p>
@@ -3470,28 +3510,33 @@
                 <ul class="mb-4">
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-1.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-1.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
-                                src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for
                             the Design team</p>
                     </li>
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-2.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-2.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Drake shared an item<br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
-                                src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for
                             the Design team</p>
                     </li>
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-3.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-3.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Melvin</p>
                                 <p class="mb-0">Commentor</p>
@@ -3500,8 +3545,9 @@
                     </li>
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-4.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-4.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Drake</p>
                                 <p class="mb-0">Editor</p>
@@ -3530,7 +3576,8 @@
                 <div class="modal-body p-4">
                     <div class="drag-drop text-center mb-4">
                         <div class="upload">
-                            <a href="#"><img src="{{ URL::asset('/build/img/icons/drag-drop.svg')}}" alt=""></a>
+                            <a href="#"><img src="{{ asset('assets/admin/assets/img/icons/drag-drop.svg') }}"
+                                    alt=""></a>
                             <p>Drag and drop a <a href="#">file to upload</a></p>
                         </div>
                         <input type="file" multiple="">
@@ -3548,7 +3595,8 @@
                     <ul>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">latest-version.zip<i
                                                 data-feather="check-circle" class="ms-2 feather-16"></i></a></h6>
@@ -3560,7 +3608,8 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/xls.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/xls.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls</a></h6>
                                     <span>616 MB</span>
@@ -3579,7 +3628,8 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/zip.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/zip.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Updated Project.zip</a></h6>
                                     <span>616 MB</span>
@@ -3618,7 +3668,8 @@
                 <div class="modal-body p-4">
                     <div class="drag-drop text-center mb-4">
                         <div class="upload">
-                            <a href="#"><img src="{{ URL::asset('/build/img/icons/drag-drop.svg')}}" alt=""></a>
+                            <a href="#"><img src="{{ asset('assets/admin/assets/img/icons/drag-drop.svg') }}"
+                                    alt=""></a>
                             <p>Drag and drop a <a href="#">file to upload</a></p>
                         </div>
                         <input type="file" multiple="">
@@ -3636,7 +3687,8 @@
                     <ul>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">latest-version<i data-feather="check-circle"
                                                 class="ms-2 feather-16"></i></a></h6>
@@ -3648,7 +3700,8 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/xls.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/xls.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls<i
                                                 data-feather="trash-2" class="feather-16"></i></a></h6>
@@ -3664,7 +3717,8 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/zip.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/zip.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">updated project.zip<i data-feather="trash-2"
                                                 class="feather-16"></i></a></h6>
@@ -3765,7 +3819,8 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="javascript:void(0);"><img src="{{ URL::asset('/build/img/file-manager/folder-lg.png')}}" alt="Folder"></a>
+            <a href="javascript:void(0);"><img
+                    src="{{ asset('assets/admin/assets/img/file-manager/folder-lg.png') }}" alt="Folder"></a>
             <h5>Website Backup for the Design team</h5>
             <p>File Size : 616 MB</p>
         </div>
@@ -3836,22 +3891,26 @@
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 1" data-bs-original-title="Member 1"><img
-                                    src="{{ URL::asset('/build/img/avatar/avatar-1.jpg')}}" alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-1.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 2" data-bs-original-title="Member 2"><img
-                                    src="{{ URL::asset('/build/img/avatar/avatar-2.jpg')}}" alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-2.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 3" data-bs-original-title="Member 3"><img
-                                    src="{{ URL::asset('/build/img/avatar/avatar-3.jpg')}}" alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-3.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 4" data-bs-original-title="Member 4"><img
-                                    src="{{ URL::asset('/build/img/avatar/avatar-4.jpg')}}" alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-4.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);"
@@ -3868,28 +3927,33 @@
                 <ul class="mb-4">
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-1.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-1.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
-                                src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for
                             the Design team</p>
                     </li>
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-2.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-2.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Drake shared an item<br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
-                                src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for
                             the Design team</p>
                     </li>
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-3.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-3.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Melvin</p>
                                 <p class="mb-0">Commentor</p>
@@ -3898,8 +3962,9 @@
                     </li>
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-4.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-4.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Drake</p>
                                 <p class="mb-0">Editor</p>
@@ -3912,28 +3977,33 @@
                 <ul class="mb-4">
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-1.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-1.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
-                                src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for
                             the Design team</p>
                     </li>
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-2.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-2.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Drake shared an item<br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
-                                src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for
                             the Design team</p>
                     </li>
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-3.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-3.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Melvin</p>
                                 <p class="mb-0">Commentor</p>
@@ -3942,8 +4012,9 @@
                     </li>
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-4.jpg')}}"
-                                    alt="Avatar" class="avatar-md"></a>
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-4.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Drake</p>
                                 <p class="mb-0">Editor</p>
@@ -3972,7 +4043,8 @@
                 <div class="modal-body p-4">
                     <div class="drag-drop text-center mb-4">
                         <div class="upload">
-                            <a href="#"><img src="{{ URL::asset('/build/img/icons/drag-drop.svg')}}" alt=""></a>
+                            <a href="#"><img src="{{ asset('assets/admin/assets/img/icons/drag-drop.svg') }}"
+                                    alt=""></a>
                             <p>Drag and drop a <a href="#">file to upload</a></p>
                         </div>
                         <input type="file" multiple="">
@@ -3990,7 +4062,8 @@
                     <ul>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">latest-version.zip<i
                                                 data-feather="check-circle" class="ms-2 feather-16"></i></a></h6>
@@ -4002,7 +4075,8 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/xls.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/xls.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls</a></h6>
                                     <span>616 MB</span>
@@ -4021,7 +4095,8 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/zip.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/zip.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Updated Project.zip</a></h6>
                                     <span>616 MB</span>
@@ -4060,7 +4135,9 @@
                 <div class="modal-body p-4">
                     <div class="drag-drop text-center mb-4">
                         <div class="upload">
-                            <a href="#"><img src="{{ URL::asset('/build/img/icons/drag-drop.svg')}}" alt=""></a>
+                            <a href="#"><img
+                                    src="{{ asset('assets/admin/assets/img/icons/drag-drop.svg') }}"
+                                    alt=""></a>
                             <p>Drag and drop a <a href="#">file to upload</a></p>
                         </div>
                         <input type="file" multiple="">
@@ -4078,7 +4155,8 @@
                     <ul>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">latest-version<i data-feather="check-circle"
                                                 class="ms-2 feather-16"></i></a></h6>
@@ -4090,7 +4168,8 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/xls.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/xls.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls<i
                                                 data-feather="trash-2" class="feather-16"></i></a></h6>
@@ -4106,7 +4185,8 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/zip.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/zip.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">updated project.zip<i data-feather="trash-2"
                                                 class="feather-16"></i></a></h6>
@@ -4207,7 +4287,8 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="javascript:void(0);"><img src="{{ URL::asset('/build/img/file-manager/folder-lg.png')}}" alt="Folder"></a>
+            <a href="javascript:void(0);"><img
+                    src="{{ asset('assets/admin/assets/img/file-manager/folder-lg.png') }}" alt="Folder"></a>
             <h5>Website Backup for the Design team</h5>
             <p>File Size : 616 MB</p>
         </div>
@@ -4278,22 +4359,26 @@
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 1" data-bs-original-title="Member 1"><img
-                                    src="{{ URL::asset('/build/img/avatar/avatar-1.jpg')}}" alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-1.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 2" data-bs-original-title="Member 2"><img
-                                    src="{{ URL::asset('/build/img/avatar/avatar-2.jpg')}}" alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-2.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 3" data-bs-original-title="Member 3"><img
-                                    src="{{ URL::asset('/build/img/avatar/avatar-3.jpg')}}" alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-3.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 4" data-bs-original-title="Member 4"><img
-                                    src="{{ URL::asset('/build/img/avatar/avatar-4.jpg')}}" alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-4.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);"
@@ -4310,27 +4395,32 @@
                 <ul class="mb-4">
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-1.jpg')}}"
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-1.jpg') }}"
                                     alt="Avatar" class="avatar-md"></a>
                             <p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
-                                src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for
                             the Design team</p>
                     </li>
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-2.jpg')}}"
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-2.jpg') }}"
                                     alt="Avatar" class="avatar-md"></a>
                             <p>Drake shared an item<br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
-                                src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for
                             the Design team</p>
                     </li>
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-3.jpg')}}"
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-3.jpg') }}"
                                     alt="Avatar" class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Melvin</p>
@@ -4340,7 +4430,8 @@
                     </li>
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-4.jpg')}}"
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-4.jpg') }}"
                                     alt="Avatar" class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Drake</p>
@@ -4354,27 +4445,32 @@
                 <ul class="mb-4">
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-1.jpg')}}"
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-1.jpg') }}"
                                     alt="Avatar" class="avatar-md"></a>
                             <p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
-                                src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for
                             the Design team</p>
                     </li>
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-2.jpg')}}"
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-2.jpg') }}"
                                     alt="Avatar" class="avatar-md"></a>
                             <p>Drake shared an item<br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
-                                src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for
                             the Design team</p>
                     </li>
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-3.jpg')}}"
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-3.jpg') }}"
                                     alt="Avatar" class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Melvin</p>
@@ -4384,7 +4480,8 @@
                     </li>
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-4.jpg')}}"
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-4.jpg') }}"
                                     alt="Avatar" class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Drake</p>
@@ -4414,7 +4511,9 @@
                 <div class="modal-body p-4">
                     <div class="drag-drop text-center mb-4">
                         <div class="upload">
-                            <a href="#"><img src="{{ URL::asset('/build/img/icons/drag-drop.svg')}}" alt=""></a>
+                            <a href="#"><img
+                                    src="{{ asset('assets/admin/assets/img/icons/drag-drop.svg') }}"
+                                    alt=""></a>
                             <p>Drag and drop a <a href="#">file to upload</a></p>
                         </div>
                         <input type="file" multiple="">
@@ -4432,7 +4531,8 @@
                     <ul>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">latest-version.zip<i
                                                 data-feather="check-circle" class="ms-2 feather-16"></i></a></h6>
@@ -4444,7 +4544,8 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/xls.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/xls.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls</a></h6>
                                     <span>616 MB</span>
@@ -4463,7 +4564,8 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/zip.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/zip.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Updated Project.zip</a></h6>
                                     <span>616 MB</span>
@@ -4502,7 +4604,9 @@
                 <div class="modal-body p-4">
                     <div class="drag-drop text-center mb-4">
                         <div class="upload">
-                            <a href="#"><img src="{{ URL::asset('/build/img/icons/drag-drop.svg')}}" alt=""></a>
+                            <a href="#"><img
+                                    src="{{ asset('assets/admin/assets/img/icons/drag-drop.svg') }}"
+                                    alt=""></a>
                             <p>Drag and drop a <a href="#">file to upload</a></p>
                         </div>
                         <input type="file" multiple="">
@@ -4520,7 +4624,8 @@
                     <ul>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">latest-version<i data-feather="check-circle"
                                                 class="ms-2 feather-16"></i></a></h6>
@@ -4532,7 +4637,8 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/xls.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/xls.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls<i
                                                 data-feather="trash-2" class="feather-16"></i></a></h6>
@@ -4548,7 +4654,8 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ URL::asset('/build/img/icons/zip.svg')}}" alt="Folder" class="me-2">
+                                <img src="{{ asset('assets/admin/assets/img/icons/zip.svg') }}" alt="Folder"
+                                    class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">updated project.zip<i data-feather="trash-2"
                                                 class="feather-16"></i></a></h6>
@@ -4828,7 +4935,8 @@
                                                     <input type="text"
                                                         placeholder="Scan/Search Product by code and select...">
                                                     <div class="addonset">
-                                                        <img src="{{ URL::asset('/build/img/icons/scanners.svg')}}" alt="img">
+                                                        <img src="{{ asset('assets/admin/assets/img/icons/scanners.svg') }}"
+                                                            alt="img">
                                                     </div>
                                                 </div>
                                             </div>
@@ -4858,7 +4966,7 @@
                                                                     <div class="productimgname">
                                                                         <a href="javascript:void(0);"
                                                                             class="product-img stock-img">
-                                                                            <img src="{{ URL::asset('/build/img/products/stock-img-02.png')}}"
+                                                                            <img src="{{ asset('assets/admin/assets/img/products/stock-img-02.png') }}"
                                                                                 alt="product">
                                                                         </a>
                                                                         <a href="javascript:void(0);">Nike Jordan</a>
@@ -4884,7 +4992,7 @@
                                                                 <td class="text-end">1500</td>
                                                                 <td>
                                                                     <a class="delete-set"><img
-                                                                            src="{{ URL::asset('/build/img/icons/delete.svg')}}"
+                                                                            src="{{ asset('assets/admin/assets/img/icons/delete.svg') }}"
                                                                             alt="svg')}}"></a>
                                                                 </td>
                                                             </tr>
@@ -5036,7 +5144,8 @@
                                         <div class="image-upload download">
                                             <input type="file">
                                             <div class="image-uploads">
-                                                <img src="{{ URL::asset('/build/img/download-img.png')}}" alt="img">
+                                                <img src="{{ asset('assets/admin/assets/img/download-img.png') }}"
+                                                    alt="img">
                                                 <h4>Drag and drop a <span>file to upload</span></h4>
                                             </div>
                                         </div>
@@ -5138,7 +5247,8 @@
                                                     <input type="text"
                                                         placeholder="Please type product code and select">
                                                     <div class="addonset">
-                                                        <img src="{{ URL::asset('/build/img/icons/qrcode-scan.svg')}}" alt="img">
+                                                        <img src="{{ asset('assets/admin/assets/img/icons/qrcode-scan.svg') }}"
+                                                            alt="img">
                                                     </div>
                                                 </div>
                                             </div>
@@ -5273,11 +5383,13 @@
                                 </li>
                                 <li>
                                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img
-                                            src="{{ URL::asset('/build/img/icons/pdf.svg')}}" alt="img"></a>
+                                            src="{{ asset('assets/admin/assets/img/icons/pdf.svg') }}"
+                                            alt="img"></a>
                                 </li>
                                 <li>
                                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img
-                                            src="{{ URL::asset('/build/img/icons/excel.svg')}}" alt="img"></a>
+                                            src="{{ asset('assets/admin/assets/img/icons/excel.svg') }}"
+                                            alt="img"></a>
                                 </li>
                                 <li>
                                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i
@@ -5340,7 +5452,7 @@
                                                             <div class="productimgname">
                                                                 <a href="javascript:void(0);"
                                                                     class="product-img stock-img">
-                                                                    <img src="{{ URL::asset('/build/img/products/stock-img-02.png')}}"
+                                                                    <img src="{{ asset('assets/admin/assets/img/products/stock-img-02.png') }}"
                                                                         alt="product">
                                                                 </a>
                                                                 <a href="javascript:void(0);">Nike Jordan</a>
@@ -5372,7 +5484,7 @@
                                                             <div class="productimgname">
                                                                 <a href="javascript:void(0);"
                                                                     class="product-img stock-img">
-                                                                    <img src="{{ URL::asset('/build/img/products/stock-img-03.png')}}"
+                                                                    <img src="{{ asset('assets/admin/assets/img/products/stock-img-03.png') }}"
                                                                         alt="product">
                                                                 </a>
                                                                 <a href="javascript:void(0);">Apple Series 5 Watch</a>
@@ -5404,7 +5516,7 @@
                                                             <div class="productimgname">
                                                                 <a href="javascript:void(0);"
                                                                     class="product-img stock-img">
-                                                                    <img src="{{ URL::asset('/build/img/products/stock-img-05.png')}}"
+                                                                    <img src="{{ asset('assets/admin/assets/img/products/stock-img-05.png') }}"
                                                                         alt="product">
                                                                 </a>
                                                                 <a href="javascript:void(0);">Lobar Handy</a>
@@ -5544,7 +5656,8 @@
                                                     <input type="text"
                                                         placeholder="Please type product code and select">
                                                     <div class="addonset">
-                                                        <img src="{{ URL::asset('/build/img/icons/scanners.svg')}}" alt="img">
+                                                        <img src="{{ asset('assets/admin/assets/img/icons/scanners.svg') }}"
+                                                            alt="img">
                                                     </div>
                                                 </div>
                                             </div>
@@ -5570,7 +5683,7 @@
                                                         <div class="productimgname">
                                                             <a href="javascript:void(0);"
                                                                 class="product-img stock-img">
-                                                                <img src="{{ URL::asset('/build/img/products/stock-img-02.png')}}"
+                                                                <img src="{{ asset('assets/admin/assets/img/products/stock-img-02.png') }}"
                                                                     alt="product">
                                                             </a>
                                                             <a href="javascript:void(0);">Nike Jordan</a>
@@ -5602,7 +5715,7 @@
                                                         <div class="productimgname">
                                                             <a href="javascript:void(0);"
                                                                 class="product-img stock-img">
-                                                                <img src="{{ URL::asset('/build/img/products/stock-img-03.png')}}"
+                                                                <img src="{{ asset('assets/admin/assets/img/products/stock-img-03.png') }}"
                                                                     alt="product">
                                                             </a>
                                                             <a href="javascript:void(0);">Apple Series 5 Watch</a>
@@ -5634,7 +5747,7 @@
                                                         <div class="productimgname">
                                                             <a href="javascript:void(0);"
                                                                 class="product-img stock-img">
-                                                                <img src="{{ URL::asset('/build/img/products/stock-img-05.png')}}"
+                                                                <img src="{{ asset('assets/admin/assets/img/products/stock-img-05.png') }}"
                                                                     alt="product">
                                                             </a>
                                                             <a href="javascript:void(0);">Lobar Handy</a>
@@ -6049,7 +6162,8 @@
                                                     <input type="text"
                                                         placeholder="Please type product code and select">
                                                     <div class="addonset">
-                                                        <img src="{{ URL::asset('/build/img/icons/qrcode-scan.svg')}}" alt="img">
+                                                        <img src="{{ asset('assets/admin/assets/img/icons/qrcode-scan.svg') }}"
+                                                            alt="img">
                                                     </div>
                                                 </div>
                                             </div>
@@ -6221,7 +6335,8 @@
                                                     <input type="text"
                                                         placeholder="Please type product code and select">
                                                     <div class="addonset">
-                                                        <img src="{{ URL::asset('/build/img/icons/qrcode-scan.svg')}}" alt="img">
+                                                        <img src="{{ asset('assets/admin/assets/img/icons/qrcode-scan.svg') }}"
+                                                            alt="img">
                                                     </div>
                                                 </div>
                                             </div>
@@ -6245,7 +6360,7 @@
                                                     <td>
                                                         <div class="productimgname">
                                                             <a href="javascript:void(0);" class="product-img">
-                                                                <img src="{{ URL::asset('/build/img/products/product6.jpg')}}"
+                                                                <img src="{{ asset('assets/admin/assets/img/products/product6.jpg') }}"
                                                                     alt="product">
                                                             </a>
                                                             <a href="javascript:void(0);">Apple Earpods</a>
@@ -6262,7 +6377,7 @@
                                                     <td>
                                                         <div class="productimgname">
                                                             <a href="javascript:void(0);" class="product-img">
-                                                                <img src="{{ URL::asset('/build/img/products/product7.jpg')}}"
+                                                                <img src="{{ asset('assets/admin/assets/img/products/product7.jpg') }}"
                                                                     alt="product">
                                                             </a>
                                                             <a href="javascript:void(0);">Apple Earpods</a>
@@ -6390,7 +6505,8 @@
                                                     <div class="add-icon tab">
                                                         <a class="btn btn-filter" data-bs-toggle="modal"
                                                             data-bs-target="#add-units"><img
-                                                                src="{{ URL::asset('/build/img/icons/plus1.svg')}}" alt="img">
+                                                                src="{{ asset('assets/admin/assets/img/icons/plus1.svg') }}"
+                                                                alt="img">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -6422,7 +6538,8 @@
                                                 <input type="text"
                                                     placeholder="Please type product code and select">
                                                 <div class="addonset">
-                                                    <img src="{{ URL::asset('/build/img/icons/qrcode-scan.svg')}}" alt="img">
+                                                    <img src="{{ asset('assets/admin/assets/img/icons/qrcode-scan.svg') }}"
+                                                        alt="img">
                                                 </div>
                                             </div>
                                         </div>
@@ -6588,7 +6705,8 @@
                                                     <input type="text"
                                                         placeholder="Please type product code and select">
                                                     <div class="addonset">
-                                                        <img src="{{ URL::asset('/build/img/icons/scanners.svg')}}" alt="img">
+                                                        <img src="{{ asset('assets/admin/assets/img/icons/scanners.svg') }}"
+                                                            alt="img">
                                                     </div>
                                                 </div>
                                             </div>
@@ -6614,7 +6732,7 @@
                                                         <div class="productimgname">
                                                             <a href="javascript:void(0);"
                                                                 class="product-img stock-img">
-                                                                <img src="{{ URL::asset('/build/img/products/stock-img-02.png')}}"
+                                                                <img src="{{ asset('assets/admin/assets/img/products/stock-img-02.png') }}"
                                                                     alt="product">
                                                             </a>
                                                             <a href="javascript:void(0);">Nike Jordan</a>
@@ -6646,7 +6764,7 @@
                                                         <div class="productimgname">
                                                             <a href="javascript:void(0);"
                                                                 class="product-img stock-img">
-                                                                <img src="{{ URL::asset('/build/img/products/stock-img-03.png')}}"
+                                                                <img src="{{ asset('assets/admin/assets/img/products/stock-img-03.png') }}"
                                                                     alt="product">
                                                             </a>
                                                             <a href="javascript:void(0);">Apple Series 5 Watch</a>
@@ -6678,7 +6796,7 @@
                                                         <div class="productimgname">
                                                             <a href="javascript:void(0);"
                                                                 class="product-img stock-img">
-                                                                <img src="{{ URL::asset('/build/img/products/stock-img-05.png')}}"
+                                                                <img src="{{ asset('assets/admin/assets/img/products/stock-img-05.png') }}"
                                                                     alt="product">
                                                             </a>
                                                             <a href="javascript:void(0);">Lobar Handy</a>
@@ -6833,7 +6951,8 @@
                 <div class="modal-body">
                     <div class="icon-head text-center">
                         <a href="{{ url('pos-design') }}">
-                            <img src="{{ URL::asset('/build/img/logo.png')}}" width="100" height="30" alt="Receipt Logo">
+                            <img src="{{ asset('assets/admin/assets/img/logo.png') }}" width="100"
+                                height="30" alt="Receipt Logo">
                         </a>
                     </div>
                     <div class="text-center info text-center">
@@ -6922,7 +7041,8 @@
                         <p>**VAT against this challan is payable through central registration. Thank you for your
                             business!</p>
                         <a href="{{ url('pos-design') }}">
-                            <img src="{{ URL::asset('/build/img/barcode/barcode-03.jpg')}}" alt="Barcode">
+                            <img src="{{ asset('assets/admin/assets/img/barcode/barcode-03.jpg') }}"
+                                alt="Barcode">
                         </a>
                         <p>Sale 31</p>
                         <p>Thank You For Shopping With Us. Please Come Again</p>
@@ -6953,7 +7073,8 @@
                             <div class="product-list d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center flex-fill">
                                     <a href="javascript:void(0);" class="img-bg me-2">
-                                        <img src="{{ URL::asset('/build/img/products/pos-product-16.png')}}" alt="Products">
+                                        <img src="{{ asset('assets/admin/assets/img/products/pos-product-16.png') }}"
+                                            alt="Products">
                                     </a>
                                     <div class="info d-flex align-items-center justify-content-between flex-fill">
                                         <div>
@@ -6968,7 +7089,8 @@
                             <div class="product-list d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center flex-fill">
                                     <a href="javascript:void(0);" class="img-bg me-2">
-                                        <img src="{{ URL::asset('/build/img/products/pos-product-17.png')}}" alt="Products">
+                                        <img src="{{ asset('assets/admin/assets/img/products/pos-product-17.png') }}"
+                                            alt="Products">
                                     </a>
                                     <div class="info d-flex align-items-center justify-content-between flex-fill">
                                         <div>
@@ -6982,7 +7104,8 @@
                             <div class="product-list d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center flex-fill">
                                     <a href="javascript:void(0);" class="img-bg me-2">
-                                        <img src="{{ URL::asset('/build/img/products/pos-product-16.png')}}" alt="Products">
+                                        <img src="{{ asset('assets/admin/assets/img/products/pos-product-16.png') }}"
+                                            alt="Products">
                                     </a>
                                     <div class="info d-flex align-items-center justify-content-between flex-fill">
                                         <div>
@@ -6996,7 +7119,8 @@
                             <div class="product-list d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center flex-fill">
                                     <a href="javascript:void(0);" class="img-bg me-2">
-                                        <img src="{{ URL::asset('/build/img/products/pos-product-17.png')}}" alt="Products">
+                                        <img src="{{ asset('assets/admin/assets/img/products/pos-product-17.png') }}"
+                                            alt="Products">
                                     </a>
                                     <div class="info d-flex align-items-center justify-content-between flex-fill">
                                         <div>
@@ -7218,7 +7342,8 @@
                                     <div class="search-set">
                                         <div class="search-input">
                                             <a class="btn btn-searchset d-flex align-items-center h-100"><img
-                                                    src="{{ URL::asset('/build/img/icons/search-white.svg')}}" alt="img"></a>
+                                                    src="{{ asset('assets/admin/assets/img/icons/search-white.svg') }}"
+                                                    alt="img"></a>
                                         </div>
                                     </div>
                                     <div class="wordset">
@@ -7226,13 +7351,15 @@
                                             <li>
                                                 <a class="d-flex align-items-center justify-content-center"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Pdf"><img src="{{ URL::asset('/build/img/icons/pdf.svg')}}"
+                                                    title="Pdf"><img
+                                                        src="{{ asset('assets/admin/assets/img/icons/pdf.svg') }}"
                                                         alt="img"></a>
                                             </li>
                                             <li>
                                                 <a class="d-flex align-items-center justify-content-center"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Excel"><img src="{{ URL::asset('/build/img/icons/excel.svg')}}"
+                                                    title="Excel"><img
+                                                        src="{{ asset('assets/admin/assets/img/icons/excel.svg') }}"
                                                         alt="img"></a>
                                             </li>
                                             <li>
@@ -7384,7 +7511,8 @@
                                     <div class="search-set">
                                         <div class="search-input">
                                             <a class="btn btn-searchset d-flex align-items-center h-100"><img
-                                                    src="{{ URL::asset('/build/img/icons/search-white.svg')}}" alt="img"></a>
+                                                    src="{{ asset('assets/admin/assets/img/icons/search-white.svg') }}"
+                                                    alt="img"></a>
                                         </div>
                                     </div>
                                     <div class="wordset">
@@ -7392,13 +7520,15 @@
                                             <li>
                                                 <a class="d-flex align-items-center justify-content-center"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Pdf"><img src="{{ URL::asset('/build/img/icons/pdf.svg')}}"
+                                                    title="Pdf"><img
+                                                        src="{{ asset('assets/admin/assets/img/icons/pdf.svg') }}"
                                                         alt="img"></a>
                                             </li>
                                             <li>
                                                 <a class="d-flex align-items-center justify-content-center"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Excel"><img src="{{ URL::asset('/build/img/icons/excel.svg')}}"
+                                                    title="Excel"><img
+                                                        src="{{ asset('assets/admin/assets/img/icons/excel.svg') }}"
                                                         alt="img"></a>
                                             </li>
                                             <li>
@@ -7550,7 +7680,8 @@
                                     <div class="search-set">
                                         <div class="search-input">
                                             <a class="btn btn-searchset d-flex align-items-center h-100"><img
-                                                    src="{{ URL::asset('/build/img/icons/search-white.svg')}}" alt="img"></a>
+                                                    src="{{ asset('assets/admin/assets/img/icons/search-white.svg') }}"
+                                                    alt="img"></a>
                                         </div>
                                     </div>
                                     <div class="wordset">
@@ -7558,12 +7689,14 @@
                                             <li>
                                                 <a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"
                                                     class="d-flex align-items-center justify-content-center"><img
-                                                        src="{{ URL::asset('/build/img/icons/pdf.svg')}}" alt="img"></a>
+                                                        src="{{ asset('assets/admin/assets/img/icons/pdf.svg') }}"
+                                                        alt="img"></a>
                                             </li>
                                             <li>
                                                 <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"
                                                     class="d-flex align-items-center justify-content-center"><img
-                                                        src="{{ URL::asset('/build/img/icons/excel.svg')}}" alt="img"></a>
+                                                        src="{{ asset('assets/admin/assets/img/icons/excel.svg') }}"
+                                                        alt="img"></a>
                                             </li>
                                             <li>
                                                 <a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"
@@ -7752,7 +7885,8 @@
                                     <div class="search-set w-100 search-order">
                                         <div class="search-input w-100">
                                             <a class="btn btn-searchset d-flex align-items-center h-100"><img
-                                                    src="{{ URL::asset('/build/img/icons/search-white.svg')}}" alt="img"></a>
+                                                    src="{{ asset('assets/admin/assets/img/icons/search-white.svg') }}"
+                                                    alt="img"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -7891,7 +8025,8 @@
                                     <div class="search-set w-100 search-order">
                                         <div class="search-input">
                                             <a class="btn btn-searchset d-flex align-items-center h-100"><img
-                                                    src="{{ URL::asset('/build/img/icons/search-white.svg')}}" alt="img"></a>
+                                                    src="{{ asset('assets/admin/assets/img/icons/search-white.svg') }}"
+                                                    alt="img"></a>
                                         </div>
                                     </div>
 
@@ -8030,7 +8165,8 @@
                                     <div class="search-set w-100 search-order">
                                         <div class="search-input">
                                             <a class="btn btn-searchset d-flex align-items-center h-100"><img
-                                                    src="{{ URL::asset('/build/img/icons/search-white.svg')}}" alt="img"></a>
+                                                    src="{{ asset('assets/admin/assets/img/icons/search-white.svg') }}"
+                                                    alt="img"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -8525,7 +8661,8 @@
                                 <div class="new-employee-field">
                                     <div class="profile-pic-upload">
                                         <div class="profile-pic people-profile-pic">
-                                            <img src="{{ URL::asset('/build/img/profiles/profile.png')}}" alt="Img">
+                                            <img src="{{ asset('assets/admin/assets/img/profiles/profile.png') }}"
+                                                alt="Img">
                                             <a href="#"><i data-feather="x-square"
                                                     class="x-square-add"></i></a>
                                         </div>
@@ -8629,23 +8766,24 @@
                                 @csrf
                                 <div class="mb-3 d-none">
                                     <label class="form-label">Id</label>
-                                    <input type="text" name="id" class="form-control" >
+                                    <input type="text" name="id" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Kode</label>
-                                    <input type="text" name="code" class="form-control" >
+                                    <input type="text" name="code" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nama</label>
-                                    <input type="text" name="name" class="form-control" >
+                                    <input type="text" name="name" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
-                                    <input type="email" name="email" class="form-control" >
+                                    <input type="email" name="email" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">No. Telpon</label>
-                                    <input type="number" name="phone" class="form-control" placeholder="Masukkan nomor telepon" pattern="[0-9]{10,15}">
+                                    <input type="number" name="phone" class="form-control"
+                                        placeholder="Masukkan nomor telepon" pattern="[0-9]{10,15}">
                                 </div>
                                 <div class="mb-3">
                                     <label>Alamat</label>
@@ -8654,17 +8792,18 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">No. Npwp</label>
-                                    <input type="number" name="npwp" class="form-control" >
+                                    <input type="number" name="npwp" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Diskon</label>
-                                    <input type="number" name="discount" class="form-control" >
+                                    <input type="number" name="discount" class="form-control">
                                 </div>
                                 <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                        <input type="checkbox" id="status-add" name="status" class="check"
+                                            checked="">
                                         <label for="status-add" class="checktoggle"></label>
                                     </div>
                                 </div>
@@ -8702,23 +8841,23 @@
                                 @csrf
                                 <div class="mb-3 d-none">
                                     <label class="form-label">Id</label>
-                                    <input type="text" name="id" class="form-control" >
+                                    <input type="text" name="id" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Kode</label>
-                                    <input type="text" name="code" class="form-control" >
+                                    <input type="text" name="code" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nama</label>
-                                    <input type="text" name="name" class="form-control" >
+                                    <input type="text" name="name" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
-                                    <input type="email" name="email" class="form-control" >
+                                    <input type="email" name="email" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">No. Telpon</label>
-                                    <input type="number" name="phone" class="form-control" >
+                                    <input type="number" name="phone" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label>Alamat</label>
@@ -8727,17 +8866,18 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">No. Npwp</label>
-                                    <input type="number" name="npwp" class="form-control" >
+                                    <input type="number" name="npwp" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Diskon</label>
-                                    <input type="number" name="discount" class="form-control" >
+                                    <input type="number" name="discount" class="form-control">
                                 </div>
                                 <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                        <input type="checkbox" id="status-add" name="status" class="check"
+                                            checked="">
                                         <label for="status-add" class="checktoggle"></label>
                                     </div>
                                 </div>
@@ -8901,19 +9041,19 @@
                                 @csrf
                                 <div class="mb-3 d-none">
                                     <label class="form-label">Id</label>
-                                    <input type="text" name="id" class="form-control" >
+                                    <input type="text" name="id" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Kode</label>
-                                    <input type="text" name="code" class="form-control" >
+                                    <input type="text" name="code" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nama</label>
-                                    <input type="text" name="name" class="form-control" >
+                                    <input type="text" name="name" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Deskripsi</label>
-                                    <input type="text" name="description" class="form-control" >
+                                    <input type="text" name="description" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label>Alamat</label>
@@ -8922,24 +9062,26 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Telpon</label>
-                                    <input type="number" name="phone" class="form-control" >
+                                    <input type="number" name="phone" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Foto</label>
-                                    <input type="text" name="image_url" class="form-control" >
+                                    <input type="text" name="image_url" class="form-control">
                                 </div>
                                 <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                        <input type="checkbox" id="status-add" name="status" class="check"
+                                            checked="">
                                         <label for="status-add" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
-                                    <button type="button" class="btn btn-cancel me-2"
-                                        data-bs-dismiss="modal"  name="cancel-button">Cancel</button>
-                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save Changes</button>
+                                    <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal"
+                                        name="cancel-button">Cancel</button>
+                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save
+                                        Changes</button>
                                 </div>
                             </form>
                         </div>
@@ -8965,19 +9107,20 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body">
-                            <form id="warehouseEditForm" method="post" action="{{ route('warehouse-update') }}">
+                            <form id="warehouseEditForm" method="post"
+                                action="{{ route('warehouse-update') }}">
                                 @csrf
                                 <div class="mb-3">
                                     <label class="form-label">Kode</label>
-                                    <input type="text" name="code" class="form-control" >
+                                    <input type="text" name="code" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nama</label>
-                                    <input type="text" name="name" class="form-control" >
+                                    <input type="text" name="name" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Deskripsi</label>
-                                    <input type="text" name="description" class="form-control" >
+                                    <input type="text" name="description" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label>Alamat</label>
@@ -8986,24 +9129,26 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Telpon</label>
-                                    <input type="number" name="phone" class="form-control" >
+                                    <input type="number" name="phone" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Foto</label>
-                                    <input type="text" name="image_url" class="form-control" >
+                                    <input type="text" name="image_url" class="form-control">
                                 </div>
                                 <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
-                                        <input type="checkbox" id="status-add" name="status" class="check" checked="">
+                                        <input type="checkbox" id="status-add" name="status" class="check"
+                                            checked="">
                                         <label for="status-add" class="checktoggle"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
-                                    <button type="button" class="btn btn-cancel me-2"
-                                        data-bs-dismiss="modal"  name="cancel-button">Cancel</button>
-                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save Changes</button>
+                                    <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal"
+                                        name="cancel-button">Cancel</button>
+                                    <button type="submit" id="submit-add-button" class="btn btn-submit">Save
+                                        Changes</button>
                                 </div>
                             </form>
                         </div>
@@ -9014,6583 +9159,7140 @@
     </div>
 @endif
 
-@if(Route::is(['attendance-admin']))
-		<!-- Add Attendance -->
-		<div class="modal fade" id="add-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Attendance</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="attendance-admin">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Employee Name</label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Mitchum Daniel</option>
-													<option>Janet Hembre</option>
-													<option>Russell Belle</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Clock In</label>
-												<div class="form-icon">
-													<input type="text" class="form-control timepicker" placeholder="Select">
-													<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Clock Out</label>
-												<div class="form-icon">
-													<input type="text" class="form-control timepicker" placeholder="Select">
-													<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Attendance -->
-
-		<!-- Edit Warehouse -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Attendance</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="attendance-admin">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="input-blocks">
-												<label>Employee Name</label>
-												<select class="select">
-													<option>Mitchum Daniel</option>
-													<option>Janet Hembre</option>
-													<option>Russell Belle</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Clock In</label>
-												<div class="form-icon">
-													<input type="text" class="form-control timepicker" placeholder="09:15 AM">
-													<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Clock Out</label>
-												<div class="form-icon">
-													<input type="text" class="form-control timepicker" placeholder="07:30 PM">
-													<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Warehouse -->
-
-		<!-- Add Attendance -->
-		<div class="modal fade" id="delete-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-deletecontent">
-							<i data-feather="x-circle" class="feather-xcircircle"></i>
-							<h4>Are You Sure?</h4>
-							<p>Do you really want to delete this item, This process cannot be undone.</p>
-							<div class="modal-footer-btn delete">
-								<a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
-								<a href="{{url('attendance-admin')}}" class="btn btn-submit">Delete</a>
-							</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Attendance -->
-@endif
-
-@if(Route::is(['attendance-employee']))
-		<!-- Add Attendance -->
-		<div class="modal fade" id="add-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Attendance</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<div class="row">
-									<div class="col-lg-12">
-										<div class="input-blocks">
-											<label>Employee Name</label>
-											<select class="select">
-												<option>Choose</option>
-												<option>Mitchum Daniel</option>
-												<option>Janet Hembre</option>
-												<option>Russell Belle</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="input-blocks">
-											<label>Clock In</label>
-											<div class="form-icon">
-												<input type="text" class="form-control timepicker" placeholder="Select">
-												<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="input-blocks">
-											<label>Clock Out</label>
-											<div class="form-icon">
-												<input type="text" class="form-control timepicker" placeholder="Select">
-												<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="modal-footer-btn">
-									<a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
-									<a href="{{url('warehouse')}}" class="btn btn-submit">Submit</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Attendance -->
-
-		<!-- Edit Warehouse -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Attendance</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<div class="row">
-									<div class="col-lg-12">
-										<div class="input-blocks">
-											<label>Employee Name</label>
-											<select class="select">
-												<option>Mitchum Daniel</option>
-												<option>Janet Hembre</option>
-												<option>Russell Belle</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="input-blocks">
-											<label>Clock In</label>
-											<div class="form-icon">
-												<input type="text" class="form-control timepicker" placeholder="09:15 AM">
-												<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="input-blocks">
-											<label>Clock Out</label>
-											<div class="form-icon">
-												<input type="text" class="form-control timepicker" placeholder="07:30 PM">
-												<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="modal-footer-btn">
-									<a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
-									<a href="{{url('warehouse')}}" class="btn btn-submit">Save Changes</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Warehouse -->
-@endif
-
-@if(Route::is(['ban-ip-address']))
-		<!-- Add BanIp -->
-		<div class="modal fade" id="add-banip">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add New Ban IP Address</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="ban-ip-address">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">IP Address</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Reason For Ban</label>
-												<textarea rows="4" placeholder="Type your message" class="form-control"></textarea>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user5" class="check" checked="">
-												<label for="user5" class="checktoggle"></label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add BanIp -->
-
-		<!-- Edit BanIp -->
-		<div class="modal fade" id="edit-banip">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Ban IP Address</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="ban-ip-address">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">IP Address</label>
-												<input type="text" class="form-control" value="211.11.0.25">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Reason For Ban</label>
-												<textarea rows="4" class="form-control" placeholder="Temporarily block to protect user accounts from internet fraudsters."></textarea>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user4" class="check" checked="">
-												<label for="user4" class="checktoggle"></label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit BanIp -->
-@endif
-
-@if(Route::is(['bank-settings-grid']))
-		<!-- Add Bank Account -->
-		<div class="modal fade" id="add-account">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Bank Account</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="user1" class="check" checked>
-									<label for="user1" class="checktoggle">	</label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="bank-settings-grid">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Bank Name <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Account Number <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Account Name <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Branch <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">IFSC <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center mb-3">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user2" class="check" checked="">
-												<label for="user2" class="checktoggle"></label>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Make as default</span>
-												<input type="checkbox" id="user3" class="check" checked="">
-												<label for="user3" class="checktoggle"></label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Bank Account -->
-
-		<!-- Edit Bank Account -->
-		<div class="modal fade" id="edit-account">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Bank Account</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="user4" class="check" checked>
-									<label for="user4" class="checktoggle">	</label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="bank-settings-grid">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Bank Name <span> *</span></label>
-												<input type="text" class="form-control" value="HDFC">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Account Number <span> *</span></label>
-												<input type="text" class="form-control" value="**** **** 1832">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Account Name <span> *</span></label>
-												<input type="text" class="form-control" value="Mathew">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Branch <span> *</span></label>
-												<input type="text" class="form-control" value="Bringham">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">IFSC <span> *</span></label>
-												<input type="text" class="form-control" value="124547">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center mb-3">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user5" class="check" checked="">
-												<label for="user5" class="checktoggle"></label>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Make as default</span>
-												<input type="checkbox" id="user6" class="check" checked="">
-												<label for="user6" class="checktoggle"></label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Bank Account -->
-@endif
-
-@if(Route::is(['bank-settings-list']))
-		<!-- Add Bank Account -->
-		<div class="modal fade" id="add-account">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Bank Account</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="user1" class="check" checked>
-									<label for="user1" class="checktoggle">	</label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="bank-settings-list">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Bank Name <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Account Number <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Account Name <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Branch <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">IFSC <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center mb-3">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user2" class="check" checked="">
-												<label for="user2" class="checktoggle"></label>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Make as default</span>
-												<input type="checkbox" id="user3" class="check" checked="">
-												<label for="user3" class="checktoggle"></label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Bank Account -->
-
-		<!-- Edit Bank Account -->
-		<div class="modal fade" id="edit-account">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Bank Account</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="user4" class="check" checked>
-									<label for="user4" class="checktoggle">	</label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="bank-settings-list">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Bank Name <span> *</span></label>
-												<input type="text" class="form-control" value="HDFC">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Account Number <span> *</span></label>
-												<input type="text" class="form-control" value="**** **** 1832">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Account Name <span> *</span></label>
-												<input type="text" class="form-control" value="Mathew">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Branch <span> *</span></label>
-												<input type="text" class="form-control" value="Bringham">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">IFSC <span> *</span></label>
-												<input type="text" class="form-control" value="124547">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center mb-3">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user5" class="check" checked="">
-												<label for="user5" class="checktoggle"></label>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Make as default</span>
-												<input type="checkbox" id="user6" class="check" checked="">
-												<label for="user6" class="checktoggle"></label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Bank Account -->
-@endif
-
-@if(Route::is(['calendar']))
-            	<!-- Add Event Modal -->
-				<div id="add_event" class="modal custom-modal fade" role="dialog">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title">Add Event</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-							</div>
-							<div class="modal-body">
-								<form action="calendar">
-									<div class="input-blocks">
-										<label>Event Name <span class="text-danger">*</span></label>
-										<input class="form-control" type="text">
-									</div>
-									<div class="input-blocks">
-										<label>Event Date <span class="text-danger">*</span></label>
-										<div class="cal-icon">
-											<input class="form-control " type="text">
-										</div>
-									</div>
-									<div class="submit-section">
-										<button type="submit" class="btn btn-primary submit-btn">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Add Event Modal -->
-
-                <!-- Add Event Modal -->
-                <div class="modal custom-modal fade none-border" id="my_event">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add Event</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+@if (Route::is(['attendance-admin']))
+    <!-- Add Attendance -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Attendance</h4>
                             </div>
-                            <div class="modal-body">
-								<form action="calendar">
-									<div class="modal-footer justify-content-center">
-										<button type="button" class="btn btn-success save-event submit-btn">Create event</button>
-										<button type="submit" class="btn btn-danger delete-event submit-btn" data-dismiss="modal">Delete</button>
-									</div>
-								</form>
-							</div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="attendance-admin">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Employee Name</label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Mitchum Daniel</option>
+                                                <option>Janet Hembre</option>
+                                                <option>Russell Belle</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Clock In</label>
+                                            <div class="form-icon">
+                                                <input type="text" class="form-control timepicker"
+                                                    placeholder="Select">
+                                                <span class="cus-icon"><i data-feather="clock"
+                                                        class="feather-clock"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Clock Out</label>
+                                            <div class="form-icon">
+                                                <input type="text" class="form-control timepicker"
+                                                    placeholder="Select">
+                                                <span class="cus-icon"><i data-feather="clock"
+                                                        class="feather-clock"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-				<!-- /Add Event Modal -->
+            </div>
+        </div>
+    </div>
+    <!-- /Add Attendance -->
 
-                <!-- Add Category Modal -->
-                <div class="modal custom-modal fade" id="add_new_event">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add Category</h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"><span aria-hidden="true">×</span></button>
+    <!-- Edit Warehouse -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Attendance</h4>
                             </div>
-                            <div class="modal-body">
-                                <form action="calendar">
-									<div class="mb-3">
-										<label class="form-label">Category Name</label>
-										<input class="form-control form-white" placeholder="Enter name" type="text" name="category-name">
-									</div>
-									<div class="mb-3">
-										<label class="form-label">Choose Category Color</label>
-										<select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-											<option value="success">Success</option>
-											<option value="danger">Danger</option>
-											<option value="info">Info</option>
-											<option value="primary">Primary</option>
-											<option value="warning">Warning</option>
-											<option value="inverse">Inverse</option>
-										</select>
-									</div>
-									<div class="submit-section">
-										<button type="submit" class="btn btn-primary save-category submit-btn" data-dismiss="modal">Save</button>
-									</div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="attendance-admin">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label>Employee Name</label>
+                                            <select class="select">
+                                                <option>Mitchum Daniel</option>
+                                                <option>Janet Hembre</option>
+                                                <option>Russell Belle</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Clock In</label>
+                                            <div class="form-icon">
+                                                <input type="text" class="form-control timepicker"
+                                                    placeholder="09:15 AM">
+                                                <span class="cus-icon"><i data-feather="clock"
+                                                        class="feather-clock"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Clock Out</label>
+                                            <div class="form-icon">
+                                                <input type="text" class="form-control timepicker"
+                                                    placeholder="07:30 PM">
+                                                <span class="cus-icon"><i data-feather="clock"
+                                                        class="feather-clock"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Warehouse -->
+
+    <!-- Add Attendance -->
+    <div class="modal fade" id="delete-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-deletecontent">
+                            <i data-feather="x-circle" class="feather-xcircircle"></i>
+                            <h4>Are You Sure?</h4>
+                            <p>Do you really want to delete this item, This process cannot be undone.</p>
+                            <div class="modal-footer-btn delete">
+                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
+                                    data-bs-dismiss="modal">Cancel</a>
+                                <a href="{{ url('attendance-admin') }}" class="btn btn-submit">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Attendance -->
+@endif
+
+@if (Route::is(['attendance-employee']))
+    <!-- Add Attendance -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Attendance</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="input-blocks">
+                                        <label>Employee Name</label>
+                                        <select class="select">
+                                            <option>Choose</option>
+                                            <option>Mitchum Daniel</option>
+                                            <option>Janet Hembre</option>
+                                            <option>Russell Belle</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-blocks">
+                                        <label>Clock In</label>
+                                        <div class="form-icon">
+                                            <input type="text" class="form-control timepicker"
+                                                placeholder="Select">
+                                            <span class="cus-icon"><i data-feather="clock"
+                                                    class="feather-clock"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-blocks">
+                                        <label>Clock Out</label>
+                                        <div class="form-icon">
+                                            <input type="text" class="form-control timepicker"
+                                                placeholder="Select">
+                                            <span class="cus-icon"><i data-feather="clock"
+                                                    class="feather-clock"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer-btn">
+                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
+                                    data-bs-dismiss="modal">Cancel</a>
+                                <a href="{{ url('warehouse') }}" class="btn btn-submit">Submit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Attendance -->
+
+    <!-- Edit Warehouse -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Attendance</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="input-blocks">
+                                        <label>Employee Name</label>
+                                        <select class="select">
+                                            <option>Mitchum Daniel</option>
+                                            <option>Janet Hembre</option>
+                                            <option>Russell Belle</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-blocks">
+                                        <label>Clock In</label>
+                                        <div class="form-icon">
+                                            <input type="text" class="form-control timepicker"
+                                                placeholder="09:15 AM">
+                                            <span class="cus-icon"><i data-feather="clock"
+                                                    class="feather-clock"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-blocks">
+                                        <label>Clock Out</label>
+                                        <div class="form-icon">
+                                            <input type="text" class="form-control timepicker"
+                                                placeholder="07:30 PM">
+                                            <span class="cus-icon"><i data-feather="clock"
+                                                    class="feather-clock"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer-btn">
+                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
+                                    data-bs-dismiss="modal">Cancel</a>
+                                <a href="{{ url('warehouse') }}" class="btn btn-submit">Save Changes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Warehouse -->
+@endif
+
+@if (Route::is(['ban-ip-address']))
+    <!-- Add BanIp -->
+    <div class="modal fade" id="add-banip">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add New Ban IP Address</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="ban-ip-address">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">IP Address</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Reason For Ban</label>
+                                            <textarea rows="4" placeholder="Type your message" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user5" class="check" checked="">
+                                            <label for="user5" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add BanIp -->
+
+    <!-- Edit BanIp -->
+    <div class="modal fade" id="edit-banip">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Ban IP Address</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="ban-ip-address">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">IP Address</label>
+                                            <input type="text" class="form-control" value="211.11.0.25">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Reason For Ban</label>
+                                            <textarea rows="4" class="form-control"
+                                                placeholder="Temporarily block to protect user accounts from internet fraudsters."></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user4" class="check" checked="">
+                                            <label for="user4" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit BanIp -->
+@endif
+
+@if (Route::is(['bank-settings-grid']))
+    <!-- Add Bank Account -->
+    <div class="modal fade" id="add-account">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Bank Account</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="user1" class="check" checked>
+                                <label for="user1" class="checktoggle"> </label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="bank-settings-grid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Bank Name <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Account Number <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Account Name <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Branch <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">IFSC <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center mb-3">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user2" class="check" checked="">
+                                            <label for="user2" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Make as default</span>
+                                            <input type="checkbox" id="user3" class="check" checked="">
+                                            <label for="user3" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Bank Account -->
+
+    <!-- Edit Bank Account -->
+    <div class="modal fade" id="edit-account">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Bank Account</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="user4" class="check" checked>
+                                <label for="user4" class="checktoggle"> </label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="bank-settings-grid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Bank Name <span> *</span></label>
+                                            <input type="text" class="form-control" value="HDFC">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Account Number <span> *</span></label>
+                                            <input type="text" class="form-control" value="**** **** 1832">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Account Name <span> *</span></label>
+                                            <input type="text" class="form-control" value="Mathew">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Branch <span> *</span></label>
+                                            <input type="text" class="form-control" value="Bringham">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">IFSC <span> *</span></label>
+                                            <input type="text" class="form-control" value="124547">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center mb-3">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user5" class="check" checked="">
+                                            <label for="user5" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Make as default</span>
+                                            <input type="checkbox" id="user6" class="check" checked="">
+                                            <label for="user6" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Bank Account -->
+@endif
+
+@if (Route::is(['bank-settings-list']))
+    <!-- Add Bank Account -->
+    <div class="modal fade" id="add-account">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Bank Account</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="user1" class="check" checked>
+                                <label for="user1" class="checktoggle"> </label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="bank-settings-list">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Bank Name <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Account Number <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Account Name <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Branch <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">IFSC <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center mb-3">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user2" class="check" checked="">
+                                            <label for="user2" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Make as default</span>
+                                            <input type="checkbox" id="user3" class="check" checked="">
+                                            <label for="user3" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Bank Account -->
+
+    <!-- Edit Bank Account -->
+    <div class="modal fade" id="edit-account">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Bank Account</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="user4" class="check" checked>
+                                <label for="user4" class="checktoggle"> </label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="bank-settings-list">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Bank Name <span> *</span></label>
+                                            <input type="text" class="form-control" value="HDFC">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Account Number <span> *</span></label>
+                                            <input type="text" class="form-control" value="**** **** 1832">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Account Name <span> *</span></label>
+                                            <input type="text" class="form-control" value="Mathew">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Branch <span> *</span></label>
+                                            <input type="text" class="form-control" value="Bringham">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">IFSC <span> *</span></label>
+                                            <input type="text" class="form-control" value="124547">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center mb-3">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user5" class="check" checked="">
+                                            <label for="user5" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Make as default</span>
+                                            <input type="checkbox" id="user6" class="check" checked="">
+                                            <label for="user6" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Bank Account -->
+@endif
+
+@if (Route::is(['calendar']))
+    <!-- Add Event Modal -->
+    <div id="add_event" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="calendar">
+                        <div class="input-blocks">
+                            <label>Event Name <span class="text-danger">*</span></label>
+                            <input class="form-control" type="text">
+                        </div>
+                        <div class="input-blocks">
+                            <label>Event Date <span class="text-danger">*</span></label>
+                            <div class="cal-icon">
+                                <input class="form-control " type="text">
+                            </div>
+                        </div>
+                        <div class="submit-section">
+                            <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Event Modal -->
+
+    <!-- Add Event Modal -->
+    <div class="modal custom-modal fade none-border" id="my_event">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Event</h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form action="calendar">
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-success save-event submit-btn">Create
+                                event</button>
+                            <button type="submit" class="btn btn-danger delete-event submit-btn"
+                                data-dismiss="modal">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Event Modal -->
+
+    <!-- Add Category Modal -->
+    <div class="modal custom-modal fade" id="add_new_event">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Category</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="calendar">
+                        <div class="mb-3">
+                            <label class="form-label">Category Name</label>
+                            <input class="form-control form-white" placeholder="Enter name" type="text"
+                                name="category-name">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Choose Category Color</label>
+                            <select class="form-control form-white" data-placeholder="Choose a color..."
+                                name="category-color">
+                                <option value="success">Success</option>
+                                <option value="danger">Danger</option>
+                                <option value="info">Info</option>
+                                <option value="primary">Primary</option>
+                                <option value="warning">Warning</option>
+                                <option value="inverse">Inverse</option>
+                            </select>
+                        </div>
+                        <div class="submit-section">
+                            <button type="submit" class="btn btn-primary save-category submit-btn"
+                                data-dismiss="modal">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Category Modal -->
+@endif
+
+@if (Route::is(['countires']))
+    <!-- Add Supplier -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Country</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="countries">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label class="form-label">Country Name</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label class="form-label">Region</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- Editor -->
+                                        <div class="col-md-12">
+                                            <div class="edit-add card">
+                                                <div class="edit-add">
+                                                    <label class="form-label">Description</label>
+                                                </div>
+                                                <div class="card-body-list">
+                                                    <div id="summernote">Type your message</div>
+                                                </div>
+                                                <p>Maximum 600 Characters</p>
+                                            </div>
+                                        </div>
+                                        <!-- /Editor -->
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Supplier -->
+
+    <!-- Edit Supplier -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Supplier</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="countries">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label class="form-label">Country Name</label>
+                                            <input type="text" class="form-control" placeholder="China">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label class="form-label">Region</label>
+                                            <input type="text" class="form-control" placeholder="Beijing">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- Editor -->
+                                        <div class="col-md-12">
+                                            <div class="edit-add card">
+                                                <div class="edit-add">
+                                                    <label class="form-label">Description</label>
+
+                                                </div>
+                                                <div class="card-body-list">
+                                                    <div id="summernote5">Type your message</div>
+                                                </div>
+                                                <p>Maximum 600 Characters</p>
+                                            </div>
+                                        </div>
+                                        <!-- /Editor -->
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Supplier -->
+@endif
+
+@if (Route::is(['currency-settings']))
+    <!-- Add Currency -->
+    <div class="modal fade" id="add-currency">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Currency</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="currency-settings">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency Name <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency Symbol <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency Code <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency Rate <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user6" class="check" checked="">
+                                            <label for="user6" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Currency -->
+
+    <!-- Edit Currency -->
+    <div class="modal fade" id="edit-currency">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Currency</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="currency-settings">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency Name <span> *</span></label>
+                                            <input type="text" class="form-control" value="Euro">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency Symbol <span> *</span></label>
+                                            <input type="text" class="form-control" value="EUR">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency Code <span> *</span></label>
+                                            <input type="text" class="form-control" value="€">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Currency Rate <span> *</span></label>
+                                            <input type="text" class="form-control" value="Default">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user5" class="check" checked="">
+                                            <label for="user5" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Currency -->
+@endif
+
+@if (Route::is(['custom-fields']))
+    <!-- Add Custom Field -->
+    <div class="modal fade" id="add-custom-field">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add New Custom Fields</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="custom-fields">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Custom Fields For <span> *</span></label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Expense</option>
+                                                <option>Transaction</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Label <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Default Value <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Input Type <span> *</span></label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Text</option>
+                                                <option>Textarea</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="localization-select pos-payment-method mb-3 d-flex align-items-center mb-0 w-100">
+                                            <div class="custom-control custom-checkbox">
+                                                <label class="checkboxs mb-0 pb-0 line-height-1">
+                                                    <input type="checkbox" checked>
+                                                    <span class="checkmarks"></span>Required
+                                                </label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <label class="checkboxs mb-0 pb-0 line-height-1">
+                                                    <input type="checkbox" checked>
+                                                    <span class="checkmarks"></span>Disable
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user2" class="check" checked="">
+                                            <label for="user2" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Custom Field -->
+
+    <!-- Edit Custom Field -->
+    <div class="modal fade" id="edit-custom-field">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add New Custom Fields</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="custom-fields">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Custom Fields For <span> *</span></label>
+                                            <select class="select">
+                                                <option>Expense</option>
+                                                <option>Transaction</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Label <span> *</span></label>
+                                            <input type="text" class="form-control" value="Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Default Value <span> *</span></label>
+                                            <input type="text" class="form-control" value="None">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Input Type <span> *</span></label>
+                                            <select class="select">
+                                                <option>Text</option>
+                                                <option>Textarea</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="localization-select pos-payment-method mb-3 d-flex align-items-center mb-0 w-100">
+                                            <div class="custom-control custom-checkbox">
+                                                <label class="checkboxs mb-0 pb-0 line-height-1">
+                                                    <input type="checkbox" checked>
+                                                    <span class="checkmarks"></span>Required
+                                                </label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <label class="checkboxs mb-0 pb-0 line-height-1">
+                                                    <input type="checkbox" checked>
+                                                    <span class="checkmarks"></span>Disable
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user3" class="check" checked="">
+                                            <label for="user3" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Custom Field -->
+@endif
+
+@if (Route::is(['department-grid', 'department-list']))
+    <!-- Add Department -->
+    <div class="modal fade" id="add-department">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Department</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="department-grid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Department Name</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">HOD</label>
+                                            <select class="select">
+                                                <option>Choose Type</option>
+                                                <option>Mitchum Daniel</option>
+                                                <option>Susan Lopez</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3 summer-description-box">
+                                            <label class="form-label">Description</label>
+                                            <div id="summernote"></div>
+                                        </div>
+                                    </div>
+                                    <div class="input-blocks m-0">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user5" class="check" checked>
+                                            <label for="user5" class="checktoggle"> </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Department -->
+
+    <!-- Edit Department -->
+    <div class="modal fade" id="edit-department">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Department</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="department-grid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Department Name</label>
+                                            <input type="text" class="form-control" value="UI/UX">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">HOD</label>
+                                            <select class="select">
+                                                <option>Mitchum Daniel</option>
+                                                <option>Susan Lopez</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3 summer-description-box">
+                                            <label class="form-label">Description</label>
+                                            <div id="summernote2"></div>
+                                        </div>
+                                    </div>
+                                    <div class="input-blocks m-0">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user3" class="check" checked>
+                                            <label for="user3" class="checktoggle"> </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Department -->
+@endif
+
+@if (Route::is(['designation']))
+    <!-- Add Department -->
+    <div class="modal fade" id="add-department">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Designation</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="designation">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Designation Name</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="input-blocks m-0">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user5" class="check" checked>
+                                            <label for="user5" class="checktoggle"> </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Department -->
+
+    <!-- Edit Department -->
+    <div class="modal fade" id="edit-department">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Designation </h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="designation">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Designation Name</label>
+                                            <input type="text" class="form-control" value="Designer">
+                                        </div>
+                                    </div>
+                                    <div class="input-blocks m-0">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user3" class="check" checked>
+                                            <label for="user3" class="checktoggle"> </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Department -->
+@endif
+
+@if (Route::is(['email-settings']))
+    <!-- Php Mail -->
+    <div class="modal fade" id="php-mail">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>PHP Mailer</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="user4" class="check" checked>
+                                <label for="user4" class="checktoggle"> </label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="email-settings">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">From Email Address <span> *</span></label>
+                                            <input type="email" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Email Password <span> *</span></label>
+                                            <input type="password" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label"> From Email Name <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Php Mail -->
+
+    <!-- Smtp Mail -->
+    <div class="modal fade" id="smtp-mail">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>SMTP</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="user5" class="check" checked>
+                                <label for="user5" class="checktoggle"> </label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="email-settings">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">From Email Address <span> *</span></label>
+                                            <input type="email" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Email Password <span> *</span></label>
+                                            <input type="password" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label"> Email Host <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label"> Port <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Smtp Mail -->
+
+    <!-- Test Mail -->
+    <div class="modal fade" id="test-mail">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Test Mail</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="user6" class="check" checked>
+                                <label for="user6" class="checktoggle"> </label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="email-settings">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label">Enter Email Address <span> *</span></label>
+                                            <input type="email" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Test Mail -->
+@endif
+
+@if (Route::is(['expense-category']))
+    <!-- Add Expense Category-->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Expense Category</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="expense-category">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Expense Name</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+
+                                    </div>
+                                    <!-- Editor -->
+                                    <div class="col-md-12">
+                                        <div class="edit-add card">
+                                            <div class="edit-add">
+                                                <label class="form-label">Description</label>
+
+                                            </div>
+                                            <div class="card-body-list input-blocks mb-0">
+                                                <textarea class="form-control"></textarea>
+                                            </div>
+                                            <p>Maximum 600 Characters</p>
+                                        </div>
+                                    </div>
+                                    <!-- /Editor -->
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Expense Category-->
+    <!-- Edit Expense Category-->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Expense Category</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Expense Name</label>
+                                        <input type="text" value="Employee Benefits" class="form-control">
+                                    </div>
+
+                                </div>
+                                <!-- Editor -->
+                                <div class="col-md-12">
+                                    <div class="edit-add card">
+                                        <div class="edit-add">
+                                            <label class="form-label">Description</label>
+                                        </div>
+                                        <div class="card-body-list input-blocks mb-0">
+                                            <textarea class="form-control">Employee Vehicle</textarea>
+                                        </div>
+                                        <p>Maximum 600 Characters</p>
+                                    </div>
+                                </div>
+                                <!-- /Editor -->
+                            </div>
+                            <div class="modal-footer-btn">
+                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
+                                    data-bs-dismiss="modal">Cancel</a>
+                                <a href="{{ url('expense-category') }}" class="btn btn-submit">Save Changes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Expense -->
+@endif
+
+@if (Route::is(['expense-list']))
+    <!-- Add Expense -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Expense</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Expense Category</label>
+                                        <select class="select">
+                                            <option>Choose</option>
+                                            <option>Foods & Snacks</option>
+                                            <option>Employee Benefits</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-blocks date-group">
+                                        <i data-feather="calendar" class="info-img"></i>
+                                        <div class="input-groupicon">
+                                            <input type="text" class="datetimepicker"
+                                                placeholder="Choose Date">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Amount</label>
+                                        <input type="text" class="form-control" placeholder="$">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Reference</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Expense For</label>
+                                        <input type="text" class="form-control">
+                                        <span class="unlimited-text">0 for Unlimited</span>
+                                    </div>
+
+                                </div>
+                                <!-- Editor -->
+                                <div class="col-md-12">
+                                    <div class="edit-add card">
+                                        <div class="edit-add">
+                                            <label class="form-label">Description</label>
+                                        </div>
+                                        <div class="card-body-list input-blocks mb-0">
+                                            <textarea class="form-control"></textarea>
+                                        </div>
+                                        <p>Maximum 600 Characters</p>
+                                    </div>
+                                </div>
+                                <!-- /Editor -->
+                            </div>
+                            <div class="modal-footer-btn">
+                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
+                                    data-bs-dismiss="modal">Cancel</a>
+                                <a href="{{ url('expense-list') }}" class="btn btn-submit">Submit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Expense -->
+    <!-- Edit Expense -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Expense</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="expense-list">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Expense Category</label>
+                                            <select class="select">
+                                                <option>Employee Benefits</option>
+                                                <option>Foods & Snacks</option>
+                                                <option>Entertainment</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks date-group">
+                                            <i data-feather="calendar" class="info-img"></i>
+                                            <div class="input-groupicon">
+                                                <input type="text" class="datetimepicker ps-5"
+                                                    placeholder="19 Jan 2023">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Amount</label>
+                                            <input type="text" class="form-control" value="$550.00">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Reference</label>
+                                            <input type="text" class="form-control" value="55544">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3 input-blocks">
+                                            <label class="form-label">Expense For</label>
+                                            <input type="text" class="form-control">
+                                            <span class="unlimited-text">0 for Unlimited</span>
+                                        </div>
+
+                                    </div>
+                                    <!-- Editor -->
+                                    <div class="col-md-12">
+                                        <div class="edit-add card">
+                                            <div class="edit-add">
+                                                <label class="form-label">Description</label>
+                                            </div>
+                                            <div class="card-body-list input-blocks mb-0">
+                                                <textarea class="form-control">Employee Vehicle</textarea>
+                                            </div>
+                                            <p>Maximum 600 Characters</p>
+                                        </div>
+                                    </div>
+                                    <!-- /Editor -->
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Expense -->
+@endif
+
+@if (Route::is(['file-manager']))
+    <!-- Files Toogle Slide -->
+    <div class="toggle-sidebar">
+        <div class="d-flex align-items-center justify-content-between head">
+            <h4>File Preview</h4>
+            <div class="d-flex align-items-center">
+                <a href="javascript:void(0);" class="me-2 d-flex align-items-center"><i
+                        class="fa fa-star"></i></a>
+                <a href="javascript:void(0);" class="me-2 d-flex align-items-center"><i data-feather="trash-2"
+                        class="feather-16 text-center text-danger"></i></a>
+                <a href="javascript:void(0);" class="sidebar-closes d-flex align-items-center"
+                    aria-hidden="true"><i data-feather="x-circle" class="feather-26 color-primary"></i></a>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="javascript:void(0);"><img
+                    src="{{ asset('assets/admin/assets/img/file-manager/folder-lg.png') }}" alt="Folder"></a>
+            <h5>Website Backup for the Design team</h5>
+            <p>File Size : 616 MB</p>
+        </div>
+
+        <div class="nav nav-tabs d-flex align-items-center justify-content-between py-4 mb-4" id="nav-tab"
+            role="tablist">
+            <a class="nav-link flex-fill active btn btn-light me-2 text-center" id="nav-home-tab"
+                data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home"
+                aria-selected="true"><i data-feather="list" class="feather-16 me-2 text-center"></i>Details</a>
+            <a class="nav-link flex-fill btn btn-light" id="nav-profile-tab" data-bs-toggle="tab"
+                href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i
+                    data-feather="clock" class="feather-16 me-2"></i>Activity</a>
+        </div>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                aria-labelledby="nav-home-tab">
+                <h5 class="mb-4 d-flex align-items-center"><i data-feather="edit"
+                        class="feather-20 me-2"></i>Properties</h5>
+                <ul class="seprator-lg">
+                    <li class="mb-4">
+                        <h6>File Name</h6>
+                        <p>Website Backup for the Designteam</p>
+                    </li>
+                    <li class="mb-4">
+                        <h6>File Type</h6>
+                        <p>Folder</p>
+                    </li>
+                    <li class="mb-4">
+                        <h6>Size</h6>
+                        <p>616 MB</p>
+                    </li>
+                    <li class="mb-4">
+                        <h6>Created</h6>
+                        <p>22 July 2023, 08:30 PM</p>
+                    </li>
+                    <li class="mb-4">
+                        <h6>Location</h6>
+                        <p class="location d-inline-flex align-items-center"><i data-feather="hard-drive"
+                                class="feather-16 me-1"></i>Drive</p>
+                    </li>
+                    <li class="mb-4">
+                        <h6>File Name</h6>
+                        <p>23 July 2023, 08:30 PM</p>
+                    </li>
+                    <li class="mb-4">
+                        <h6>Opened On</h6>
+                        <p>28 July 2023, 06:40 PM</p>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <!-- Editor -->
+                            <div class="col-lg-12">
+                                <div class="input-blocks summer-description-box transfer">
+                                    <label>Description</label>
+                                    <div id="summernote3">
+                                    </div>
+                                    <p>Maximum 60 Characters</p>
+                                </div>
+                            </div>
+                            <!-- /Editor -->
+                        </div>
+                    </li>
+                </ul>
+                <h5 class="mb-4 d-flex align-items-center"><i data-feather="user" class="feather-20 me-2"></i>Who
+                    has access</h5>
+                <div class="d-flex align-items-center justify-content-between avatar-wrap">
+                    <div class="avatar-access d-flex align-items-center mb-4">
+                        <span>
+                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
+                                aria-label="Member 1" data-bs-original-title="Member 1"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-1.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
+                        </span>
+                        <span>
+                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
+                                aria-label="Member 2" data-bs-original-title="Member 2"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-2.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
+                        </span>
+                        <span>
+                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
+                                aria-label="Member 3" data-bs-original-title="Member 3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-3.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
+                        </span>
+                        <span>
+                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
+                                aria-label="Member 4" data-bs-original-title="Member 4"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-4.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
+                        </span>
+                        <span>
+                            <a href="javascript:void(0);"
+                                class="avatar-md add d-flex align-items-center justify-content-center"><i
+                                    data-feather="plus" class="feather-16 me-1"></i></a>
+                        </span>
+                    </div>
+                </div>
+                <p>Owned by Andrew. Shared with James, Fin, Davis</p>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <h5 class="mb-4 d-flex align-items-center"><i data-feather="calendar"
+                        class="feather-20 me-2"></i>This Week</h5>
+                <ul class="mb-4">
+                    <li class="mb-4">
+                        <div class="d-flex align-items-center mb-2">
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-1.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
+                            <p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
+                        </div>
+                        <p class="d-flex align-items-center location border-0"><img
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for the Design team</p>
+                    </li>
+                    <li class="mb-4">
+                        <div class="d-flex align-items-center mb-2">
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-2.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
+                            <p>Drake shared an item<br>3:39 PM Jul 19</p>
+                        </div>
+                        <p class="d-flex align-items-center location border-0"><img
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for the Design team</p>
+                    </li>
+                    <li class="mb-2">
+                        <div class="d-flex align-items-center mb-2">
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-3.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
+                            <div>
+                                <p class="mb-0 text-secondary">Melvin</p>
+                                <p class="mb-0">Commentor</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mb-2">
+                        <div class="d-flex align-items-center mb-2">
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-4.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
+                            <div>
+                                <p class="mb-0 text-secondary">Drake</p>
+                                <p class="mb-0">Editor</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <h5 class="mb-4 d-flex align-items-center"><i data-feather="calendar"
+                        class="feather-20 me-2"></i>Last Month</h5>
+                <ul class="mb-4">
+                    <li class="mb-4">
+                        <div class="d-flex align-items-center mb-2">
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-1.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
+                            <p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
+                        </div>
+                        <p class="d-flex align-items-center location border-0"><img
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for the Design team</p>
+                    </li>
+                    <li class="mb-4">
+                        <div class="d-flex align-items-center mb-2">
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-2.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
+                            <p>Drake shared an item<br>3:39 PM Jul 19</p>
+                        </div>
+                        <p class="d-flex align-items-center location border-0"><img
+                                src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                class="me-2">Website Backup for the Design team</p>
+                    </li>
+                    <li class="mb-2">
+                        <div class="d-flex align-items-center mb-2">
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-3.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
+                            <div>
+                                <p class="mb-0 text-secondary">Melvin</p>
+                                <p class="mb-0">Commentor</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mb-2">
+                        <div class="d-flex align-items-center mb-2">
+                            <a href="javascript:void(0);" class="me-3"><img
+                                    src="{{ asset('assets/admin/assets/img/avatar/avatar-4.jpg') }}"
+                                    alt="Avatar" class="avatar-md"></a>
+                            <div>
+                                <p class="mb-0 text-secondary">Drake</p>
+                                <p class="mb-0">Editor</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <a href="javascript:void(0);" class="text-primary show-all"><i data-feather="plus-circle"
+                        class="feather-20 me-2"></i>Show All</a>
+            </div>
+        </div>
+
+    </div>
+    <!-- Files Toogle Slide -->
+
+    <!-- Upload File -->
+    <div class="modal fade modal-default pos-modal upload-modal" id="upload-file" aria-labelledby="upload-file">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header p-4">
+                    <h5>Upload File</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="drag-drop text-center mb-4">
+                        <div class="upload">
+                            <a href="#"><img
+                                    src="{{ asset('assets/admin/assets/img/icons/drag-drop.svg') }}"
+                                    alt=""></a>
+                            <p>Drag and drop a <a href="#">file to upload</a></p>
+                        </div>
+                        <input type="file" multiple="">
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p>3 of 1 files Uploaded</p>
+                        <span>70%</span>
+                    </div>
+                    <div class="progress mt-2 mb-4">
+                        <div class="progress-bar progress-bar bg-success" role="progressbar" style="width: 75%"
+                            aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <ul>
+                        <li class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center w-85">
+                                <img src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                    class="me-2">
+                                <div class="flex-fill">
+                                    <h6><a href="javascript:void(0);">latest-version.zip<i
+                                                data-feather="check-circle" class="ms-2 feather-16"></i></a></h6>
+                                    <span>616 MB</span>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0);" class="text-danger text-right"><i data-feather="trash-2"
+                                    class="feather-16"></i></a>
+                        </li>
+                        <li class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center w-85">
+                                <img src="{{ asset('assets/admin/assets/img/icons/xls.svg') }}" alt="Folder"
+                                    class="me-2">
+                                <div class="flex-fill">
+                                    <h6><a href="javascript:void(0);">Update work history.xls</a></h6>
+                                    <span>616 MB</span>
+                                    <div class="progress mt-2">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 75%"
+                                            aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <a href="javascript:void(0);" class="text-danger me-2 d-flex align-items-center"><i
+                                        data-feather="trash-2" class="feather-16"></i></a>
+                                <a href="javascript:void(0);" class="text-default d-flex align-items-center"><i
+                                        data-feather="pause-circle" class="feather-16"></i></a>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center w-85">
+                                <img src="{{ asset('assets/admin/assets/img/icons/zip.svg') }}" alt="Folder"
+                                    class="me-2">
+                                <div class="flex-fill">
+                                    <h6><a href="javascript:void(0);">Updated Project.zip</a></h6>
+                                    <span>616 MB</span>
+                                    <div class="progress mt-2">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <a href="javascript:void(0);" class="text-danger me-2 d-flex align-items-center"><i
+                                        data-feather="trash-2" class="feather-16"></i></a>
+                                <a href="javascript:void(0);" class="text-default d-flex align-items-center"><i
+                                        data-feather="play-circle" class="feather-16"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Upload File -->
+
+    <!-- Upload Folder -->
+    <div class="modal fade modal-default pos-modal upload-modal" id="upload-folder"
+        aria-labelledby="upload-folder">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header p-4">
+                    <h5>Upload File</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="drag-drop text-center mb-4">
+                        <div class="upload">
+                            <a href="#"><img
+                                    src="{{ asset('assets/admin/assets/img/icons/drag-drop.svg') }}"
+                                    alt=""></a>
+                            <p>Drag and drop a <a href="#">file to upload</a></p>
+                        </div>
+                        <input type="file" multiple="">
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p>3 of 3 files Uploaded</p>
+                        <span>100%</span>
+                    </div>
+                    <div class="progress mt-2 mb-4">
+                        <div class="progress-bar progress-bar bg-success" role="progressbar" style="width: 100%"
+                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <ul>
+                        <li class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center w-85">
+                                <img src="{{ asset('assets/admin/assets/img/icons/folder.svg') }}" alt="Folder"
+                                    class="me-2">
+                                <div class="flex-fill">
+                                    <h6><a href="javascript:void(0);">latest-version<i data-feather="check-circle"
+                                                class="ms-2 feather-16"></i></a></h6>
+                                    <span>616 MB</span>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0);" class="text-danger text-right"><i data-feather="trash-2"
+                                    class="feather-16"></i></a>
+                        </li>
+                        <li class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center w-85">
+                                <img src="{{ asset('assets/admin/assets/img/icons/xls.svg') }}" alt="Folder"
+                                    class="me-2">
+                                <div class="flex-fill">
+                                    <h6><a href="javascript:void(0);">Update work history.xls<i
+                                                data-feather="trash-2" class="feather-16"></i></a></h6>
+                                    <span>16 MB</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <a href="javascript:void(0);" class="text-danger me-2"><i data-feather="trash-2"
+                                        class="feather-16"></i></a>
+                                <a href="javascript:void(0);" class="text-default"><i data-feather="pause-circle"
+                                        class="feather-16"></i></a>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center w-85">
+                                <img src="{{ asset('assets/admin/assets/img/icons/zip.svg') }}" alt="Folder"
+                                    class="me-2">
+                                <div class="flex-fill">
+                                    <h6><a href="javascript:void(0);">updated project.zip<i data-feather="trash-2"
+                                                class="feather-16"></i></a></h6>
+                                    <span>14 MB</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <a href="javascript:void(0);" class="text-danger me-2"><i data-feather="trash-2"
+                                        class="feather-16"></i></a>
+                                <a href="javascript:void(0);" class="text-default"><i data-feather="play-circle"
+                                        class="feather-16"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="modal-footer d-sm-flex justify-content-end">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Clear</button>
+                    <button type="button" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Upload Folder -->
+
+    <!-- Upload Folder -->
+    <div class="modal fade modal-default pos-modal upload-message" id="upload-message"
+        aria-labelledby="upload-message">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header p-4">
+                    <h5>Upload File</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p>3 of 3 files Uploaded</p>
+                        <span>100%</span>
+                    </div>
+                    <div class="progress mt-2 mb-4">
+                        <div class="progress-bar progress-bar bg-success" role="progressbar" style="width: 100%"
+                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="modal-footer d-sm-flex justify-content-end">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Clear</button>
+                    <button type="button" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Upload Folder -->
+
+    <!-- Create Folder -->
+    <div class="modal fade modal-default pos-modal" id="create-folder" aria-labelledby="create-folder">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header p-4">
+                    <h5>Create Folder</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="form-label">Folder Name</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer d-sm-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary me-2"
+                            data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Create Folder</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Create Folder -->
+@endif
+
+@if (Route::is(['holidays']))
+    <!-- Add Department -->
+    <div class="modal fade" id="add-department">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Holiday</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="holidays">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label>Add Holiday</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Start Date</label>
+                                            <div class="input-groupicon calender-input">
+                                                <i data-feather="calendar" class="info-img"></i>
+                                                <input type="text" class="datetimepicker" placeholder="Select">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>End Date</label>
+                                            <div class="input-groupicon calender-input">
+                                                <i data-feather="calendar" class="info-img"></i>
+                                                <input type="text" class="datetimepicker" placeholder="Select">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label>No of Days</label>
+                                            <input type="text" class="form-control" placeholder="01">
+                                        </div>
+                                    </div>
+                                    <div class="input-blocks m-0">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user5" class="check" checked>
+                                            <label for="user5" class="checktoggle"> </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Department -->
+
+    <!-- Edit Department -->
+    <div class="modal fade" id="edit-department">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Holiday</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="holidays">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label>Add Holiday</label>
+                                            <input type="text" class="form-control" value="Newyear">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Start Date</label>
+                                            <div class="input-groupicon calender-input">
+                                                <i data-feather="calendar" class="info-img"></i>
+                                                <input type="text" class="datetimepicker"
+                                                    placeholder="01 Jan 2023">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>End Date</label>
+                                            <div class="input-groupicon calender-input">
+                                                <i data-feather="calendar" class="info-img"></i>
+                                                <input type="text" class="datetimepicker"
+                                                    placeholder="01 Jan 2023">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-0">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user3" class="check" checked>
+                                            <label for="user3" class="checktoggle"> </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Department -->
+@endif
+
+@if (Route::is(['leave-types']))
+    <!-- Add coupons -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add New Leave Type</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="leave-types">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Name</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Leave Quota</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="input-blocks m-0">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user3" class="check" checked>
+                                            <label for="user3" class="checktoggle"> </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Coupons -->
+
+    <!-- Edit Warehouse -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Leave Type</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="leave-types">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label>Leave Quota</label>
+                                            <input type="text" value="05">
+                                        </div>
+                                    </div>
+                                    <div class="input-blocks m-0">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="user4" class="check" checked>
+                                            <label for="user4" class="checktoggle"> </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Warehouse -->
+@endif
+
+@if (Route::is(['leaves-employee']))
+    <!-- Add Leave -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Apply Leave</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="leaves-employee">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label>Start Date</label>
+
+                                            <div class="input-groupicon calender-input">
+                                                <i data-feather="calendar" class="info-img"></i>
+                                                <input type="text" class="datetimepicker"
+                                                    placeholder="Select From - To Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Select Leave Type </label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Sick Leave</option>
+                                                <option>Paternity</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="apply-leave">
+                                            <div class="leave-apply">
+                                                <div class="leave-date">
+                                                    <span>Day 1</span>
+                                                    <p>16 Aug 2023</p>
+                                                </div>
+                                                <div class="leave-time">
+                                                    <div class="input-blocks mb-0">
+                                                        <select class="select">
+                                                            <option>Full Day</option>
+                                                            <option>Half Day</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="leave-apply">
+                                                <div class="leave-date">
+                                                    <span>Day 1</span>
+                                                    <p>16 Aug 2023</p>
+                                                </div>
+                                                <div class="leave-time">
+                                                    <div class="input-blocks mb-0">
+                                                        <select class="select">
+                                                            <option>Full Day</option>
+                                                            <option>Half Day</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3 summer-description-box mb-0">
+                                            <label class="form-label">Reason</label>
+                                            <div id="summernote"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Leave -->
+
+    <!-- Edit Leave -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Leave</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="leaves-employee">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label class="form-label">Start Date</label>
+
+                                            <div class="input-groupicon calender-input">
+                                                <i data-feather="calendar" class="info-img"></i>
+                                                <input type="text" class="datetimepicker"
+                                                    placeholder="Select From - To Date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Select Leave Type </label>
+                                            <select class="select">
+                                                <option>Sick Leave</option>
+                                                <option>Paternity</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="apply-leave">
+                                            <div class="leave-apply">
+                                                <div class="leave-date">
+                                                    <span>Day 1</span>
+                                                    <p>16 Aug 2023</p>
+                                                </div>
+                                                <div class="leave-time">
+                                                    <div class="input-blocks mb-0">
+                                                        <select class="select">
+                                                            <option>Full Day</option>
+                                                            <option>Half Day</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="leave-apply">
+                                                <div class="leave-date">
+                                                    <span>Day 1</span>
+                                                    <p>16 Aug 2023</p>
+                                                </div>
+                                                <div class="leave-time">
+                                                    <div class="input-blocks mb-0">
+                                                        <select class="select">
+                                                            <option>Full Day</option>
+                                                            <option>Half Day</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3 summer-description-box mb-0">
+                                            <label class="form-label">Reason</label>
+                                            <div id="summernote2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Leave -->
+
+    <!-- Rejected Reason -->
+    <div class="modal fade" id="rejected-reason">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Reason For Rejection</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <p>The Jordan brand is owned by Nike (owned by the Knight family), as, at the time, the
+                                company was building its strategy to work with athletes to launch shows that could
+                                inspire consumers.Although Jordan preferred Converse and Adidas, they simply could not
+                                match the offer Nike made. Jordan also signed with Nike because he loved the way they
+                                wanted to market him with the banned colored shoes. Nike promised to cover the fine
+                                Jordan would receive from the NBA.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Rejected Reason -->
+@endif
+
+@if (Route::is(['manage-stocks']))
+    <!-- Add Stock -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered stock-adjust-modal">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Stock</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="manage-stocks">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Warehouse</label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Lobar Handy</option>
+                                                <option>Quaint Warehouse</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Shop</label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Selosy</option>
+                                                <option>Logerro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label>Responsible Person</label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Steven</option>
+                                                <option>Gravely</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks search-form mb-0">
+                                            <label>Product</label>
+                                            <input type="text" class="form-control"
+                                                placeholder="Select Product">
+                                            <i data-feather="search" class="feather-search"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Stock -->
+
+    <!-- Edit Stock -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered stock-adjust-modal">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Stock</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="manage-stocks">
+                                <div class="input-blocks search-form">
+                                    <label>Product</label>
+                                    <input type="text" class="form-control" value="Nike Jordan">
+                                    <i data-feather="search" class="feather-search"></i>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Warehouse</label>
+                                            <select class="select">
+                                                <option>Lobar Handy</option>
+                                                <option>Quaint Warehouse</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Shop</label>
+                                            <select class="select">
+                                                <option>Selosy</option>
+                                                <option>Logerro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label>Responsible Person</label>
+                                            <select class="select">
+                                                <option>Steven</option>
+                                                <option>Gravely</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks search-form mb-3">
+                                            <label>Product</label>
+                                            <input type="text" class="form-control"
+                                                placeholder="Select Product" value="Nike Jordan">
+                                            <i data-feather="search" class="feather-search"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="modal-body-table">
+                                            <div class="table-responsive">
+                                                <table class="table  datanew">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Product</th>
+                                                            <th>SKU</th>
+                                                            <th>Category</th>
+                                                            <th>Qty</th>
+                                                            <th class="no-sort">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="productimgname">
+                                                                    <a href="javascript:void(0);"
+                                                                        class="product-img stock-img">
+                                                                        <img src="{{ asset('assets/admin/assets/img/products/stock-img-02.png') }}"
+                                                                            alt="product">
+                                                                    </a>
+                                                                    <a href="javascript:void(0);">Nike Jordan</a>
+                                                                </div>
+                                                            </td>
+                                                            <td>PT002</td>
+                                                            <td>Nike</td>
+                                                            <td>
+                                                                <div class="product-quantity">
+                                                                    <span class="quantity-btn"><i
+                                                                            data-feather="minus-circle"
+                                                                            class="feather-search"></i></span>
+                                                                    <input type="text" class="quntity-input"
+                                                                        value="2">
+                                                                    <span class="quantity-btn">+<i
+                                                                            data-feather="plus-circle"
+                                                                            class="plus-circle"></i></span>
+                                                                </div>
+                                                            </td>
+                                                            <td class="action-table-data">
+                                                                <div class="edit-delete-action">
+                                                                    <a class="me-2 p-2" href="#"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#edit-units">
+                                                                        <i data-feather="edit"
+                                                                            class="feather-edit"></i>
+                                                                    </a>
+                                                                    <a class="confirm-text p-2"
+                                                                        href="javascript:void(0);">
+                                                                        <i data-feather="trash-2"
+                                                                            class="feather-trash-2"></i>
+                                                                    </a>
+                                                                </div>
+
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Stock -->
+@endif
+
+@if (Route::is(['payment-gateway-settings']))
+    <!-- Php Mail -->
+    <div class="modal fade" id="payment-connect">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Paypal</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="user16" class="check" checked>
+                                <label for="user16" class="checktoggle"> </label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="payment-gateway-settings">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Email Address <span> *</span></label>
+                                            <input type="email" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">API Key <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label">Secret Key <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Php Mail -->
+@endif
+
+@if (Route::is(['printer-settings']))
+    <!-- Add Printer -->
+    <div class="modal fade" id="add-printer">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Printer</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="printer-settings">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Printer Name <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Connection Type <span> *</span></label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Network</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">IP Address <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label">Port <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Printer -->
+
+    <!-- Edit Printer -->
+    <div class="modal fade" id="edit-printer">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Printer</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="printer-settings">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Printer Name <span> *</span></label>
+                                            <input type="text" class="form-control" value="HP Printer">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Connection Type <span> *</span></label>
+                                            <select class="select">
+                                                <option>Network</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">IP Address <span> *</span></label>
+                                            <input type="text" class="form-control" value="151.00.1.22">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label">Port <span> *</span></label>
+                                            <input type="text" class="form-control" value="900">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Printer -->
+@endif
+
+@if (Route::is(['purchase-list']))
+    <!-- Add Purchase -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog purchase modal-dialog-centered stock-adjust-modal">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Purchase</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="purchase-list">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="input-blocks add-product">
+                                            <label>Supplier Name</label>
+                                            <div class="row">
+                                                <div class="col-lg-10 col-sm-10 col-10">
+                                                    <select class="select">
+                                                        <option>Select Customer</option>
+                                                        <option>Apex Computers</option>
+                                                        <option>Dazzle Shoes</option>
+                                                        <option>Best Accessories</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-2 col-sm-2 col-2 ps-0">
+                                                    <div class="add-icon tab">
+                                                        <a href="javascript:void(0);"><i data-feather="plus-circle"
+                                                                class="feather-plus-circles"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="input-blocks">
+                                            <label>Purchase Date</label>
+
+                                            <div class="input-groupicon calender-input">
+                                                <i data-feather="calendar" class="info-img"></i>
+                                                <input type="text" class="datetimepicker" placeholder="Choose">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="input-blocks">
+                                            <label>Product Name</label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Shoe</option>
+                                                <option>Mobile</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="input-blocks">
+                                            <label>Reference No</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label>Product Name</label>
+                                            <input type="text" placeholder="Please type product code and select">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="modal-body-table">
+                                            <div class="table-responsive">
+                                                <table class="table  datanew">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Product</th>
+                                                            <th>Qty</th>
+                                                            <th>Purchase Price($)</th>
+                                                            <th>Discount($)</th>
+                                                            <th>Tax(%)</th>
+                                                            <th>Tax Amount($)</th>
+                                                            <th>Unit Cost($)</th>
+                                                            <th>Total Cost(%)</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="p-5"></td>
+                                                            <td class="p-5"></td>
+                                                            <td class="p-5"></td>
+                                                            <td class="p-5"></td>
+                                                            <td class="p-5"></td>
+                                                            <td class="p-5"></td>
+                                                            <td class="p-5"></td>
+                                                            <td class="p-5"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-6 col-sm-12">
+                                            <div class="input-blocks">
+                                                <label>Order Tax</label>
+                                                <input type="text" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-sm-12">
+                                            <div class="input-blocks">
+                                                <label>Discount</label>
+                                                <input type="text" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-sm-12">
+                                            <div class="input-blocks">
+                                                <label>Shipping</label>
+                                                <input type="text" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-sm-12">
+                                            <div class="input-blocks">
+                                                <label>Status</label>
+                                                <select class="select">
+                                                    <option>Choose</option>
+                                                    <option>Received</option>
+                                                    <option>Pending</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="input-blocks summer-description-box">
+                                        <label>Notes</label>
+                                        <div id="summernote"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="modal-footer-btn">
+                                        <button type="button" class="btn btn-cancel me-2"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-submit">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Purchase -->
+
+    <!-- Edit Purchase -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog purchase modal-dialog-centered stock-adjust-modal">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Purchase</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="purchase-list">
+                                <div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Supplier Name</label>
+                                                <div class="row">
+                                                    <div class="col-lg-10 col-sm-10 col-10">
+                                                        <select class="select">
+                                                            <option>Dazzle Shoes</option>
+                                                            <option>Apex Computers</option>
+                                                            <option>Beats Headphones</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-2 col-sm-2 col-2 ps-0">
+                                                        <div class="add-icon tab">
+                                                            <a href="javascript:void(0);"><i
+                                                                    data-feather="plus-circle"
+                                                                    class="feather-plus-circles"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Purchase Date </label>
+                                                <div class="input-groupicon">
+                                                    <input type="text" placeholder="19 Jan 2023"
+                                                        class="datetimepicker">
+                                                    <div class="addonset">
+                                                        <img src="{{ asset('assets/admin/assets/img/icons/calendars.svg') }}"
+                                                            alt="img">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Product Name</label>
+                                                <select class="select">
+                                                    <option>Nike Jordan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Reference No.</label>
+                                                <input type="text" value="010203">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Product</label>
+                                                <div class="input-groupicon">
+                                                    <input type="text"
+                                                        placeholder="Scan/Search Product by code and select">
+                                                    <div class="addonset">
+                                                        <img src="{{ asset('assets/admin/assets/img/icons/scanners.svg') }}"
+                                                            alt="img">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="modal-body-table">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Product Name</th>
+                                                                <th>QTY</th>
+                                                                <th>Purchase Price($) </th>
+                                                                <th>Discount($) </th>
+                                                                <th>Tax %</th>
+                                                                <th>Tax Amount($)</th>
+                                                                <th class="text-end">Unit Cost($)</th>
+                                                                <th class="text-end">Total Cost ($) </th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="productimgname">
+                                                                        <a href="javascript:void(0);"
+                                                                            class="product-img stock-img">
+                                                                            <img src="{{ asset('assets/admin/assets/img/products/stock-img-02.png') }}"
+                                                                                alt="product">
+                                                                        </a>
+                                                                        <a href="javascript:void(0);">Nike Jordan</a>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="product-quantity">
+                                                                        <span class="quantity-btn">+<i
+                                                                                data-feather="plus-circle"
+                                                                                class="plus-circle"></i></span>
+                                                                        <input type="text" class="quntity-input"
+                                                                            value="10">
+                                                                        <span class="quantity-btn"><i
+                                                                                data-feather="minus-circle"
+                                                                                class="feather-search"></i></span>
+                                                                    </div>
+                                                                </td>
+                                                                <td>2000</td>
+                                                                <td>500.00</td>
+                                                                <td>0.00</td>
+                                                                <td>0.00</td>
+                                                                <td>0.00</td>
+                                                                <td>1500</td>
+                                                                <td>
+                                                                    <a class="delete-set"><img
+                                                                            src="{{ asset('assets/admin/assets/img/icons/delete.svg') }}"
+                                                                            alt="svg')}}"></a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 float-md-right">
+                                            <div class="total-order">
+                                                <ul>
+                                                    <li>
+                                                        <h4>Order Tax</h4>
+                                                        <h5>$ 0.00</h5>
+                                                    </li>
+                                                    <li>
+                                                        <h4>Discount</h4>
+                                                        <h5>$ 0.00</h5>
+                                                    </li>
+                                                    <li>
+                                                        <h4>Shipping</h4>
+                                                        <h5>$ 0.00</h5>
+                                                    </li>
+                                                    <li class="total">
+                                                        <h4>Grand Total</h4>
+                                                        <h5>$1500.00</h5>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Order Tax</label>
+                                                <input type="text" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Discount</label>
+                                                <input type="text" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Shipping</label>
+                                                <input type="text" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Status</label>
+                                                <select class="select">
+                                                    <option>Sent</option>
+                                                    <option>Ordered</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="input-blocks summer-description-box">
+                                        <label>Description</label>
+                                        <div id="summernote2">
+                                            <p>These shoes are made with the highest quality materials. </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="modal-footer-btn">
+                                        <button type="button" class="btn btn-cancel me-2"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-submit">Save Changes</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Purchase -->
+
+    <!-- Import Purchase -->
+    <div class="modal fade" id="view-notes">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Import Purchase</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="purchase-list">
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-6 col-12">
+                                        <div class="input-blocks">
+                                            <label>Supplier Name</label>
+                                            <div class="row">
+                                                <div class="col-lg-10 col-sm-10 col-10">
+                                                    <select class="select">
+                                                        <option>Choose</option>
+                                                        <option>Apex Computers</option>
+                                                        <option>Apex Computers</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-2 col-sm-2 col-2 ps-0">
+                                                    <div class="add-icon tab">
+                                                        <a href="javascript:void(0);"><i data-feather="plus-circle"
+                                                                class="feather-plus-circles"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-6 col-12">
+                                        <div class="input-blocks">
+                                            <label>Purchase Status </label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Received</option>
+                                                <option>Ordered</option>
+                                                <option>Pending</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-sm-6 col-12">
+                                        <div class="row">
+                                            <div>
+                                                <!-- <div class="input-blocks download">
+             <a class="btn btn-submit">Download Sample File</a>
+            </div> -->
+                                                <div class="modal-footer-btn download-file">
+                                                    <a href="javascript:void(0)" class="btn btn-submit">Download
+                                                        Sample File</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks image-upload-down">
+                                            <label> Upload CSV File</label>
+                                            <div class="image-upload download">
+                                                <input type="file">
+                                                <div class="image-uploads">
+                                                    <img src="{{ asset('assets/admin/assets/img/download-img.png') }}"
+                                                        alt="img">
+                                                    <h4>Drag and drop a <span>file to upload</span></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6 col-12">
+                                        <div class="input-blocks">
+                                            <label>Order Tax</label>
+                                            <input type="text" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6 col-12">
+                                        <div class="input-blocks">
+                                            <label>Discount</label>
+                                            <input type="text" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6 col-12">
+                                        <div class="input-blocks">
+                                            <label>Shipping</label>
+                                            <input type="text" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-blocks summer-description-box transfer">
+                                    <label>Description</label>
+                                    <div id="summernote3">
+                                    </div>
+                                    <p>Maximum 60 Characters</p>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Import Purchase -->
+@endif
+
+@if (Route::is(['purchase-returns']))
+    <!--add popup -->
+    <div class="modal fade" id="add-sales-new">
+        <div class="modal-dialog add-centered">
+            <div class="modal-content">
+                <div class="page-wrapper p-0 m-0">
+                    <div class="content p-0">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4> Add Purchase Return</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="purchase-returns">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label class="form-label">Supplier</label>
+                                                <div class="row">
+                                                    <div class="col-lg-10 col-sm-10 col-10">
+                                                        <select class="select">
+                                                            <option>Choose</option>
+                                                            <option>Apex Computers</option>
+                                                            <option>Modern Automobile</option>
+                                                            <option>AIM Infotech</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-2 col-sm-2 col-2 ps-0">
+                                                        <div class="add-icon">
+                                                            <a href="#" class="choose-add"><i
+                                                                    data-feather="plus-circle"
+                                                                    class="plus"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Date</label>
+                                                <div class="input-groupicon calender-input">
+                                                    <i data-feather="calendar" class="info-img"></i>
+                                                    <input type="text" class="datetimepicker"
+                                                        placeholder="Choose">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label class="form-label">Reference No.</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Product Name</label>
+                                                <div class="input-groupicon select-code">
+                                                    <input type="text"
+                                                        placeholder="Please type product code and select">
+                                                    <div class="addonset">
+                                                        <img src="{{ asset('assets/admin/assets/img/icons/qrcode-scan.svg') }}"
+                                                            alt="img">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive no-pagination">
+                                        <table class="table  datanew">
+                                            <thead>
+                                                <tr>
+                                                    <th>Image</th>
+                                                    <th>Date</th>
+                                                    <th>Supplier</th>
+                                                    <th>Reference</th>
+                                                    <th>Status</th>
+                                                    <th>Grand Total ($)</th>
+                                                    <th>Paid ($)</th>
+                                                    <th>Due ($)</th>
+                                                    <th>Payment Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 ms-auto">
+                                            <div class="total-order w-100 max-widthauto m-auto mb-4">
+                                                <ul>
+                                                    <li>
+                                                        <h4>Order Tax</h4>
+                                                        <h5>$ 0.00</h5>
+                                                    </li>
+                                                    <li>
+                                                        <h4>Discount</h4>
+                                                        <h5>$ 0.00</h5>
+                                                    </li>
+                                                    <li>
+                                                        <h4>Shipping</h4>
+                                                        <h5>$ 0.00</h5>
+                                                    </li>
+                                                    <li>
+                                                        <h4>Grand Total</h4>
+                                                        <h5>$ 0.00</h5>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Order Tax</label>
+                                                <div class="input-groupicon select-code">
+                                                    <input type="text" value="0" class="p-2">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Discount</label>
+                                                <div class="input-groupicon select-code">
+                                                    <input type="text" value="0" class="p-2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Shipping</label>
+                                                <div class="input-groupicon select-code">
+                                                    <input type="text" value="0" class="p-2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks mb-5">
+                                                <label>Status</label>
+                                                <select class="select">
+                                                    <option>Choose</option>
+                                                    <option>Pending</option>
+                                                    <option>Received</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 text-end">
+                                            <button type="button" class="btn btn-cancel add-cancel me-3"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-submit add-sale">Submit</button>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- /Add Category Modal -->
+            </div>
+        </div>
+    </div>
+    <!-- /add popup -->
+
+    <!--Edit popup -->
+    <div class="modal fade" id="edit-sales-new">
+        <div class="modal-dialog add-centered">
+            <div class="modal-content">
+                <div class="page-wrapper p-0 m-0">
+                    <div class="content p-0">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Purchase Return</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="purchase-returns">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label class="form-label">Supplier</label>
+                                                <div class="row">
+                                                    <div class="col-lg-10 col-sm-10 col-10">
+                                                        <select class="select">
+                                                            <option>Apex Computers</option>
+                                                            <option>Modern Automobile</option>
+                                                            <option>AIM Infotech</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-2 col-sm-2 col-2 ps-0">
+                                                        <div class="add-icon">
+                                                            <a href="#" class="choose-add"><i
+                                                                    data-feather="plus-circle"
+                                                                    class="plus"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Date</label>
+                                                <div class="input-groupicon calender-input">
+                                                    <i data-feather="calendar" class="info-img"></i>
+                                                    <input type="text" class="datetimepicker"
+                                                        placeholder="Choose">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label class="form-label">Reference No.</label>
+                                                <input type="text" class="form-control" value="PT001">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Product Name</label>
+                                                <div class="input-groupicon select-code">
+                                                    <input type="text"
+                                                        placeholder="Please type product code and select"
+                                                        value="Apex Computers">
+                                                    <div class="addonset">
+                                                        <img src="{{ asset('assets/admin/assets/img/icons/qrcode-scan.svg') }}"
+                                                            alt="img">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive no-pagination">
+                                        <table class="table  datanew">
+                                            <thead>
+                                                <tr>
+                                                    <th>Image</th>
+                                                    <th>Date</th>
+                                                    <th>Supplier</th>
+                                                    <th>Reference</th>
+                                                    <th>Status</th>
+                                                    <th>Grand Total ($)</th>
+                                                    <th>Paid ($)</th>
+                                                    <th>Due ($)</th>
+                                                    <th>Payment Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <a class="product-img">
+                                                            <img src="{{ asset('assets/admin/assets/img/products/product1.jpg') }}"
+                                                                alt="product">
+                                                        </a>
+                                                    </td>
+                                                    <td>2/27/2022</td>
+                                                    <td>Apex Computers </td>
+                                                    <td>PT001</td>
+                                                    <td><span class="badges bg-lightgreen">Received</span></td>
+                                                    <td>550</td>
+                                                    <td>120</td>
+                                                    <td>550</td>
+                                                    <td><span class="badges bg-lightgreen">Paid</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a class="product-img">
+                                                            <img src="{{ asset('assets/admin/assets/img/products/product5.jpg') }}"
+                                                                alt="product">
+                                                        </a>
+                                                    </td>
+                                                    <td>3/24/2022</td>
+                                                    <td>Best Power Tools</td>
+                                                    <td>PT0011</td>
+                                                    <td><span class="badges bg-lightred">Pending</span></td>
+                                                    <td>2580</td>
+                                                    <td>1250</td>
+                                                    <td>2580</td>
+                                                    <td><span class="badges bg-lightred">Unpaid</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 ms-auto">
+                                            <div class="total-order w-100 max-widthauto m-auto mb-4">
+                                                <ul>
+                                                    <li>
+                                                        <h4>Order Tax</h4>
+                                                        <h5>$ 0.00</h5>
+                                                    </li>
+                                                    <li>
+                                                        <h4>Discount</h4>
+                                                        <h5>$ 0.00</h5>
+                                                    </li>
+                                                    <li>
+                                                        <h4>Shipping</h4>
+                                                        <h5>$ 0.00</h5>
+                                                    </li>
+                                                    <li>
+                                                        <h4>Grand Total</h4>
+                                                        <h5>$ 0.00</h5>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Order Tax</label>
+                                                <div class="input-groupicon select-code">
+                                                    <input type="text" value="0" class="p-2">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Discount</label>
+                                                <div class="input-groupicon select-code">
+                                                    <input type="text" value="0" class="p-2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks">
+                                                <label>Shipping</label>
+                                                <div class="input-groupicon select-code">
+                                                    <input type="text" value="0" class="p-2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6 col-12">
+                                            <div class="input-blocks mb-5">
+                                                <label>Status</label>
+                                                <select class="select">
+                                                    <option>Choose</option>
+                                                    <option>Pending</option>
+                                                    <option>Received</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 text-end">
+                                            <button type="button" class="btn btn-cancel add-cancel me-3"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-submit add-sale">Save
+                                                Changes</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit popup -->
 @endif
 
-@if(Route::is(['countires']))
-		<!-- Add Supplier -->
-		<div class="modal fade" id="add-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Country</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="countries">
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label class="form-label">Country Name</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label class="form-label">Region</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
+@if (Route::is(['roles-permissions']))
+    <!-- Add Role -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Create Role</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="roles-permissions">
+                                <div class="mb-0">
+                                    <label class="form-label">Role Name</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Create Role</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Role -->
 
-										<div class="row">
-											<!-- Editor -->
-											<div class="col-md-12">
-												<div class="edit-add card">
-													<div class="edit-add">
-														<label class="form-label">Description</label>
-													</div>
-													<div class="card-body-list">
-														<div id="summernote">Type your message</div>
-													</div>
-													<p>Maximum 600 Characters</p>
-												</div>
-											</div>
-											<!-- /Editor -->
-										</div>
-									</div>
-
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Supplier -->
-
-		<!-- Edit Supplier -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Supplier</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="countries">
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label class="form-label">Country Name</label>
-												<input type="text" class="form-control" placeholder="China">
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label class="form-label">Region</label>
-												<input type="text" class="form-control" placeholder="Beijing">
-											</div>
-										</div>
-
-										<div class="row">
-											<!-- Editor -->
-											<div class="col-md-12">
-												<div class="edit-add card">
-													<div class="edit-add">
-														<label class="form-label">Description</label>
-
-													</div>
-													<div class="card-body-list">
-														<div id="summernote5">Type your message</div>
-													</div>
-													<p>Maximum 600 Characters</p>
-												</div>
-											</div>
-											<!-- /Editor -->
-										</div>
-									</div>
-
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Supplier -->
+    <!-- Edit Role -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Role</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="roles-permissions">
+                                <div class="mb-0">
+                                    <label class="form-label">Role Name</label>
+                                    <input type="text" class="form-control" value="sales Man">
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Role -->
 @endif
 
-@if(Route::is(['currency-settings']))
-		<!-- Add Currency -->
-		<div class="modal fade" id="add-currency">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Currency</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="currency-settings">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Currency Name <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Currency Symbol <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Currency Code <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Currency Rate <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user6" class="check" checked="">
-												<label for="user6" class="checktoggle"></label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Currency -->
+@if (Route::is(['shift']))
+    <!-- Add Shift -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add New Shift</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="shift">
+                                <ul class="nav nav-pills modal-table-tab" id="pills-tab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="pills-add-shift-info-tab"
+                                            data-bs-toggle="pill" data-bs-target="#pills-add-shift-info"
+                                            type="button" role="tab" aria-controls="pills-add-shift-info"
+                                            aria-selected="true">Shift Info</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-add-break-tab" data-bs-toggle="pill"
+                                            data-bs-target="#pills-add-break" type="button" role="tab"
+                                            aria-controls="pills-add-break" aria-selected="false">Break
+                                            Timings</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="pills-add-shift-info"
+                                        role="tabpanel" aria-labelledby="pills-add-shift-info-tab">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="input-blocks">
+                                                    <label>Shift Name</label>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>From</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="Select Time">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>To</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="Select Time">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="input-blocks">
+                                                    <label>Weekoff</label>
+                                                    <select class="select">
+                                                        <option>Choose</option>
+                                                        <option>Sunday, Monday</option>
+                                                        <option>Saturday, Sunday</option>
+                                                        <option>Tuesday, Saturday</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="modal-table-item">
+                                                    <h4>Weekdays Defeniton</h4>
+                                                    <div class="table-responsive no-pagination">
+                                                        <table class="table  datanew">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Days</th>
+                                                                    <th class="text-center">Weeks</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="day1"
+                                                                                class="check">
+                                                                            <label for="day1"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Monday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="day2"
+                                                                                class="check">
+                                                                            <label for="day2"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Tuesday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
 
-		<!-- Edit Currency -->
-		<div class="modal fade" id="edit-currency">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Currency</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="currency-settings">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Currency Name <span> *</span></label>
-												<input type="text" class="form-control" value="Euro">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Currency Symbol <span> *</span></label>
-												<input type="text" class="form-control" value="EUR">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Currency Code <span> *</span></label>
-												<input type="text" class="form-control" value="€">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Currency Rate <span> *</span></label>
-												<input type="text" class="form-control" value="Default">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user5" class="check" checked="">
-												<label for="user5" class="checktoggle"></label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Currency -->
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="day3"
+                                                                                class="check">
+                                                                            <label for="day3"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Wednesday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="day4"
+                                                                                class="check">
+                                                                            <label for="day4"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Thursday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="day5"
+                                                                                class="check">
+                                                                            <label for="day5"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Friday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="day6"
+                                                                                class="check">
+                                                                            <label for="day6"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Saturday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="day7"
+                                                                                class="check">
+                                                                            <label for="day7"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Sunday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="input-blocks custom-form-check">
+                                                        <label class="checkboxs modal-table-check">
+                                                            <input type="checkbox">
+                                                            <span class="checkmarks"></span>
+                                                            Recurring Shift
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="input-blocks m-0">
+                                                        <div
+                                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                                            <span class="status-label">Status</span>
+                                                            <input type="checkbox" id="user6" class="check"
+                                                                checked>
+                                                            <label for="user6" class="checktoggle mb-0"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-add-break" role="tabpanel"
+                                        aria-labelledby="pills-add-break-tab">
+                                        <div class="break-title">
+                                            <h4>Morning Break</h4>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>From</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="Select Time">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>To</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="Select Time">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="break-title">
+                                            <h4>Lunch</h4>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>From</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="Select Time">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>To</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="Select Time">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="break-title">
+                                            <h4>Evening Break</h4>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>From</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="Select Time">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>To</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="Select Time">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="input-blocks summer-description-box">
+                                            <label>Description</label>
+                                            <div id="summernote"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Shift -->
+
+    <!-- Edit Shift -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Shift</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="shift">
+                                <ul class="nav nav-pills modal-table-tab" id="pills-tab2" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="pills-edit-shift-info-tab"
+                                            data-bs-toggle="pill" data-bs-target="#pills-edit-shift-info"
+                                            type="button" role="tab" aria-controls="pills-edit-shift-info"
+                                            aria-selected="true">Shift Info</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-edit-break-tab" data-bs-toggle="pill"
+                                            data-bs-target="#pills-edit-break" type="button" role="tab"
+                                            aria-controls="pills-edit-break" aria-selected="false">Break
+                                            Timings</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="pills-tabContent2">
+                                    <div class="tab-pane fade show active" id="pills-edit-shift-info"
+                                        role="tabpanel" aria-labelledby="pills-edit-shift-info-tab">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="input-blocks">
+                                                    <label>Shift Name</label>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>From</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="Select Time">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>To</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="Select Time">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="input-blocks">
+                                                    <label>Weekoff</label>
+                                                    <select class="select">
+                                                        <option>Sunday, Monday</option>
+                                                        <option>Saturday, Sunday</option>
+                                                        <option>Tuesday, Saturday</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="modal-table-item">
+                                                    <h4>Weekdays Defeniton</h4>
+                                                    <div class="table-responsive no-pagination">
+                                                        <table class="table  datanew">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Days</th>
+                                                                    <th class="text-center">Weeks</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="days1"
+                                                                                class="check" checked>
+                                                                            <label for="days1"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Monday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="days2"
+                                                                                class="check" checked>
+                                                                            <label for="days2"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Tuesday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="days3"
+                                                                                class="check" checked>
+                                                                            <label for="days3"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Wednesday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="days4"
+                                                                                class="check" checked>
+                                                                            <label for="days4"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Thursday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox" checked>
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="days5"
+                                                                                class="check">
+                                                                            <label for="days5"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Friday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="days6"
+                                                                                class="check">
+                                                                            <label for="days6"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Saturday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div
+                                                                            class="status-toggle modal-status d-flex align-items-center">
+                                                                            <input type="checkbox" id="days7"
+                                                                                class="check">
+                                                                            <label for="days7"
+                                                                                class="checktoggle"></label>
+                                                                            <span
+                                                                                class="status-label ms-2">Sunday</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="text-end">
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                All
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                1st
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                2nd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                3rd
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                4th
+                                                                            </label>
+                                                                            <label
+                                                                                class="checkboxs modal-table-check">
+                                                                                <input type="checkbox">
+                                                                                <span class="checkmarks"></span>
+                                                                                5th
+                                                                            </label>
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="input-blocks custom-form-check">
+                                                        <label class="checkboxs modal-table-check">
+                                                            <input type="checkbox" checked>
+                                                            <span class="checkmarks"></span>
+                                                            Recurring Shift
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="input-blocks m-0">
+                                                        <div
+                                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                                            <span class="status-label">Status</span>
+                                                            <input type="checkbox" id="users6" class="check"
+                                                                checked>
+                                                            <label for="users6" class="checktoggle mb-0"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-edit-break" role="tabpanel"
+                                        aria-labelledby="pills-edit-break-tab">
+                                        <div class="break-title">
+                                            <h4>Morning Break</h4>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>From</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="11:00 AM">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>To</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="11:15 AM">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="break-title">
+                                            <h4>Lunch</h4>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>From</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="01:00 PM">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>To</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="02:00 PM">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="break-title">
+                                            <h4>Evening Break</h4>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>From</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="05:00 PM">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="input-blocks">
+                                                    <label>To</label>
+                                                    <div class="form-icon">
+                                                        <input type="text" class="form-control timepicker"
+                                                            placeholder="05:30 PM">
+                                                        <span class="cus-icon"><i data-feather="clock"
+                                                                class="feather-clock"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="input-blocks summer-description-box">
+                                            <label>Description</label>
+                                            <div id="summernote2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Shift -->
 @endif
 
-@if(Route::is(['custom-fields']))
-		<!-- Add Custom Field -->
-		<div class="modal fade" id="add-custom-field">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add New Custom Fields</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="custom-fields">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Custom Fields For <span> *</span></label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Expense</option>
-													<option>Transaction</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Label <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Default Value <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Input Type <span> *</span></label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Text</option>
-													<option>Textarea</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="localization-select pos-payment-method mb-3 d-flex align-items-center mb-0 w-100">
-												<div class="custom-control custom-checkbox">
-													<label class="checkboxs mb-0 pb-0 line-height-1">
-														<input type="checkbox" checked>
-														<span class="checkmarks"></span>Required
-													</label>
-												</div>
-												<div class="custom-control custom-checkbox">
-													<label class="checkboxs mb-0 pb-0 line-height-1">
-														<input type="checkbox" checked>
-														<span class="checkmarks"></span>Disable
-													</label>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user2" class="check" checked="">
-												<label for="user2" class="checktoggle"></label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Custom Field -->
+@if (Route::is(['sms-gateway']))
+    <!-- nexmo Config -->
+    <div class="modal fade" id="nexmo-config">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Nexmo</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="user4" class="check" checked>
+                                <label for="user4" class="checktoggle"> </label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="sms-gateway">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">API Key <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">API Secret Key <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label"> Sender ID <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /nexmo Config -->
 
-		<!-- Edit Custom Field -->
-		<div class="modal fade" id="edit-custom-field">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add New Custom Fields</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="custom-fields">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Custom Fields For <span> *</span></label>
-												<select class="select">
-													<option>Expense</option>
-													<option>Transaction</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Label <span> *</span></label>
-												<input type="text" class="form-control" value="Name">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Default Value <span> *</span></label>
-												<input type="text" class="form-control" value="None">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Input Type <span> *</span></label>
-												<select class="select">
-													<option>Text</option>
-													<option>Textarea</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="localization-select pos-payment-method mb-3 d-flex align-items-center mb-0 w-100">
-												<div class="custom-control custom-checkbox">
-													<label class="checkboxs mb-0 pb-0 line-height-1">
-														<input type="checkbox" checked>
-														<span class="checkmarks"></span>Required
-													</label>
-												</div>
-												<div class="custom-control custom-checkbox">
-													<label class="checkboxs mb-0 pb-0 line-height-1">
-														<input type="checkbox" checked>
-														<span class="checkmarks"></span>Disable
-													</label>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user3" class="check" checked="">
-												<label for="user3" class="checktoggle"></label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Custom Field -->
+    <!-- Two Factor Config-->
+    <div class="modal fade" id="factor-config">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>2Factor</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="users4" class="check" checked>
+                                <label for="users4" class="checktoggle"></label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="sms-gateway">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">API Key <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">API Secret Key <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label"> Sender ID <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Two Factor Config -->
+
+    <!-- Twilio Config -->
+    <div class="modal fade" id="twilio-config">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Twilio</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="user14" class="check" checked>
+                                <label for="user14" class="checktoggle"> </label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="sms-gateway">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">API Key <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">API Secret Key <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label"> Sender ID <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Twilio Config -->
 @endif
 
-@if(Route::is(['department-grid','department-list']))
-		<!-- Add Department -->
-		<div class="modal fade" id="add-department">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Department</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="department-grid">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Department Name</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">HOD</label>
-												<select class="select">
-													<option>Choose Type</option>
-													<option>Mitchum Daniel</option>
-													<option>Susan Lopez</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3 summer-description-box">
-												<label class="form-label">Description</label>
-												<div id="summernote"></div>
-											</div>
-										</div>
-										<div class="input-blocks m-0">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user5" class="check" checked>
-												<label for="user5" class="checktoggle">	</label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Department -->
+@if (Route::is(['social-authentication']))
+    <!-- Connect Facebook -->
+    <div class="modal fade" id="fb-connect">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Facebook Login Settings</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="social-authentication">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">App ID <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">App Secret <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label">Login Redirect URL <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Connect Facebook -->
 
-		<!-- Edit Department -->
-		<div class="modal fade" id="edit-department">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Department</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="department-grid">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Department Name</label>
-												<input type="text" class="form-control" value="UI/UX">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">HOD</label>
-												<select class="select">
-													<option>Mitchum Daniel</option>
-													<option>Susan Lopez</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3 summer-description-box">
-												<label class="form-label">Description</label>
-												<div id="summernote2"></div>
-											</div>
-										</div>
-										<div class="input-blocks m-0">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user3" class="check" checked>
-												<label for="user3" class="checktoggle">	</label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Department -->
+    <!-- Connect Twitter -->
+    <div class="modal fade" id="twitter-connect">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Twitter Login Settings</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="social-authentication">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Consumer Key (API Key) <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                            <p class="input-notify-info">If you are not sure what is your APP ID,
+                                                Please head over to <span>Getting Started.</span></p>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Consumer Secret (Secret Key) <span>
+                                                    *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="mb-0">
+                                            <label class="form-label">Login Redirect URL <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Connect Twitter -->
+
+    <!-- Connect Google -->
+    <div class="modal fade" id="google-connect">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Google Login Settings</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="social-authentication">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Client ID <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                            <p class="input-notify-info">If you are not sure what is your APP ID,
+                                                Please head over to <span>Getting Started.</span></p>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Client Secret Key <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="mb-0">
+                                            <label class="form-label">Login Redirect URL <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Connect Google -->
+
+    <!-- Connect Linkedin -->
+    <div class="modal fade" id="linkedin-connect">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>LinkedIn Login Settings</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="social-authentication">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Client ID <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                            <p class="input-notify-info">If you are not sure what is your APP ID,
+                                                Please head over to <span>Getting Started.</span></p>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Client Secret Key <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="mb-0">
+                                            <label class="form-label">Login Redirect URL <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Connect Linkedin -->
 @endif
 
-@if(Route::is(['designation']))
-		<!-- Add Department -->
-		<div class="modal fade" id="add-department">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Designation</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="designation">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Designation Name</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="input-blocks m-0">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user5" class="check" checked>
-												<label for="user5" class="checktoggle">	</label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Department -->
+@if (Route::is(['states']))
+    <!-- Add State -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add State</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="states">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>State Name</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Country</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
 
-		<!-- Edit Department -->
-		<div class="modal fade" id="edit-department">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Designation </h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="designation">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Designation  Name</label>
-												<input type="text" class="form-control" value="Designer">
-											</div>
-										</div>
-										<div class="input-blocks m-0">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user3" class="check" checked>
-												<label for="user3" class="checktoggle">	</label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Department -->
+                                    <div class="row">
+                                        <!-- Editor -->
+                                        <div class="col-md-12">
+                                            <div class="edit-add card">
+                                                <div class="edit-add">
+                                                    <label>Description</label>
+
+                                                </div>
+                                                <div class="card-body-list">
+                                                    <div id="summernote">Type your message</div>
+                                                </div>
+                                                <p>Maximum 600 Characters</p>
+                                            </div>
+                                        </div>
+                                        <!-- /Editor -->
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add State -->
+
+    <!-- Edit State -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit State</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="states">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>State Name</label>
+                                            <input type="text" placeholder="Beijing">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Country</label>
+                                            <input type="text" placeholder="China">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- Editor -->
+                                        <div class="col-md-12">
+                                            <div class="edit-add card">
+                                                <div class="edit-add">
+                                                    <label>Description</label>
+
+                                                </div>
+                                                <div class="card-body-list">
+                                                    <div id="summernote5">Type your message</div>
+                                                </div>
+                                                <p>Maximum 600 Characters</p>
+                                            </div>
+                                        </div>
+                                        <!-- /Editor -->
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit State -->
 @endif
 
-@if(Route::is(['email-settings']))
-		<!-- Php Mail -->
-		<div class="modal fade" id="php-mail">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>PHP Mailer</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="user4" class="check" checked>
-									<label for="user4" class="checktoggle">	</label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="email-settings">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">From Email Address <span> *</span></label>
-												<input type="email" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Email Password <span> *</span></label>
-												<input type="password" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label"> From Email Name <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Php Mail -->
+@if (Route::is(['stock-adjustment']))
+    <!-- Add Adjustment -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered stock-adjust-modal">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Adjustment</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="stock-adjustment">
+                                <div class="input-blocks search-form">
+                                    <label>Product</label>
+                                    <input type="text" class="form-control">
+                                    <i data-feather="search" class="feather-search"></i>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Warehouse</label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Lobar Handy</option>
+                                                <option>Quaint Warehouse</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Reference Number</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="modal-body-table">
+                                            <div class="table-responsive">
+                                                <table class="table  datanew">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Product</th>
+                                                            <th>SKU</th>
+                                                            <th>Category</th>
+                                                            <th>Qty</th>
+                                                            <th>Type</th>
+                                                            <th class="no-sort">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="productimgname">
+                                                                    <a href="javascript:void(0);"
+                                                                        class="product-img stock-img">
+                                                                        <img src="{{ asset('assets/admin/assets/img/products/stock-img-02.png') }}"
+                                                                            alt="product">
+                                                                    </a>
+                                                                    <a href="javascript:void(0);">Nike Jordan</a>
+                                                                </div>
+                                                            </td>
+                                                            <td>PT002</td>
+                                                            <td>Nike</td>
+                                                            <td>
+                                                                <div class="product-quantity">
+                                                                    <span class="quantity-btn"><i
+                                                                            data-feather="minus-circle"
+                                                                            class="feather-search"></i></span>
+                                                                    <input type="text" class="quntity-input"
+                                                                        value="2">
+                                                                    <span class="quantity-btn">+<i
+                                                                            data-feather="plus-circle"
+                                                                            class="plus-circle"></i></span>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <select class="select">
+                                                                    <option>Addition</option>
+                                                                    <option>Addition</option>
+                                                                    <option>Addition</option>
+                                                                </select>
+                                                            </td>
+                                                            <td class="action-table-data">
+                                                                <div class="edit-delete-action">
+                                                                    <a class="me-2 p-2" href="#"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#edit-units">
+                                                                        <i data-feather="edit"
+                                                                            class="feather-edit"></i>
+                                                                    </a>
+                                                                    <a class="confirm-text p-2"
+                                                                        href="javascript:void(0);">
+                                                                        <i data-feather="trash-2"
+                                                                            class="feather-trash-2"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
 
-		<!-- Smtp Mail -->
-		<div class="modal fade" id="smtp-mail">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>SMTP</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="user5" class="check" checked>
-									<label for="user5" class="checktoggle">	</label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="email-settings">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">From Email Address <span> *</span></label>
-												<input type="email" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Email Password <span> *</span></label>
-												<input type="password" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label"> Email Host <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label"> Port <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Smtp Mail -->
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label>Responsible Person</label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Steven</option>
+                                                <option>Gravely</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
-		<!-- Test Mail -->
-		<div class="modal fade" id="test-mail">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Test Mail</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="user6" class="check" checked>
-									<label for="user6" class="checktoggle">	</label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="email-settings">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label">Enter Email Address <span> *</span></label>
-												<input type="email" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Test Mail -->
+                                <div class="col-lg-12">
+                                    <div class="input-blocks summer-description-box">
+                                        <label>Notes</label>
+                                        <textarea class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Create Adjustment</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Adjustment -->
+
+    <!-- Edit Adjustment -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered stock-adjust-modal">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Adjustment</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="stock-adjustment">
+                                <div class="input-blocks search-form">
+                                    <label>Product</label>
+                                    <input type="text" class="form-control" value="Nike Jordan">
+                                    <i data-feather="search" class="feather-search"></i>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Warehouse</label>
+                                            <select class="select">
+                                                <option>Lobar Handy</option>
+                                                <option>Quaint Warehouse</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Reference Number</label>
+                                            <input type="text" value="PT002">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="modal-body-table">
+                                            <div class="table-responsive">
+                                                <table class="table  datanew">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Product</th>
+                                                            <th>SKU</th>
+                                                            <th>Category</th>
+                                                            <th>Qty</th>
+                                                            <th>Type</th>
+                                                            <th class="no-sort">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="productimgname">
+                                                                    <a href="javascript:void(0);"
+                                                                        class="product-img stock-img">
+                                                                        <img src="{{ asset('assets/admin/assets/img/products/stock-img-02.png') }}"
+                                                                            alt="product">
+                                                                    </a>
+                                                                    <a href="javascript:void(0);">Nike Jordan</a>
+                                                                </div>
+                                                            </td>
+                                                            <td>PT002</td>
+                                                            <td>Nike</td>
+                                                            <td>
+                                                                <div class="product-quantity">
+                                                                    <span class="quantity-btn"><i
+                                                                            data-feather="minus-circle"
+                                                                            class="feather-search"></i></span>
+                                                                    <input type="text" class="quntity-input"
+                                                                        value="2">
+                                                                    <span class="quantity-btn">+<i
+                                                                            data-feather="plus-circle"
+                                                                            class="plus-circle"></i></span>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <select class="select">
+                                                                    <option>Addition</option>
+                                                                    <option>Addition</option>
+                                                                    <option>Addition</option>
+                                                                </select>
+                                                            </td>
+                                                            <td class="action-table-data">
+                                                                <div class="edit-delete-action">
+                                                                    <a class="me-2 p-2" href="#"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#edit-units">
+                                                                        <i data-feather="edit"
+                                                                            class="feather-edit"></i>
+                                                                    </a>
+                                                                    <a class="confirm-text p-2"
+                                                                        href="javascript:void(0);">
+                                                                        <i data-feather="trash-2"
+                                                                            class="feather-trash-2"></i>
+                                                                    </a>
+                                                                </div>
+
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label>Responsible Person</label>
+                                            <select class="select">
+                                                <option>Steven</option>
+                                                <option>Gravely</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="input-blocks summer-description-box">
+                                        <label>Notes</label>
+                                        <textarea class="form-control">The Jordan brand is owned by Nike (owned by the Knight family), as, at the time, the company was building its strategy to work with athletes to launch shows that could inspire consumers.Although Jordan preferred Converse and Adidas, they simply could not match the offer Nike made. </textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Adjustment -->
+
+    <!-- View Notes -->
+    <div class="modal fade" id="view-notes">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Notes</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <p>The Jordan brand is owned by Nike (owned by the Knight family), as, at the time, the
+                                company was building its strategy to work with athletes to launch shows that could
+                                inspire consumers.Although Jordan preferred Converse and Adidas, they simply could not
+                                match the offer Nike made. Jordan also signed with Nike because he loved the way they
+                                wanted to market him with the banned colored shoes. Nike promised to cover the fine
+                                Jordan would receive from the NBA.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /View Notes -->
 @endif
 
-@if(Route::is(['expense-category']))
-			<!-- Add Expense Category-->
-			<div class="modal fade" id="add-units">
-				<div class="modal-dialog modal-dialog-centered custom-modal-two">
-					<div class="modal-content">
-						<div class="page-wrapper-new p-0">
-							<div class="content">
-								<div class="modal-header border-0 custom-modal-header">
-									<div class="page-title">
-										<h4>Add Expense Category</h4>
-									</div>
-									<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body custom-modal-body">
-									<form action="expense-category">
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="mb-3">
-													<label class="form-label">Expense Name</label>
-													<input type="text" class="form-control">
-												</div>
+@if (Route::is(['stock-transfer']))
+    <!-- Add Stock -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered stock-adjust-modal">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Transfer</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="stock-transfer">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Warehouse From</label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Lobar Handy</option>
+                                                <option>Quaint Warehouse</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Warehouse To</label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Selosy</option>
+                                                <option>Logerro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label>Responsible Person</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks search-form mb-3">
+                                            <label>Product</label>
+                                            <input type="text" class="form-control"
+                                                placeholder="Select Product">
+                                            <i data-feather="search" class="feather-search"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks search-form mb-0">
+                                            <label>Notes</label>
+                                            <textarea class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Stock -->
 
-											</div>
-											<!-- Editor -->
-											<div class="col-md-12">
-												<div class="edit-add card">
-													<div class="edit-add">
-														<label class="form-label">Description</label>
+    <!-- Edit Stock -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered stock-adjust-modal">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Transfer</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="stock-transfer">
+                                <div class="input-blocks search-form">
+                                    <label>Product</label>
+                                    <input type="text" class="form-control" value="Nike Jordan">
+                                    <i data-feather="search" class="feather-search"></i>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Warehouse From</label>
+                                            <select class="select">
+                                                <option>Lobar Handy</option>
+                                                <option>Quaint Warehouse</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Warehouse To</label>
+                                            <select class="select">
+                                                <option>Selosy</option>
+                                                <option>Logerro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks">
+                                            <label>Reference No</label>
+                                            <input type="text" class="form-control" value="32434545">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks search-form mb-3">
+                                            <label>Product</label>
+                                            <input type="text" class="form-control"
+                                                placeholder="Select Product" value="Nike Jordan">
+                                            <i data-feather="search" class="feather-search"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="modal-body-table">
+                                            <div class="table-responsive">
+                                                <table class="table  datanew">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Product</th>
+                                                            <th>SKU</th>
+                                                            <th>Category</th>
+                                                            <th>Qty</th>
+                                                            <th class="no-sort">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="productimgname">
+                                                                    <a href="javascript:void(0);"
+                                                                        class="product-img stock-img">
+                                                                        <img src="{{ asset('assets/admin/assets/img/products/stock-img-02.png') }}"
+                                                                            alt="product">
+                                                                    </a>
+                                                                    <a href="javascript:void(0);">Nike Jordan</a>
+                                                                </div>
+                                                            </td>
+                                                            <td>PT002</td>
+                                                            <td>Nike</td>
+                                                            <td>
+                                                                <div class="product-quantity">
+                                                                    <span class="quantity-btn"><i
+                                                                            data-feather="minus-circle"
+                                                                            class="feather-search"></i></span>
+                                                                    <input type="text" class="quntity-input"
+                                                                        value="2">
+                                                                    <span class="quantity-btn">+<i
+                                                                            data-feather="plus-circle"
+                                                                            class="plus-circle"></i></span>
+                                                                </div>
+                                                            </td>
+                                                            <td class="action-table-data">
+                                                                <div class="edit-delete-action">
+                                                                    <a class="me-2 p-2" href="#"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#edit-units">
+                                                                        <i data-feather="edit"
+                                                                            class="feather-edit"></i>
+                                                                    </a>
+                                                                    <a class="confirm-text p-2"
+                                                                        href="javascript:void(0);">
+                                                                        <i data-feather="trash-2"
+                                                                            class="feather-trash-2"></i>
+                                                                    </a>
+                                                                </div>
 
-													</div>
-													<div class="card-body-list input-blocks mb-0">
-														<textarea class="form-control"></textarea>
-													</div>
-													<p>Maximum 600 Characters</p>
-												</div>
-											</div>
-											<!-- /Editor -->
-										</div>
-										<div class="modal-footer-btn">
-											<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-											<button type="submit" class="btn btn-submit">Submit</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /Add Expense Category-->
-            <!-- Edit Expense Category-->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Expense Category</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<div class="row">
-									<div class="col-lg-12">
-										<div class="mb-3">
-											<label class="form-label">Expense Name</label>
-											<input type="text" value="Employee Benefits" class="form-control">
-										</div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="input-blocks search-form mb-0">
+                                            <label>Notes</label>
+                                            <textarea class="form-control">The Jordan brand is owned by Nike (owned by the Knight family), as, at the time, the company was building its strategy to work with athletes to launch shows that could inspire consumers.Although Jordan preferred Converse and Adidas, they simply could not match the offer Nike made. </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Stock -->
 
-									</div>
-									<!-- Editor -->
-									<div class="col-md-12">
-										<div class="edit-add card">
-											<div class="edit-add">
-												<label class="form-label">Description</label>
-											</div>
-											<div class="card-body-list input-blocks mb-0">
-												<textarea class="form-control">Employee Vehicle</textarea>
-											</div>
-											<p>Maximum 600 Characters</p>
-										</div>
-									</div>
-									<!-- /Editor -->
-								</div>
-								<div class="modal-footer-btn">
-									<a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
-									<a href="{{url('expense-category')}}" class="btn btn-submit">Save Changes</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Expense -->
+    <!-- Import Transfer -->
+    <div class="modal fade" id="view-notes">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Import Transfer</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body custom-modal-body">
+                        <form action="stock-transfer">
+                            <div class="row">
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <div class="input-blocks">
+                                        <label>From</label>
+                                        <select class="select">
+                                            <option>Choose</option>
+                                            <option>Store 1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <div class="input-blocks">
+                                        <label>To</label>
+                                        <select class="select">
+                                            <option>Choose</option>
+                                            <option>Store 2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <div class="input-blocks">
+                                        <label>Satus</label>
+                                        <select class="select">
+                                            <option>Choose</option>
+                                            <option>Sent</option>
+                                            <option>Pending</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-sm-6 col-12">
+                                    <div class="row">
+                                        <div>
+                                            <div class="modal-footer-btn download-file">
+                                                <a href="javascript:void(0)" class="btn btn-submit">Download
+                                                    Sample File</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="input-blocks image-upload-down">
+                                        <label> Upload CSV File</label>
+                                        <div class="image-upload download">
+                                            <input type="file">
+                                            <div class="image-uploads">
+                                                <img src="{{ asset('assets/admin/assets/img/download-img.png') }}"
+                                                    alt="img">
+                                                <h4>Drag and drop a <span>file to upload</span></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Shipping</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="mb-3 summer-description-box transfer">
+                                    <label class="form-label">Description</label>
+                                    <div id="summernote3">
+                                    </div>
+                                    <p>Maximum 60 Characters</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Import Transfer -->
 @endif
 
-@if(Route::is(['expense-list']))
-			<!-- Add Expense -->
-			<div class="modal fade" id="add-units">
-				<div class="modal-dialog modal-dialog-centered custom-modal-two">
-					<div class="modal-content">
-						<div class="page-wrapper-new p-0">
-							<div class="content">
-								<div class="modal-header border-0 custom-modal-header">
-									<div class="page-title">
-										<h4>Add Expense</h4>
-									</div>
-									<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body custom-modal-body">
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="mb-3">
-												<label class="form-label">Expense Category</label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Foods & Snacks</option>
-													<option>Employee Benefits</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks date-group">
-												<i data-feather="calendar" class="info-img"></i>
-												<div class="input-groupicon">
-													<input type="text" class="datetimepicker" placeholder="Choose Date" >
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="mb-3">
-												<label class="form-label">Amount</label>
-												<input type="text" class="form-control" placeholder="$">
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="mb-3">
-												<label class="form-label">Reference</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Expense For</label>
-												<input type="text" class="form-control">
-												<span class="unlimited-text">0 for Unlimited</span>
-											</div>
-
-										</div>
-										<!-- Editor -->
-										<div class="col-md-12">
-											<div class="edit-add card">
-												<div class="edit-add">
-													<label class="form-label">Description</label>
-												</div>
-												<div class="card-body-list input-blocks mb-0">
-													<textarea class="form-control"></textarea>
-												</div>
-												<p>Maximum 600 Characters</p>
-											</div>
-										</div>
-										<!-- /Editor -->
-									</div>
-									<div class="modal-footer-btn">
-										<a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
-										<a href="{{url('expense-list')}}" class="btn btn-submit">Submit</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /Add Expense -->
-            <!-- Edit Expense -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Expense</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="expense-list">
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="mb-3">
-												<label class="form-label">Expense Category</label>
-												<select class="select">
-													<option>Employee Benefits</option>
-													<option>Foods & Snacks</option>
-													<option>Entertainment</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks date-group">
-												<i data-feather="calendar" class="info-img"></i>
-												<div class="input-groupicon">
-													<input type="text" class="datetimepicker ps-5" placeholder="19 Jan 2023" >
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="mb-3">
-												<label class="form-label">Amount</label>
-												<input type="text" class="form-control" value="$550.00">
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="mb-3">
-												<label class="form-label">Reference</label>
-												<input type="text" class="form-control" value="55544">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3 input-blocks">
-												<label class="form-label">Expense For</label>
-												<input type="text" class="form-control">
-												<span class="unlimited-text">0 for Unlimited</span>
-											</div>
-
-										</div>
-										<!-- Editor -->
-										<div class="col-md-12">
-											<div class="edit-add card">
-												<div class="edit-add">
-													<label class="form-label">Description</label>
-												</div>
-												<div class="card-body-list input-blocks mb-0">
-													<textarea class="form-control">Employee Vehicle</textarea>
-												</div>
-												<p>Maximum 600 Characters</p>
-											</div>
-										</div>
-										<!-- /Editor -->
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Expense -->
+@if (Route::is(['storage-settings']))
+    <!-- Aws Config -->
+    <div class="modal fade" id="aws-config">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>AWS Settings</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="user4" class="check" checked>
+                                <label for="user4" class="checktoggle"> </label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="storage-settings">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">AWS Access Key <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Secret Key <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label"> Bucket Name <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label"> Region <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label"> Base URL <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Aws Config -->
 @endif
 
-@if(Route::is(['file-manager']))
-	<!-- Files Toogle Slide -->
-	<div class="toggle-sidebar">
-		<div class="d-flex align-items-center justify-content-between head">
-			<h4>File Preview</h4>
-			<div class="d-flex align-items-center">
-				<a href="javascript:void(0);" class="me-2 d-flex align-items-center"><i class="fa fa-star"></i></a>
-				<a href="javascript:void(0);" class="me-2 d-flex align-items-center"><i data-feather="trash-2" class="feather-16 text-center text-danger"></i></a>
-				<a href="javascript:void(0);" class="sidebar-closes d-flex align-items-center" aria-hidden="true"><i data-feather="x-circle" class="feather-26 color-primary"></i></a>
-			</div>
-		</div>
-		<div class="text-center">
-			<a href="javascript:void(0);"><img src="{{ URL::asset('/build/img/file-manager/folder-lg.png')}}" alt="Folder"></a>
-			<h5>Website Backup for the Design team</h5>
-			<p>File Size : 616 MB</p>
-		</div>
+@if (Route::is(['system-settings']))
+    <!-- Google Captcha -->
+    <div class="modal fade" id="google-captcha">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Configure Google Captcha</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="system-settings">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Google Recaptcha Site Key <span>
+                                                    *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label">Google Recaptcha Secret Key <span>
+                                                    *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Google Captcha -->
 
-		<div class="nav nav-tabs d-flex align-items-center justify-content-between py-4 mb-4" id="nav-tab" role="tablist">
-			<a class="nav-link flex-fill active btn btn-light me-2 text-center" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i data-feather="list" class="feather-16 me-2 text-center"></i>Details</a>
-			<a class="nav-link flex-fill btn btn-light" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i data-feather="clock" class="feather-16 me-2"></i>Activity</a>
-		</div>
-		<div class="tab-content" id="nav-tabContent">
-			<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-				<h5 class="mb-4 d-flex align-items-center"><i data-feather="edit" class="feather-20 me-2"></i>Properties</h5>
-				<ul class="seprator-lg">
-					<li class="mb-4">
-						<h6>File Name</h6>
-						<p>Website Backup for the Designteam</p>
-					</li>
-					<li class="mb-4">
-						<h6>File Type</h6>
-						<p>Folder</p>
-					</li>
-					<li class="mb-4">
-						<h6>Size</h6>
-						<p>616 MB</p>
-					</li>
-					<li class="mb-4">
-						<h6>Created</h6>
-						<p>22 July 2023, 08:30 PM</p>
-					</li>
-					<li class="mb-4">
-						<h6>Location</h6>
-						<p class="location d-inline-flex align-items-center"><i data-feather="hard-drive" class="feather-16 me-1"></i>Drive</p>
-					</li>
-					<li class="mb-4">
-						<h6>File Name</h6>
-						<p>23 July 2023, 08:30 PM</p>
-					</li>
-					<li class="mb-4">
-						<h6>Opened On</h6>
-						<p>28 July 2023, 06:40 PM</p>
-					</li>
-					<li>
-						<div class="row">
-							<!-- Editor -->
-							<div class="col-lg-12">
-								<div class="input-blocks summer-description-box transfer">
-									<label>Description</label>
-									<div id="summernote3">
-									</div>
-									<p>Maximum 60 Characters</p>
-								</div>
-							</div>
-							<!-- /Editor -->
-						</div>
-					</li>
-				</ul>
-				<h5 class="mb-4 d-flex align-items-center"><i data-feather="user" class="feather-20 me-2"></i>Who has access</h5>
-				<div class="d-flex align-items-center justify-content-between avatar-wrap">
-					<div class="avatar-access d-flex align-items-center mb-4">
-						<span>
-							<a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Member 1" data-bs-original-title="Member 1"><img src="{{ URL::asset('/build/img/avatar/avatar-1.jpg')}}" alt="Avatar" class="avatar-md"></a>
-						</span>
-						<span>
-							<a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Member 2" data-bs-original-title="Member 2"><img src="{{ URL::asset('/build/img/avatar/avatar-2.jpg')}}" alt="Avatar" class="avatar-md"></a>
-						</span>
-						<span>
-							<a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Member 3" data-bs-original-title="Member 3"><img src="{{ URL::asset('/build/img/avatar/avatar-3.jpg')}}" alt="Avatar" class="avatar-md"></a>
-						</span>
-						<span>
-						   <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Member 4" data-bs-original-title="Member 4"><img src="{{ URL::asset('/build/img/avatar/avatar-4.jpg')}}" alt="Avatar" class="avatar-md"></a>
-						</span>
-						<span>
-						   <a href="javascript:void(0);" class="avatar-md add d-flex align-items-center justify-content-center"><i data-feather="plus" class="feather-16 me-1"></i></a>
-						</span>
-					</div>
-				</div>
-				<p>Owned by Andrew. Shared with James, Fin, Davis</p>
-			</div>
-			<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-				<h5 class="mb-4 d-flex align-items-center"><i data-feather="calendar" class="feather-20 me-2"></i>This Week</h5>
-				<ul class="mb-4">
-					<li class="mb-4">
-						<div class="d-flex align-items-center mb-2">
-							<a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-1.jpg')}}" alt="Avatar" class="avatar-md"></a>
-							<p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
-						</div>
-						<p class="d-flex align-items-center location border-0"><img src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for the Design team</p>
-					</li>
-					<li class="mb-4">
-						<div class="d-flex align-items-center mb-2">
-							<a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-2.jpg')}}" alt="Avatar" class="avatar-md"></a>
-							<p>Drake shared an item<br>3:39 PM Jul 19</p>
-						</div>
-						<p class="d-flex align-items-center location border-0"><img src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for the Design team</p>
-					</li>
-					<li class="mb-2">
-						<div class="d-flex align-items-center mb-2">
-							<a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-3.jpg')}}" alt="Avatar" class="avatar-md"></a>
-							<div><p class="mb-0 text-secondary">Melvin</p><p class="mb-0">Commentor</p></div>
-						</div>
-					</li>
-					<li class="mb-2">
-						<div class="d-flex align-items-center mb-2">
-							<a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-4.jpg')}}" alt="Avatar" class="avatar-md"></a>
-							<div><p class="mb-0 text-secondary">Drake</p><p class="mb-0">Editor</p></div>
-						</div>
-					</li>
-				</ul>
-				<h5 class="mb-4 d-flex align-items-center"><i data-feather="calendar" class="feather-20 me-2"></i>Last Month</h5>
-				<ul class="mb-4">
-					<li class="mb-4">
-						<div class="d-flex align-items-center mb-2">
-							<a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-1.jpg')}}" alt="Avatar" class="avatar-md"></a>
-							<p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
-						</div>
-						<p class="d-flex align-items-center location border-0"><img src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for the Design team</p>
-					</li>
-					<li class="mb-4">
-						<div class="d-flex align-items-center mb-2">
-							<a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-2.jpg')}}" alt="Avatar" class="avatar-md"></a>
-							<p>Drake shared an item<br>3:39 PM Jul 19</p>
-						</div>
-						<p class="d-flex align-items-center location border-0"><img src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">Website Backup for the Design team</p>
-					</li>
-					<li class="mb-2">
-						<div class="d-flex align-items-center mb-2">
-							<a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-3.jpg')}}" alt="Avatar" class="avatar-md"></a>
-							<div><p class="mb-0 text-secondary">Melvin</p><p class="mb-0">Commentor</p></div>
-						</div>
-					</li>
-					<li class="mb-2">
-						<div class="d-flex align-items-center mb-2">
-							<a href="javascript:void(0);" class="me-3"><img src="{{ URL::asset('/build/img/avatar/avatar-4.jpg')}}" alt="Avatar" class="avatar-md"></a>
-							<div><p class="mb-0 text-secondary">Drake</p><p class="mb-0">Editor</p></div>
-						</div>
-					</li>
-				</ul>
-				<a href="javascript:void(0);" class="text-primary show-all"><i data-feather="plus-circle" class="feather-20 me-2"></i>Show All</a>
-			</div>
-		</div>
+    <!-- Google Analytics -->
+    <div class="modal fade" id="google-analytics">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Configure Google Analytics</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="system-settings">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label">Google Analytics <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Google Analytics -->
 
-	</div>
-	<!-- Files Toogle Slide -->
+    <!-- Google Adsense -->
+    <div class="modal fade" id="google-adsense">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Configure Google Adsense Code</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="system-settings">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label">Google Adsense Code <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Google Adsense -->
 
-	<!-- Upload File -->
-	<div class="modal fade modal-default pos-modal upload-modal" id="upload-file" aria-labelledby="upload-file">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header p-4">
-					<h5>Upload File</h5>
-					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body p-4">
-					<div class="drag-drop text-center mb-4">
-						<div class="upload">
-							<a href="#"><img src="{{ URL::asset('/build/img/icons/drag-drop.svg')}}" alt=""></a>
-							<p>Drag and drop a <a href="#">file to upload</a></p>
-						</div>
-						<input type="file" multiple="">
-					</div>
-
-					<div class="d-flex align-items-center justify-content-between">
-						<p>3 of 1 files Uploaded</p>
-						<span>70%</span>
-					</div>
-					<div class="progress mt-2 mb-4">
-						  <div class="progress-bar progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
-
-					<ul>
-						<li class="d-flex align-items-center justify-content-between">
-							<div class="d-flex align-items-center w-85">
-								<img src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">
-								<div class="flex-fill">
-									<h6><a href="javascript:void(0);">latest-version.zip<i data-feather="check-circle" class="ms-2 feather-16"></i></a></h6>
-									<span>616 MB</span>
-								</div>
-							</div>
-							<a href="javascript:void(0);" class="text-danger text-right"><i data-feather="trash-2" class="feather-16"></i></a>
-						</li>
-						<li class="d-flex align-items-center justify-content-between">
-							<div class="d-flex align-items-center w-85">
-								<img src="{{ URL::asset('/build/img/icons/xls.svg')}}" alt="Folder" class="me-2">
-								<div class="flex-fill">
-									<h6><a href="javascript:void(0);">Update work history.xls</a></h6>
-									<span>616 MB</span>
-									<div class="progress mt-2">
-										  <div class="progress-bar bg-danger" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-								</div>
-							</div>
-							<div class="d-flex align-items-center">
-								<a href="javascript:void(0);" class="text-danger me-2 d-flex align-items-center"><i data-feather="trash-2" class="feather-16"></i></a>
-								<a href="javascript:void(0);" class="text-default d-flex align-items-center"><i data-feather="pause-circle" class="feather-16"></i></a>
-							</div>
-						</li>
-						<li class="d-flex align-items-center justify-content-between">
-							<div class="d-flex align-items-center w-85">
-								<img src="{{ URL::asset('/build/img/icons/zip.svg')}}" alt="Folder" class="me-2">
-								<div class="flex-fill">
-									<h6><a href="javascript:void(0);">Updated Project.zip</a></h6>
-									<span>616 MB</span>
-									<div class="progress mt-2">
-										  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-								</div>
-							</div>
-							<div class="d-flex align-items-center">
-								<a href="javascript:void(0);" class="text-danger me-2 d-flex align-items-center"><i data-feather="trash-2" class="feather-16"></i></a>
-								<a href="javascript:void(0);" class="text-default d-flex align-items-center"><i data-feather="play-circle" class="feather-16"></i></a>
-							</div>
-						</li>
-					</ul>
-
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Upload File -->
-
-	<!-- Upload Folder -->
-	<div class="modal fade modal-default pos-modal upload-modal" id="upload-folder" aria-labelledby="upload-folder">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header p-4">
-					<h5>Upload File</h5>
-					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body p-4">
-					<div class="drag-drop text-center mb-4">
-						<div class="upload">
-							<a href="#"><img src="{{ URL::asset('/build/img/icons/drag-drop.svg')}}" alt=""></a>
-							<p>Drag and drop a <a href="#">file to upload</a></p>
-						</div>
-						<input type="file" multiple="">
-					</div>
-
-					<div class="d-flex align-items-center justify-content-between">
-						<p>3 of 3 files Uploaded</p>
-						<span>100%</span>
-					</div>
-					<div class="progress mt-2 mb-4">
-						  <div class="progress-bar progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
-
-					<ul>
-						<li class="d-flex align-items-center justify-content-between">
-							<div class="d-flex align-items-center w-85">
-								<img src="{{ URL::asset('/build/img/icons/folder.svg')}}" alt="Folder" class="me-2">
-								<div class="flex-fill">
-									<h6><a href="javascript:void(0);">latest-version<i data-feather="check-circle" class="ms-2 feather-16"></i></a></h6>
-									<span>616 MB</span>
-								</div>
-							</div>
-							<a href="javascript:void(0);" class="text-danger text-right"><i data-feather="trash-2" class="feather-16"></i></a>
-						</li>
-						<li class="d-flex align-items-center justify-content-between">
-							<div class="d-flex align-items-center w-85">
-								<img src="{{ URL::asset('/build/img/icons/xls.svg')}}" alt="Folder" class="me-2">
-								<div class="flex-fill">
-									<h6><a href="javascript:void(0);">Update work history.xls<i data-feather="trash-2" class="feather-16"></i></a></h6>
-									<span>16 MB</span>
-								</div>
-							</div>
-							<div class="d-flex align-items-center">
-								<a href="javascript:void(0);" class="text-danger me-2"><i data-feather="trash-2" class="feather-16"></i></a>
-								<a href="javascript:void(0);" class="text-default"><i data-feather="pause-circle" class="feather-16"></i></a>
-							</div>
-						</li>
-						<li class="d-flex align-items-center justify-content-between">
-							<div class="d-flex align-items-center w-85">
-								<img src="{{ URL::asset('/build/img/icons/zip.svg')}}" alt="Folder" class="me-2">
-								<div class="flex-fill">
-									<h6><a href="javascript:void(0);">updated project.zip<i data-feather="trash-2" class="feather-16"></i></a></h6>
-									<span>14 MB</span>
-								</div>
-							</div>
-							<div class="d-flex align-items-center">
-								<a href="javascript:void(0);" class="text-danger me-2"><i data-feather="trash-2" class="feather-16"></i></a>
-								<a href="javascript:void(0);" class="text-default"><i data-feather="play-circle" class="feather-16"></i></a>
-							</div>
-						</li>
-					</ul>
-
-				</div>
-				<div class="modal-footer d-sm-flex justify-content-end">
-					 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Clear</button>
-					<button type="button" class="btn btn-primary">Upload</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Upload Folder -->
-
-	<!-- Upload Folder -->
-	<div class="modal fade modal-default pos-modal upload-message" id="upload-message" aria-labelledby="upload-message">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header p-4">
-					<h5>Upload File</h5>
-					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body p-4">
-
-					<div class="d-flex align-items-center justify-content-between">
-						<p>3 of 3 files Uploaded</p>
-						<span>100%</span>
-					</div>
-					<div class="progress mt-2 mb-4">
-						  <div class="progress-bar progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
-				</div>
-				<div class="modal-footer d-sm-flex justify-content-end">
-					 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Clear</button>
-					<button type="button" class="btn btn-primary">Upload</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Upload Folder -->
-
-	<!-- Create Folder -->
-	<div class="modal fade modal-default pos-modal" id="create-folder" aria-labelledby="create-folder">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header p-4">
-					<h5>Create Folder</h5>
-					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body p-4">
-					<div class="row">
-						<div class="col-12">
-							<label class="form-label">Folder Name</label>
-							<input type="text" class="form-control">
-						</div>
-					</div>
-					<div class="modal-footer d-sm-flex justify-content-end">
-						 <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-primary">Create Folder</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Create Folder -->
+    <!-- Google Adsense -->
+    <div class="modal fade" id="google-map">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Configure Google Map ID</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="system-settings">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label">Enter Map ID <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Google Adsense -->
 @endif
 
-@if(Route::is(['holidays']))
-		<!-- Add Department -->
-		<div class="modal fade" id="add-department">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Holiday</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="holidays">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label>Add Holiday</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-											<label>Start Date</label>
-											<div class="input-groupicon calender-input">
-											<i data-feather="calendar" class="info-img"></i>
-											<input type="text" class="datetimepicker" placeholder="Select">
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="input-blocks">
-										<label>End Date</label>
-										<div class="input-groupicon calender-input">
-										<i data-feather="calendar" class="info-img"></i>
-										<input type="text" class="datetimepicker" placeholder="Select">
-										</div>
-									</div>
-									</div>
-										<div class="col-lg-12">
-											<div class="input-blocks">
-												<label>No of Days</label>
-												<input type="text" class="form-control" placeholder="01">
-											</div>
-										</div>
-										<div class="input-blocks m-0">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user5" class="check" checked>
-												<label for="user5" class="checktoggle">	</label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Department -->
+@if (Route::is(['tax-rates']))
+    <!-- Add Tax Rates -->
+    <div class="modal fade" id="add-tax">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Tax Rates</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="user1" class="check" checked>
+                                <label for="user1" class="checktoggle"> </label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="tax-rates">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Name <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label">Tax Rate % <span> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Tax Rates -->
 
-		<!-- Edit Department -->
-		<div class="modal fade" id="edit-department">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Holiday</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="holidays">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="input-blocks">
-												<label>Add Holiday</label>
-												<input type="text" class="form-control" value="Newyear">
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-											<label>Start Date</label>
-											<div class="input-groupicon calender-input">
-											<i data-feather="calendar" class="info-img"></i>
-											<input type="text" class="datetimepicker" placeholder="01 Jan 2023">
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="input-blocks">
-										<label>End Date</label>
-										<div class="input-groupicon calender-input">
-											<i data-feather="calendar" class="info-img"></i>
-											<input type="text" class="datetimepicker" placeholder="01 Jan 2023">
-										</div>
-									</div>
-									</div>
-										<div class="mb-0">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user3" class="check" checked>
-												<label for="user3" class="checktoggle">	</label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Department -->
+    <!-- Edit Tax Rates -->
+    <div class="modal fade" id="edit-tax">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Tax Rates</h4>
+                            </div>
+                            <div
+                                class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
+                                <input type="checkbox" id="user4" class="check" checked>
+                                <label for="user4" class="checktoggle"> </label>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="tax-rates">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Name <span> *</span></label>
+                                            <input type="text" class="form-control" value="VAT">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-0">
+                                            <label class="form-label">Tax Rate % <span> *</span></label>
+                                            <input type="text" class="form-control" value="16">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endif
 
-@if(Route::is(['leave-types']))
-		<!-- Add coupons -->
-		<div class="modal fade" id="add-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add New Leave Type</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="leave-types">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Name</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Leave Quota</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="input-blocks m-0">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user3" class="check" checked>
-												<label for="user3" class="checktoggle">	</label>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Coupons -->
+@if (Route::is(['users']))
+    <!-- Add User -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add User</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="users">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="new-employee-field">
+                                            <span>Avatar</span>
+                                            <div class="profile-pic-upload mb-2">
+                                                <div class="profile-pic">
+                                                    <span><i data-feather="plus-circle" class="plus-down-add"></i>
+                                                        Profile Photo</span>
+                                                </div>
+                                                <div class="input-blocks mb-0">
+                                                    <div class="image-upload mb-0">
+                                                        <input type="file">
+                                                        <div class="image-uploads">
+                                                            <h4>Change Image</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>User Name</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Phone</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
 
-		<!-- Edit Warehouse -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit  Leave Type</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="leave-types">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="input-blocks">
-												<label>Name</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="input-blocks">
-												<label>Leave Quota</label>
-												<input type="text" value="05">
-											</div>
-										</div>
-										<div class="input-blocks m-0">
-											<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-												<span class="status-label">Status</span>
-												<input type="checkbox" id="user4" class="check" checked>
-												<label for="user4" class="checktoggle">	</label>
-											</div>
-										</div>
-									</div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Role</label>
+                                            <select class="select">
+                                                <option>Choose</option>
+                                                <option>Manager</option>
+                                                <option>Admin</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Password</label>
+                                            <div class="pass-group">
+                                                <input type="password" class="pass-input">
+                                                <span class="fas toggle-password fa-eye-slash"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Confirm Passworrd</label>
+                                            <div class="pass-group">
+                                                <input type="password" class="pass-input">
+                                                <span class="fas toggle-password fa-eye-slash"></span>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <div class="col-lg-12">
+                                        <div class="mb-0 input-blocks">
+                                            <label class="form-label">Descriptions</label>
+                                            <textarea class="form-control mb-1">Type Message</textarea>
+                                            <p>Maximum 600 Characters</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add User -->
 
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Warehouse -->
+    <!-- Edit User -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit User</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="users">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="new-employee-field">
+                                            <span>Avatar</span>
+                                            <div class="profile-pic-upload edit-pic">
+                                                <div class="profile-pic">
+                                                    <span><img
+                                                            src="{{ asset('assets/admin/assets/img/users/edit-user.jpg') }}"
+                                                            class="user-editer" alt="User"></span>
+                                                    <div class="close-img">
+                                                        <i data-feather="x" class="info-img"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="input-blocks mb-0">
+                                                    <div class="image-upload mb-0">
+                                                        <input type="file">
+                                                        <div class="image-uploads">
+                                                            <h4>Change Image</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>User Name</label>
+                                            <input type="text" placeholder="Thomas">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Phone</label>
+                                            <input type="text" placeholder="+12163547758 ">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Email</label>
+                                            <input type="email" placeholder="thomas@example.com">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Role</label>
+                                            <select class="select">
+                                                <option>Admin</option>
+                                                <option>Manager</option>
+                                                <option>Store Keeper</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Password</label>
+                                            <div class="pass-group">
+                                                <input type="password" class="pass-input" placeholder="****">
+                                                <span class="fas toggle-password fa-eye-slash"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label>Confirm Passworrd</label>
+                                            <div class="pass-group">
+                                                <input type="password" class="pass-input" placeholder="****">
+                                                <span class="fas toggle-password fa-eye-slash"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="mb-0 input-blocks">
+                                            <label class="form-label">Descriptions</label>
+                                            <textarea class="form-control mb-1"></textarea>
+                                            <p>Maximum 600 Characters</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit User -->
 @endif
 
-@if(Route::is(['leaves-employee']))
-		<!-- Add Leave -->
-		<div class="modal fade" id="add-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Apply Leave</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="leaves-employee">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="input-blocks">
-												<label>Start Date</label>
-
-												<div class="input-groupicon calender-input">
-													<i data-feather="calendar" class="info-img"></i>
-													<input type="text" class="datetimepicker" placeholder="Select From - To Date" >
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Select Leave Type </label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Sick Leave</option>
-													<option>Paternity</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="apply-leave">
-												<div class="leave-apply">
-													<div class="leave-date">
-														<span>Day 1</span>
-														<p>16 Aug 2023</p>
-													</div>
-													<div class="leave-time">
-														<div class="input-blocks mb-0">
-															<select class="select">
-																<option>Full Day</option>
-																<option>Half Day</option>
-															</select>
-														</div>
-													</div>
-												</div>
-												<div class="leave-apply">
-													<div class="leave-date">
-														<span>Day 1</span>
-														<p>16 Aug 2023</p>
-													</div>
-													<div class="leave-time">
-														<div class="input-blocks mb-0">
-															<select class="select">
-																<option>Full Day</option>
-																<option>Half Day</option>
-															</select>
-														</div>
-													</div>
-												</div>
-											</div>
-
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3 summer-description-box mb-0">
-												<label class="form-label">Reason</label>
-												<div id="summernote"></div>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Leave -->
-
-		<!-- Edit Leave -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Leave</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="leaves-employee">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="input-blocks">
-												<label class="form-label">Start Date</label>
-
-												<div class="input-groupicon calender-input">
-													<i data-feather="calendar" class="info-img"></i>
-													<input type="text" class="datetimepicker" placeholder="Select From - To Date" >
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Select Leave Type </label>
-												<select class="select">
-													<option>Sick Leave</option>
-													<option>Paternity</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="apply-leave">
-												<div class="leave-apply">
-													<div class="leave-date">
-														<span>Day 1</span>
-														<p>16 Aug 2023</p>
-													</div>
-													<div class="leave-time">
-														<div class="input-blocks mb-0">
-															<select class="select">
-																<option>Full Day</option>
-																<option>Half Day</option>
-															</select>
-														</div>
-													</div>
-												</div>
-												<div class="leave-apply">
-													<div class="leave-date">
-														<span>Day 1</span>
-														<p>16 Aug 2023</p>
-													</div>
-													<div class="leave-time">
-														<div class="input-blocks mb-0">
-															<select class="select">
-																<option>Full Day</option>
-																<option>Half Day</option>
-															</select>
-														</div>
-													</div>
-												</div>
-											</div>
-
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3 summer-description-box mb-0">
-												<label class="form-label">Reason</label>
-												<div id="summernote2"></div>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Leave -->
-
-		<!-- Rejected Reason -->
-		<div class="modal fade" id="rejected-reason">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Reason For Rejection</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<p>The Jordan brand is owned by Nike (owned by the Knight family), as, at the time, the company was building its strategy to work with athletes to launch shows that could inspire consumers.Although Jordan preferred Converse and Adidas, they simply could not match the offer Nike made. Jordan also signed with Nike because he loved the way they wanted to market him with the banned colored shoes. Nike promised to cover the fine Jordan would receive from the NBA.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Rejected Reason -->
-@endif
-
-@if(Route::is(['manage-stocks']))
-		<!-- Add Stock -->
-		<div class="modal fade" id="add-units">
-			<div class="modal-dialog modal-dialog-centered stock-adjust-modal">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Stock</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="manage-stocks">
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Warehouse</label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Lobar Handy</option>
-													<option>Quaint Warehouse</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Shop</label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Selosy</option>
-													<option>Logerro</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="input-blocks">
-												<label>Responsible Person</label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Steven</option>
-													<option>Gravely</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="input-blocks search-form mb-0">
-												<label>Product</label>
-												<input type="text" class="form-control" placeholder="Select Product">
-												<i data-feather="search" class="feather-search"></i>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Create</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Stock -->
-
-		<!-- Edit Stock -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered stock-adjust-modal">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Stock</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="manage-stocks">
-									<div class="input-blocks search-form">
-										<label>Product</label>
-										<input type="text" class="form-control" value="Nike Jordan">
-										<i data-feather="search" class="feather-search"></i>
-									</div>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Warehouse</label>
-												<select class="select">
-													<option>Lobar Handy</option>
-													<option>Quaint Warehouse</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Shop</label>
-												<select class="select">
-													<option>Selosy</option>
-													<option>Logerro</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="input-blocks">
-												<label>Responsible Person</label>
-												<select class="select">
-													<option>Steven</option>
-													<option>Gravely</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="input-blocks search-form mb-3">
-												<label>Product</label>
-												<input type="text" class="form-control" placeholder="Select Product" value="Nike Jordan">
-												<i data-feather="search" class="feather-search"></i>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="modal-body-table">
-												<div class="table-responsive">
-													<table class="table  datanew">
-														<thead>
-															<tr>
-																<th>Product</th>
-																<th>SKU</th>
-																<th>Category</th>
-																<th>Qty</th>
-																<th class="no-sort">Action</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<td>
-																	<div class="productimgname">
-																		<a href="javascript:void(0);" class="product-img stock-img">
-																			<img src="{{ URL::asset('/build/img/products/stock-img-02.png')}}" alt="product">
-																		</a>
-																		<a href="javascript:void(0);">Nike Jordan</a>
-																	</div>
-																</td>
-																<td>PT002</td>
-																<td>Nike</td>
-																<td>
-																	<div class="product-quantity">
-																		<span class="quantity-btn"><i data-feather="minus-circle" class="feather-search"></i></span>
-																		<input type="text" class="quntity-input" value="2">
-																		<span class="quantity-btn">+<i data-feather="plus-circle" class="plus-circle"></i></span>
-																	</div>
-																</td>
-																<td class="action-table-data">
-																	<div class="edit-delete-action">
-																		<a class="me-2 p-2" href="#" data-bs-toggle="modal" data-bs-target="#edit-units">
-																			<i data-feather="edit" class="feather-edit"></i>
-																		</a>
-																		<a class="confirm-text p-2" href="javascript:void(0);">
-																			<i data-feather="trash-2" class="feather-trash-2"></i>
-																		</a>
-																	</div>
-
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Stock -->
-@endif
-
-@if(Route::is(['payment-gateway-settings']))
-		<!-- Php Mail -->
-		<div class="modal fade" id="payment-connect">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Paypal</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="user16" class="check" checked>
-									<label for="user16" class="checktoggle">	</label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="payment-gateway-settings">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Email Address <span> *</span></label>
-												<input type="email" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">API Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label">Secret Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Php Mail -->
-@endif
-
-@if(Route::is(['printer-settings']))
-		<!-- Add Printer -->
-		<div class="modal fade" id="add-printer">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Printer</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="printer-settings">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Printer Name <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Connection Type <span> *</span></label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Network</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">IP Address <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label">Port <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Printer -->
-
-		<!-- Edit Printer -->
-		<div class="modal fade" id="edit-printer">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Printer</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="printer-settings">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Printer Name <span> *</span></label>
-												<input type="text" class="form-control" value="HP Printer">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Connection Type <span> *</span></label>
-												<select class="select">
-													<option>Network</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">IP Address <span> *</span></label>
-												<input type="text" class="form-control" value="151.00.1.22">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label">Port <span> *</span></label>
-												<input type="text" class="form-control" value="900">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Printer -->
-@endif
-
-@if(Route::is(['purchase-list']))
-	<!-- Add Purchase -->
-	<div class="modal fade" id="add-units">
-		<div class="modal-dialog purchase modal-dialog-centered stock-adjust-modal">
-			<div class="modal-content">
-				<div class="page-wrapper-new p-0">
-					<div class="content">
-						<div class="modal-header border-0 custom-modal-header">
-							<div class="page-title">
-								<h4>Add Purchase</h4>
-							</div>
-							<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body custom-modal-body">
-							<form action="purchase-list">
-								<div class="row">
-									<div class="col-lg-3 col-md-6 col-sm-12">
-										<div class="input-blocks add-product">
-											<label>Supplier Name</label>
-											<div class="row">
-												<div class="col-lg-10 col-sm-10 col-10">
-													<select class="select">
-														<option>Select Customer</option>
-														<option>Apex Computers</option>
-														<option>Dazzle Shoes</option>
-														<option>Best Accessories</option>
-													</select>
-												</div>
-												<div class="col-lg-2 col-sm-2 col-2 ps-0">
-													<div class="add-icon tab">
-														<a href="javascript:void(0);"><i data-feather="plus-circle" class="feather-plus-circles"></i></a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-3 col-md-6 col-sm-12">
-										<div class="input-blocks">
-											<label>Purchase Date</label>
-
-											<div class="input-groupicon calender-input">
-												<i data-feather="calendar" class="info-img"></i>
-												<input type="text" class="datetimepicker" placeholder="Choose">
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-3 col-md-6 col-sm-12">
-										<div class="input-blocks">
-											<label>Product Name</label>
-											<select class="select">
-												<option>Choose</option>
-												<option>Shoe</option>
-												<option>Mobile</option>
-
-											</select>
-										</div>
-									</div>
-									<div class="col-lg-3 col-md-6 col-sm-12">
-										<div class="input-blocks">
-											<label>Reference No</label>
-											<input type="text" class="form-control">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-12">
-										<div class="input-blocks">
-											<label>Product Name</label>
-											<input type="text" placeholder="Please type product code and select">
-										</div>
-									</div>
-									<div class="col-lg-12">
-										<div class="modal-body-table">
-											<div class="table-responsive">
-												<table class="table  datanew">
-													<thead>
-														<tr>
-															<th>Product</th>
-															<th>Qty</th>
-															<th>Purchase Price($)</th>
-															<th>Discount($)</th>
-															<th>Tax(%)</th>
-															<th>Tax Amount($)</th>
-															<th>Unit Cost($)</th>
-															<th>Total Cost(%)</th>
-														</tr>
-													</thead>
-
-													<tbody>
-														<tr>
-															<td class="p-5"></td>
-															<td class="p-5"></td>
-															<td class="p-5"></td>
-															<td class="p-5"></td>
-															<td class="p-5"></td>
-															<td class="p-5"></td>
-															<td class="p-5"></td>
-															<td class="p-5"></td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-
-									</div>
-									<div class="row">
-										<div class="col-lg-3 col-md-6 col-sm-12">
-											<div class="input-blocks">
-												<label>Order Tax</label>
-												<input type="text" value="0">
-											</div>
-										</div>
-										<div class="col-lg-3 col-md-6 col-sm-12">
-											<div class="input-blocks">
-												<label>Discount</label>
-												<input type="text" value="0">
-											</div>
-										</div>
-										<div class="col-lg-3 col-md-6 col-sm-12">
-											<div class="input-blocks">
-												<label>Shipping</label>
-												<input type="text" value="0">
-											</div>
-										</div>
-										<div class="col-lg-3 col-md-6 col-sm-12">
-											<div class="input-blocks">
-												<label>Status</label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Received</option>
-													<option>Pending</option>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-lg-12">
-									<div class="input-blocks summer-description-box">
-										<label>Notes</label>
-										<div id="summernote"></div>
-									</div>
-								</div>
-								<div class="col-lg-12">
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Add Purchase -->
-
-	<!-- Edit Purchase -->
-	<div class="modal fade" id="edit-units">
-		<div class="modal-dialog purchase modal-dialog-centered stock-adjust-modal">
-			<div class="modal-content">
-				<div class="page-wrapper-new p-0">
-					<div class="content">
-						<div class="modal-header border-0 custom-modal-header">
-							<div class="page-title">
-								<h4>Edit Purchase</h4>
-							</div>
-							<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body custom-modal-body">
-							<form action="purchase-list">
-								<div>
-									<div class="row">
-										<div class="col-lg-3 col-sm-6 col-12">
-											<div class="input-blocks">
-												<label>Supplier Name</label>
-												<div class="row">
-													<div class="col-lg-10 col-sm-10 col-10">
-														<select class="select">
-															<option>Dazzle Shoes</option>
-															<option>Apex Computers</option>
-															<option>Beats Headphones</option>
-														</select>
-													</div>
-													<div class="col-lg-2 col-sm-2 col-2 ps-0">
-														<div class="add-icon tab">
-															<a href="javascript:void(0);"><i data-feather="plus-circle" class="feather-plus-circles"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-3 col-sm-6 col-12">
-											<div class="input-blocks">
-												<label>Purchase Date </label>
-												<div class="input-groupicon">
-													<input type="text" placeholder="19 Jan 2023" class="datetimepicker">
-													<div class="addonset">
-														<img src="{{ URL::asset('/build/img/icons/calendars.svg')}}" alt="img">
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-3 col-sm-6 col-12">
-											<div class="input-blocks">
-												<label>Product Name</label>
-												<select class="select">
-													<option>Nike Jordan</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-3 col-sm-6 col-12">
-											<div class="input-blocks">
-												<label>Reference No.</label>
-												<input type="text" value="010203">
-											</div>
-										</div>
-										<div class="col-lg-12 col-sm-6 col-12">
-											<div class="input-blocks">
-												<label>Product</label>
-												<div class="input-groupicon">
-													<input type="text"
-														placeholder="Scan/Search Product by code and select">
-													<div class="addonset">
-														<img src="{{ URL::asset('/build/img/icons/scanners.svg')}}" alt="img">
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-12">
-										<div class="modal-body-table">
-											<div class="table-responsive">
-												<table class="table">
-													<thead>
-														<tr>
-															<th>Product Name</th>
-															<th>QTY</th>
-															<th>Purchase Price($) </th>
-															<th>Discount($) </th>
-															<th>Tax %</th>
-															<th>Tax Amount($)</th>
-															<th class="text-end">Unit Cost($)</th>
-															<th class="text-end">Total Cost ($) </th>
-															<th></th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>
-																<div class="productimgname">
-																	<a href="javascript:void(0);" class="product-img stock-img">
-																		<img src="{{ URL::asset('/build/img/products/stock-img-02.png')}}" alt="product">
-																	</a>
-																	<a href="javascript:void(0);">Nike Jordan</a>
-																</div>
-															</td>
-															<td><div class="product-quantity">
-																<span class="quantity-btn">+<i data-feather="plus-circle" class="plus-circle"></i></span>
-																<input type="text" class="quntity-input" value="10">
-																<span class="quantity-btn"><i data-feather="minus-circle" class="feather-search"></i></span>
-															</div></td>
-															<td>2000</td>
-															<td>500.00</td>
-															<td>0.00</td>
-															<td>0.00</td>
-															<td>0.00</td>
-															<td>1500</td>
-															<td>
-																<a class="delete-set"><img
-																		src="{{ URL::asset('/build/img/icons/delete.svg')}}" alt="svg')}}"></a>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-12 float-md-right">
-											<div class="total-order">
-												<ul>
-													<li>
-														<h4>Order Tax</h4>
-														<h5>$ 0.00</h5>
-													</li>
-													<li>
-														<h4>Discount</h4>
-														<h5>$ 0.00</h5>
-													</li>
-													<li>
-														<h4>Shipping</h4>
-														<h5>$ 0.00</h5>
-													</li>
-													<li class="total">
-														<h4>Grand Total</h4>
-														<h5>$1500.00</h5>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-3 col-sm-6 col-12">
-											<div class="input-blocks">
-												<label>Order Tax</label>
-												<input type="text" value="0">
-											</div>
-										</div>
-										<div class="col-lg-3 col-sm-6 col-12">
-											<div class="input-blocks">
-												<label>Discount</label>
-												<input type="text" value="0">
-											</div>
-										</div>
-										<div class="col-lg-3 col-sm-6 col-12">
-											<div class="input-blocks">
-												<label>Shipping</label>
-												<input type="text" value="0">
-											</div>
-										</div>
-										<div class="col-lg-3 col-sm-6 col-12">
-											<div class="input-blocks">
-												<label>Status</label>
-												<select class="select">
-													<option>Sent</option>
-													<option>Ordered</option>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-lg-12">
-									<div class="input-blocks summer-description-box">
-										<label>Description</label>
-										<div id="summernote2">
-											<p>These shoes are made with the highest quality materials. </p>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-12">
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Edit Purchase -->
-
-	<!-- Import Purchase -->
-	<div class="modal fade" id="view-notes">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="page-wrapper-new p-0">
-					<div class="content">
-						<div class="modal-header border-0 custom-modal-header">
-							<div class="page-title">
-								<h4>Import Purchase</h4>
-							</div>
-							<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body custom-modal-body">
-							<form action="purchase-list">
-								<div class="row">
-									<div class="col-lg-6 col-sm-6 col-12">
-										<div class="input-blocks">
-											<label>Supplier Name</label>
-											<div class="row">
-												<div class="col-lg-10 col-sm-10 col-10">
-													<select class="select">
-														<option>Choose</option>
-														<option>Apex Computers</option>
-														<option>Apex Computers</option>
-													</select>
-												</div>
-												<div class="col-lg-2 col-sm-2 col-2 ps-0">
-													<div class="add-icon tab">
-														<a href="javascript:void(0);"><i data-feather="plus-circle" class="feather-plus-circles"></i></a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-6 col-sm-6 col-12">
-										<div class="input-blocks">
-											<label>Purchase Status </label>
-											<select class="select">
-												<option>Choose</option>
-												<option>Received</option>
-												<option>Ordered</option>
-												<option>Pending</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-lg-12 col-sm-6 col-12">
-										<div class="row">
-											<div>
-												<!-- <div class="input-blocks download">
-													<a class="btn btn-submit">Download Sample File</a>
-												</div> -->
-												<div class="modal-footer-btn download-file">
-													<a href="javascript:void(0)" class="btn btn-submit">Download Sample File</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-12">
-										<div class="input-blocks image-upload-down">
-											<label>	Upload CSV File</label>
-											<div class="image-upload download">
-												<input type="file">
-												<div class="image-uploads">
-													<img src="{{ URL::asset('/build/img/download-img.png')}}" alt="img">
-													<h4>Drag and drop a <span>file to upload</span></h4>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-4 col-sm-6 col-12">
-										<div class="input-blocks">
-											<label>Order Tax</label>
-											<input type="text" value="0">
-										</div>
-									</div>
-									<div class="col-lg-4 col-sm-6 col-12">
-										<div class="input-blocks">
-											<label>Discount</label>
-											<input type="text" value="0" >
-										</div>
-									</div>
-									<div class="col-lg-4 col-sm-6 col-12">
-										<div class="input-blocks">
-											<label>Shipping</label>
-											<input type="text" value="0">
-										</div>
-									</div>
-								</div>
-								<div class="input-blocks summer-description-box transfer">
-									<label>Description</label>
-									<div id="summernote3">
-									</div>
-									<p>Maximum 60 Characters</p>
-								</div>
-								<div class="modal-footer-btn">
-									<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-									<button type="submit" class="btn btn-submit">Submit</button>
-								</div>
-							</form>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Import Purchase -->
-@endif
-
-@if(Route::is(['purchase-returns']))
-			<!--add popup -->
-			<div class="modal fade" id="add-sales-new">
-				<div class="modal-dialog add-centered">
-					<div class="modal-content">
-						<div class="page-wrapper p-0 m-0">
-							<div class="content p-0">
-								<div class="modal-header border-0 custom-modal-header">
-									<div class="page-title">
-										<h4> Add Purchase Return</h4>
-									</div>
-									<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="card">
-									<div class="card-body">
-										<form action="purchase-returns">
-											<div class="row">
-												<div class="col-lg-4 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label class="form-label">Supplier</label>
-														<div class="row">
-															<div class="col-lg-10 col-sm-10 col-10">
-																<select class="select">
-																	<option>Choose</option>
-																	<option>Apex Computers</option>
-																	<option>Modern Automobile</option>
-																	<option>AIM Infotech</option>
-																</select>
-															</div>
-															<div class="col-lg-2 col-sm-2 col-2 ps-0">
-																<div class="add-icon">
-																	<a href="#" class="choose-add"><i data-feather="plus-circle" class="plus"></i></a>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-4 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label>Date</label>
-														<div class="input-groupicon calender-input">
-															<i data-feather="calendar" class="info-img"></i>
-															<input type="text" class="datetimepicker" placeholder="Choose">
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-4 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label class="form-label">Reference No.</label>
-														<input type="text" class="form-control">
-													</div>
-												</div>
-												<div class="col-lg-12 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label>Product Name</label>
-														<div class="input-groupicon select-code">
-															<input type="text" placeholder="Please type product code and select">
-															<div class="addonset">
-																<img src="{{ URL::asset('/build/img/icons/qrcode-scan.svg')}}" alt="img">
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="table-responsive no-pagination">
-												<table class="table  datanew">
-													<thead>
-														<tr>
-															<th>Image</th>
-															<th>Date</th>
-															<th>Supplier</th>
-															<th>Reference</th>
-															<th>Status</th>
-															<th>Grand Total ($)</th>
-															<th>Paid ($)</th>
-															<th>Due ($)</th>
-															<th>Payment Status</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-
-											<div class="row">
-												<div class="col-lg-6 ms-auto">
-													<div class="total-order w-100 max-widthauto m-auto mb-4">
-														<ul>
-															<li>
-																<h4>Order Tax</h4>
-																<h5>$ 0.00</h5>
-															</li>
-															<li>
-																<h4>Discount</h4>
-																<h5>$ 0.00</h5>
-															</li>
-															<li>
-																<h4>Shipping</h4>
-																<h5>$ 0.00</h5>
-															</li>
-															<li>
-																<h4>Grand Total</h4>
-																<h5>$ 0.00</h5>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</div>
-
-											<div class="row">
-												<div class="col-lg-3 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label>Order Tax</label>
-														<div class="input-groupicon select-code">
-															<input type="text" value="0" class="p-2">
-														</div>
-
-													</div>
-												</div>
-												<div class="col-lg-3 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label>Discount</label>
-														<div class="input-groupicon select-code">
-															<input type="text" value="0" class="p-2">
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-3 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label>Shipping</label>
-														<div class="input-groupicon select-code">
-															<input type="text" value="0" class="p-2">
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-3 col-sm-6 col-12">
-													<div class="input-blocks mb-5">
-														<label>Status</label>
-														<select class="select">
-															<option>Choose</option>
-															<option>Pending</option>
-															<option>Received</option>
-														</select>
-													</div>
-												</div>
-												<div class="col-lg-12 text-end">
-													<button type="button"  class="btn btn-cancel add-cancel me-3" data-bs-dismiss="modal">Cancel</button>
-													<button type="submit" class="btn btn-submit add-sale">Submit</button											>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /add popup -->
-
-			<!--Edit popup -->
-			<div class="modal fade" id="edit-sales-new">
-				<div class="modal-dialog add-centered">
-					<div class="modal-content">
-						<div class="page-wrapper p-0 m-0">
-							<div class="content p-0">
-								<div class="modal-header border-0 custom-modal-header">
-									<div class="page-title">
-										<h4>Edit Purchase Return</h4>
-									</div>
-									<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="card">
-									<div class="card-body">
-										<form action="purchase-returns">
-											<div class="row">
-												<div class="col-lg-4 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label class="form-label">Supplier</label>
-														<div class="row">
-															<div class="col-lg-10 col-sm-10 col-10">
-																<select class="select">
-																	<option>Apex Computers</option>
-																	<option>Modern Automobile</option>
-																	<option>AIM Infotech</option>
-																</select>
-															</div>
-															<div class="col-lg-2 col-sm-2 col-2 ps-0">
-																<div class="add-icon">
-																	<a href="#" class="choose-add"><i data-feather="plus-circle" class="plus"></i></a>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-4 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label>Date</label>
-														<div class="input-groupicon calender-input">
-															<i data-feather="calendar" class="info-img"></i>
-															<input type="text" class="datetimepicker" placeholder="Choose">
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-4 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label class="form-label">Reference No.</label>
-														<input type="text" class="form-control" value="PT001">
-													</div>
-												</div>
-												<div class="col-lg-12 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label>Product Name</label>
-														<div class="input-groupicon select-code">
-															<input type="text" placeholder="Please type product code and select" value="Apex Computers">
-															<div class="addonset">
-																<img src="{{ URL::asset('/build/img/icons/qrcode-scan.svg')}}" alt="img">
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="table-responsive no-pagination">
-												<table class="table  datanew">
-													<thead>
-														<tr>
-															<th>Image</th>
-															<th>Date</th>
-															<th>Supplier</th>
-															<th>Reference</th>
-															<th>Status</th>
-															<th>Grand Total ($)</th>
-															<th>Paid ($)</th>
-															<th>Due ($)</th>
-															<th>Payment Status</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>
-																<a class="product-img">
-																	<img src="{{ URL::asset('/build/img/products/product1.jpg')}}" alt="product">
-																</a>
-															</td>
-															<td>2/27/2022</td>
-															<td>Apex Computers </td>
-															<td>PT001</td>
-															<td><span class="badges bg-lightgreen">Received</span></td>
-															<td>550</td>
-															<td>120</td>
-															<td>550</td>
-															<td><span class="badges bg-lightgreen">Paid</span></td>
-														</tr>
-														<tr>
-															<td>
-																<a class="product-img">
-																	<img src="{{ URL::asset('/build/img/products/product5.jpg')}}" alt="product">
-																</a>
-															</td>
-															<td>3/24/2022</td>
-															<td>Best Power Tools</td>
-															<td>PT0011</td>
-															<td><span class="badges bg-lightred">Pending</span></td>
-															<td>2580</td>
-															<td>1250</td>
-															<td>2580</td>
-															<td><span class="badges bg-lightred">Unpaid</span></td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-
-											<div class="row">
-												<div class="col-lg-6 ms-auto">
-													<div class="total-order w-100 max-widthauto m-auto mb-4">
-														<ul>
-															<li>
-																<h4>Order Tax</h4>
-																<h5>$ 0.00</h5>
-															</li>
-															<li>
-																<h4>Discount</h4>
-																<h5>$ 0.00</h5>
-															</li>
-															<li>
-																<h4>Shipping</h4>
-																<h5>$ 0.00</h5>
-															</li>
-															<li>
-																<h4>Grand Total</h4>
-																<h5>$ 0.00</h5>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</div>
-
-											<div class="row">
-												<div class="col-lg-3 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label>Order Tax</label>
-														<div class="input-groupicon select-code">
-															<input type="text" value="0" class="p-2">
-														</div>
-
-													</div>
-												</div>
-												<div class="col-lg-3 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label>Discount</label>
-														<div class="input-groupicon select-code">
-															<input type="text" value="0" class="p-2">
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-3 col-sm-6 col-12">
-													<div class="input-blocks">
-														<label>Shipping</label>
-														<div class="input-groupicon select-code">
-															<input type="text" value="0" class="p-2">
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-3 col-sm-6 col-12">
-													<div class="input-blocks mb-5">
-														<label>Status</label>
-														<select class="select">
-															<option>Choose</option>
-															<option>Pending</option>
-															<option>Received</option>
-														</select>
-													</div>
-												</div>
-												<div class="col-lg-12 text-end">
-													<button type="button"  class="btn btn-cancel add-cancel me-3" data-bs-dismiss="modal">Cancel</button>
-													<button type="submit" class="btn btn-submit add-sale">Save Changes</button>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Edit popup -->
-@endif
-
-@if(Route::is(['roles-permissions']))
-		<!-- Add Role -->
-		<div class="modal fade" id="add-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Create Role</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="roles-permissions">
-									<div class="mb-0">
-										<label class="form-label">Role Name</label>
-										<input type="text" class="form-control">
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Create Role</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Role -->
-
-		<!-- Edit Role -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Role</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="roles-permissions">
-									<div class="mb-0">
-										<label class="form-label">Role Name</label>
-										<input type="text" class="form-control" value="sales Man">
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Role -->
-@endif
-
-@if(Route::is(['shift']))
-		<!-- Add Shift -->
-		<div class="modal fade" id="add-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add New Shift</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="shift">
-									<ul class="nav nav-pills modal-table-tab" id="pills-tab" role="tablist">
-										<li class="nav-item" role="presentation">
-										<button class="nav-link active" id="pills-add-shift-info-tab" data-bs-toggle="pill" data-bs-target="#pills-add-shift-info" type="button" role="tab" aria-controls="pills-add-shift-info" aria-selected="true">Shift Info</button>
-										</li>
-										<li class="nav-item" role="presentation">
-										<button class="nav-link" id="pills-add-break-tab" data-bs-toggle="pill" data-bs-target="#pills-add-break" type="button" role="tab" aria-controls="pills-add-break" aria-selected="false">Break Timings</button>
-										</li>
-									</ul>
-									<div class="tab-content" id="pills-tabContent">
-										<div class="tab-pane fade show active" id="pills-add-shift-info" role="tabpanel" aria-labelledby="pills-add-shift-info-tab">
-											<div class="row">
-												<div class="col-lg-12">
-													<div class="input-blocks">
-														<label>Shift Name</label>
-														<input type="text" class="form-control">
-													</div>
-												</div>
-												<div class="col-lg-6">
-													<div class="input-blocks">
-														<label>From</label>
-														<div class="form-icon">
-															<input type="text" class="form-control timepicker" placeholder="Select Time">
-															<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-6">
-													<div class="input-blocks">
-														<label>To</label>
-														<div class="form-icon">
-															<input type="text" class="form-control timepicker" placeholder="Select Time">
-															<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-12">
-													<div class="input-blocks">
-														<label>Weekoff</label>
-														<select class="select">
-															<option>Choose</option>
-															<option>Sunday, Monday</option>
-															<option>Saturday, Sunday</option>
-															<option>Tuesday, Saturday</option>
-														</select>
-													</div>
-												</div>
-												<div class="col-lg-12">
-													<div class="modal-table-item">
-														<h4>Weekdays Defeniton</h4>
-														<div class="table-responsive no-pagination">
-															<table class="table  datanew">
-																<thead>
-																	<tr>
-																		<th>Days</th>
-																		<th class="text-center">Weeks</th>
-																	</tr>
-																</thead>
-																<tbody>
-																	<tr>
-																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">
-																				<input type="checkbox" id="day1" class="check">
-																				<label for="day1" class="checktoggle"></label>
-																				<span class="status-label ms-2">Monday</span>
-																			</div>
-																		</td>
-																		<td>
-																			<div class="text-end">
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					All
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					1st
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					2nd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					3rd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					4th
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					5th
-																				</label>
-																			</div>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">
-																				<input type="checkbox" id="day2" class="check">
-																				<label for="day2" class="checktoggle"></label>
-																				<span class="status-label ms-2">Tuesday</span>
-																			</div>
-																		</td>
-																		<td>
-																			<div class="text-end">
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					All
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					1st
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					2nd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					3rd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					4th
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					5th
-																				</label>
-																			</div>
-
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">
-																				<input type="checkbox" id="day3" class="check">
-																				<label for="day3" class="checktoggle"></label>
-																				<span class="status-label ms-2">Wednesday</span>
-																			</div>
-																		</td>
-																		<td>
-																			<div class="text-end">
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					All
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					1st
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					2nd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					3rd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					4th
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					5th
-																				</label>
-																			</div>
-
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">
-																				<input type="checkbox" id="day4" class="check">
-																				<label for="day4" class="checktoggle"></label>
-																				<span class="status-label ms-2">Thursday</span>
-																			</div>
-																		</td>
-																		<td>
-																			<div class="text-end">
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					All
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					1st
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					2nd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					3rd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					4th
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					5th
-																				</label>
-																			</div>
-
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">
-																				<input type="checkbox" id="day5" class="check">
-																				<label for="day5" class="checktoggle"></label>
-																				<span class="status-label ms-2">Friday</span>
-																			</div>
-																		</td>
-																		<td>
-																			<div class="text-end">
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					All
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					1st
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					2nd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					3rd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					4th
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					5th
-																				</label>
-																			</div>
-
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">
-																				<input type="checkbox" id="day6" class="check">
-																				<label for="day6" class="checktoggle"></label>
-																				<span class="status-label ms-2">Saturday</span>
-																			</div>
-																		</td>
-																		<td>
-																			<div class="text-end">
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					All
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					1st
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					2nd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					3rd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					4th
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					5th
-																				</label>
-																			</div>
-
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>
-																			<div class="status-toggle modal-status d-flex align-items-center">
-																				<input type="checkbox" id="day7" class="check">
-																				<label for="day7" class="checktoggle"></label>
-																				<span class="status-label ms-2">Sunday</span>
-																			</div>
-																		</td>
-																		<td>
-																			<div class="text-end">
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					All
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					1st
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					2nd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					3rd
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					4th
-																				</label>
-																				<label class="checkboxs modal-table-check">
-																					<input type="checkbox">
-																					<span class="checkmarks"></span>
-																					5th
-																				</label>
-																			</div>
-
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-														<div class="input-blocks custom-form-check">
-															<label class="checkboxs modal-table-check">
-																<input type="checkbox">
-																<span class="checkmarks"></span>
-																Recurring Shift
-															</label>
-														</div>
-
-														<div class="input-blocks m-0">
-															<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-																<span class="status-label">Status</span>
-																<input type="checkbox" id="user6" class="check" checked>
-																<label for="user6" class="checktoggle mb-0"></label>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="tab-pane fade" id="pills-add-break" role="tabpanel" aria-labelledby="pills-add-break-tab">
-											<div class="break-title">
-												<h4>Morning Break</h4>
-											</div>
-											<div class="row">
-												<div class="col-lg-6">
-													<div class="input-blocks">
-														<label>From</label>
-														<div class="form-icon">
-															<input type="text" class="form-control timepicker" placeholder="Select Time">
-															<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-6">
-													<div class="input-blocks">
-														<label>To</label>
-														<div class="form-icon">
-															<input type="text" class="form-control timepicker" placeholder="Select Time">
-															<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="break-title">
-												<h4>Lunch</h4>
-											</div>
-											<div class="row">
-												<div class="col-lg-6">
-													<div class="input-blocks">
-														<label>From</label>
-														<div class="form-icon">
-															<input type="text" class="form-control timepicker" placeholder="Select Time">
-															<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-6">
-													<div class="input-blocks">
-														<label>To</label>
-														<div class="form-icon">
-															<input type="text" class="form-control timepicker" placeholder="Select Time">
-															<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="break-title">
-												<h4>Evening Break</h4>
-											</div>
-											<div class="row">
-												<div class="col-lg-6">
-													<div class="input-blocks">
-														<label>From</label>
-														<div class="form-icon">
-															<input type="text" class="form-control timepicker" placeholder="Select Time">
-															<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-6">
-													<div class="input-blocks">
-														<label>To</label>
-														<div class="form-icon">
-															<input type="text" class="form-control timepicker" placeholder="Select Time">
-															<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="input-blocks summer-description-box">
-												<label>Description</label>
-												<div id="summernote"></div>
-											</div>
-										</div>
-									</div>
-
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Shift -->
-
-			<!-- Edit Shift -->
-			<div class="modal fade" id="edit-units">
-				<div class="modal-dialog modal-dialog-centered custom-modal-two">
-					<div class="modal-content">
-						<div class="page-wrapper-new p-0">
-							<div class="content">
-								<div class="modal-header border-0 custom-modal-header">
-									<div class="page-title">
-										<h4>Edit Shift</h4>
-									</div>
-									<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body custom-modal-body">
-									<form action="shift">
-										<ul class="nav nav-pills modal-table-tab" id="pills-tab2" role="tablist">
-											<li class="nav-item" role="presentation">
-												<button class="nav-link active" id="pills-edit-shift-info-tab" data-bs-toggle="pill" data-bs-target="#pills-edit-shift-info" type="button" role="tab" aria-controls="pills-edit-shift-info" aria-selected="true">Shift Info</button>
-											</li>
-											<li class="nav-item" role="presentation">
-												<button class="nav-link" id="pills-edit-break-tab" data-bs-toggle="pill" data-bs-target="#pills-edit-break" type="button" role="tab" aria-controls="pills-edit-break" aria-selected="false">Break Timings</button>
-											</li>
-										</ul>
-										<div class="tab-content" id="pills-tabContent2">
-											<div class="tab-pane fade show active" id="pills-edit-shift-info" role="tabpanel" aria-labelledby="pills-edit-shift-info-tab">
-												<div class="row">
-													<div class="col-lg-12">
-														<div class="input-blocks">
-															<label>Shift Name</label>
-															<input type="text" class="form-control">
-														</div>
-													</div>
-													<div class="col-lg-6">
-														<div class="input-blocks">
-															<label>From</label>
-															<div class="form-icon">
-																<input type="text" class="form-control timepicker" placeholder="Select Time">
-																<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-															</div>
-														</div>
-													</div>
-													<div class="col-lg-6">
-														<div class="input-blocks">
-															<label>To</label>
-															<div class="form-icon">
-																<input type="text" class="form-control timepicker" placeholder="Select Time">
-																<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-															</div>
-														</div>
-													</div>
-													<div class="col-lg-12">
-														<div class="input-blocks">
-															<label>Weekoff</label>
-															<select class="select">
-																<option>Sunday, Monday</option>
-																<option>Saturday, Sunday</option>
-																<option>Tuesday, Saturday</option>
-															</select>
-														</div>
-													</div>
-													<div class="col-lg-12">
-														<div class="modal-table-item">
-															<h4>Weekdays Defeniton</h4>
-															<div class="table-responsive no-pagination">
-																<table class="table  datanew">
-																	<thead>
-																		<tr>
-																			<th>Days</th>
-																			<th class="text-center">Weeks</th>
-																		</tr>
-																	</thead>
-																	<tbody>
-																		<tr>
-																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">
-																					<input type="checkbox" id="days1" class="check" checked>
-																					<label for="days1" class="checktoggle"></label>
-																					<span class="status-label ms-2">Monday</span>
-																				</div>
-																			</td>
-																			<td>
-																				<div class="text-end">
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						All
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						1st
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						2nd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						3rd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						4th
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						5th
-																					</label>
-																				</div>
-																			</td>
-																		</tr>
-																		<tr>
-																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">
-																					<input type="checkbox" id="days2" class="check" checked>
-																					<label for="days2" class="checktoggle"></label>
-																					<span class="status-label ms-2">Tuesday</span>
-																				</div>
-																			</td>
-																			<td>
-																				<div class="text-end">
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						All
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						1st
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						2nd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						3rd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						4th
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						5th
-																					</label>
-																				</div>
-
-																			</td>
-																		</tr>
-																		<tr>
-																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">
-																					<input type="checkbox" id="days3" class="check" checked>
-																					<label for="days3" class="checktoggle"></label>
-																					<span class="status-label ms-2">Wednesday</span>
-																				</div>
-																			</td>
-																			<td>
-																				<div class="text-end">
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						All
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						1st
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						2nd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						3rd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						4th
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						5th
-																					</label>
-																				</div>
-
-																			</td>
-																		</tr>
-																		<tr>
-																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">
-																					<input type="checkbox" id="days4" class="check" checked>
-																					<label for="days4" class="checktoggle"></label>
-																					<span class="status-label ms-2">Thursday</span>
-																				</div>
-																			</td>
-																			<td>
-																				<div class="text-end">
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						All
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						1st
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						2nd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						3rd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						4th
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox" checked>
-																						<span class="checkmarks"></span>
-																						5th
-																					</label>
-																				</div>
-
-																			</td>
-																		</tr>
-																		<tr>
-																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">
-																					<input type="checkbox" id="days5" class="check">
-																					<label for="days5" class="checktoggle"></label>
-																					<span class="status-label ms-2">Friday</span>
-																				</div>
-																			</td>
-																			<td>
-																				<div class="text-end">
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						All
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						1st
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						2nd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						3rd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						4th
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						5th
-																					</label>
-																				</div>
-
-																			</td>
-																		</tr>
-																		<tr>
-																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">
-																					<input type="checkbox" id="days6" class="check">
-																					<label for="days6" class="checktoggle"></label>
-																					<span class="status-label ms-2">Saturday</span>
-																				</div>
-																			</td>
-																			<td>
-																				<div class="text-end">
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						All
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						1st
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						2nd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						3rd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						4th
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						5th
-																					</label>
-																				</div>
-
-																			</td>
-																		</tr>
-																		<tr>
-																			<td>
-																				<div class="status-toggle modal-status d-flex align-items-center">
-																					<input type="checkbox" id="days7" class="check">
-																					<label for="days7" class="checktoggle"></label>
-																					<span class="status-label ms-2">Sunday</span>
-																				</div>
-																			</td>
-																			<td>
-																				<div class="text-end">
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						All
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						1st
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						2nd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						3rd
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						4th
-																					</label>
-																					<label class="checkboxs modal-table-check">
-																						<input type="checkbox">
-																						<span class="checkmarks"></span>
-																						5th
-																					</label>
-																				</div>
-
-																			</td>
-																		</tr>
-																	</tbody>
-																</table>
-															</div>
-															<div class="input-blocks custom-form-check">
-																<label class="checkboxs modal-table-check">
-																	<input type="checkbox" checked>
-																	<span class="checkmarks"></span>
-																	Recurring Shift
-																</label>
-															</div>
-
-															<div class="input-blocks m-0">
-																<div class="status-toggle modal-status d-flex justify-content-between align-items-center">
-																	<span class="status-label">Status</span>
-																	<input type="checkbox" id="users6" class="check" checked>
-																	<label for="users6" class="checktoggle mb-0"></label>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="tab-pane fade" id="pills-edit-break" role="tabpanel" aria-labelledby="pills-edit-break-tab">
-												<div class="break-title">
-													<h4>Morning Break</h4>
-												</div>
-												<div class="row">
-													<div class="col-lg-6">
-														<div class="input-blocks">
-															<label>From</label>
-															<div class="form-icon">
-																<input type="text" class="form-control timepicker" placeholder="11:00 AM">
-																<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-															</div>
-														</div>
-													</div>
-													<div class="col-lg-6">
-														<div class="input-blocks">
-															<label>To</label>
-															<div class="form-icon">
-																<input type="text" class="form-control timepicker" placeholder="11:15 AM">
-																<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="break-title">
-													<h4>Lunch</h4>
-												</div>
-												<div class="row">
-													<div class="col-lg-6">
-														<div class="input-blocks">
-															<label>From</label>
-															<div class="form-icon">
-																<input type="text" class="form-control timepicker" placeholder="01:00 PM">
-																<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-															</div>
-														</div>
-													</div>
-													<div class="col-lg-6">
-														<div class="input-blocks">
-															<label>To</label>
-															<div class="form-icon">
-																<input type="text" class="form-control timepicker" placeholder="02:00 PM">
-																<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="break-title">
-													<h4>Evening Break</h4>
-												</div>
-												<div class="row">
-													<div class="col-lg-6">
-														<div class="input-blocks">
-															<label>From</label>
-															<div class="form-icon">
-																<input type="text" class="form-control timepicker" placeholder="05:00 PM">
-																<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-															</div>
-														</div>
-													</div>
-													<div class="col-lg-6">
-														<div class="input-blocks">
-															<label>To</label>
-															<div class="form-icon">
-																<input type="text" class="form-control timepicker" placeholder="05:30 PM">
-																<span class="cus-icon"><i data-feather="clock" class="feather-clock"></i></span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="input-blocks summer-description-box">
-													<label>Description</label>
-													<div id="summernote2"></div>
-												</div>
-											</div>
-										</div>
-
-										<div class="modal-footer-btn">
-											<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-											<button type="submit" class="btn btn-submit">Submit</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /Edit Shift -->
-@endif
-
-@if(Route::is(['sms-gateway']))
-		<!-- nexmo Config -->
-		<div class="modal fade" id="nexmo-config">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Nexmo</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="user4" class="check" checked>
-									<label for="user4" class="checktoggle">	</label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="sms-gateway">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">API Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">API Secret Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label"> Sender ID <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /nexmo Config -->
-
-		<!-- Two Factor Config-->
-		<div class="modal fade" id="factor-config">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>2Factor</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="users4" class="check" checked>
-									<label for="users4" class="checktoggle"></label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="sms-gateway">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">API Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">API Secret Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label"> Sender ID <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Two Factor Config -->
-
-		<!-- Twilio Config -->
-		<div class="modal fade" id="twilio-config">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Twilio</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="user14" class="check" checked>
-									<label for="user14" class="checktoggle">	</label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="sms-gateway">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">API Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">API Secret Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label"> Sender ID <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Twilio Config -->
-@endif
-
-@if(Route::is(['social-authentication']))
-		<!-- Connect Facebook -->
-		<div class="modal fade" id="fb-connect">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Facebook Login Settings</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="social-authentication">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">App ID <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">App Secret <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label">Login Redirect URL <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Connect Facebook -->
-
-		<!-- Connect Twitter -->
-		<div class="modal fade" id="twitter-connect">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Twitter Login Settings</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="social-authentication">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Consumer Key (API Key) <span> *</span></label>
-												<input type="text" class="form-control">
-												<p class="input-notify-info">If you are not sure what is your APP ID, Please head over to <span>Getting Started.</span></p>
-											</div>
-											<div class="mb-3">
-												<label class="form-label">Consumer Secret (Secret Key) <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-											<div class="mb-0">
-												<label class="form-label">Login Redirect URL <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Connect Twitter -->
-
-		<!-- Connect Google -->
-		<div class="modal fade" id="google-connect">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Google Login Settings</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="social-authentication">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Client ID <span> *</span></label>
-												<input type="text" class="form-control">
-												<p class="input-notify-info">If you are not sure what is your APP ID, Please head over to <span>Getting Started.</span></p>
-											</div>
-											<div class="mb-3">
-												<label class="form-label">Client Secret Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-											<div class="mb-0">
-												<label class="form-label">Login Redirect URL <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Connect Google -->
-
-		<!-- Connect Linkedin -->
-		<div class="modal fade" id="linkedin-connect">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>LinkedIn Login Settings</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="social-authentication">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Client ID <span> *</span></label>
-												<input type="text" class="form-control">
-												<p class="input-notify-info">If you are not sure what is your APP ID, Please head over to <span>Getting Started.</span></p>
-											</div>
-											<div class="mb-3">
-												<label class="form-label">Client Secret Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-											<div class="mb-0">
-												<label class="form-label">Login Redirect URL <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Connect Linkedin -->
-@endif
-
-@if(Route::is(['states']))
-			<!-- Add State -->
-			<div class="modal fade" id="add-units">
-				<div class="modal-dialog modal-dialog-centered custom-modal-two">
-					<div class="modal-content">
-						<div class="page-wrapper-new p-0">
-							<div class="content">
-								<div class="modal-header border-0 custom-modal-header">
-									<div class="page-title">
-										<h4>Add State</h4>
-									</div>
-									<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body custom-modal-body">
-									<form action="states">
-										<div class="row">
-											<div class="col-lg-6">
-												<div class="input-blocks">
-													<label>State Name</label>
-													<input type="text" class="form-control">
-												</div>
-											</div>
-											<div class="col-lg-6">
-												<div class="input-blocks">
-													<label>Country</label>
-													<input type="text" class="form-control">
-												</div>
-											</div>
-
-											<div class="row">
-												<!-- Editor -->
-												<div class="col-md-12">
-													<div class="edit-add card">
-														<div class="edit-add">
-															<label>Description</label>
-
-														</div>
-														<div class="card-body-list">
-															<div id="summernote">Type your message</div>
-														</div>
-														<p>Maximum 600 Characters</p>
-													</div>
-												</div>
-												<!-- /Editor -->
-											</div>
-										</div>
-
-										<div class="modal-footer-btn">
-											<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-											<button type="submit" class="btn btn-submit">Submit</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /Add State -->
-
-		<!-- Edit State -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit State</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="states">
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>State Name</label>
-												<input type="text" placeholder="Beijing">
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Country</label>
-												<input type="text" placeholder="China">
-											</div>
-										</div>
-
-										<div class="row">
-											<!-- Editor -->
-											<div class="col-md-12">
-												<div class="edit-add card">
-													<div class="edit-add">
-														<label>Description</label>
-
-													</div>
-													<div class="card-body-list">
-														<div id="summernote5">Type your message</div>
-													</div>
-													<p>Maximum 600 Characters</p>
-												</div>
-											</div>
-											<!-- /Editor -->
-										</div>
-									</div>
-
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit State -->
-@endif
-
-@if(Route::is(['stock-adjustment']))
-		<!-- Add Adjustment -->
-		<div class="modal fade" id="add-units">
-			<div class="modal-dialog modal-dialog-centered stock-adjust-modal">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Adjustment</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="stock-adjustment">
-									<div class="input-blocks search-form">
-										<label>Product</label>
-										<input type="text" class="form-control">
-										<i data-feather="search" class="feather-search"></i>
-									</div>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Warehouse</label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Lobar Handy</option>
-													<option>Quaint Warehouse</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Reference Number</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="modal-body-table">
-												<div class="table-responsive">
-													<table class="table  datanew">
-														<thead>
-															<tr>
-																<th>Product</th>
-																<th>SKU</th>
-																<th>Category</th>
-																<th>Qty</th>
-																<th>Type</th>
-																<th class="no-sort">Action</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<td>
-																	<div class="productimgname">
-																		<a href="javascript:void(0);" class="product-img stock-img">
-																			<img src="{{ URL::asset('/build/img/products/stock-img-02.png')}}" alt="product">
-																		</a>
-																		<a href="javascript:void(0);">Nike Jordan</a>
-																	</div>
-																</td>
-																<td>PT002</td>
-																<td>Nike</td>
-																<td>
-																	<div class="product-quantity">
-																		<span class="quantity-btn"><i data-feather="minus-circle" class="feather-search"></i></span>
-																		<input type="text" class="quntity-input" value="2">
-																		<span class="quantity-btn">+<i data-feather="plus-circle" class="plus-circle"></i></span>
-																	</div>
-																</td>
-																<td>
-																	<select class="select">
-																		<option>Addition</option>
-																		<option>Addition</option>
-																		<option>Addition</option>
-																	</select>
-																</td>
-																<td class="action-table-data">
-																	<div class="edit-delete-action">
-																		<a class="me-2 p-2" href="#" data-bs-toggle="modal" data-bs-target="#edit-units">
-																			<i data-feather="edit" class="feather-edit"></i>
-																		</a>
-																		<a class="confirm-text p-2" href="javascript:void(0);">
-																			<i data-feather="trash-2" class="feather-trash-2"></i>
-																		</a>
-																	</div>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-
-										</div>
-										<div class="col-lg-12">
-											<div class="input-blocks">
-												<label>Responsible Person</label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Steven</option>
-													<option>Gravely</option>
-												</select>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-12">
-										<div class="input-blocks summer-description-box">
-											<label>Notes</label>
-											<textarea class="form-control"></textarea>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Create Adjustment</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Adjustment -->
-
-		<!-- Edit Adjustment -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered stock-adjust-modal">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Adjustment</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="stock-adjustment">
-									<div class="input-blocks search-form">
-										<label>Product</label>
-										<input type="text" class="form-control" value="Nike Jordan">
-										<i data-feather="search" class="feather-search"></i>
-									</div>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Warehouse</label>
-												<select class="select">
-													<option>Lobar Handy</option>
-													<option>Quaint Warehouse</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Reference Number</label>
-												<input type="text" value="PT002">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="modal-body-table">
-												<div class="table-responsive">
-													<table class="table  datanew">
-														<thead>
-															<tr>
-																<th>Product</th>
-																<th>SKU</th>
-																<th>Category</th>
-																<th>Qty</th>
-																<th>Type</th>
-																<th class="no-sort">Action</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<td>
-																	<div class="productimgname">
-																		<a href="javascript:void(0);" class="product-img stock-img">
-																			<img src="{{ URL::asset('/build/img/products/stock-img-02.png')}}" alt="product">
-																		</a>
-																		<a href="javascript:void(0);">Nike Jordan</a>
-																	</div>
-																</td>
-																<td>PT002</td>
-																<td>Nike</td>
-																<td>
-																	<div class="product-quantity">
-																		<span class="quantity-btn"><i data-feather="minus-circle" class="feather-search"></i></span>
-																		<input type="text" class="quntity-input" value="2">
-																		<span class="quantity-btn">+<i data-feather="plus-circle" class="plus-circle"></i></span>
-																	</div>
-																</td>
-																<td>
-																	<select class="select">
-																		<option>Addition</option>
-																		<option>Addition</option>
-																		<option>Addition</option>
-																	</select>
-																</td>
-																<td class="action-table-data">
-																	<div class="edit-delete-action">
-																		<a class="me-2 p-2" href="#" data-bs-toggle="modal" data-bs-target="#edit-units">
-																			<i data-feather="edit" class="feather-edit"></i>
-																		</a>
-																		<a class="confirm-text p-2" href="javascript:void(0);">
-																			<i data-feather="trash-2" class="feather-trash-2"></i>
-																		</a>
-																	</div>
-
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-
-										</div>
-										<div class="col-lg-12">
-											<div class="input-blocks">
-												<label>Responsible Person</label>
-												<select class="select">
-													<option>Steven</option>
-													<option>Gravely</option>
-												</select>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-12">
-										<div class="input-blocks summer-description-box">
-											<label>Notes</label>
-											<textarea class="form-control">The Jordan brand is owned by Nike (owned by the Knight family), as, at the time, the company was building its strategy to work with athletes to launch shows that could inspire consumers.Although Jordan preferred Converse and Adidas, they simply could not match the offer Nike made. </textarea>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Adjustment -->
-
-		<!-- View Notes -->
-		<div class="modal fade" id="view-notes">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Notes</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<p>The Jordan brand is owned by Nike (owned by the Knight family), as, at the time, the company was building its strategy to work with athletes to launch shows that could inspire consumers.Although Jordan preferred Converse and Adidas, they simply could not match the offer Nike made. Jordan also signed with Nike because he loved the way they wanted to market him with the banned colored shoes. Nike promised to cover the fine Jordan would receive from the NBA.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /View Notes -->
-@endif
-
-@if(Route::is(['stock-transfer']))
-		<!-- Add Stock -->
-		<div class="modal fade" id="add-units">
-			<div class="modal-dialog modal-dialog-centered stock-adjust-modal">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Transfer</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="stock-transfer">
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Warehouse From</label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Lobar Handy</option>
-													<option>Quaint Warehouse</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Warehouse To</label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Selosy</option>
-													<option>Logerro</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="input-blocks">
-												<label>Responsible Person</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="input-blocks search-form mb-3">
-												<label>Product</label>
-												<input type="text" class="form-control" placeholder="Select Product">
-												<i data-feather="search" class="feather-search"></i>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="input-blocks search-form mb-0">
-												<label>Notes</label>
-												<textarea class="form-control"></textarea>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Create</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Stock -->
-
-		<!-- Edit Stock -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered stock-adjust-modal">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Transfer</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="stock-transfer">
-									<div class="input-blocks search-form">
-										<label>Product</label>
-										<input type="text" class="form-control" value="Nike Jordan">
-										<i data-feather="search" class="feather-search"></i>
-									</div>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Warehouse From</label>
-												<select class="select">
-													<option>Lobar Handy</option>
-													<option>Quaint Warehouse</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Warehouse To</label>
-												<select class="select">
-													<option>Selosy</option>
-													<option>Logerro</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="input-blocks">
-												<label>Reference No</label>
-												<input type="text" class="form-control" value="32434545">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="input-blocks search-form mb-3">
-												<label>Product</label>
-												<input type="text" class="form-control" placeholder="Select Product" value="Nike Jordan">
-												<i data-feather="search" class="feather-search"></i>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="modal-body-table">
-												<div class="table-responsive">
-													<table class="table  datanew">
-														<thead>
-															<tr>
-																<th>Product</th>
-																<th>SKU</th>
-																<th>Category</th>
-																<th>Qty</th>
-																<th class="no-sort">Action</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<td>
-																	<div class="productimgname">
-																		<a href="javascript:void(0);" class="product-img stock-img">
-																			<img src="{{ URL::asset('/build/img/products/stock-img-02.png')}}" alt="product">
-																		</a>
-																		<a href="javascript:void(0);">Nike Jordan</a>
-																	</div>
-																</td>
-																<td>PT002</td>
-																<td>Nike</td>
-																<td>
-																	<div class="product-quantity">
-																		<span class="quantity-btn"><i data-feather="minus-circle" class="feather-search"></i></span>
-																		<input type="text" class="quntity-input" value="2">
-																		<span class="quantity-btn">+<i data-feather="plus-circle" class="plus-circle"></i></span>
-																	</div>
-																</td>
-																<td class="action-table-data">
-																	<div class="edit-delete-action">
-																		<a class="me-2 p-2" href="#" data-bs-toggle="modal" data-bs-target="#edit-units">
-																			<i data-feather="edit" class="feather-edit"></i>
-																		</a>
-																		<a class="confirm-text p-2" href="javascript:void(0);">
-																			<i data-feather="trash-2" class="feather-trash-2"></i>
-																		</a>
-																	</div>
-
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="input-blocks search-form mb-0">
-												<label>Notes</label>
-												<textarea class="form-control">The Jordan brand is owned by Nike (owned by the Knight family), as, at the time, the company was building its strategy to work with athletes to launch shows that could inspire consumers.Although Jordan preferred Converse and Adidas, they simply could not match the offer Nike made. </textarea>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Stock -->
-
-		<!-- Import Transfer -->
-		<div class="modal fade" id="view-notes">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Import Transfer</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-						</div>
-						<div class="modal-body custom-modal-body">
-							<form action="stock-transfer">
-								<div class="row">
-									<div class="col-lg-4 col-sm-6 col-12">
-										<div class="input-blocks">
-											<label>From</label>
-											<select class="select">
-												<option>Choose</option>
-												<option>Store 1</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-lg-4 col-sm-6 col-12">
-										<div class="input-blocks">
-											<label>To</label>
-											<select class="select">
-												<option>Choose</option>
-												<option>Store 2</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-lg-4 col-sm-6 col-12">
-										<div class="input-blocks">
-											<label>Satus</label>
-											<select class="select">
-												<option>Choose</option>
-												<option>Sent</option>
-												<option>Pending</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-lg-12 col-sm-6 col-12">
-										<div class="row">
-											<div>
-												<div class="modal-footer-btn download-file">
-													<a href="javascript:void(0)" class="btn btn-submit">Download Sample File</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-12">
-										<div class="input-blocks image-upload-down">
-											<label>	Upload CSV File</label>
-											<div class="image-upload download">
-												<input type="file">
-												<div class="image-uploads">
-													<img src="{{ URL::asset('/build/img/download-img.png')}}" alt="img">
-													<h4>Drag and drop a <span>file to upload</span></h4>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-12 col-sm-6 col-12">
-										<div class="mb-3">
-											<label class="form-label">Shipping</label>
-											<input type="text" class="form-control">
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-12">
-									<div class="mb-3 summer-description-box transfer">
-										<label class="form-label">Description</label>
-										<div id="summernote3">
-										</div>
-										<p>Maximum 60 Characters</p>
-									</div>
-								</div>
-								<div class="col-lg-12">
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Import Transfer -->
-@endif
-
-@if(Route::is(['storage-settings']))
-		<!-- Aws Config -->
-		<div class="modal fade" id="aws-config">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>AWS Settings</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="user4" class="check" checked>
-									<label for="user4" class="checktoggle">	</label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="storage-settings">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">AWS Access Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Secret Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label"> Bucket Name <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label"> Region <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label"> Base URL <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Aws Config -->
-@endif
-
-@if(Route::is(['system-settings']))
-		<!-- Google Captcha -->
-		<div class="modal fade" id="google-captcha">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Configure Google Captcha</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="system-settings">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Google Recaptcha Site Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label">Google Recaptcha Secret Key <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Google Captcha -->
-
-		<!-- Google Analytics -->
-		<div class="modal fade" id="google-analytics">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Configure Google Analytics</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="system-settings">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label">Google Analytics <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Google Analytics -->
-
-		<!-- Google Adsense -->
-		<div class="modal fade" id="google-adsense">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Configure Google Adsense Code</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="system-settings">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label">Google Adsense Code <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Google Adsense -->
-
-		<!-- Google Adsense -->
-		<div class="modal fade" id="google-map">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Configure  Google Map ID</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="system-settings">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label">Enter Map ID <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Google Adsense -->
-@endif
-
-@if(Route::is(['tax-rates']))
-		<!-- Add Tax Rates -->
-		<div class="modal fade" id="add-tax">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Tax Rates</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="user1" class="check" checked>
-									<label for="user1" class="checktoggle">	</label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="tax-rates">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Name <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label">Tax Rate % <span> *</span></label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Tax Rates -->
-
-		<!-- Edit Tax Rates -->
-		<div class="modal fade" id="edit-tax">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Tax Rates</h4>
-								</div>
-								<div class="status-toggle modal-status d-flex justify-content-between align-items-center ms-auto me-2">
-									<input type="checkbox" id="user4" class="check" checked>
-									<label for="user4" class="checktoggle">	</label>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="tax-rates">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="mb-3">
-												<label class="form-label">Name <span> *</span></label>
-												<input type="text" class="form-control" value="VAT">
-											</div>
-										</div>
-										<div class="col-lg-12">
-											<div class="mb-0">
-												<label class="form-label">Tax Rate % <span> *</span></label>
-												<input type="text" class="form-control" value="16">
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Save Changes</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-@endif
-
-@if(Route::is(['users']))
-<!-- Add User -->
-	<div class="modal fade" id="add-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add User</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="users">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="new-employee-field">
-												<span>Avatar</span>
-												<div class="profile-pic-upload mb-2">
-													<div class="profile-pic">
-														<span><i data-feather="plus-circle" class="plus-down-add"></i> Profile Photo</span>
-													</div>
-													<div class="input-blocks mb-0">
-														<div class="image-upload mb-0">
-															<input type="file">
-															<div class="image-uploads">
-																<h4>Change Image</h4>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>User Name</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Phone</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Email</label>
-												<input type="email" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Role</label>
-												<select class="select">
-													<option>Choose</option>
-													<option>Manager</option>
-													<option>Admin</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Password</label>
-												<div class="pass-group">
-													<input type="password" class="pass-input">
-													<span class="fas toggle-password fa-eye-slash"></span>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Confirm Passworrd</label>
-												<div class="pass-group">
-													<input type="password" class="pass-input">
-													<span class="fas toggle-password fa-eye-slash"></span>
-												</div>
-											</div>
-										</div>
-
-										<div class="col-lg-12">
-											<div class="mb-0 input-blocks">
-												<label class="form-label">Descriptions</label>
-												<textarea class="form-control mb-1">Type Message</textarea>
-												<p>Maximum 600 Characters</p>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	</div>
-<!-- /Add User -->
-
-		<!-- Edit User -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit User</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="users">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="new-employee-field">
-												<span>Avatar</span>
-												<div class="profile-pic-upload edit-pic">
-													<div class="profile-pic">
-														<span><img src="{{ URL::asset('/build/img/users/edit-user.jpg')}}" class="user-editer" alt="User"></span>
-														<div class="close-img">
-															<i data-feather="x" class="info-img"></i>
-														</div>
-													</div>
-													<div class="input-blocks mb-0">
-														<div class="image-upload mb-0">
-															<input type="file">
-															<div class="image-uploads">
-																<h4>Change Image</h4>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>User Name</label>
-												<input type="text" placeholder="Thomas">
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Phone</label>
-												<input type="text" placeholder="+12163547758 ">
-											</div>
-										</div>
-
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Email</label>
-												<input type="email" placeholder="thomas@example.com">
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Role</label>
-												<select class="select">
-													<option>Admin</option>
-													<option>Manager</option>
-													<option>Store Keeper</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Password</label>
-												<div class="pass-group">
-													<input type="password" class="pass-input" placeholder="****">
-													<span class="fas toggle-password fa-eye-slash"></span>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label>Confirm Passworrd</label>
-												<div class="pass-group">
-													<input type="password" class="pass-input" placeholder="****">
-													<span class="fas toggle-password fa-eye-slash"></span>
-												</div>
-											</div>
-										</div>
-
-										<div class="col-lg-12">
-											<div class="mb-0 input-blocks">
-												<label class="form-label">Descriptions</label>
-												<textarea class="form-control mb-1"></textarea>
-												<p>Maximum 600 Characters</p>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit User -->
-@endif
-
-@if(Route::is(['countries']))
-		<!-- Add Supplier -->
-		<div class="modal fade" id="add-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Add Country</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="countries">
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label class="form-label">Country Name</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label class="form-label">Region</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-
-										<div class="row">
-											<!-- Editor -->
-											<div class="col-md-12">
-												<div class="edit-add card">
-													<div class="edit-add">
-														<label class="form-label">Description</label>
-													</div>
-													<div class="card-body-list">
-														<div id="summernote">Type your message</div>
-													</div>
-													<p>Maximum 600 Characters</p>
-												</div>
-											</div>
-											<!-- /Editor -->
-										</div>
-									</div>
-
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Supplier -->
-
-		<!-- Edit Supplier -->
-		<div class="modal fade" id="edit-units">
-			<div class="modal-dialog modal-dialog-centered custom-modal-two">
-				<div class="modal-content">
-					<div class="page-wrapper-new p-0">
-						<div class="content">
-							<div class="modal-header border-0 custom-modal-header">
-								<div class="page-title">
-									<h4>Edit Supplier</h4>
-								</div>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body custom-modal-body">
-								<form action="countries">
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label class="form-label">Country Name</label>
-												<input type="text" class="form-control" placeholder="China">
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="input-blocks">
-												<label class="form-label">Region</label>
-												<input type="text" class="form-control" placeholder="Beijing">
-											</div>
-										</div>
-
-										<div class="row">
-											<!-- Editor -->
-											<div class="col-md-12">
-												<div class="edit-add card">
-													<div class="edit-add">
-														<label class="form-label">Description</label>
-
-													</div>
-													<div class="card-body-list">
-														<div id="summernote5">Type your message</div>
-													</div>
-													<p>Maximum 600 Characters</p>
-												</div>
-											</div>
-											<!-- /Editor -->
-										</div>
-									</div>
-
-									<div class="modal-footer-btn">
-										<button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-submit">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Edit Supplier -->
+@if (Route::is(['countries']))
+    <!-- Add Supplier -->
+    <div class="modal fade" id="add-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add Country</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="countries">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label class="form-label">Country Name</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label class="form-label">Region</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- Editor -->
+                                        <div class="col-md-12">
+                                            <div class="edit-add card">
+                                                <div class="edit-add">
+                                                    <label class="form-label">Description</label>
+                                                </div>
+                                                <div class="card-body-list">
+                                                    <div id="summernote">Type your message</div>
+                                                </div>
+                                                <p>Maximum 600 Characters</p>
+                                            </div>
+                                        </div>
+                                        <!-- /Editor -->
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Supplier -->
+
+    <!-- Edit Supplier -->
+    <div class="modal fade" id="edit-units">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Supplier</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form action="countries">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label class="form-label">Country Name</label>
+                                            <input type="text" class="form-control" placeholder="China">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="input-blocks">
+                                            <label class="form-label">Region</label>
+                                            <input type="text" class="form-control" placeholder="Beijing">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- Editor -->
+                                        <div class="col-md-12">
+                                            <div class="edit-add card">
+                                                <div class="edit-add">
+                                                    <label class="form-label">Description</label>
+
+                                                </div>
+                                                <div class="card-body-list">
+                                                    <div id="summernote5">Type your message</div>
+                                                </div>
+                                                <p>Maximum 600 Characters</p>
+                                            </div>
+                                        </div>
+                                        <!-- /Editor -->
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Supplier -->
 @endif
 <div id="success-alert-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm">
@@ -15600,7 +16302,8 @@
                     <i class="dripicons-checkmark h1 text-white"></i>
                     <h4 class="mt-2 text-white">Success!</h4>
                     <p class="mt-3 text-white" id="success-message">Success.</p>
-                    <button type="button" id="alert-success-button" class="btn btn-cancel my-2" data-bs-dismiss="modal">Continue</button>
+                    <button type="button" id="alert-success-button" class="btn btn-cancel my-2"
+                        data-bs-dismiss="modal">Continue</button>
                 </div>
             </div>
         </div>
@@ -15625,7 +16328,6 @@
 </div>
 <script>
     document.getElementById('alert-success-button').addEventListener('click', function() {
-    location.reload();
-});
-
+        location.reload();
+    });
 </script>

@@ -29,7 +29,8 @@
                             <div class="d-flex align-items-center">
                                 <a class="btn btn-filter" id="filter_search">
                                     <i data-feather="filter" class="filter-icon"></i>
-                                    <span><img src="{{ URL::asset('/build/img/icons/closes.svg') }}" alt="img"></span>
+                                    <span><img src="{{ asset('assets/admin/assets/img/icons/closes.svg') }}"
+                                            alt="img"></span>
                                 </a>
                             </div>
                         </div>
@@ -99,50 +100,50 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($suppliers as $supplier)
-                                <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td>{{ $supplier['code']}}</td>
-                                    <td>{{ $supplier['name']}}</td>
-                                    <td>{{ $supplier['email']}}</td>
-                                    <td>{{ $supplier['phone']}}</td>
-                                    <td>{{ $supplier['address']}}</td>
-                                    <td>{{ $supplier['npwp']}}</td>
-                                    <td>{{ $supplier['discount']}}</td>
-                                    <td>{{ $supplier['created_at']}}</td>
-                                    <td>
-                                        @if ($supplier['status']==0)
-                                        <span class="badge badge-linesuccess">{{ $supplier['availability']}}</span>
-                                        @else
-                                        <span class="badge badge-linedanger">{{ $supplier['availability']}}</span>
-                                        @endif
-                                    </td>
-                                    <td class="action-table-data">
-                                        <div class="edit-delete-action">
-                                            <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#edit-supplier"
-                                                data-id="{{ $supplier['id']}}"
-                                                data-code="{{ $supplier['code']}}"
-                                                data-name="{{ $supplier['name']}}"
-                                                data-email="{{ $supplier['email']}}"
-                                                data-phone="{{ $supplier['phone']}}"
-                                                data-address="{{ $supplier['address']}}"
-                                                data-npwp="{{ $supplier['npwp']}}"
-                                                data-discount="{{ $supplier['discount']}}"
-                                                data-status="{{ $supplier['status']}}">
-                                                <i data-feather="edit" class="feather-edit"></i>
-                                            </a>
-                                            <a class="p-2" href="javascript:void(0);" onclick="deleteSupplier({{ $supplier['id']}})">
-                                                <i data-feather="trash-2" class="feather-trash-2"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach ($suppliers as $supplier)
+                                    <tr>
+                                        <td>
+                                            <label class="checkboxs">
+                                                <input type="checkbox">
+                                                <span class="checkmarks"></span>
+                                            </label>
+                                        </td>
+                                        <td>{{ $supplier['code'] }}</td>
+                                        <td>{{ $supplier['name'] }}</td>
+                                        <td>{{ $supplier['email'] }}</td>
+                                        <td>{{ $supplier['phone'] }}</td>
+                                        <td>{{ $supplier['address'] }}</td>
+                                        <td>{{ $supplier['npwp'] }}</td>
+                                        <td>{{ $supplier['discount'] }}</td>
+                                        <td>{{ $supplier['created_at'] }}</td>
+                                        <td>
+                                            @if ($supplier['status'] == 0)
+                                                <span class="badge badge-linesuccess">{{ $supplier['availability'] }}</span>
+                                            @else
+                                                <span class="badge badge-linedanger">{{ $supplier['availability'] }}</span>
+                                            @endif
+                                        </td>
+                                        <td class="action-table-data">
+                                            <div class="edit-delete-action">
+                                                <a class="me-2 p-2" href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#edit-supplier" data-id="{{ $supplier['id'] }}"
+                                                    data-code="{{ $supplier['code'] }}"
+                                                    data-name="{{ $supplier['name'] }}"
+                                                    data-email="{{ $supplier['email'] }}"
+                                                    data-phone="{{ $supplier['phone'] }}"
+                                                    data-address="{{ $supplier['address'] }}"
+                                                    data-npwp="{{ $supplier['npwp'] }}"
+                                                    data-discount="{{ $supplier['discount'] }}"
+                                                    data-status="{{ $supplier['status'] }}">
+                                                    <i data-feather="edit" class="feather-edit"></i>
+                                                </a>
+                                                <a class="p-2" href="javascript:void(0);"
+                                                    onclick="deleteSupplier({{ $supplier['id'] }})">
+                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -154,16 +155,16 @@
         </div>
     </div>
 
-<script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            submitForm('supplierAddForm', 'submit-add-button','status-add',null);
-            submitForm('supplierEditForm', 'submit-edit-button','status-edit',null);
+            submitForm('supplierAddForm', 'submit-add-button', 'status-add', null);
+            submitForm('supplierEditForm', 'submit-edit-button', 'status-edit', null);
 
             // Handle modal data injection
             var editButtons = document.querySelectorAll('[data-bs-target="#edit-supplier"]');
 
-            editButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
+            editButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
                     var supplierId = this.getAttribute('data-id');
                     var supplierCode = this.getAttribute('data-code');
                     var supplierName = this.getAttribute('data-name');
@@ -191,7 +192,8 @@
 
             // Handle data deletion
             window.deleteSupplier = function(id) {
-                deleteData(`{{ route('supplier-delete', ':id') }}`, id, document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+                deleteData(`{{ route('supplier-delete', ':id') }}`, id, document.querySelector(
+                    'meta[name="csrf-token"]').getAttribute('content'));
             };
         });
     </script>

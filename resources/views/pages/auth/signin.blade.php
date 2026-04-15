@@ -8,10 +8,10 @@
                     @csrf
                     <div class="login-userset">
                         <div class="login-logo logo-normal">
-                            <img src="{{ URL::asset('/build/src/img/xspeed-logo-white.png') }}" alt="img">
+                            <img src="{{ asset('/assets/admin/assets/img/logo-exspeed1.png') }}" alt="img">
                         </div>
                         <a href="{{ url('index') }}" class="login-logo logo-white">
-                            <img src="{{ URL::asset('/build/src/img/xspeed-logo-white.png') }}" alt="">
+                            <img src="{{ asset('/assets/admin/assets/img/logo-exspeed3.png') }}" alt="">
                         </a>
                         <div class="login-userheading">
                             <h3>Sign In</h3>
@@ -22,7 +22,7 @@
                             <div class="form-addons">
                                 <input type="text" class="form- control" id="email" name="email"
                                     value="admin@example.com">
-                                <img src="{{ URL::asset('/build/src/img/icons/mail.svg') }}" alt="img">
+                                <img src="{{ asset('/assets/admin/assets/img/icons/mail.svg') }}" alt="img">
                             </div>
                             <div class="text-danger pt-2">
                                 @error('0')
@@ -78,17 +78,17 @@
                             <ul class="d-flex">
                                 <li>
                                     <a href="javascript:void(0);" class="facebook-logo">
-                                        <img src="{{ URL::asset('/build/src/img/icons/facebook-logo.svg') }}" alt="Facebook">
+                                        <img src="{{ asset('/assets/admin/assets/img/icons/facebook-logo.svg') }}" alt="Facebook">
                                     </a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0);">
-                                        <img src="{{ URL::asset('/build/src/img/icons/google.png') }}" alt="Google">
+                                        <img src="{{ asset('/assets/admin/assets/img/icons/google.png') }}" alt="Google">
                                     </a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0);" class="apple-logo">
-                                        <img src="{{ URL::asset('/build/src/img/icons/apple-logo.svg') }}" alt="Apple">
+                                        <img src="{{ asset('/assets/admin/assets/img/icons/apple-logo.svg') }}" alt="Apple">
                                     </a>
                                 </li>
 

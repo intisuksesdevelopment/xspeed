@@ -326,10 +326,7 @@
 <section class="about"
     style="background: url('{{ asset('/assets/dashboard/assets/img/detail-product-bg.jpg') }}') no-repeat center center fixed; background-size: cover;">
     <div class="overlay"></div>
-    <div class="logo-header">
-        <img src="{{ asset('/assets/dashboard/assets/img/logo-xspeed3.png') }}" alt="Xspeed Motoshop Logo"
-            class="main-logo" loading="lazy">
-    </div>
+
     <div class="container">
         <div class="text-center mb-5">
             <h2 class="font-orbitron text-warning">About Us</h2>
@@ -339,6 +336,10 @@
             <!-- Left Column (Text) -->
             <div class="col-lg-6">
                 <div class="about-content">
+                    <div class="logo-header">
+                        <img src="{{ asset('/assets/dashboard/assets/img/logo-exspeed1.png') }}"
+                            alt="Xspeed Motoshop Logo" class="main-logo" loading="lazy">
+                    </div>
                     <h2 class="about-title">Xspeed<span class="text-accent-color">Motoshop</span> </h2>
                     <p class="about-description">
                         Xspeed Motoshop has been serving motorcycle enthusiasts since 2014. We specialize in

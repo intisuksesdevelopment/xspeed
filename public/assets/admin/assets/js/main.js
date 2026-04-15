@@ -1,6 +1,54 @@
 (function ($) {
     "use strict";
+function submitForm(formId, submitButtonId, checkboxId, additionalData, redirectUrl) {
+    // Ambil form dan tombol submit berdasarkan ID yang diberikan
+    var form = document.getElementById(formId);
+    var submitButton = document.getElementById(submitButtonId);
 
+    if (!form || !submitButton) {
+        console.error("Form atau tombol submit tidak ditemukan.");
+        return;
+    }
+
+    // Jika checkboxId diberikan, ambil status dari checkbox tersebut
+    var statusEdit = 'inactive'; // Default jika checkbox tidak ada atau tidak dicentang
+    if (checkboxId) {
+        var checkbox = document.getElementById(checkboxId);
+        if (checkbox) {
+            statusEdit = checkbox.checked ? 'active' : 'inactive';
+        }
+    }
+
+    // Tambahkan status checkbox ke FormData jika ada
+    var formData = new FormData(form);
+    formData.append('status', statusEdit); // Menambahkan status checkbox ke formData
+
+    // Jika ada additionalData, tambahkan juga
+    if (additionalData) {
+        formData.append('additionalData', additionalData);
+    }
+
+    // Proses pengiriman form dengan AJAX
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", form.action, true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // Jika redirectUrl ada, arahkan ke URL tersebut
+            if (redirectUrl) {
+                window.location.href = redirectUrl;
+            } else {
+                // Jika tidak ada redirect, tampilkan pesan sukses atau lakukan hal lainnya
+                console.log('Form berhasil disubmit.');
+            }
+        } else {
+            // Tangani error jika terjadi masalah
+            console.error("Terjadi kesalahan saat mengirim form: " + xhr.statusText);
+        }
+    };
+
+    // Kirim form dengan data
+    xhr.send(formData);
+}
     $(document).ready(function($){
         
         // testimonial sliders

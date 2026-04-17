@@ -127,15 +127,13 @@
                             <td>
                                 <div class="edit-delete-action">
 
-                                    <a class="me-2 edit-icon p-2" :href="`/product/detail/${item.uuid}`"
+                                    <a class="me-2 edit-icon p-2" :href="`${PRODUCT_DETAIL_BASE}/${item.uuid}`"
                                         @click="$nextTick(() => feather.replace())">
                                         <i data-feather="eye"></i>
                                     </a>
-
-                                    <a class="me-2 p-2" :href="`/product/edit/${item.uuid}`">
+                                    <a class="me-2 p-2" :href="item.uuid ? `${ROUTES.productEdit}/${item.uuid}` : '#'">
                                         <i data-feather="edit"></i>
                                     </a>
-
                                     <a class="p-2" href="javascript:void(0);" @click="deleteItem(item.uuid)">
                                         <i data-feather="trash-2"></i>
                                     </a>
@@ -154,6 +152,11 @@
 
     <!-- 🚀 ALPINE SCRIPT -->
     <script>
+        const PRODUCT_DETAIL_BASE = "{{ url('admin/product/detail') }}";
+        const ROUTES = {
+            productDetail: (uuid) => `{{ url('admin/product/detail') }}/${uuid}`,
+            productEdit: (uuid) => `{{ url('admin/product/edit') }}/${uuid}`,
+        };
         const API_PRODUCT_URL = "{{ route('api-product-paged') }}";
         const API_BRAND_URL = "{{ route('api-brand-all') }}";
         const API_CATEGORY_URL = "{{ route('api-category-all') }}";

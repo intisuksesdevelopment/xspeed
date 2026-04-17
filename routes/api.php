@@ -25,4 +25,7 @@ Route::prefix('/brand')->group(function () {
 Route::prefix('/category')->group(function () {
      Route::get('/all', [ApiController::class, 'getCategories'])->name('api-category-all');
 });
+Route::prefix('/warehouse')->group(function () {
+     Route::get('/all', [ApiController::class, 'getWarehouses'])->name('api-warehouse-all');
+});
 // });

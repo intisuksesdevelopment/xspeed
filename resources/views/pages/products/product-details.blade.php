@@ -15,9 +15,9 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="bar-code-view d-none">
-                                <img src="{{ asset('assets/admin/assets/img/barcode/barcode1.png') }}" alt="barcode">
+                                <img src="{{ asset('build/img/barcode/barcode1.png') }}" alt="barcode">
                                 <a class="printimg">
-                                    <img src="{{ asset('assets/admin/assets/img/icons/printer.svg') }}" alt="print">
+                                    <img src="{{ asset('build/img/icons/printer.svg') }}" alt="print">
                                 </a>
                             </div>
                             <div class="productdetails">

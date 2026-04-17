@@ -24,7 +24,7 @@
                             <ul class="tabs owl-carousel pos-category" id="categoryList">
                                 <li id="all">
                                     <a href="javascript:void(0);">
-                                        <img src="{{ asset('assets/admin/assets/img/categories/category-01.png') }}"
+                                        <img src="{{ asset('build/img/categories/category-01.png') }}"
                                             alt="Categories">
                                     </a>
                                     <h6><a href="javascript:void(0);">All Categories</a></h6>

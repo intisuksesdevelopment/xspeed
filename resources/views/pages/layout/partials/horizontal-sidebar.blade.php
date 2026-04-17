@@ -58,7 +58,7 @@
             <li class="submenu">
                 <a href="javascript:void(0);"
                     class="{{ Request::is('product-list', 'product-details', 'edit-product', 'add-product', 'expired-products', 'low-stocks', 'category', 'subcategory', 'brands', 'units', 'varriant-attributes', 'racks', 'warranty', 'barcode', 'qrcode') ? 'active subdrop' : '' }}"><img
-                        src="{{ asset('assets/admin/assets/img/icons/product.svg') }}" alt="img"><span> Inventory
+                        src="{{ asset('build/img/icons/product.svg') }}" alt="img"><span> Inventory
                     </span> <span class="menu-arrow"></span></a>
                 <ul>
                     <li><a
@@ -101,7 +101,7 @@
             <li class="submenu">
                 <a href="javascript:void(0);"
                     class="{{ Request::is('sales-list', 'invoice-report', 'sales-returns', 'quotation-list', 'pos', 'coupons', 'purchase-list', 'purchase-order-report', 'purchase-returns', 'manage-stocks', 'stock-adjustment', 'stock-transfer', 'expense-list', 'expense-category') ? 'active subdrop' : '' }}"><img
-                        src="{{ asset('assets/admin/assets/img/icons/purchase1.svg') }}" alt="img"><span>Sales
+                        src="{{ asset('build/img/icons/purchase1.svg') }}" alt="img"><span>Sales
                         &amp;
                         Purchase</span> <span class="menu-arrow"></span></a>
                 <ul>
@@ -169,7 +169,7 @@
             <li class="submenu">
                 <a href="javascript:void(0);"
                     class="{{ Request::is('customers','suppliers','store-list','warehouses','roles-permissions','permissions','delete-account','ui-alerts','ui-accordion','ui-avatar','ui-badges','ui-borders','ui-buttons','ui-buttons-group','ui-breadcrumb','ui-cards','ui-carousel','ui-colors','ui-dropdowns','ui-grid','ui-images','ui-lightbox','ui-modals','ui-media','ui-offcanvas','ui-pagination','ui-popovers','ui-progress','ui-placeholders','ui-rangeslider','ui-spinner','ui-sweetalerts','ui-nav-tabs','ui-toasts','ui-tooltips','ui-typography','ui-video','ui-ribbon','ui-clipboard','ui-drag-drop','ui-rating','ui-text-editor','ui-counter','ui-scrollbar','ui-stickynote','ui-timeline','chart-apex','chart-c3','chart-js','chart-morris','chart-flot','chart-peity','icon-fontawesome','icon-feather','icon-ionic','icon-material','icon-pe7','icon-simpleline','icon-themify','icon-weather','icon-typicon','icon-flag','form-wizard','form-select2','form-validation','form-floating-labels','form-vertical','form-horizontal','form-basic-inputs','form-checkbox-radios','form-input-groups','form-grid-gutters','form-select','form-mask','form-fileupload','form-horizontal','form-vertical','form-floating-labels','form-validation','form-select2','form-wizard','tables-basic','data-tables')? 'active subdrop': '' }}"><img
-                        src="{{ asset('assets/admin/assets/img/icons/users1.svg') }}" alt="img"><span>User
+                        src="{{ asset('build/img/icons/users1.svg') }}" alt="img"><span>User
                         Management</span> <span class="menu-arrow"></span></a>
                 <ul>
                     <li class="submenu">
@@ -596,7 +596,7 @@
             <li class="submenu">
                 <a href="javascript:void(0);"
                     class="{{ Request::is('sales-report', 'purchase-report', 'inventory-report', 'invoice-report', 'supplier-report', 'customer-report', 'expense-report', 'income-report', 'tax-reports', 'profit-and-loss') ? 'active subdrop' : '' }}"><img
-                        src="{{ asset('assets/admin/assets/img/icons/printer.svg') }}"
+                        src="{{ asset('build/img/icons/printer.svg') }}"
                         alt="img"><span>Reports</span> <span class="menu-arrow"></span></a>
                 <ul>
                     <li><a class="{{ Request::is('sales-report') ? 'active' : '' }}"
@@ -634,7 +634,7 @@
             <li class="submenu">
                 <a href="javascript:void(0);"
                     class="{{ Request::is('general-settings', 'security-settings', 'notification', 'connected-apps', 'system-settings', 'company-settings', 'localization-settings', 'prefixes', 'preference', 'appearance', 'social-authentication', 'language-settings', 'language-settings-web', 'invoice-settings', 'printer-settings', 'pos-settings', 'custom-fields', 'email-settings', 'sms-gateway', 'otp-settings', 'gdpr-settings', 'payment-gateway-settings', 'bank-settings-grid', 'bank-settings-list', 'tax-rates', 'currency-settings', 'storage-settings', 'ban-ip-address') ? 'active' : '' }}"><img
-                        src="{{ asset('assets/admin/assets/img/icons/settings.svg') }}" alt="img"><span>
+                        src="{{ asset('build/img/icons/settings.svg') }}" alt="img"><span>
                         Settings</span> <span class="menu-arrow"></span></a>
                 <ul>
                     <li class="submenu">

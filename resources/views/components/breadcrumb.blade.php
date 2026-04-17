@@ -76,11 +76,11 @@
         <ul class="table-top-head">
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img
-                        src="{{ asset('assets/admin/assets/img/icons/pdf.svg') }}" alt="img"></a>
+                        src="{{ asset('build/img/icons/pdf.svg') }}" alt="img"></a>
             </li>
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img
-                        src="{{ asset('assets/admin/assets/img/icons/excel.svg') }}" alt="img"></a>
+                        src="{{ asset('build/img/icons/excel.svg') }}" alt="img"></a>
             </li>
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i data-feather="printer"

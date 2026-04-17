@@ -4,12 +4,12 @@
 
 <!-- HERO SECTION -->
 <section id="home" class="hero"
-    style="background-image: url('{{ asset('/assets/dashboard/assets/img/hero-bg.jpg') }}'); background-size: cover; background-position: center;">
+    style="background-image: url('{{ asset('/build/img/hero-bg.jpg') }}'); background-size: cover; background-position: center;">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="badge-custom text-accent-color">Premium Motorcycle Parts</div>
-                <h1 class="hero-title font-rajdhani text-lg-start text-center text-lg-start">
+                <h1 class="hero-title font-rajdhani text-lg-start text-center text-lg-start text-accent-color">
                     Upgrade Your <br>
                     <span>Ride Performance</span>
                 </h1>
@@ -73,8 +73,8 @@
 
             <!-- TITLE -->
             <div class="text-center mb-4">
-                <h2 style="font-family: Orbitron; font-weight:700;" class="text-accent-color">Our Products</h2>
-                <p class="text-secondary">Explore premium motorcycle parts</p>
+                <h2 class="heading">Our Products</h2>
+                <p class="sub-heading">Explore premium motorcycle parts</p>
             </div>
 
             <!-- SEARCH -->
@@ -134,7 +134,7 @@
 
                                 <div class="product-image">
                                     <img :src="product.image_url ||
-                                        '{{ asset('/assets/dashboard/assets/img/image-not-found.jpg') }}'"
+                                        '{{ asset('/build/img/image-not-found.jpg') }}'"
                                         class="img-fluid">
                                 </div>
 
@@ -159,23 +159,23 @@
 <section id="gallery" style="background:#0b1220; padding:80px 0;">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 style="font-family: Orbitron; font-weight:700;" class="text-accent-color">Gallery</h2>
-            <p style="color:#9ca3af;">See our latest products & builds</p>
+            <h2 class="heading">Gallery</h2>
+            <p class="sub-heading">See our latest products & builds</p>
         </div>
 
         <div class="swiper gallerySwiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <img src="{{ asset('/assets/dashboard/assets/img/gallery1.jpg') }}" class="gallery-img" />
+                    <img src="{{ asset('/build/img/gallery1.jpg') }}" class="gallery-img" />
                 </div>
                 <div class="swiper-slide">
-                    <img src="{{ asset('/assets/dashboard/assets/img/gallery2.jpg') }}" class="gallery-img" />
+                    <img src="{{ asset('/build/img/gallery2.jpg') }}" class="gallery-img" />
                 </div>
                 <div class="swiper-slide">
-                    <img src="{{ asset('/assets/dashboard/assets/img/gallery3.png') }}" class="gallery-img" />
+                    <img src="{{ asset('/build/img/gallery3.png') }}" class="gallery-img" />
                 </div>
                 <div class="swiper-slide">
-                    <img src="{{ asset('/assets/dashboard/assets/img/gallery4.jpg') }}" class="gallery-img" />
+                    <img src="{{ asset('/build/img/gallery4.jpg') }}" class="gallery-img" />
                 </div>
             </div>
         </div>
@@ -188,8 +188,8 @@
     <div class="container position-relative">
 
         <div class="text-center mb-5">
-            <h2 class="font-orbitron text-accent-color">Customer Testimonials</h2>
-            <p class="text-light opacity-75">What our customers say about us</p>
+            <h2 class="heading">Customer Testimonials</h2>
+            <p class="sub-heading">What our customers say about us</p>
         </div>
 
         <div class="swiper testimonialsSwiper">
@@ -297,8 +297,8 @@
 <section id="contact" class="contact-us" style="background-color: #0b1220; padding: 80px 0; color: white;">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="font-orbitron text-warning">Contact Us</h2>
-            <p class="text-secondary">We'd love to hear from you. Feel free to drop a message!</p>
+            <h2 class="heading">Contact Us</h2>
+            <p class="sub-heading">We'd love to hear from you. Feel free to drop a message!</p>
         </div>
 
         <div class="row justify-content-center">
@@ -324,20 +324,20 @@
 </section>
 <!-- ABOUT US -->
 <section class="about"
-    style="background: url('{{ asset('/assets/dashboard/assets/img/detail-product-bg.jpg') }}') no-repeat center center fixed; background-size: cover;">
+    style="background: url('{{ asset('/build/img/detail-product-bg.jpg') }}') no-repeat center center fixed; background-size: cover;">
     <div class="overlay"></div>
 
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="font-orbitron text-warning">About Us</h2>
-            <p class="text-secondary">Your Trusted Moto Partner</p>
+            <h2 class="heading">About Us</h2>
+            <p class="sub-heading">Your Trusted Moto Partner</p>
         </div>
         <div class="row align-items-center">
             <!-- Left Column (Text) -->
             <div class="col-lg-6">
                 <div class="about-content">
                     <div class="logo-header">
-                        <img src="{{ asset('/assets/dashboard/assets/img/logo-exspeed1.png') }}"
+                        <img src="{{ asset('/build/img/logo-exspeed1.png') }}"
                             alt="Xspeed Motoshop Logo" class="main-logo" loading="lazy">
                     </div>
                     <h2 class="about-title">Xspeed<span class="text-accent-color">Motoshop</span> </h2>

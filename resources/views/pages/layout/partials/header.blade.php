@@ -4,13 +4,13 @@
     <!-- Logo -->
     <div class="header-left active">
         <a href="{{ url('index') }}" class="logo logo-normal">
-            <img src="{{ asset('assets/admin/assets/img/logo-exspeed3.png') }}" alt="">
+            <img src="{{ asset('build/img/logo-exspeed3.png') }}" alt="">
         </a>
         <a href="{{ url('index') }}" class="logo logo-white">
-            <img src="{{ asset('assets/admin/assets/img/logo-exspeed3.png') }}" alt="">
+            <img src="{{ asset('build/img/logo-exspeed3.png') }}" alt="">
         </a>
         <a href="{{ url('index') }}" class="logo-small">
-            <img src="{{ asset('assets/admin/assets/img/logo-exspeed3.png') }}" alt="">
+            <img src="{{ asset('build/img/logo-exspeed3.png') }}" alt="">
         </a>
         <a id="toggle_btn" href="javascript:void(0);">
             <i data-feather="chevrons-left" class="feather-16"></i>
@@ -63,17 +63,17 @@
                             <ul class="customers">
                                 <li>
                                     <a href="javascript:void(0);">Aron Varu<img
-                                            src="{{ asset('assets/admin/assets/img/avatars/avatar1.png') }}"
+                                            src="{{ asset('build/img/avatars/avatar1.png') }}"
                                             alt="" class="img-fluid"></a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0);">Jonita<img
-                                            src="{{ asset('assets/admin/assets/img/avatars/avatar2.png') }}"
+                                            src="{{ asset('build/img/avatars/avatar2.png') }}"
                                             alt="" class="img-fluid"></a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0);">Aaron<img
-                                            src="{{ asset('assets/admin/assets/img/avatars/avatar3.png') }}"
+                                            src="{{ asset('build/img/avatars/avatar3.png') }}"
                                             alt="" class="img-fluid"></a>
                                 </li>
                             </ul>
@@ -90,7 +90,7 @@
             <a href="javascript:void(0);" class="dropdown-toggle nav-link select-store" data-bs-toggle="dropdown">
                 <span class="user-info">
                     <span class="user-letter">
-                        <img src="{{ asset('assets/admin/assets/img/store/store-01.png') }}" alt="Store Logo"
+                        <img src="{{ asset('build/img/store/store-01.png') }}" alt="Store Logo"
                             class="img-fluid">
                     </span>
                     <span class="user-detail">
@@ -100,19 +100,19 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <a href="javascript:void(0);" class="dropdown-item">
-                    <img src="{{ asset('assets/admin/assets/img/store/store-01.png') }}" alt="Store Logo" class="img-fluid">
+                    <img src="{{ asset('build/img/store/store-01.png') }}" alt="Store Logo" class="img-fluid">
                     Grocery Alpha
                 </a>
                 <a href="javascript:void(0);" class="dropdown-item">
-                    <img src="{{ asset('assets/admin/assets/img/store/store-02.png') }}" alt="Store Logo" class="img-fluid">
+                    <img src="{{ asset('build/img/store/store-02.png') }}" alt="Store Logo" class="img-fluid">
                     Grocery Apex
                 </a>
                 <a href="javascript:void(0);" class="dropdown-item">
-                    <img src="{{ asset('assets/admin/assets/img/store/store-03.png') }}" alt="Store Logo" class="img-fluid">
+                    <img src="{{ asset('build/img/store/store-03.png') }}" alt="Store Logo" class="img-fluid">
                     Grocery Bevy
                 </a>
                 <a href="javascript:void(0);" class="dropdown-item">
-                    <img src="{{ asset('assets/admin/assets/img/store/store-04.png') }}" alt="Store Logo" class="img-fluid">
+                    <img src="{{ asset('build/img/store/store-04.png') }}" alt="Store Logo" class="img-fluid">
                     Grocery Eden
                 </a>
             </div>
@@ -122,20 +122,20 @@
         <!-- Flag -->
         {{-- <li class="nav-item dropdown has-arrow flag-nav nav-item-box">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);" role="button">
-                <img src="{{ asset('assets/admin/assets/img/flags/us.png') }}" alt="Language" class="img-fluid">
+                <img src="{{ asset('build/img/flags/us.png') }}" alt="Language" class="img-fluid">
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <a href="javascript:void(0);" class="dropdown-item active">
-                    <img src="{{ asset('assets/admin/assets/img/flags/us.png') }}" alt="" height="16"> English
+                    <img src="{{ asset('build/img/flags/us.png') }}" alt="" height="16"> English
                 </a>
                 <a href="javascript:void(0);" class="dropdown-item">
-                    <img src="{{ asset('assets/admin/assets/img/flags/fr.png') }}" alt="" height="16"> French
+                    <img src="{{ asset('build/img/flags/fr.png') }}" alt="" height="16"> French
                 </a>
                 <a href="javascript:void(0);" class="dropdown-item">
-                    <img src="{{ asset('assets/admin/assets/img/flags/es.png') }}" alt="" height="16"> Spanish
+                    <img src="{{ asset('build/img/flags/es.png') }}" alt="" height="16"> Spanish
                 </a>
                 <a href="javascript:void(0);" class="dropdown-item">
-                    <img src="{{ asset('assets/admin/assets/img/flags/de.png') }}" alt="" height="16"> German
+                    <img src="{{ asset('build/img/flags/de.png') }}" alt="" height="16"> German
                 </a>
             </div>
         </li> --}}
@@ -155,18 +155,18 @@
         <!-- Flag -->
         <li class="nav-item dropdown has-arrow flag-nav nav-item-box">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
-                <img src="{{ asset('/assets/admin/assets/img/flags/' . Session::get('locale') . '.png') }}"
+                <img src="{{ asset('/build/img/flags/' . Session::get('locale') . '.png') }}"
                     alt="Language" class="img-fluid">
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <a href="{{ route('setLanguage', ['lang' => 'id']) }}"
                     class="dropdown-item {{ Session::get('locale') == 'id' ? 'active' : '' }}">
-                    <img src="{{ asset('/assets/admin/assets/img/flags/id.png') }}" alt="" height="16">
+                    <img src="{{ asset('/build/img/flags/id.png') }}" alt="" height="16">
                     Indonesia
                 </a>
                 <a href="{{ route('setLanguage', ['lang' => 'en']) }}"
                     class="dropdown-item {{ Session::get('locale') == 'en' ? 'active' : '' }}">
-                    <img src="{{ asset('/assets/admin/assets/img/flags/us.png') }}" alt="" height="16">
+                    <img src="{{ asset('/build/img/flags/us.png') }}" alt="" height="16">
                     English
                 </a>
                 {{-- Tambahkan bahasa lain di sini jika diperlukan --}}
@@ -190,7 +190,7 @@
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
                                         <img alt=""
-                                            src="{{ asset('assets/admin/assets/img/profiles/avatar-02.jpg') }}">
+                                            src="{{ asset('build/img/profiles/avatar-02.jpg') }}">
                                     </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">John Doe</span> added
@@ -207,7 +207,7 @@
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
                                         <img alt=""
-                                            src="{{ asset('assets/admin/assets/img/profiles/avatar-03.jpg') }}">
+                                            src="{{ asset('build/img/profiles/avatar-03.jpg') }}">
                                     </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
@@ -225,7 +225,7 @@
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
                                         <img alt=""
-                                            src="{{ asset('assets/admin/assets/img/profiles/avatar-06.jpg') }}">
+                                            src="{{ asset('build/img/profiles/avatar-06.jpg') }}">
                                     </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">Misty Tison</span>
@@ -244,7 +244,7 @@
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
                                         <img alt=""
-                                            src="{{ asset('assets/admin/assets/img/profiles/avatar-17.jpg') }}">
+                                            src="{{ asset('build/img/profiles/avatar-17.jpg') }}">
                                     </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">Rolland Webber</span>
@@ -261,7 +261,7 @@
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
                                         <img alt=""
-                                            src="{{ asset('assets/admin/assets/img/profiles/avatar-13.jpg') }}">
+                                            src="{{ asset('build/img/profiles/avatar-13.jpg') }}">
                                     </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
@@ -288,7 +288,7 @@
             <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
                 <span class="user-info">
                     <span class="user-letter">
-                        <img src="{{ asset('assets/admin/assets/img/avatars/avatar1.png') }}" alt=""
+                        <img src="{{ asset('build/img/avatars/avatar1.png') }}" alt=""
                             class="img-fluid">
                     </span>
                     <span class="user-detail">
@@ -300,7 +300,7 @@
             <div class="dropdown-menu menu-drop-user">
                 <div class="profilename">
                     <div class="profileset">
-                        <span class="user-img"><img src="{{ asset('assets/admin/assets/img/avatars/avatar1.png') }}"
+                        <span class="user-img"><img src="{{ asset('build/img/avatars/avatar1.png') }}"
                                 alt="">
                             <span class="status online"></span></span>
                         <div class="profilesets">
@@ -316,7 +316,7 @@
                             data-feather="settings"></i>Settings</a>
                     <hr class="m-0">
                     <a class="dropdown-item logout pb-0" href="{{ url('signin') }}"><img
-                            src="{{ asset('assets/admin/assets/img/icons/log-out.svg') }}" class="me-2"
+                            src="{{ asset('build/img/icons/log-out.svg') }}" class="me-2"
                             alt="img">Logout</a>
                 </div>
             </div>

@@ -349,7 +349,7 @@
 	<!-- end copyright -->
 	
 	<!-- jquery -->            
-	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery-1.11.3.min.js') }}"></script>
+	<script src="{{ URL::asset('/build/plugins/dashboard/assets/js/jquery-3.7.1.min.js') }}"></script>
 	<!-- bootstrap -->
 	<script src="{{ URL::asset('/build/plugins/dashboard/assets/bootstrap/js/bootstrap.min.js') }}"></script>
 	<!-- count down -->

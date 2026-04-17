@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\BrandService;
 use App\Services\CategoryService;
 use App\Services\ItemService;
+use App\Services\WarehouseService;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -56,4 +57,11 @@ class ApiController extends Controller
             'data' => CategoryService::getActive($request)
         ]);
     }
+     public function getWarehouses(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => WarehouseService::getActive($request)
+        ]);
+    }   
 }

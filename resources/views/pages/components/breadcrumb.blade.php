@@ -101,11 +101,11 @@
         <ul class="table-top-head">
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" id="pdf-btn" title="Pdf"><img
-                        src="{{ asset('assets/admin/assets/img/icons/pdf.svg') }}" alt="img"></a>
+                        src="{{ asset('build/img/icons/pdf.svg') }}" alt="img"></a>
             </li>
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" id="excel-btn" title="Excel"><img
-                        src="{{ asset('assets/admin/assets/img/icons/excel.svg') }}" alt="img"></a>
+                        src="{{ asset('build/img/icons/excel.svg') }}" alt="img"></a>
             </li>
             <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" id="print-btn" title="Print"><i

@@ -22,12 +22,12 @@ class ItemController extends Controller
     }
     public function index(Request $request)
     {
-        $data['categories']    = CategoryService::getActive($request);
-        $data['subcategories'] = SubCategoryService::getActive($request);
-        $data['warehouses']    = WarehouseService::getActive($request);
-        $data['racks']         = RackService::getActive($request);
-        $data['brands']        = BrandService::getActive($request);
-        return view('pages.products.product-list',$data);
+        // $data['categories']    = CategoryService::getActive($request);
+        // $data['subcategories'] = SubCategoryService::getActive($request);
+        // $data['warehouses']    = WarehouseService::getActive($request);
+        // $data['racks']         = RackService::getActive($request);
+        // $data['brands']        = BrandService::getActive($request);
+        return view('pages.products.product-list');
     }
     public function addForm(Request $request)
     {

@@ -1,7 +1,7 @@
 <div class="productimgname">
     @if ($row->image_url)
         <a href="javascript:void(0);" class="product-img stock-img">
-            <img src="{{ $row->image_url ?? asset('assets/admin/assets/img/products/product15.jpg') }}" alt="product"
+            <img src="{{ $row->image_url ?? asset('build/img/products/product15.jpg') }}" alt="product"
                 class="img-fluid rounded">
         </a>
     @elseif (!empty($row->images) && isset($row->images[0]['path']))
@@ -10,7 +10,7 @@
         </a>
     @elseif($row->image_url === null)
         <a href="javascript:void(0);" class="product-img stock-img">
-            <img src="{{ asset('assets/admin/assets/img/products/product15.jpg') }}" alt="product"
+            <img src="{{ asset('build/img/products/product15.jpg') }}" alt="product"
                 class="img-fluid rounded">
         </a>
     @endif

@@ -1,346 +1,305 @@
 <?php $page = 'product-list'; ?>
 @extends('pages.layout.mainlayout')
+
 @section('content')
-    <div class="page-wrapper">
+    <div class="page-wrapper" x-data="productTable()" x-init="init()">
         <div class="content">
-            @component('pages.components.breadcrumb')
-                @slot('title')
-                    Product List
-                @endslot
-                @slot('li_1')
-                    Manage your products
-                @endslot
-                @slot('li_2')
-                    {{ url('product/add') }}
-                @endslot
-                @slot('li_3')
-                    Add New Product
-                @endslot
-                @slot('li_4')
-                    Import Product
-                @endslot
-            @endcomponent
 
-            <!-- /product list -->
-            <div class="card table-list-card">
-                <div class="card-body">
-                    <div class="table-top" data-select2-id="select2-data-33-eupr">
-                        <div class="search-set">
-                            <div class="search-input">
-                                <a href="javascript:void(0);" id="search-btn" class="btn btn-searchset">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                                        <circle cx="11" cy="11" r="8"></circle>
-                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                    </svg>
-                                </a>
-                                <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                                    <label>
-                                        <input type="text" id="search-input" class="form-control form-control-sm"
-                                            placeholder="Search" aria-controls="DataTables_Table_0" />
-                                        &nbsp;
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="search-path">
-                            <div class="d-flex align-items-center">
-                                <a class="btn btn-filter" id="filter_search">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="feather feather-filter filter-icon">
-                                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                                    </svg>
-                                    <span><img src="{{ asset('assets/admin/assets/img/icons/closes.svg') }}"
-                                            alt="img"></span>
-                                </a>
+            <!-- FILTER -->
+            <div class="table-top">
 
-                            </div>
-                        </div>
-                        <div class="form-sort" data-select2-id="select2-data-32-ji6l">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-sliders info-img">
-                                <line x1="4" y1="21" x2="4" y2="14"></line>
-                                <line x1="4" y1="10" x2="4" y2="3"></line>
-                                <line x1="12" y1="21" x2="12" y2="12"></line>
-                                <line x1="12" y1="8" x2="12" y2="3"></line>
-                                <line x1="20" y1="21" x2="20" y2="16"></line>
-                                <line x1="20" y1="12" x2="20" y2="3"></line>
-                                <line x1="1" y1="14" x2="7" y2="14"></line>
-                                <line x1="9" y1="8" x2="15" y2="8"></line>
-                                <line x1="17" y1="16" x2="23" y2="16"></line>
-                            </svg>
-                            <select class="select select2-hidden-accessible" id="sorting" aria-label="Sort by Date">
-                                <option disabled>Sort by Date</option>
-                                <option value="asc" selected>Newest</option>
-                                <option value="desc">Oldest</option>
-                            </select>
+                <!-- SEARCH -->
+                <input type="text" class="form-control" placeholder="Search..." x-model="filters.search"
+                    @keyup.debounce.500ms="fetchProducts()">
 
-                            <span class="dropdown-wrapper" aria-hidden="true">
-                            </span>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card" id="filter_inputs">
-                        <div class="card-body pb-0">
-                            <div class="row">
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="input-blocks">
-                                        <i data-feather="archive" class="info-img"></i>
-                                        <select class="select" id="filter-warehouse">
-                                            <option value="" selected>Choose Warehouse</option>
-                                            @foreach ($warehouses as $warehouse)
-                                                <option value="{{ $warehouse['code'] }}">{{ $warehouse['name'] }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="input-blocks">
-                                        <i data-feather="box" class="info-img"></i>
-                                        <select class="select" id="filter-brand">
-                                            <option value="" selected>Choose Brand</option>
-                                            @foreach ($brands as $brand)
-                                                <option value="{{ $brand['code'] }}">{{ $brand['name'] }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-6 col-12 ms-auto">
-                                    <div class="input-blocks">
-                                        <a class="btn btn-filters ms-auto"> <i data-feather="search"
-                                                class="feather-search"></i> Search </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Filter -->
-                    <div class="table-responsive product-list">
-                        <table class="table " id="product-table">
-                            <thead>
-                                <tr>
-                                    <th class="no-sort">
-                                        <label class="checkboxs">
-                                            <input type="checkbox" id="select-all">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </th>
-                                    <th>Product</th>
-                                    <th>SKU</th>
-                                    <th>Category</th>
-                                    <th>Brand</th>
-                                    <th>Sell Price</th>
-                                    <th>Unit</th>
-                                    <th>Qty</th>
-                                    <th>Created by</th>
-                                    <th>Created at</th>
-                                    <th>Status</th>
-                                    <th class="no-sort">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- @foreach ($items as $item)
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td>
-                                    <div class="productimgname">
-                                        @if ($item['image_url'] != null)
-                                            <a href="javascript:void(0);" class="product-img stock-img">
-                                                <img src="{{ $item['image_url'] }}" alt="product" class="img-fluid rounded">
-                                            </a>
-                                            <a href="javascript:void(0);">{{$item['name']}}</a>
+                <!-- SELECT -->
+                <div class="d-flex gap-2 mt-2">
 
-                                        @else
-                                            @foreach ($item['images'] as $image)
-                                                @if ($loop->index == 0)
-                                                    <a href="javascript:void(0);" class="product-img stock-img">
-                                                        <img src="{{ $image['path'] }}" alt="product" class="img-fluid rounded">
-                                                    </a>
-                                                    <a href="javascript:void(0);">{{$item['name']}}</a>
+                    <!-- WAREHOUSE -->
+                    <select class="form-control" x-model="filters.warehouse" @change="fetchProducts()">
 
-                                                @endif
-                                            @endforeach
-                                        @endif
+                        <option value="">Warehouse</option>
 
+                        <template x-for="w in warehouses" :key="w.code">
+                            <option :value="w.code" x-text="w.name"></option>
+                        </template>
+                    </select>
 
-                                       
-                                    </div>
-                                </td>
-                                <td>{{ $item['sku']}}</td>
-                                <td>{{ $item['category']['code']}}</td>
-                                <td>{{ $item['brand']['code']}}</td>
-                                <td>{{ $item['sell_price']}}</td>
-                                <td>{{ $item['unit']}}</td>
-                                <td>{{ $item['stock']}}</td>
-                                <td>{{ $item['created_by']}}</td>
-                                <td>
-                                    @if ($item['status'] == 0)
-                                        <span class="badge badge-linesuccess">{{ $item['availability'] }}</span>
-                                    @else
-                                        <span class="badge badge-linedanger">{{ $item['availability'] }}</span>
-                                    @endif
-                                </td>
-                                <td class="action-table-data">
-                                    <div class="edit-delete-action">
-                                        <a class="me-2 edit-icon p-2" href="{{ route('product-detail', ['uuid' => $item['uuid']]) }}">
-                                            <i data-feather="eye" class="action-eye"></i>
-                                        </a>                                        
-                                        <a class="me-2 p-2" href="{{ route('product-edit-form', ['uuid' => $item['uuid']]) }}">
-                                            <i data-feather="edit" class="feather-edit"></i>
-                                        </a>
-                                        <a class="p-2" href="javascript:void(0);" onclick="deleteProduct('{{ $item['uuid']}}')">
-                                            <i data-feather="trash-2" class="feather-trash-2"></i>
-                                        </a>        
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach --}}
-                            </tbody>
-                        </table>
-                    </div>
+                    <!-- BRAND -->
+                    <select class="form-control" x-model="filters.brand" @change="fetchProducts()">
+
+                        <option value="">Brand</option>
+
+                        <template x-for="b in brands" :key="b.code">
+                            <option :value="b.code" x-text="b.name"></option>
+                        </template>
+                    </select>
+
+                    <!-- SORT -->
+                    <select class="form-control" x-model="filters.sort" @change="fetchProducts()">
+                        <option value="desc">Newest</option>
+                        <option value="asc">Oldest</option>
+                    </select>
+
                 </div>
             </div>
-            <!-- /product list -->
+
+            <!-- TABLE -->
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th class="no-sort">
+                            <label class="checkboxs">
+                                <input type="checkbox" id="select-all">
+                                <span class="checkmarks"></span>
+                            </label>
+                        </th>
+                        <th>Product</th>
+                        <th>SKU</th>
+                        <th>Category</th>
+                        <th>Brand</th>
+                        <th>Sell Price</th>
+                        <th>Unit</th>
+                        <th>Qty</th>
+                        <th>Created by</th>
+                        <th>Created at</th>
+                        <th>Status</th>
+                        <th class="no-sort">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <!-- LOADING -->
+                    <tr x-show="loading" x-cloak>
+                        <td colspan="12" class="text-center py-3">
+                            Loading...
+                        </td>
+                    </tr>
+
+                    <!-- EMPTY STATE -->
+                    <tr x-show="!loading && items.length === 0" x-cloak>
+                        <td colspan="12" class="text-center py-3">
+                            No data found
+                        </td>
+                    </tr>
+
+                    <!-- DATA -->
+                    <template x-for="item in items" :key="item.uuid">
+                        <tr>
+
+                            <!-- CHECKBOX -->
+                            <td>
+                                <label class="checkboxs">
+                                    <input type="checkbox" :value="item.uuid" x-model="selected">
+                                    <span class="checkmarks"></span>
+                                </label>
+                            </td>
+
+                            <!-- PRODUCT -->
+                            <td>
+                                <div class="productimgname">
+
+                                    <a href="javascript:void(0);" class="product-img stock-img">
+                                        <img :src="getImage(item)" alt="product" class="img-fluid rounded">
+                                    </a>
+
+                                    <a href="javascript:void(0);" class="product-name" x-text="item.name"
+                                        :title="item.name"></a>
+                                </div>
+                            </td>
+
+                            <td x-text="item.sku"></td>
+                            <td x-text="item.category?.code ?? '-'"></td>
+                            <td x-text="item.brand?.code ?? '-'"></td>
+                            <td x-text="formatRupiah(item.sell_price)"></td>
+                            <td x-text="item.unit"></td>
+                            <td x-text="item.stock"></td>
+                            <td x-text="item.created_by ?? '-'"></td>
+                            <td x-text="formatDate(item.created_at)"></td>
+                            <!-- STATUS -->
+                            <td>
+                                <span class="badge" :class="item.status == 0 ? 'badge-linesuccess' : 'badge-linedanger'"
+                                    x-text="item.availability">
+                                </span>
+                            </td>
+
+                            <!-- ACTION -->
+                            <td>
+                                <div class="edit-delete-action">
+
+                                    <a class="me-2 edit-icon p-2" :href="`/product/detail/${item.uuid}`"
+                                        @click="$nextTick(() => feather.replace())">
+                                        <i data-feather="eye"></i>
+                                    </a>
+
+                                    <a class="me-2 p-2" :href="`/product/edit/${item.uuid}`">
+                                        <i data-feather="edit"></i>
+                                    </a>
+
+                                    <a class="p-2" href="javascript:void(0);" @click="deleteItem(item.uuid)">
+                                        <i data-feather="trash-2"></i>
+                                    </a>
+
+                                </div>
+                            </td>
+
+                        </tr>
+                    </template>
+
+                </tbody>
+            </table>
+
         </div>
     </div>
-    <script>
-        const filters = {
-            name: '#filter-name',
-            category: '#filter-category'
-        };
 
-        const columns = [{
-                data: 'checkbox',
-                name: 'checkbox',
-                orderable: false,
-                searchable: false
-            },
-            {
-                data: 'product',
-                name: 'name'
-            },
-            {
-                data: 'sku',
-                name: 'sku'
-            },
-            {
-                data: 'category',
-                name: 'category.code'
-            },
-            {
-                data: 'brand',
-                name: 'brand.code'
-            },
-            {
-                data: 'sell_price',
-                name: 'sell_price'
-            },
-            {
-                data: 'unit',
-                name: 'unit'
-            },
-            {
-                data: 'stock',
-                name: 'stock'
-            },
-            {
-                data: 'created_by',
-                name: 'created_by'
-            },
-            {
-                data: 'created_at',
-                name: 'created_at'
-            },
-            {
-                data: 'status',
-                name: 'status',
-                searchable: false
-            },
-            {
-                data: 'actions',
-                name: 'actions',
-                orderable: false,
-                searchable: false
-            },
-        ];
-        window.initDataTable = function(config) {
-            const table = $('#' + config.tableId).DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: config.ajaxUrl,
-                    data: function(d) {
-                        // kirim filter tambahan
-                        if (config.filters?.searchInput) {
-                            d.search = $(config.filters.searchInput).val();
-                        }
-                        if (config.filters?.filterWarehouse) {
-                            d.warehouse = $(config.filters.filterWarehouse).val();
-                        }
-                        if (config.filters?.filterBrand) {
-                            d.brand = $(config.filters.filterBrand).val();
-                        }
+    <!-- 🚀 ALPINE SCRIPT -->
+    <script>
+        const API_PRODUCT_URL = "{{ route('api-product-paged') }}";
+        const API_BRAND_URL = "{{ route('api-brand-all') }}";
+        const API_CATEGORY_URL = "{{ route('api-category-all') }}";
+        const API_WAREHOUSE_URL = "{{ route('api-warehouse-all') }}";
+
+        function productTable() {
+            return {
+                items: [],
+                warehouses: [],
+                brands: [],
+                loading: false,
+                selected: [],
+                selectAll: false,
+                page: 1,
+                lastPage: 1,
+                total: 0,
+                filters: {
+                    search: '',
+                    warehouse: '',
+                    brand: '',
+                    sort: 'desc'
+                },
+
+                // INIT (sekali jalan)
+                async init() {
+                    if (this.initialized) return;
+
+                    this.initialized = true;
+                    await Promise.all([
+                        this.fetchWarehouses(),
+                        this.fetchBrands(),
+                    ]);
+                    this.fetchProducts();
+                },
+
+                // 🔥 FETCH FILTER (warehouse + brand)
+                async fetchWarehouses() {
+                    try {
+                        let res = await fetch(API_WAREHOUSE_URL);
+                        let data = await res.json();
+
+                        this.warehouses = data.warehouses;
+
+                    } catch (e) {
+                        console.error(e);
                     }
                 },
-                columns: config.columns,
-                order: config.order || [
-                    [0, 'asc']
-                ]
-            });
-
-            // trigger reload kalau filter berubah
-            if (config.filters?.searchInput) {
-                $(config.filters.searchInput).on('keyup', function() {
-                    table.ajax.reload();
-                });
-            }
-
-            if (config.filters?.filterWarehouse) {
-                $(config.filters.filterWarehouse).on('change', function() {
-                    table.ajax.reload();
-                });
-            }
-
-            if (config.filters?.filterBrand) {
-                $(config.filters.filterBrand).on('change', function() {
-                    table.ajax.reload();
-                });
-            }
-
-            return table;
-        };
-
-
-        document.addEventListener('DOMContentLoaded', function() {
-            window.deleteProduct = function(id) {
-                deleteData(`{{ route('product-delete', ':uuid') }}`, id, document.querySelector(
-                    'meta[name="csrf-token"]').getAttribute('content'));
-            };
-            initDataTable({
-                tableId: 'product-table',
-                ajaxUrl: '{{ route('api-product-all') }}',
-                filters: {
-                    searchInput: '#search-input',
-                    filterWarehouse: '#filter-warehouse',
-                    filterBrand: '#filter-brand',
+                async fetchBrands() {
+                    try {
+                        const res = await fetch(API_BRAND_URL);
+                        let data = await res.json();
+                        this.brands = data.brands;
+                    } catch (e) {
+                        console.error('Filter error:', e);
+                    }
                 },
-                columns,
-                order: [
-                    [1, $('#sorting').val()]
-                ],
-                localStorageKey: 'datatable_products',
-                exportUrl: '{{ route('product-excel-export') }}',
+                getImage(item) {
+                    if (item.image_url) return item.image_url;
 
-            });
-        });
+                    if (item.images && item.images.length > 0) {
+                        return item.images[0].path;
+                    }
+
+                    return '/build/img/image-not-found.jpg';
+                },
+                formatDate(datetime) {
+                    if (!datetime) return '-';
+
+                    const date = new Date(datetime);
+
+                    return new Intl.DateTimeFormat('id-ID', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    }).format(date);
+                },
+                formatRupiah(value) {
+                    if (!value) return '-';
+
+                    return new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                        minimumFractionDigits: 0
+                    }).format(value);
+                },
+                watchSelectAll() {
+                    if (this.selectAll) {
+                        this.selected = this.items.map(i => i.uuid);
+                    } else {
+                        this.selected = [];
+                    }
+                },
+
+                // 🔥 FETCH PRODUCT
+                async fetchProducts() {
+                    if (this.controller) {
+                        this.controller.abort();
+                    }
+                    this.controller = new AbortController();
+                    this.loading = true;
+
+                    try {
+                        let params = new URLSearchParams({
+                            ...this.filters,
+                            page: this.page
+                        });
+
+                        let res = await fetch(`/api/product/paged?${params}`);
+                        let result = await res.json();
+
+                        // 🔥 penting: ambil nested data
+                        let paginated = result.data;
+
+                        this.items = paginated.data;
+                        this.page = paginated.current_page;
+                        this.lastPage = Math.ceil(paginated.total / paginated.per_page);
+                        this.total = paginated.total;
+
+                    } catch (e) {
+                        console.error(e);
+                    }
+
+                    this.loading = false;
+                    this.$nextTick(() => {
+                        if (window.feather) feather.replace();
+                    });
+                },
+
+                nextPage() {
+                    if (this.page < this.lastPage) {
+                        this.page++;
+                        this.fetchProducts();
+                    }
+                },
+
+                prevPage() {
+                    if (this.page > 1) {
+                        this.page--;
+                        this.fetchProducts();
+                    }
+                }
+
+            }
+
+        }
     </script>
 @endsection

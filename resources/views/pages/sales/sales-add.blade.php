@@ -79,7 +79,7 @@
                                                         <input type="text"
                                                             placeholder="Please type product code and select">
                                                         <div class="addonset">
-                                                            <img src="{{ asset('assets/admin/assets/img/icons/qrcode-scan.svg') }}"
+                                                            <img src="{{ asset('build/img/icons/qrcode-scan.svg') }}"
                                                                 alt="img">
                                                         </div>
                                                     </div>

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ url('assets/dashboard/assets/css/product-list.css') }}">
+<link rel="stylesheet" href="{{ url('build/css/product-list.css') }}">
 
 <div class="product-page" x-data="productList()" x-init="init()">
 

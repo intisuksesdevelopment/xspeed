@@ -13,7 +13,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/admin/assets/img/favicon.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('build/img/favicon.png')}}">
     <style> .modal-backdrop + .modal-backdrop { z-index: 1050 !important; } </style>
     @include('layout.partials.head')
 </head>

@@ -21,7 +21,7 @@ class ApiController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => ItemService::getPaginated($request)
+            'data' => ItemService::getPaginatedList($request)
         ]);
     }
     public function getProductDetail($uuid)

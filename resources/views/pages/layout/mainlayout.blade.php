@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-    <script>
-        window.APP_URL = "{{ config('app.url') }}";
-    </script>
+<script>
+    window.APP_URL = "{{ config('app.url') }}";
+</script>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
@@ -14,7 +15,7 @@
     <title>Xpeed Shop - Indonesia</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('/build/src/icons/favicon.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('/build/src/icons/favicon.png') }}">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     @include('pages.layout.partials.head')
@@ -23,7 +24,36 @@
 
     <body class="main-chat-blk">
 @endif
-@if (!Route::is(['chat', 'under-maintenance', 'coming-soon', 'error-404', 'error-500','two-step-verification-3','two-step-verification-2','two-step-verification','email-verification-3','email-verification-2','email-verification','reset-password-3','reset-password-2','reset-password','forgot-password-3','forgot-password-2','forgot-password','register-3','register-2','register','register-form','signin-3','signin-2','signin','success','success-2','success-3']))
+@if (
+    !Route::is([
+        'chat',
+        'under-maintenance',
+        'coming-soon',
+        'error-404',
+        'error-500',
+        'two-step-verification-3',
+        'two-step-verification-2',
+        'two-step-verification',
+        'email-verification-3',
+        'email-verification-2',
+        'email-verification',
+        'reset-password-3',
+        'reset-password-2',
+        'reset-password',
+        'forgot-password-3',
+        'forgot-password-2',
+        'forgot-password',
+        'register-3',
+        'register-2',
+        'register',
+        'register-form',
+        'signin-3',
+        'signin-2',
+        'signin',
+        'success',
+        'success-2',
+        'success-3',
+    ]))
 
     <body>
 @endif
@@ -31,7 +61,31 @@
 
     <body class="error-page">
 @endif
-@if (Route::is(['two-step-verification-3','two-step-verification-2','two-step-verification','email-verification-3','email-verification-2','email-verification','reset-password-3','reset-password-2','reset-password','forgot-password-3','forgot-password-2','forgot-password','register-3','register-2','register','register-form','signin-3','signin-2','signin','success','success-2','success-3']))
+@if (Route::is([
+        'two-step-verification-3',
+        'two-step-verification-2',
+        'two-step-verification',
+        'email-verification-3',
+        'email-verification-2',
+        'email-verification',
+        'reset-password-3',
+        'reset-password-2',
+        'reset-password',
+        'forgot-password-3',
+        'forgot-password-2',
+        'forgot-password',
+        'register-3',
+        'register-2',
+        'register',
+        'register-form',
+        'signin-3',
+        'signin-2',
+        'signin',
+        'success',
+        'success-2',
+        'success-3',
+    ]))
+
     <body class="account-page">
 @endif
 @component('components.loader')
@@ -43,10 +97,71 @@
 @if (Route::is(['lock-screen']))
     <div class="main-wrapper login-body">
 @endif
-@if (!Route::is(['under-maintenance', 'coming-soon','error-404','error-500','two-step-verification-3','two-step-verification-2','two-step-verification','email-verification-3','email-verification-2','email-verification','reset-password-3','reset-password-2','reset-password','forgot-password-3','forgot-password-2','forgot-password','register-3','register-2','register','register-form','signin-3','signin-2','signin','login-form','success','success-2','success-3','lock-screen']))
+@if (
+    !Route::is([
+        'under-maintenance',
+        'coming-soon',
+        'error-404',
+        'error-500',
+        'two-step-verification-3',
+        'two-step-verification-2',
+        'two-step-verification',
+        'email-verification-3',
+        'email-verification-2',
+        'email-verification',
+        'reset-password-3',
+        'reset-password-2',
+        'reset-password',
+        'forgot-password-3',
+        'forgot-password-2',
+        'forgot-password',
+        'register-3',
+        'register-2',
+        'register',
+        'register-form',
+        'signin-3',
+        'signin-2',
+        'signin',
+        'login-form',
+        'success',
+        'success-2',
+        'success-3',
+        'lock-screen',
+    ]))
     @include('pages.layout.partials.header')
 @endif
-@if (!Route::is(['pos', 'under-maintenance', 'coming-soon','error-404','error-500','two-step-verification-3','two-step-verification-2','two-step-verification','email-verification-3','email-verification-2','email-verification','reset-password-3','reset-password-2','reset-password','forgot-password-3','forgot-password-2','forgot-password','register-3','register-2','register','register-form','signin-3','signin-2','signin','login-form','success','success-2','success-3','lock-screen']))
+@if (
+    !Route::is([
+        'pos',
+        'under-maintenance',
+        'coming-soon',
+        'error-404',
+        'error-500',
+        'two-step-verification-3',
+        'two-step-verification-2',
+        'two-step-verification',
+        'email-verification-3',
+        'email-verification-2',
+        'email-verification',
+        'reset-password-3',
+        'reset-password-2',
+        'reset-password',
+        'forgot-password-3',
+        'forgot-password-2',
+        'forgot-password',
+        'register-3',
+        'register-2',
+        'register',
+        'register-form',
+        'signin-3',
+        'signin-2',
+        'signin',
+        'login-form',
+        'success',
+        'success-2',
+        'success-3',
+        'lock-screen',
+    ]))
     @include('pages.layout.partials.sidebar')
     @include('pages.layout.partials.collapsed-sidebar')
     @include('pages.layout.partials.horizontal-sidebar')

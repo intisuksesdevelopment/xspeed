@@ -93,7 +93,7 @@ class LoginController extends BaseController
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('login');
     }
 
     public function registrationForm()

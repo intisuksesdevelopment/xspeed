@@ -5,7 +5,7 @@
             <li class="submenu">
                 <a href="{{ url('index') }}"
                     class="{{ Request::is('index', '/', 'sales-dashboard', 'video-call', 'audio-call', 'call-history', 'chat', 'calendar', 'email', 'todo', 'notes', 'file-manager', 'file-archived', 'file-document', 'file-favourites', 'file-manager-seleted', 'file-recent', 'file-shared') ? 'active subdrop' : '' }}"><i
-                        data-feather="grid"></i><span> Main Menu</span>
+                        data-feather="grid"></i><span> Main Menus</span>
                     <span class="menu-arrow"></span></a>
                 <ul>
                     <li class="submenu">
@@ -596,8 +596,8 @@
             <li class="submenu">
                 <a href="javascript:void(0);"
                     class="{{ Request::is('sales-report', 'purchase-report', 'inventory-report', 'invoice-report', 'supplier-report', 'customer-report', 'expense-report', 'income-report', 'tax-reports', 'profit-and-loss') ? 'active subdrop' : '' }}"><img
-                        src="{{ asset('build/img/icons/printer.svg') }}"
-                        alt="img"><span>Reports</span> <span class="menu-arrow"></span></a>
+                        src="{{ asset('build/img/icons/printer.svg') }}" alt="img"><span>Reports</span> <span
+                        class="menu-arrow"></span></a>
                 <ul>
                     <li><a class="{{ Request::is('sales-report') ? 'active' : '' }}"
                             href="{{ url('sales-report') }}"><span>Sales

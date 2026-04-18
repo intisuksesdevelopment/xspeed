@@ -43,6 +43,11 @@ class Item extends Model
         'updated_by',
         'history_log',
     ];
+    protected $casts = [
+    'sell_price' => 'float',
+    'basic_price' => 'float',
+    'stock' => 'float',
+];
     protected $hidden = [
         'id','basic_price'
     ];
@@ -121,4 +126,16 @@ class Item extends Model
                 return 'Unknown Status';
         }
     }
+protected $appends = ['availability'];
+
+public function getAvailabilityAttribute()
+{
+    return match ($this->status) {
+        0 => __('status.available'),
+        1 => __('status.deleted'),
+        2 => __('status.notactive'),
+        default => 'Unknown Status'
+    };
+}
+    
 }

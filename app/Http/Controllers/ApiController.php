@@ -14,54 +14,58 @@ class ApiController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => ItemService::getActive()
+            'data' => ItemService::getActive(),
         ]);
     }
+
     public function getProductsPaginated(Request $request)
     {
         return response()->json([
             'success' => true,
-            'data' => ItemService::getPaginatedList($request)
+            'data' => ItemService::getPaginatedList($request),
         ]);
     }
+
     public function getProductDetail($uuid)
     {
         return response()->json([
             'success' => true,
-            'data' => ItemService::getDetail($uuid)
+            'data' => ItemService::getDetail($uuid),
         ]);
     }
-        public function getProductSearch(Request $request)
+
+    public function getProductSearch(Request $request)
     {
         $query = $request->get('q', '');
         $limit = $request->get('limit', 10);
 
         return response()->json([
             'success' => true,
-            'data' => ItemService::getSearch($query, $limit)
+            'data' => ItemService::getSearch($query, $limit),
         ]);
     }
 
-        public function getBrands(Request $request)
+    public function getBrands(Request $request)
     {
         return response()->json([
             'success' => true,
-            'data' => BrandService::getActive($request)
+            'data' => BrandService::getActive($request),
         ]);
     }
 
-        public function getCategories(Request $request)
+    public function getCategories(Request $request)
     {
         return response()->json([
             'success' => true,
-            'data' => CategoryService::getActive($request)
+            'data' => CategoryService::getActive($request),
         ]);
     }
-     public function getWarehouses(Request $request)
+
+    public function getWarehouses(Request $request)
     {
         return response()->json([
             'success' => true,
-            'data' => WarehouseService::getActive($request)
+            'data' => WarehouseService::getActive($request),
         ]);
-    }   
+    }
 }

@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Hash;
-use Session;
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Services\CustomerService;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
 class CustomerController extends Controller
 {
     private $customerService;
 
-    public function __construct(CustomerService $customerService) {
+    public function __construct(CustomerService $customerService)
+    {
         $this->customerService = $customerService;
     }
 
@@ -21,6 +19,7 @@ class CustomerController extends Controller
     {
         Paginator::useBootstrap(); // Menggunakan Bootstrap
         $customers = CustomerService::getPaginated($request);
+
         return view('pages.customer.customers', ['customers' => $customers]);
     }
 
@@ -33,7 +32,7 @@ class CustomerController extends Controller
     {
         return CustomerService::update($request);
     }
-    
+
     public function delete($id)
     {
         return CustomerService::delete($id);

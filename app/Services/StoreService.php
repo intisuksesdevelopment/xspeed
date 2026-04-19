@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Constants\CommonConstants;
@@ -22,8 +23,10 @@ class StoreService
         foreach ($stores as $store) {
             $store->availability = $store->isAvailable();
         }
+
         return $stores;
     }
+
     public static function getActive(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
@@ -36,23 +39,23 @@ class StoreService
         foreach ($stores as $store) {
             $store->availability = $store->isAvailable();
         }
+
         return $stores;
     }
-   
 
     public static function save(Request $request)
     {
         try {
-            $data           = $request->all();
+            $data = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
-            $store       = Store::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
+            $store = Store::whereRaw('LOWER(code) LIKE ?', ['%'.strtolower($data['code']).'%'])->get();
 
             if ($store->isNotEmpty()) {
                 $firstSubStore = $store->first();
                 throw new AlreadyExistException("code : {$firstSubStore->code}");
             }
 
-            $store = new SubCategory();
+            $store = new SubCategory;
             // $store->validateAttributes($data);
             $store->fill($data);
             $store->save();
@@ -60,9 +63,11 @@ class StoreService
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
         }
     }
@@ -70,12 +75,12 @@ class StoreService
     public static function update(Request $request)
     {
         try {
-            $data           = $request->all();
+            $data = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
 
             $store = Store::find($data['id']);
             if (! $store) {
-                throw new NotFoundException("code : " . $data['code']);
+                throw new NotFoundException('code : '.$data['code']);
             }
             // $store->validateAttributes($data);
             $store->fill($data);
@@ -87,15 +92,17 @@ class StoreService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Store not found: ' . $e->getMessage(),
+                'message' => 'Store not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -105,7 +112,7 @@ class StoreService
         try {
             $store = Store::find($id);
             if (! $store) {
-                throw new NotFoundException("id : " . $id);
+                throw new NotFoundException('id : '.$id);
             }
             $store->status = 1;
             $store->update();
@@ -116,17 +123,18 @@ class StoreService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Store not found: ' . $e->getMessage(),
+                'message' => 'Store not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
-
 }

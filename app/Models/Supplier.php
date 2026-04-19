@@ -1,8 +1,9 @@
 <?php
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Supplier extends Model
 {
@@ -29,10 +30,10 @@ class Supplier extends Model
         'updated_by',
     ];
 
-    
     protected $hidden = [
-        'id'
+        'id',
     ];
+
     public function isAvailable()
     {
         return $this['status'] == 0 ? 'Available' : 'Not Available';

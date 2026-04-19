@@ -2,15 +2,15 @@
 
 // app/helpers.php
 
-if (!function_exists('clearDecimal')) {
+if (! function_exists('clearDecimal')) {
     /**
      * Clear unnecessary decimal places
      *
-     * @param float $value
+     * @param  float  $value
      * @return string
      */
     function clearDecimal($value)
     {
-        return number_format((float)$value, 2, '.', '');
+        return number_format((float) $value, 2, '.', '');
     }
 }

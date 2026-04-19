@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Exports;
 
 use App\Models\Item;
@@ -13,12 +14,12 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithTitle;
+use Maatwebsite\Excel\Events\BeforeSheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
-class ItemsExport implements FromQuery, WithMapping, WithCustomStartCell, WithEvents, WithTitle, WithDrawings, WithHeadings
+class ItemsExport implements FromQuery, WithCustomStartCell, WithDrawings, WithEvents, WithHeadings, WithMapping, WithTitle
 {
     protected $filters;
 
@@ -38,7 +39,7 @@ class ItemsExport implements FromQuery, WithMapping, WithCustomStartCell, WithEv
         ]);
 
         if (! empty($this->filters['searchInput'])) {
-            $query->where('name', 'like', '%' . $this->filters['searchInput'] . '%');
+            $query->where('name', 'like', '%'.$this->filters['searchInput'].'%');
         }
 
         if (! empty($this->filters['filterWarehouse'])) {
@@ -54,6 +55,7 @@ class ItemsExport implements FromQuery, WithMapping, WithCustomStartCell, WithEv
                 $query->where('brand_id', $brandId);
             }
         }
+
         return $query;
     }
 
@@ -117,9 +119,10 @@ class ItemsExport implements FromQuery, WithMapping, WithCustomStartCell, WithEv
     {
         return 'A8';
     }
+
     public function drawings()
     {
-        $drawing = new Drawing();
+        $drawing = new Drawing;
         $drawing->setName('XspeedLogo');
         $drawing->setDescription('XspeedLogo');
         $drawing->setPath(public_path('build/img/logo-exspeed3.png'));
@@ -128,10 +131,11 @@ class ItemsExport implements FromQuery, WithMapping, WithCustomStartCell, WithEv
 
         return $drawing;
     }
+
     public function registerEvents(): array
     {
         return [
-            \Maatwebsite\Excel\Events\BeforeSheet::class => function (\Maatwebsite\Excel\Events\BeforeSheet $event) {
+            BeforeSheet::class => function (BeforeSheet $event) {
                 $sheet = $event->sheet->getDelegate();
 
                 // Tulis "LAPORAN PRODUK" di A1
@@ -147,8 +151,8 @@ class ItemsExport implements FromQuery, WithMapping, WithCustomStartCell, WithEv
                             'rgb' => 'FFCD07',
                         ],
                     ],
-                        'fill'  => [
-                            'fillType'   => Fill::FILL_SOLID,
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
                             'startColor' => ['rgb' => '1B2A51'],
                         ],
                     ]
@@ -162,51 +166,51 @@ class ItemsExport implements FromQuery, WithMapping, WithCustomStartCell, WithEv
                 $sheet->getStyle('A6')->applyFromArray(
                     [
                         'font' => [
-                            'name'  => 'Arial',
-                            'bold'  => true,
-                            'size'  => 14,
+                            'name' => 'Arial',
+                            'bold' => true,
+                            'size' => 14,
                             'color' => [
                                 'rgb' => 'FFCD07',
                             ],
                         ], 'alignment' => [
                             'horizontal' => Alignment::HORIZONTAL_CENTER,
-                            'vertical'   => Alignment::VERTICAL_CENTER,
-                            'wrapText'   => true,
+                            'vertical' => Alignment::VERTICAL_CENTER,
+                            'wrapText' => true,
                         ],
                     ]
                 );
-               
+
                 $sheet->setCellValue('A6', 'XspeedMotopart');
                 $sheet->mergeCells('A6:C6');
 
                 $sheet->getStyle('A8:V8')->applyFromArray(
                     [
                         'font' => [
-                            'name'  => 'Arial',
-                            'bold'  => true,
-                            'size'  => 14,
+                            'name' => 'Arial',
+                            'bold' => true,
+                            'size' => 14,
                             'color' => [
                                 'rgb' => 'FFCD07',
                             ],
                         ], 'alignment' => [
                             'horizontal' => Alignment::HORIZONTAL_CENTER,
-                            'vertical'   => Alignment::VERTICAL_CENTER,
-                            'wrapText'   => true,
+                            'vertical' => Alignment::VERTICAL_CENTER,
+                            'wrapText' => true,
                         ],
                     ]
                 );
-                $sheet->setCellValue('V6', 'Export By: ' . Auth::user()->username . ' @' . $today);
+                $sheet->setCellValue('V6', 'Export By: '.Auth::user()->username.' @'.$today);
                 $sheet->getStyle('V6')->applyFromArray(
                     [
                         'font' => [
-                            'name'  => 'Arial',
-                            'size'  => 8,
+                            'name' => 'Arial',
+                            'size' => 8,
                             'color' => [
                                 'rgb' => 'FFCD07',
                             ],
                         ], 'alignment' => [
                             'horizontal' => Alignment::HORIZONTAL_RIGHT,
-                            'vertical'   => Alignment::VERTICAL_CENTER,
+                            'vertical' => Alignment::VERTICAL_CENTER,
                         ],
                     ]
                 );

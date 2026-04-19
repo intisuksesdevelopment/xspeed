@@ -20,6 +20,7 @@
 
     @include('pages.layout.partials.head')
 </head>
+
 @if (Route::is(['chat']))
 
     <body class="main-chat-blk">
@@ -166,12 +167,14 @@
     @include('pages.layout.partials.collapsed-sidebar')
     @include('pages.layout.partials.horizontal-sidebar')
 @endif
+
+@include('pages.components.modalpopup')
 @yield('content')
 </div>
 <!-- /Main Wrapper -->
 @include('pages.layout.partials.theme-settings')
-@component('pages.components.modalpopup')
-@endcomponent
+
+
 @include('pages.layout.partials.footer-scripts')
 </body>
 

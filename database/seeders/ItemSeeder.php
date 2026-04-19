@@ -70,7 +70,7 @@ class ItemSeeder extends Seeder
         ];
 
         foreach ($items as $itemData) {
-            $item = new Items();
+            $item = new Items;
             $item->fill($itemData);
             $item->save();
         }

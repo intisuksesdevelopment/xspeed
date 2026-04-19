@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Constants\CommonConstants;
@@ -9,7 +10,6 @@ use Illuminate\Support\Facades\Log;
 
 class BrandService
 {
-
     public static function getPaginated(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
@@ -18,10 +18,11 @@ class BrandService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
         // Default to 'asc' if not provided
-        $brands = Brand::where('status',0)->orderBy($sortBy, $sortDirection)->paginate($perPage);
+        $brands = Brand::where('status', 0)->orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($brands as $brand) {
             $brand->availability = $brand->isAvailable();
         }
+
         return $brands;
     }
 
@@ -37,22 +38,23 @@ class BrandService
         foreach ($brands as $brand) {
             $brand->availability = $brand->isAvailable();
         }
+
         return $brands;
     }
 
     public static function save(Request $request)
     {
         try {
-            $data           = $request->all();
+            $data = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
-            $brand          = Brand::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
+            $brand = Brand::whereRaw('LOWER(code) LIKE ?', ['%'.strtolower($data['code']).'%'])->get();
 
             if ($brand->isNotEmpty()) {
                 $firstBrand = $brand->first();
                 throw new AlreadyExistException("code : {$firstBrand->code}");
             }
 
-            $brand = new Brand();
+            $brand = new Brand;
             // $supplier->validateAttributes($data);
             $brand->fill($data);
             $brand->save();
@@ -60,9 +62,11 @@ class BrandService
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
         }
     }
@@ -70,12 +74,12 @@ class BrandService
     public static function update(Request $request)
     {
         try {
-            $data           = $request->all();
+            $data = $request->all();
             $data['status'] = $request->has('status') ? $request->input('status') : 0;
 
             $brand = Brand::find($data['id']);
             if (! $brand) {
-                throw new NotFoundException("code : " . $data['code']);
+                throw new NotFoundException('code : '.$data['code']);
             }
             // $category->validateAttributes($data);
             $brand->fill($data);
@@ -87,15 +91,17 @@ class BrandService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Category not found: ' . $e->getMessage(),
+                'message' => 'Category not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -105,7 +111,7 @@ class BrandService
         try {
             $brand = Brand::find($id);
             if (! $brand) {
-                throw new NotFoundException("id : " . $id);
+                throw new NotFoundException('id : '.$id);
             }
             $brand->status = 1;
             $brand->update();
@@ -116,27 +122,29 @@ class BrandService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Warehouse not found: ' . $e->getMessage(),
+                'message' => 'Warehouse not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
+
     public static function getIdByCode($code)
     {
         $brand = Brand::where('code', $code)->first();
 
         if (! $brand) {
-            throw new NotFoundException("Brand not found with code: " . $code);
+            throw new NotFoundException('Brand not found with code: '.$code);
         }
 
         return $brand->id;
     }
-
 }

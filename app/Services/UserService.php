@@ -1,13 +1,14 @@
 <?php
+
 namespace App\Services;
 
-use App\Models\User;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Constants\CommonConstants;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\AlreadyExistException;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class UserService
@@ -18,13 +19,13 @@ class UserService
             $data = $request->all();
 
             // Check if the user with the same nik already exists
-            $user = User::whereRaw('LOWER(nik) LIKE ?', ['%' . strtolower($data['nik']) . '%'])->first();
+            $user = User::whereRaw('LOWER(nik) LIKE ?', ['%'.strtolower($data['nik']).'%'])->first();
             if ($user) {
                 throw new AlreadyExistException("nik : {$data['nik']}");
             }
 
             // Create a new user
-            $user         = new User();
+            $user = new User;
             $data['uuid'] = (string) Str::uuid();
             $user->validateAttributes($data);
 
@@ -37,12 +38,15 @@ class UserService
             return response()->json(['success' => true, 'message' => 'Added successfully!']);
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         } catch (ValidationException $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => $e->errors()]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
         }
     }
@@ -59,6 +63,7 @@ class UserService
         foreach ($users as $user) {
             $user->availability = $user->isAvailable();
         }
+
         return $users;
     }
 
@@ -74,26 +79,27 @@ class UserService
         foreach ($users as $user) {
             $user->availability = $user->isAvailable();
         }
+
         return $warehusersouses;
     }
 
     public static function save(Request $request)
     {
         try {
-            $data           = $request->all();
-            $data['status'] = 3; //default status waiting (3)
+            $data = $request->all();
+            $data['status'] = 3; // default status waiting (3)
 
-            $user = User::whereRaw('LOWER(nik) LIKE ? OR LOWER(email) LIKE ?', [  
-                '%' . strtolower($data['nik']) . '%',  
-                '%' . strtolower($data['email']) . '%'  
-            ])->first();  
+            $user = User::whereRaw('LOWER(nik) LIKE ? OR LOWER(email) LIKE ?', [
+                '%'.strtolower($data['nik']).'%',
+                '%'.strtolower($data['email']).'%',
+            ])->first();
 
             if ($user) {
                 throw new AlreadyExistException("nik : {$data['nik']}");
             }
 
             // Create a new user
-            $user         = new User();
+            $user = new User;
             $data['uuid'] = (string) Str::uuid();
             $user->validateAttributes($data);
 
@@ -102,12 +108,15 @@ class UserService
 
             $user->fill($data);
             $user->save();
+
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
         }
     }
@@ -115,12 +124,12 @@ class UserService
     public static function update(Request $request)
     {
         try {
-            $data           = $request->all();
+            $data = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
 
             $user = User::find($data['uuid']);
             if (! $user) {
-                throw new NotFoundException("uuid : " . $data['uuid']);
+                throw new NotFoundException('uuid : '.$data['uuid']);
             }
             // $category->validateAttributes($data);
             $user->fill($data);
@@ -132,15 +141,17 @@ class UserService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Category not found: ' . $e->getMessage(),
+                'message' => 'Category not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -150,7 +161,7 @@ class UserService
         try {
             $user = User::find($id);
             if (! $user) {
-                throw new NotFoundException("id : " . $id);
+                throw new NotFoundException('id : '.$id);
             }
             $user->status = 1;
             $user->update();
@@ -161,17 +172,18 @@ class UserService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'User not found: ' . $e->getMessage(),
+                'message' => 'User not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
-
 }

@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 
 class Customer extends Model
 {
@@ -26,6 +24,7 @@ class Customer extends Model
         'created_by',
         'updated_by',
     ];
+
     public function isAvailable()
     {
         return $this['status'] == 0 ? 'Available' : 'Not Available';

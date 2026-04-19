@@ -1,16 +1,16 @@
 <?php
+
 namespace App\Models;
 
-use App\Models\Item;
-use App\Models\SubCategory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'code',
@@ -28,11 +28,11 @@ class Category extends Model
     public function validateAttributes($attributes)
     {
         $validator = Validator::make($attributes, [
-            'name'        => 'required|string|max:255',
-            'code'        => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image_url'   => 'nullable|url',
-            'status'      => 'required|integer|in:0,1',
+            'image_url' => 'nullable|url',
+            'status' => 'required|integer|in:0,1',
         ]);
         if ($validator->fails()) {
             throw new ValidationException($validator);
@@ -40,10 +40,12 @@ class Category extends Model
 
         return true;
     }
+
     public function isAvailable()
     {
         return $this['status'] == 0 ? 'Available' : 'Not Available';
     }
+
     public function items()
     {
         return $this->hasMany(Item::class);
@@ -53,10 +55,12 @@ class Category extends Model
     {
         return $this->items()->count();
     }
+
     public function getItemCountAttribute()
     {
         return $this->items()->count();
     }
+
     public function subcategories()
     {
         return $this->hasMany(SubCategory::class, 'category_id');

@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Services;
 
-use Log;
 use App\Models\Contact;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Log;
 
 class ContactService
 {
@@ -16,17 +17,16 @@ class ContactService
         $supplier = Supplier::where('uuid', $supplierId)->first();
 
         $contacts = Contact::where('ref', 'supplier')
-        ->where('ref_id', $supplier['id']??0)->get();
-        
+            ->where('ref_id', $supplier['id'] ?? 0)->get();
 
-        if (!$contacts || $contacts->isEmpty()) {
+        if (! $contacts || $contacts->isEmpty()) {
             $contacts = Contact::where('uuid', $supplierId)->get();
             if (! $contacts) {
                 return response()->json([
                     'message' => "No contact found for supplier ID: {$supplierId}",
                 ], 404);
             }
-        }else{
+        } else {
             foreach ($contacts as $contact) {
                 $contact['supplier_name'] = $supplier['name'];
                 $contact['supplier_address'] = $supplier['address'];
@@ -40,8 +40,9 @@ class ContactService
     {
         $customer = Contact::where('uuid', $code)->first();
         if (! $customer) {
-            throw new NotFoundException("code : " . $code);
+            throw new NotFoundException('code : '.$code);
         }
+
         return $customer;
     }
 }

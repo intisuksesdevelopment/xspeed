@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -62,19 +63,19 @@ class Stock extends Authenticatable
     public function validateAttributes($attributes, $id = null)
     {
         $validator = Validator::make($attributes, [
-            'uuid'             => 'required|uuid|unique:items,uuid,' . $id,
-            'periode'          => 'required|string|max:255',
-            'warehouse_id'     => 'required|integer',
-            'total_item'       => 'required|integer',
-            'stock_total'      => 'required|numeric',
-            'qty_total'        => 'required|numeric',
-            'diff_total'       => 'required|numeric',
+            'uuid' => 'required|uuid|unique:items,uuid,'.$id,
+            'periode' => 'required|string|max:255',
+            'warehouse_id' => 'required|integer',
+            'total_item' => 'required|integer',
+            'stock_total' => 'required|numeric',
+            'qty_total' => 'required|numeric',
+            'diff_total' => 'required|numeric',
             'diff_price_total' => 'required|numeric',
-            'price_total'      => 'required|numeric',
-            'approval_id'      => 'required|integer',
-            'created_by'       => 'required|integer',
-            'update_by'        => 'nullable|integer',
-            'status'           => 'required|string|max:50',
+            'price_total' => 'required|numeric',
+            'approval_id' => 'required|integer',
+            'created_by' => 'required|integer',
+            'update_by' => 'nullable|integer',
+            'status' => 'required|string|max:50',
         ]);
 
         if ($validator->fails()) {
@@ -83,6 +84,7 @@ class Stock extends Authenticatable
 
         return true;
     }
+
     public function isStatus()
     {
         switch ($this['status']) {

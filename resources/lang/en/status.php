@@ -1,4 +1,5 @@
 <?php
+
 return [
     'available' => 'Available',
     'notavailable' => 'Not Available',

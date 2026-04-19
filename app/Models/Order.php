@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -7,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'uuid',
         'trx_id',
@@ -46,6 +48,7 @@ class Order extends Model
         'update_by',
         'status',
     ];
+
     public function isAvailable()
     {
         return $this['status'] == 0 ? 'Available' : 'Not Available';

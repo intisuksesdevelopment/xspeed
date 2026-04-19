@@ -1,16 +1,15 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use App\Services\ItemService;
 use App\Services\CustomerService;
+use App\Services\ItemService;
 use App\Services\SupplierService;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-
 
 class CustomAuthController extends Controller
 {
@@ -30,11 +29,11 @@ class CustomAuthController extends Controller
     public function customSignin(Request $request)
     {
         $request->validate([
-            'email'    => 'required|email',
+            'email' => 'required|email',
             'password' => 'required',
         ],
             [
-                'email.required'    => 'Email is required',
+                'email.required' => 'Email is required',
                 'password.required' => 'Password is required',
 
             ]
@@ -50,8 +49,9 @@ class CustomAuthController extends Controller
                 ->withSuccess('Signed in');
         }
 
-        return redirect("signin")->withErrors('These credentials do not match our records.');
+        return redirect('signin')->withErrors('These credentials do not match our records.');
     }
+
     public function registration()
     {
         return view('register');
@@ -60,32 +60,32 @@ class CustomAuthController extends Controller
     public function customRegister(Request $request)
     {
         $request->validate([
-            'name'            => 'required|min:5',
-            'email'           => 'required|email|unique:users',
-            'password'        => 'required|min:6',
+            'name' => 'required|min:5',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
             'confirmpassword' => 'required|min:6',
         ],
             [
-                'name.required'            => 'Userame is required',
-                'email.required'           => 'Email is required',
-                'password.required'        => 'Password is required',
+                'name.required' => 'Userame is required',
+                'email.required' => 'Email is required',
+                'password.required' => 'Password is required',
                 'confirmpassword.required' => 'Confirm Password is required',
 
             ]
         );
 
-        $data  = $request->all();
+        $data = $request->all();
         $check = $this->create($data);
 
-        return redirect("signin")->withSuccess('You have signed-in');
+        return redirect('signin')->withSuccess('You have signed-in');
     }
 
     public function create(array $data)
     {
         return User::create([
-            'name'            => $data['name'],
-            'email'           => $data['email'],
-            'password'        => Hash::make($data['password']),
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
             'confirmpassword' => Hash::make($data['confirmpassword']),
         ]);
     }
@@ -98,12 +98,14 @@ class CustomAuthController extends Controller
             'per_page' => 5,
             'sortBy' => 'created_at',
             'sortDirection' => 'desc',
-            'page' => 1
+            'page' => 1,
         ]);
         $data['dataNewProduct'] = ItemService::getPaginated($request);
         $data['dataMinStockProduct'] = ItemService::getWithMinStock();
+
         return view('pages.admin.admin-dashboard', $data);
     }
+
     public function salesDashboard()
     {
         $data['countCustomer'] = CustomerService::countAll();
@@ -112,12 +114,14 @@ class CustomAuthController extends Controller
             'per_page' => 5,
             'sortBy' => 'created_at',
             'sortDirection' => 'desc',
-            'page' => 1
+            'page' => 1,
         ]);
         $data['dataNewProduct'] = ItemService::getPaginated($request);
         $data['dataMinStockProduct'] = ItemService::getWithMinStock();
+
         return view('pages.admin.sales-dashboard', $data);
     }
+
     public function signOut()
     {
         Session::flush();

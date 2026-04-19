@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Hash;
-use Session;
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Services\RackService;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
 class RackController extends Controller
 {
     private $rackService;
 
-    public function __construct(RackService $rackService) {
+    public function __construct(RackService $rackService)
+    {
         $this->rackService = $rackService;
     }
 
@@ -21,6 +19,7 @@ class RackController extends Controller
     {
         Paginator::useBootstrap(); // Menggunakan Bootstrap
         $racks = RackService::getPaginated($request);
+
         return view('pages.rack.racks', ['racks' => $racks]);
     }
 

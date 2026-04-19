@@ -21,21 +21,21 @@ if (file_exists($maintenance = __DIR__.'/storage/framework/maintenance.php')) {
 
 try {
     // Register the Composer autoloader...
-    if (!file_exists(__DIR__.'/vendor/autoload.php')) {
+    if (! file_exists(__DIR__.'/vendor/autoload.php')) {
         throw new RuntimeException('Vendor autoload tidak ditemukan. Jalankan composer install.');
     }
     require __DIR__.'/vendor/autoload.php';
 
     // Bootstrap Laravel and handle the request...
     $app = require_once __DIR__.'/bootstrap/app.php';
-    
-    if (!$app) {
+
+    if (! $app) {
         throw new RuntimeException('Gagal memuat aplikasi Laravel');
     }
-    
+
     $response = $app->handleRequest(Request::capture());
     $response->send();
-    
+
 } catch (Throwable $e) {
     // =============================================
     // TAMPILKAN ERROR DETAIL (TAMBAHKAN INI)
@@ -48,7 +48,7 @@ try {
     echo 'Stack Trace:'."\n";
     echo htmlspecialchars($e->getTraceAsString());
     echo '</pre>';
-    
+
     // Log error ke file
     error_log($e->getMessage());
     error_log($e->getTraceAsString());

@@ -1,8 +1,7 @@
 <?php
+
 namespace App\Models;
 
-use App\Models\Customer;
-use App\Models\Payment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -52,9 +51,11 @@ class Sale extends Model
         'confirm_at',
 
     ];
+
     protected $hidden = [
         'id',
     ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'uid');
@@ -69,20 +70,21 @@ class Sale extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
     public function isAvailable()
     {
         return $this['status'] == 0 ? __('status.available') : __('status.notavailable');
     }
+
     public function getPaymentStatus()
-{
-    $statuses = [
-        0 => __('payment.paid'),
-        1 => __('payment.unpaid'),
-        2 => __('payment.hold'),
-        3 => __('payment.other'),
-    ];
+    {
+        $statuses = [
+            0 => __('payment.paid'),
+            1 => __('payment.unpaid'),
+            2 => __('payment.hold'),
+            3 => __('payment.other'),
+        ];
 
-    return $statuses[$this->payment_status] ?? __('payment.unknown');
-}
-
+        return $statuses[$this->payment_status] ?? __('payment.unknown');
+    }
 }

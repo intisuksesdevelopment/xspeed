@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -57,9 +58,10 @@ class StockData extends Authenticatable
     /**
      * Validate the attributes of the model.
      *
-     * @param array $attributes
-     * @param int|null $id
+     * @param  array  $attributes
+     * @param  int|null  $id
      * @return bool
+     *
      * @throws ValidationException
      */
     public function validateAttributes($attributes, $id = null)

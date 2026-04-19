@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Hash;
-use Session;
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Services\UnitService;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
 class UnitController extends Controller
 {
     private $unitService;
 
-    public function __construct(UnitService $unitService) {
+    public function __construct(UnitService $unitService)
+    {
         $this->unitService = $unitService;
     }
 
@@ -21,6 +19,7 @@ class UnitController extends Controller
     {
         Paginator::useBootstrap(); // Menggunakan Bootstrap
         $units = UnitService::getPaginated($request);
+
         return view('pages.unit.units', ['units' => $units]);
     }
 
@@ -33,7 +32,7 @@ class UnitController extends Controller
     {
         return UnitService::update($request);
     }
-    
+
     public function delete($id)
     {
         return UnitService::delete($id);

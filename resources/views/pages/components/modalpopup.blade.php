@@ -1,1086 +1,10 @@
-@if (Route::is(['product-list']))
-    <!-- Add Payroll -->
-    <div class="offcanvas offcanvas-end em-payrol-add" tabindex="-1" id="offcanvasRight-add">
-        <div class="offcanvas-body p-0">
-            <div class="page-wrapper-new">
-                <div class="content">
-                    <div class="page-header justify-content-between">
-                        <div class="page-title">
-                            <h4>Create New Product</h4>
-                        </div>
-                        <div class="page-btn">
-                            <a href="javascript:void(0);" class="btn btn-added " data-bs-dismiss="offcanvas"><i
-                                    data-feather="arrow-left" class="me-2"></i>Back to Product List</a>
-                        </div>
-                    </div>
-                    <!-- /add -->
-                    <div class="card mb-0">
-                        <div class="card-body add-product pb-0 ps-0 pe-0">
-                            <div class="accordion-card-one accordion" id="accordionExample">
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="headingOne">
-                                        <div class="accordion-button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseOne" aria-controls="collapseOne">
-                                            <div class="addproduct-icon">
-                                                <h5><i data-feather="info" class="add-info"></i><span>Product
-                                                        Information</span></h5>
-                                                <a href="javascript:void(0);"><i data-feather="chevron-down"
-                                                        class="chevron-down-add"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="collapseOne" class="accordion-collapse collapse show"
-                                        aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <div class="row">
-                                                <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="mb-3 add-product">
-                                                        <label class="form-label">Store</label>
-                                                        <select class="select">
-                                                            <option>Choose</option>
-                                                            <option>Computers</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="mb-3 add-product">
-                                                        <label class="form-label">Warehouse</label>
-                                                        <select class="select">
-                                                            <option>Choose</option>
-                                                            <option>Computers</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="mb-3 add-product">
-                                                        <label class="form-label">Product Name</label>
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="mb-3 add-product">
-                                                        <label class="form-label">Slug</label>
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="form-group add-product list">
-                                                        <label>SKU</label>
-                                                        <input type="text" class="form-control list"
-                                                            placeholder="Enter SKU">
-                                                        <button type="submit" class="btn btn-primaryadd">
-                                                            Generate Code
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="addservice-info">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-sm-6 col-12">
-                                                        <div class="mb-3 add-product">
-                                                            <div class="add-newplus">
-                                                                <label class="form-label">Category</label>
-                                                                <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                                    data-bs-target="#add-units-category"><i
-                                                                        data-feather="plus-circle"
-                                                                        class="plus-down-add"></i><span>Add
-                                                                        New</span></a>
-                                                            </div>
-                                                            <select class="select">
-                                                                <option>Choose</option>
-                                                                <option>Computers</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-6 col-12">
-                                                        <div class="mb-3 add-product">
-                                                            <label class="form-label">Choose Category</label>
-                                                            <select class="select">
-                                                                <option>Choose</option>
-                                                                <option>Computers</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-6 col-12">
-                                                        <div class="mb-3 add-product">
-                                                            <label class="form-label">Sub Category</label>
-                                                            <select class="select">
-                                                                <option>Choose</option>
-                                                                <option>Computers</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="add-product-new">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-sm-6 col-12">
-                                                        <div class="mb-3 add-product">
-                                                            <div class="add-newplus">
-                                                                <label class="form-label">Brand</label>
-                                                                <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                                    data-bs-target="#add-units-brand"><i
-                                                                        data-feather="plus-circle"
-                                                                        class="plus-down-add"></i><span>Add
-                                                                        new</span></a>
-                                                            </div>
-                                                            <select class="select">
-                                                                <option>Choose</option>
-                                                                <option>Nike</option>
-                                                                <option>Bolt</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-6 col-12">
-                                                        <div class="mb-3 add-product">
-
-                                                            <div class="add-newplus">
-                                                                <label class="form-label">Unit</label>
-                                                                <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                                    data-bs-target="#add-unit"><i
-                                                                        data-feather="plus-circle"
-                                                                        class="plus-down-add"></i><span>Add
-                                                                        New</span></a>
-                                                            </div>
-                                                            <select class="select">
-                                                                <option>Choose</option>
-                                                                <option>Kg</option>
-                                                                <option>Pc</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-6 col-12">
-                                                        <div class="mb-3 add-product">
-                                                            <label class="form-label">Selling Type</label>
-                                                            <select class="select">
-                                                                <option>Choose</option>
-                                                                <option>Computers</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-6 col-sm-6 col-12">
-                                                    <div class="mb-3 add-product">
-                                                        <label class="form-label">Barcode Symbology</label>
-                                                        <select class="select">
-                                                            <option>Choose</option>
-                                                            <option>Code34</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-sm-6 col-12">
-                                                    <div class="form-group add-product list">
-                                                        <label>Item Code</label>
-                                                        <input type="text" class="form-control list"
-                                                            placeholder="Please Enter Item Code">
-                                                        <button type="submit" class="btn btn-primaryadd">
-                                                            Generate Code
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <!-- Editor -->
-                                                <div class="col-lg-12">
-                                                    <div class="form-group summer-description-box transfer mb-3">
-                                                        <label>Description</label>
-                                                        <div id="summernote3">
-                                                        </div>
-                                                        <p>Maximum 60 Characters</p>
-                                                    </div>
-                                                </div>
-                                                <!-- /Editor -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-card-one accordion" id="accordionExample2">
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="headingTwo">
-                                        <div class="accordion-button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseTwo" aria-controls="collapseTwo">
-                                            <div class="text-editor add-list">
-                                                <div class="addproduct-icon list icon">
-                                                    <h5><i data-feather="life-buoy" class="add-info"></i><span>Pricing
-                                                            & Stocks</span></h5>
-                                                    <a href="javascript:void(0);"><i data-feather="chevron-down"
-                                                            class="chevron-down-add"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="collapseTwo" class="accordion-collapse collapse show"
-                                        aria-labelledby="headingTwo" data-bs-parent="#accordionExample2">
-                                        <div class="accordion-body">
-                                            <div class="form-group add-products">
-                                                <label class="d-block">Product Type</label>
-                                                <div class="single-pill-product">
-                                                    <ul class="nav nav-pills" id="pills-tab1" role="tablist">
-                                                        <li class="nav-item" role="presentation">
-                                                            <span class="custom_radio me-4 mb-0 active"
-                                                                id="pills-home-tab" data-bs-toggle="pill"
-                                                                data-bs-target="#pills-home" role="tab"
-                                                                aria-controls="pills-home" aria-selected="true">
-                                                                <input type="radio" class="form-control"
-                                                                    name="payment">
-                                                                <span class="checkmark"></span> Single Product</span>
-                                                        </li>
-                                                        <li class="nav-item" role="presentation">
-                                                            <span class="custom_radio me-2 mb-0"
-                                                                id="pills-profile-tab" data-bs-toggle="pill"
-                                                                data-bs-target="#pills-profile" role="tab"
-                                                                aria-controls="pills-profile" aria-selected="false">
-                                                                <input type="radio" class="form-control"
-                                                                    name="sign">
-                                                                <span class="checkmark"></span> Variable Product</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="tab-content" id="pills-tabContent">
-                                                <div class="tab-pane fade show active" id="pills-home"
-                                                    role="tabpanel" aria-labelledby="pills-home-tab">
-                                                    <div class="row">
-                                                        <div class="col-lg-4 col-sm-6 col-12">
-                                                            <div class="form-group add-product">
-                                                                <label>Quantity</label>
-                                                                <input type="text" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-sm-6 col-12">
-                                                            <div class="form-group add-product">
-                                                                <label>Price</label>
-                                                                <input type="text" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-sm-6 col-12">
-                                                            <div class="form-group add-product">
-                                                                <label>Tax Type</label>
-                                                                <select class="select">
-                                                                    <option>Choose</option>
-                                                                    <option>Type</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-4 col-sm-6 col-12">
-                                                            <div class="form-group add-product">
-                                                                <label>Discount Type</label>
-                                                                <select class="select">
-                                                                    <option>Choose</option>
-                                                                    <option>Type</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-sm-6 col-12">
-                                                            <div class="form-group add-product">
-                                                                <label>Discount Value</label>
-                                                                <input type="text" placeholder="Choose">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-sm-6 col-12">
-                                                            <div class="form-group add-product">
-                                                                <label>Quantity Alert</label>
-                                                                <input type="text" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="accordion-card-one accordion" id="accordionExample3">
-                                                        <div class="accordion-item">
-                                                            <div class="accordion-header" id="headingThree">
-                                                                <div class="accordion-button"
-                                                                    data-bs-toggle="collapse"
-                                                                    data-bs-target="#collapseThree"
-                                                                    aria-controls="collapseThree">
-                                                                    <div class="addproduct-icon list">
-                                                                        <h5><i data-feather="image"
-                                                                                class="add-info"></i><span>Images</span>
-                                                                        </h5>
-                                                                        <a href="javascript:void(0);"><i
-                                                                                data-feather="chevron-down"
-                                                                                class="chevron-down-add"></i></a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div id="collapseThree"
-                                                                class="accordion-collapse collapse show"
-                                                                aria-labelledby="headingThree"
-                                                                data-bs-parent="#accordionExample3">
-                                                                <div class="accordion-body">
-                                                                    <div class="text-editor add-list add">
-                                                                        <div class="col-lg-12">
-                                                                            <div class="add-choosen">
-                                                                                <div class="input-blocks">
-                                                                                    <div class="image-upload">
-                                                                                        <input type="file">
-                                                                                        <div class="image-uploads">
-                                                                                            <i data-feather="plus-circle"
-                                                                                                class="plus-down-add"></i>
-                                                                                            <h4>Add Images</h4>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="phone-img">
-                                                                                    <img src="{{ asset('build/img/products/phone-add-2.png') }}"
-                                                                                        alt="image">
-                                                                                    <a href="javascript:void(0);"><i
-                                                                                            data-feather="x"
-                                                                                            class="x-square-add remove-product"></i></a>
-                                                                                </div>
-
-                                                                                <div class="phone-img">
-                                                                                    <img src="{{ asset('build/img/products/phone-add-1.png') }}"
-                                                                                        alt="image">
-                                                                                    <a href="javascript:void(0);"><i
-                                                                                            data-feather="x"
-                                                                                            class="x-square-add remove-product"></i></a>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="pills-profile" role="tabpanel"
-                                                    aria-labelledby="pills-profile-tab">
-                                                    <div class="row select-color-add">
-                                                        <div class="col-lg-6 col-sm-6 col-12">
-                                                            <div class="form-group add-product">
-                                                                <label>Variant Attribute</label>
-                                                                <div class="row">
-                                                                    <div class="col-lg-10 col-sm-10 col-10">
-                                                                        <select
-                                                                            class="form-control variant-select select-option"
-                                                                            id="colorSelect">
-                                                                            <option>Choose</option>
-                                                                            <option>Color</option>
-                                                                            <option value="red">Red</option>
-                                                                            <option value="black">Black</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-lg-2 col-sm-2 col-2 ps-0">
-                                                                        <div class="add-icon tab">
-                                                                            <a class="btn btn-filter"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#add-units"><i
-                                                                                    class="feather feather-plus-circle"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="selected-hide-color" id="input-show">
-                                                                <div class="row align-items-center">
-                                                                    <div class="col-sm-10">
-                                                                        <div class="input-blocks">
-                                                                            <input class="input-tags form-control"
-                                                                                id="inputBox" type="text"
-                                                                                data-role="tagsinput"
-                                                                                name="specialist" value="red, black">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-                                                                        <div class="form-group ">
-                                                                            <a href="javascript:void(0);"
-                                                                                class="remove-color"><i
-                                                                                    class="far fa-trash-alt"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="modal-body-table variant-table" id="variant-table">
-                                                        <div class="table-responsive">
-                                                            <table class="table">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Variantion</th>
-                                                                        <th>Variant Value</th>
-                                                                        <th>SKU</th>
-                                                                        <th>Quantity</th>
-                                                                        <th>Price</th>
-                                                                        <th class="no-sort">Action</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <div class="add-product">
-                                                                                <input type="text"
-                                                                                    class="form-control"
-                                                                                    value="color">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="add-product">
-                                                                                <input type="text"
-                                                                                    class="form-control"
-                                                                                    value="red">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="add-product">
-                                                                                <input type="text"
-                                                                                    class="form-control"
-                                                                                    value="1234">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="product-quantity">
-                                                                                <span class="quantity-btn">+<i
-                                                                                        data-feather="plus-circle"
-                                                                                        class="plus-circle"></i></span>
-                                                                                <input type="text"
-                                                                                    class="quntity-input"
-                                                                                    value="2">
-                                                                                <span class="quantity-btn"><i
-                                                                                        data-feather="minus-circle"
-                                                                                        class="feather-search"></i></span>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="add-product">
-                                                                                <input type="text"
-                                                                                    class="form-control"
-                                                                                    value="50000">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td class="action-table-data">
-                                                                            <div class="edit-delete-action">
-                                                                                <div class="input-block add-lists">
-                                                                                    <label class="checkboxs">
-                                                                                        <input type="checkbox" checked>
-                                                                                        <span
-                                                                                            class="checkmarks"></span>
-                                                                                    </label>
-                                                                                </div>
-                                                                                <a class="me-2 p-2"
-                                                                                    href="javascript:void(0);"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#add-variation">
-                                                                                    <i data-feather="plus"
-                                                                                        class="feather-edit"></i>
-                                                                                </a>
-                                                                                <a class="confirm-text p-2"
-                                                                                    href="javascript:void(0);"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#add-variation">
-                                                                                    <i data-feather="trash-2"
-                                                                                        class="feather-trash-2"></i>
-                                                                                </a>
-                                                                            </div>
-
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <div class="add-product">
-                                                                                <input type="text"
-                                                                                    class="form-control"
-                                                                                    value="color">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="add-product">
-                                                                                <input type="text"
-                                                                                    class="form-control"
-                                                                                    value="black">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="add-product">
-                                                                                <input type="text"
-                                                                                    class="form-control"
-                                                                                    value="2345">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="product-quantity">
-                                                                                <span class="quantity-btn">+<i
-                                                                                        data-feather="plus-circle"
-                                                                                        class="plus-circle"></i></span>
-                                                                                <input type="text"
-                                                                                    class="quntity-input"
-                                                                                    value="3">
-                                                                                <span class="quantity-btn"><i
-                                                                                        data-feather="minus-circle"
-                                                                                        class="feather-search"></i></span>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="add-product">
-                                                                                <input type="text"
-                                                                                    class="form-control"
-                                                                                    value="50000">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td class="action-table-data">
-                                                                            <div class="edit-delete-action">
-                                                                                <div class="input-block add-lists">
-                                                                                    <label class="checkboxs">
-                                                                                        <input type="checkbox" checked>
-                                                                                        <span
-                                                                                            class="checkmarks"></span>
-                                                                                    </label>
-                                                                                </div>
-                                                                                <a class="me-2 p-2" href="#"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#edit-units">
-                                                                                    <i data-feather="plus"
-                                                                                        class="feather-edit"></i>
-                                                                                </a>
-                                                                                <a class="confirm-text p-2"
-                                                                                    href="javascript:void(0);">
-                                                                                    <i data-feather="trash-2"
-                                                                                        class="feather-trash-2"></i>
-                                                                                </a>
-                                                                            </div>
-
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-card-one accordion" id="accordionExample4">
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="headingFour">
-                                        <div class="accordion-button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseFour" aria-controls="collapseFour">
-                                            <div class="text-editor add-list">
-                                                <div class="addproduct-icon list">
-                                                    <h5><i data-feather="list" class="add-info"></i><span>Custom
-                                                            Fields</span></h5>
-                                                    <a href="javascript:void(0);"><i data-feather="chevron-down"
-                                                            class="chevron-down-add"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="collapseFour" class="accordion-collapse collapse show"
-                                        aria-labelledby="headingFour" data-bs-parent="#accordionExample4">
-                                        <div class="accordion-body">
-                                            <div class="text-editor add-list add">
-                                                <div class="custom-filed">
-                                                    <div class="input-block add-lists">
-                                                        <label class="checkboxs">
-                                                            <input type="checkbox">
-                                                            <span class="checkmarks"></span>Warranties
-                                                        </label>
-                                                        <label class="checkboxs">
-                                                            <input type="checkbox">
-                                                            <span class="checkmarks"></span>Manufacturer
-                                                        </label>
-                                                        <label class="checkboxs">
-                                                            <input type="checkbox">
-                                                            <span class="checkmarks"></span>Expiry
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-sm-6 col-12">
-                                                        <div class="form-group add-product">
-                                                            <label>Discount Type</label>
-                                                            <select class="select">
-                                                                <option>Choose</option>
-                                                                <option>Type</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-sm-6 col-12">
-                                                        <div class="form-group add-product">
-                                                            <label>Quantity Alert</label>
-                                                            <input type="text" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-6 col-12">
-                                                        <div class="input-blocks">
-                                                            <label>Manufactured Date</label>
-
-                                                            <div class="input-groupicon calender-input">
-                                                                <i data-feather="calendar" class="info-img"></i>
-                                                                <input type="text" class="datetimepicker"
-                                                                    placeholder="Choose Date">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-6 col-12">
-                                                        <div class="input-blocks">
-                                                            <label>Expiry On</label>
-
-                                                            <div class="input-groupicon calender-input">
-                                                                <i data-feather="calendar" class="info-img"></i>
-                                                                <input type="text" class="datetimepicker"
-                                                                    placeholder="Choose Date">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="btn-addproduct mb-4">
-                                <a href="{{ url('product-list') }}" class="btn btn-cancel">Reset</a>
-                                <a href="javascript:void(0);" class="btn btn-submit me-2">Save Product</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /add -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Add Payroll -->
-
-    <!-- Add Adjustment -->
-    <div class="modal fade" id="add-units">
-        <div class="modal-dialog modal-dialog-centered stock-adjust-modal">
-            <div class="modal-content">
-                <div class="page-wrapper-new p-0">
-                    <div class="content">
-                        <div class="modal-header border-0 custom-modal-header">
-                            <div class="page-title">
-                                <h4>Add Variation Attribute</h4>
-                            </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body custom-modal-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="input-blocks">
-                                        <label>Attribute Name</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="input-blocks">
-                                        <label>Add Value</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <ul class="nav user-menu">
-                                        <li class="nav-item nav-searchinputs">
-                                            <div class="top-nav-search">
-                                                <form action="#" class="dropdown">
-                                                    <div class="searchinputs list dropdown-toggle"
-                                                        id="dropdownMenuClickable2" data-bs-toggle="dropdown"
-                                                        data-bs-auto-close="false">
-                                                        <input type="text" placeholder="Search">
-                                                        <i data-feather="search" class="feather-16 icon"></i>
-                                                        <div class="search-addon d-none">
-                                                            <span><i data-feather="x-circle"
-                                                                    class="feather-14"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="dropdown-menu search-dropdown idea"
-                                                        aria-labelledby="dropdownMenuClickable">
-                                                        <div class="search-info">
-                                                            <p>Black </p>
-                                                            <p>Red</p>
-                                                            <p>Green</p>
-                                                            <p>S</p>
-                                                            <p>M</p>
-                                                        </div>
-                                                    </div>
-                                                    <!-- <a class="btn"  id="searchdiv"><img src="{{ asset('build/img/icons/search.svg') }}" alt="img"></a> -->
-                                                </form>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="modal-footer-btn popup">
-                                        <a href="javascript:void(0);" class="btn btn-cancel me-2">Cancel</a>
-                                        <a href="javascript:void(0);" class="btn btn-submit">Create Adjustment</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Add Adjustment -->
-
-    <!-- Add Category -->
-    <div class="modal fade" id="add-units-category">
-        <div class="modal-dialog modal-dialog-centered custom-modal-two">
-            <div class="modal-content">
-                <div class="page-wrapper-new p-0">
-                    <div class="content">
-                        <div class="modal-header border-0 custom-modal-header">
-                            <div class="page-title">
-                                <h4>Add New Category</h4>
-                            </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body custom-modal-body">
-                            <div class="mb-3">
-                                <label class="form-label">Name</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="modal-footer-btn">
-                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
-                                    data-bs-dismiss="modal">Cancel</a>
-                                <a href="{{ url('units') }}" class="btn btn-submit">Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Add Category -->
-
-    <!-- Add Brand -->
-    <div class="modal fade" id="add-units-brand">
-        <div class="modal-dialog modal-dialog-centered custom-modal-two">
-            <div class="modal-content">
-                <div class="page-wrapper-new p-0">
-                    <div class="content">
-                        <div class="modal-header border-0 custom-modal-header">
-                            <div class="page-title">
-                                <h4>Add New Brand</h4>
-                            </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body custom-modal-body">
-                            <div class="mb-3">
-                                <label class="form-label">Brand</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="modal-footer-btn">
-                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
-                                    data-bs-dismiss="modal">Cancel</a>
-                                <a href="{{ url('units') }}" class="btn btn-submit">Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Add Brand -->
-
-    <!-- Add Unit -->
-    <div class="modal fade" id="add-unit">
-        <div class="modal-dialog modal-dialog-centered custom-modal-two">
-            <div class="modal-content">
-                <div class="page-wrapper-new p-0">
-                    <div class="content">
-                        <div class="modal-header border-0 custom-modal-header">
-                            <div class="page-title">
-                                <h4>Add Unit</h4>
-                            </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body custom-modal-body">
-                            <div class="mb-3">
-                                <label class="form-label">Unit</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="modal-footer-btn">
-                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
-                                    data-bs-dismiss="modal">Cancel</a>
-                                <a href="{{ url('units') }}" class="btn btn-submit">Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Add Unit -->
-
-    <!-- Add Variatent -->
-    <div class="modal fade" id="add-variation">
-        <div class="modal-dialog modal-dialog-centered custom-modal-two">
-            <div class="modal-content">
-                <div class="page-wrapper-new p-0">
-                    <div class="content">
-                        <div class="modal-header border-0 custom-modal-header">
-                            <div class="page-title">
-                                <h4>Add Variation</h4>
-                            </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body custom-modal-body">
-                            <div class="modal-title-head people-cust-avatar">
-                                <h6>Variant Thumbnail</h6>
-                            </div>
-                            <div class="new-employee-field">
-                                <div class="profile-pic-upload">
-                                    <div class="profile-pic">
-                                        <span><i data-feather="plus-circle" class="plus-down-add"></i> Add
-                                            Image</span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="image-upload mb-0">
-                                            <input type="file">
-                                            <div class="image-uploads">
-                                                <h4>Change Image</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6 pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Barcode Symbology</label>
-                                        <select class="select">
-                                            <option>Choose</option>
-                                            <option>Code34</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 pe-0">
-                                    <div class="mb-3">
-                                        <div class="form-group add-product list">
-                                            <label>Item Code</label>
-                                            <input type="text" class="form-control list" value="455454478844">
-                                            <button type="submit" class="btn btn-primaryadd">
-                                                Generate Code
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group image-upload-down">
-                                        <div class="image-upload download">
-                                            <input type="file">
-                                            <div class="image-uploads">
-                                                <img src="{{ asset('build/img/download-img.png') }}"
-                                                    alt="img">
-                                                <h4>Drag and drop a <span>file to upload</span></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-body">
-                                        <div class="text-editor add-list add">
-                                            <div class="col-lg-12">
-                                                <div class="add-choosen mb-3">
-                                                    <div class="phone-img ms-0">
-                                                        <img src="{{ asset('build/img/products/phone-add-2.png') }}"
-                                                            alt="image">
-                                                        <a href="javascript:void(0);"><i data-feather="x"
-                                                                class="x-square-add remove-product"></i></a>
-                                                    </div>
-
-                                                    <div class="phone-img">
-                                                        <img src="{{ asset('build/img/products/phone-add-1.png') }}"
-                                                            alt="image">
-                                                        <a href="javascript:void(0);"><i data-feather="x"
-                                                                class="x-square-add remove-product"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Quantity</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Quantity Alert</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Tax Type</label>
-                                        <select class="select">
-                                            <option>Choose</option>
-                                            <option>Direct</option>
-                                            <option>Indirect</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Tax </label>
-                                        <select class="select">
-                                            <option>Choose</option>
-                                            <option>Income Tax</option>
-                                            <option>Service Tax</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Discount Type </label>
-                                        <select class="select">
-                                            <option>Choose</option>
-                                            <option>Percentage</option>
-                                            <option>Early Payment</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 pe-0">
-                                    <div>
-                                        <label class="form-label">Discount Value</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="modal-footer-btn">
-                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
-                                    data-bs-dismiss="modal">Cancel</a>
-                                <a href="{{ url('warehouse') }}" class="btn btn-submit">Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Add Variatent -->
-
-    <!-- Import Product -->
-    <div class="modal fade" id="view-notes">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="page-wrapper-new p-0">
-                    <div class="content">
-                        <div class="modal-header border-0 custom-modal-header">
-                            <div class="page-title">
-                                <h4>Import Product</h4>
-                            </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body custom-modal-body">
-                            <form action="{{ url('product-list') }}">
-                                <div class="row">
-                                    <div class="col-lg-4 col-sm-6 col-12">
-                                        <div class="input-blocks">
-                                            <label>Product</label>
-                                            <select class="select">
-                                                <option>Choose</option>
-                                                <option>Bold V3.2</option>
-                                                <option>Nike Jordan</option>
-                                                <option>Iphone 14 Pro</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-sm-6 col-12">
-                                        <div class="input-blocks">
-                                            <label>Category</label>
-                                            <select class="select">
-                                                <option>Choose</option>
-                                                <option>Laptop</option>
-                                                <option>Electronics</option>
-                                                <option>Shoe</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-sm-6 col-12">
-                                        <div class="input-blocks">
-                                            <label>Satus</label>
-                                            <select class="select">
-                                                <option>Choose</option>
-                                                <option>Lenovo</option>
-                                                <option>Bolt</option>
-                                                <option>Nike</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-sm-6 col-12">
-                                        <div class="row">
-                                            <div>
-                                                <div class="modal-footer-btn download-file">
-                                                    <a href="javascript:void(0)" class="btn btn-submit">Download
-                                                        Sample File</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="input-blocks image-upload-down">
-                                            <label> Upload CSV File</label>
-                                            <div class="image-upload download">
-                                                <input type="file">
-                                                <div class="image-uploads">
-                                                    <img src="{{ asset('build/img/download-img.png') }}"
-                                                        alt="img">
-                                                    <h4>Drag and drop a <span>file to upload</span></h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-sm-6 col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Created by</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="mb-3 input-blocks">
-                                        <label class="form-label">Description</label>
-                                        <textarea class="form-control"></textarea>
-                                        <p class="mt-1">Maximum 60 Characters</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="modal-footer-btn">
-                                        <button type="button" class="btn btn-cancel me-2"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-submit">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Import Product -->
-@endif
-
-@if (Route::is(['add-product']))
+<div style="background:red;color:white;padding:10px">
+    MODAL LOADED
+</div>
+@if (Route::is(['add-product']) ||
+        Route::is(['product-list']) ||
+        Route::is(['product-edit-form']) ||
+        Route::is(['edit-product']))
     <!-- Add Adjustment -->
     <div class="modal fade" id="add-units">
         <div class="modal-dialog modal-dialog-centered stock-adjust-modal">
@@ -1210,8 +134,9 @@
                                 <input type="text" class="form-control">
                             </div>
                             <div class="modal-footer-btn">
-                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
-                                    data-bs-dismiss="modal">Cancel</a>
+                                <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">
+                                    Cancel
+                                </button>
                                 <a href="{{ url('add-product') }}" class="btn btn-submit">Submit</a>
                             </div>
                         </div>
@@ -1314,8 +239,7 @@
                                         <div class="image-upload download">
                                             <input type="file">
                                             <div class="image-uploads">
-                                                <img src="{{ asset('build/img/download-img.png') }}"
-                                                    alt="img">
+                                                <img src="{{ asset('build/img/download-img.png') }}" alt="img">
                                                 <h4>Drag and drop a <span>file to upload</span></h4>
                                             </div>
                                         </div>
@@ -1772,8 +696,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="edit-image-url" class="form-label">Icon</label>
-                                    <input id="edit-image-url" name="image_url" type="text"
-                                        class="form-control" value="CT001">
+                                    <input id="edit-image-url" name="image_url" type="text" class="form-control"
+                                        value="CT001">
                                 </div>
                                 <div class="mb-0">
                                     <div
@@ -1905,13 +829,11 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <label class="form-label">Code</label>
-                                        <input type="text" id="code" name="code"
-                                            class="form-control">
+                                        <input type="text" id="code" name="code" class="form-control">
                                     </div>
                                     <div class="col-lg-6">
                                         <label class="form-label">Name</label>
-                                        <input type="text" id="name" name="name"
-                                            class="form-control">
+                                        <input type="text" id="name" name="name" class="form-control">
                                     </div>
                                     <div class="col-lg-12">
                                         <label>Description</label>
@@ -1935,8 +857,7 @@
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
-                                            <input type="checkbox" id="status-edit" class="check"
-                                                checked="">
+                                            <input type="checkbox" id="status-edit" class="check" checked="">
                                             <label for="status-edit" class="checktoggle"></label>
                                         </div>
                                     </div>
@@ -2061,13 +982,11 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <label class="form-label">Code</label>
-                                        <input type="text" id="code" name="code"
-                                            class="form-control">
+                                        <input type="text" id="code" name="code" class="form-control">
                                     </div>
                                     <div class="col-lg-6">
                                         <label class="form-label">Name</label>
-                                        <input type="text" id="name" name="name"
-                                            class="form-control">
+                                        <input type="text" id="name" name="name" class="form-control">
                                     </div>
                                     <div class="col-lg-12">
                                         <label>Description</label>
@@ -2091,8 +1010,7 @@
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
-                                            <input type="checkbox" id="status-edit" class="check"
-                                                checked="">
+                                            <input type="checkbox" id="status-edit" class="check" checked="">
                                             <label for="status-edit" class="checktoggle"></label>
                                         </div>
                                     </div>
@@ -2568,8 +1486,8 @@
                                 <div class="col-sm-4">
                                     <div class="barcode-scanner-link text-center">
                                         <div class="barscaner-img">
-                                            <img src="{{ asset('build/img/barcode/qr-code.png') }}"
-                                                alt="Barcode" class="img-fluid">
+                                            <img src="{{ asset('build/img/barcode/qr-code.png') }}" alt="Barcode"
+                                                class="img-fluid">
                                         </div>
                                         <p>Ref No :32RRR554 </p>
                                     </div>
@@ -2583,333 +1501,6 @@
     </div>
     <!-- /Print Qrcode -->
 @endif
-
-@if (Route::is(['edit-product']))
-    <!-- Add Adjustment -->
-    <div class="modal fade" id="add-units">
-        <div class="modal-dialog modal-dialog-centered stock-adjust-modal">
-            <div class="modal-content">
-                <div class="page-wrapper-new p-0">
-                    <div class="content">
-                        <div class="modal-header border-0 custom-modal-header">
-                            <div class="page-title">
-                                <h4>Add Variation Attribute</h4>
-                            </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body custom-modal-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="input-blocks">
-                                        <label>Attribute Name</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="input-blocks">
-                                        <label>Add Value</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <ul class="nav user-menu">
-                                        <li class="nav-item nav-searchinputs">
-                                            <div class="top-nav-search">
-                                                <form action="#" class="dropdown">
-                                                    <div class="searchinputs list dropdown-toggle"
-                                                        id="dropdownMenuClickable2" data-bs-toggle="dropdown"
-                                                        data-bs-auto-close="false">
-                                                        <input type="text" placeholder="Search">
-                                                        <i data-feather="search" class="feather-16 icon"></i>
-                                                        <div class="search-addon d-none">
-                                                            <span><i data-feather="x-circle"
-                                                                    class="feather-14"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="dropdown-menu search-dropdown idea"
-                                                        aria-labelledby="dropdownMenuClickable2">
-                                                        <div class="search-info">
-                                                            <p>Black </p>
-                                                            <p>Red</p>
-                                                            <p>Green</p>
-                                                            <p>S</p>
-                                                            <p>M</p>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="modal-footer-btn popup">
-                                        <a href="javascript:void(0);" class="btn btn-cancel me-2"
-                                            data-bs-dismiss="modal">Cancel</a>
-                                        <a href="javascript:void(0);" class="btn btn-submit"
-                                            data-bs-dismiss="modal">Create Attribute</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Add Adjustment -->
-
-    <!-- Add Category -->
-    <div class="modal fade" id="add-units-category">
-        <div class="modal-dialog modal-dialog-centered custom-modal-two">
-            <div class="modal-content">
-                <div class="page-wrapper-new p-0">
-                    <div class="content">
-                        <div class="modal-header border-0 custom-modal-header">
-                            <div class="page-title">
-                                <h4>Add New Category</h4>
-                            </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body custom-modal-body">
-                            <div class="mb-3">
-                                <label class="form-label">Name</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="modal-footer-btn">
-                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
-                                    data-bs-dismiss="modal">Cancel</a>
-                                <a href="{{ url('add-product') }}" class="btn btn-submit">Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Add Category -->
-
-    <!-- Add Brand -->
-    <div class="modal fade" id="add-units-brand">
-        <div class="modal-dialog modal-dialog-centered custom-modal-two">
-            <div class="modal-content">
-                <div class="page-wrapper-new p-0">
-                    <div class="content">
-                        <div class="modal-header border-0 custom-modal-header">
-                            <div class="page-title">
-                                <h4>Add New Brand</h4>
-                            </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body custom-modal-body">
-                            <div class="mb-3">
-                                <label class="form-label">Brand</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="modal-footer-btn">
-                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
-                                    data-bs-dismiss="modal">Cancel</a>
-                                <a href="{{ url('add-product') }}" class="btn btn-submit">Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Add Brand -->
-
-    <!-- Add Unit -->
-    <div class="modal fade" id="add-unit">
-        <div class="modal-dialog modal-dialog-centered custom-modal-two">
-            <div class="modal-content">
-                <div class="page-wrapper-new p-0">
-                    <div class="content">
-                        <div class="modal-header border-0 custom-modal-header">
-                            <div class="page-title">
-                                <h4>Add Unit</h4>
-                            </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body custom-modal-body">
-                            <div class="mb-3">
-                                <label class="form-label">Unit</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="modal-footer-btn">
-                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
-                                    data-bs-dismiss="modal">Cancel</a>
-                                <a href="{{ url('add-product') }}" class="btn btn-submit">Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Add Unit -->
-
-    <!-- Add Variatent -->
-    <div class="modal fade" id="add-variation">
-        <div class="modal-dialog modal-dialog-centered custom-modal-two">
-            <div class="modal-content">
-                <div class="page-wrapper-new p-0">
-                    <div class="content">
-                        <div class="modal-header border-0 custom-modal-header">
-                            <div class="page-title">
-                                <h4>Add Variation</h4>
-                            </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body custom-modal-body">
-                            <div class="modal-title-head people-cust-avatar">
-                                <h6>Variant Thumbnail</h6>
-                            </div>
-                            <div class="new-employee-field">
-                                <div class="profile-pic-upload">
-                                    <div class="profile-pic">
-                                        <span><i data-feather="plus-circle" class="plus-down-add"></i> Add
-                                            Image</span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="image-upload mb-0">
-                                            <input type="file">
-                                            <div class="image-uploads">
-                                                <h4>Change Image</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6 pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Barcode Symbology</label>
-                                        <select class="select">
-                                            <option>Choose</option>
-                                            <option>Code34</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 pe-0">
-                                    <div class="mb-3">
-                                        <div class="input-blocks add-product list">
-                                            <label>Item Code</label>
-                                            <input type="text" class="form-control list" value="455454478844">
-                                            <button type="submit" class="btn btn-primaryadd">
-                                                Generate Code
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="input-blocks image-upload-down">
-                                        <div class="image-upload download">
-                                            <input type="file">
-                                            <div class="image-uploads">
-                                                <img src="{{ asset('build/img/download-img.png') }}"
-                                                    alt="img">
-                                                <h4>Drag and drop a <span>file to upload</span></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-body">
-                                        <div class="text-editor add-list add">
-                                            <div class="col-lg-12">
-                                                <div class="add-choosen mb-3">
-                                                    <div class="phone-img ms-0">
-                                                        <img src="{{ asset('build/img/products/phone-add-2.png') }}"
-                                                            alt="image">
-                                                        <a href="javascript:void(0);"><i data-feather="x"
-                                                                class="x-square-add remove-product"></i></a>
-                                                    </div>
-
-                                                    <div class="phone-img">
-                                                        <img src="{{ asset('build/img/products/phone-add-1.png') }}"
-                                                            alt="image">
-                                                        <a href="javascript:void(0);"><i data-feather="x"
-                                                                class="x-square-add remove-product"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Quantity</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Quantity Alert</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Tax Type</label>
-                                        <select class="select">
-                                            <option>Choose</option>
-                                            <option>Direct</option>
-                                            <option>Indirect</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Tax </label>
-                                        <select class="select">
-                                            <option>Choose</option>
-                                            <option>Income Tax</option>
-                                            <option>Service Tax</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 pe-0">
-                                    <div class="mb-3">
-                                        <label class="form-label">Discount Type </label>
-                                        <select class="select">
-                                            <option>Choose</option>
-                                            <option>Percentage</option>
-                                            <option>Early Payment</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 pe-0">
-                                    <div>
-                                        <label class="form-label">Discount Value</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="modal-footer-btn">
-                                <a href="javascript:void(0);" class="btn btn-cancel me-2"
-                                    data-bs-dismiss="modal">Cancel</a>
-                                <a href="{{ url('add-product') }}" class="btn btn-submit">Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endif
-
 @if (Route::is(['call-history']))
     <!-- details popup -->
     <div class="modal fade" id="user-profile-new">
@@ -3195,8 +1786,8 @@
                     <div class="content">
                         <div class="delete-popup">
                             <div class="delete-image text-center mx-auto">
-                                <img src="{{ asset('build/img/icons/close-circle.png') }}"
-                                    alt="Img" class="img-fluid">
+                                <img src="{{ asset('build/img/icons/close-circle.png') }}" alt="Img"
+                                    class="img-fluid">
                             </div>
                             <div class="delete-heads">
                                 <h4>Are You Sure?</h4>
@@ -3457,8 +2048,8 @@
                     <div class="content">
                         <div class="delete-popup">
                             <div class="delete-image text-center mx-auto">
-                                <img src="{{ asset('build/img/icons/close-circle.png') }}"
-                                    alt="Img" class="img-fluid">
+                                <img src="{{ asset('build/img/icons/close-circle.png') }}" alt="Img"
+                                    class="img-fluid">
                             </div>
                             <div class="delete-heads">
                                 <h4>Are You Sure?</h4>
@@ -3553,8 +2144,8 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="javascript:void(0);"><img
-                    src="{{ asset('build/img/file-manager/folder-lg.png') }}" alt="Folder"></a>
+            <a href="javascript:void(0);"><img src="{{ asset('build/img/file-manager/folder-lg.png') }}"
+                    alt="Folder"></a>
             <h5>Website Backup for the Design team</h5>
             <p>File Size : 616 MB</p>
         </div>
@@ -3809,8 +2400,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls</a></h6>
                                     <span>616 MB</span>
@@ -3829,8 +2419,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Updated Project.zip</a></h6>
                                     <span>616 MB</span>
@@ -3901,8 +2490,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls<i
                                                 data-feather="trash-2" class="feather-16"></i></a></h6>
@@ -3918,8 +2506,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">updated project.zip<i data-feather="trash-2"
                                                 class="feather-16"></i></a></h6>
@@ -4020,8 +2607,8 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="javascript:void(0);"><img
-                    src="{{ asset('build/img/file-manager/folder-lg.png') }}" alt="Folder"></a>
+            <a href="javascript:void(0);"><img src="{{ asset('build/img/file-manager/folder-lg.png') }}"
+                    alt="Folder"></a>
             <h5>Website Backup for the Design team</h5>
             <p>File Size : 616 MB</p>
         </div>
@@ -4214,8 +2801,8 @@
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Drake</p>
                                 <p class="mb-0">Editor</p>
@@ -4244,8 +2831,7 @@
                 <div class="modal-body p-4">
                     <div class="drag-drop text-center mb-4">
                         <div class="upload">
-                            <a href="#"><img
-                                    src="{{ asset('build/img/icons/drag-drop.svg') }}"
+                            <a href="#"><img src="{{ asset('build/img/icons/drag-drop.svg') }}"
                                     alt=""></a>
                             <p>Drag and drop a <a href="#">file to upload</a></p>
                         </div>
@@ -4277,8 +2863,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls</a></h6>
                                     <span>616 MB</span>
@@ -4297,8 +2882,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Updated Project.zip</a></h6>
                                     <span>616 MB</span>
@@ -4337,8 +2921,7 @@
                 <div class="modal-body p-4">
                     <div class="drag-drop text-center mb-4">
                         <div class="upload">
-                            <a href="#"><img
-                                    src="{{ asset('build/img/icons/drag-drop.svg') }}"
+                            <a href="#"><img src="{{ asset('build/img/icons/drag-drop.svg') }}"
                                     alt=""></a>
                             <p>Drag and drop a <a href="#">file to upload</a></p>
                         </div>
@@ -4370,8 +2953,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls<i
                                                 data-feather="trash-2" class="feather-16"></i></a></h6>
@@ -4387,8 +2969,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">updated project.zip<i data-feather="trash-2"
                                                 class="feather-16"></i></a></h6>
@@ -4489,8 +3070,8 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="javascript:void(0);"><img
-                    src="{{ asset('build/img/file-manager/folder-lg.png') }}" alt="Folder"></a>
+            <a href="javascript:void(0);"><img src="{{ asset('build/img/file-manager/folder-lg.png') }}"
+                    alt="Folder"></a>
             <h5>Website Backup for the Design team</h5>
             <p>File Size : 616 MB</p>
         </div>
@@ -4561,26 +3142,26 @@
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 1" data-bs-original-title="Member 1"><img
-                                    src="{{ asset('build/img/avatar/avatar-1.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-1.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 2" data-bs-original-title="Member 2"><img
-                                    src="{{ asset('build/img/avatar/avatar-2.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-2.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 3" data-bs-original-title="Member 3"><img
-                                    src="{{ asset('build/img/avatar/avatar-3.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-3.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 4" data-bs-original-title="Member 4"><img
-                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);"
@@ -4598,8 +3179,8 @@
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-1.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-1.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
@@ -4610,8 +3191,8 @@
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-2.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-2.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Drake shared an item<br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
@@ -4622,8 +3203,8 @@
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-3.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-3.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Melvin</p>
                                 <p class="mb-0">Commentor</p>
@@ -4633,8 +3214,8 @@
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Drake</p>
                                 <p class="mb-0">Editor</p>
@@ -4648,8 +3229,8 @@
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-1.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-1.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
@@ -4660,8 +3241,8 @@
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-2.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-2.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Drake shared an item<br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
@@ -4672,8 +3253,8 @@
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-3.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-3.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Melvin</p>
                                 <p class="mb-0">Commentor</p>
@@ -4683,8 +3264,8 @@
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Drake</p>
                                 <p class="mb-0">Editor</p>
@@ -4713,8 +3294,7 @@
                 <div class="modal-body p-4">
                     <div class="drag-drop text-center mb-4">
                         <div class="upload">
-                            <a href="#"><img
-                                    src="{{ asset('build/img/icons/drag-drop.svg') }}"
+                            <a href="#"><img src="{{ asset('build/img/icons/drag-drop.svg') }}"
                                     alt=""></a>
                             <p>Drag and drop a <a href="#">file to upload</a></p>
                         </div>
@@ -4746,8 +3326,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls</a></h6>
                                     <span>616 MB</span>
@@ -4766,8 +3345,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Updated Project.zip</a></h6>
                                     <span>616 MB</span>
@@ -4806,8 +3384,7 @@
                 <div class="modal-body p-4">
                     <div class="drag-drop text-center mb-4">
                         <div class="upload">
-                            <a href="#"><img
-                                    src="{{ asset('build/img/icons/drag-drop.svg') }}"
+                            <a href="#"><img src="{{ asset('build/img/icons/drag-drop.svg') }}"
                                     alt=""></a>
                             <p>Drag and drop a <a href="#">file to upload</a></p>
                         </div>
@@ -4839,8 +3416,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls<i
                                                 data-feather="trash-2" class="feather-16"></i></a></h6>
@@ -4856,8 +3432,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">updated project.zip<i data-feather="trash-2"
                                                 class="feather-16"></i></a></h6>
@@ -5585,13 +4160,11 @@
                                 </li>
                                 <li>
                                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img
-                                            src="{{ asset('build/img/icons/pdf.svg') }}"
-                                            alt="img"></a>
+                                            src="{{ asset('build/img/icons/pdf.svg') }}" alt="img"></a>
                                 </li>
                                 <li>
                                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img
-                                            src="{{ asset('build/img/icons/excel.svg') }}"
-                                            alt="img"></a>
+                                            src="{{ asset('build/img/icons/excel.svg') }}" alt="img"></a>
                                 </li>
                                 <li>
                                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i
@@ -7153,8 +5726,8 @@
                 <div class="modal-body">
                     <div class="icon-head text-center">
                         <a href="{{ url('pos-design') }}">
-                            <img src="{{ asset('build/img/logo.png') }}" width="100"
-                                height="30" alt="Receipt Logo">
+                            <img src="{{ asset('build/img/logo.png') }}" width="100" height="30"
+                                alt="Receipt Logo">
                         </a>
                     </div>
                     <div class="text-center info text-center">
@@ -7243,8 +5816,7 @@
                         <p>**VAT against this challan is payable through central registration. Thank you for your
                             business!</p>
                         <a href="{{ url('pos-design') }}">
-                            <img src="{{ asset('build/img/barcode/barcode-03.jpg') }}"
-                                alt="Barcode">
+                            <img src="{{ asset('build/img/barcode/barcode-03.jpg') }}" alt="Barcode">
                         </a>
                         <p>Sale 31</p>
                         <p>Thank You For Shopping With Us. Please Come Again</p>
@@ -10897,8 +9469,8 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="javascript:void(0);"><img
-                    src="{{ asset('build/img/file-manager/folder-lg.png') }}" alt="Folder"></a>
+            <a href="javascript:void(0);"><img src="{{ asset('build/img/file-manager/folder-lg.png') }}"
+                    alt="Folder"></a>
             <h5>Website Backup for the Design team</h5>
             <p>File Size : 616 MB</p>
         </div>
@@ -10969,26 +9541,26 @@
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 1" data-bs-original-title="Member 1"><img
-                                    src="{{ asset('build/img/avatar/avatar-1.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-1.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 2" data-bs-original-title="Member 2"><img
-                                    src="{{ asset('build/img/avatar/avatar-2.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-2.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 3" data-bs-original-title="Member 3"><img
-                                    src="{{ asset('build/img/avatar/avatar-3.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-3.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="right"
                                 aria-label="Member 4" data-bs-original-title="Member 4"><img
-                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                         </span>
                         <span>
                             <a href="javascript:void(0);"
@@ -11006,8 +9578,8 @@
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-1.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-1.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
@@ -11017,8 +9589,8 @@
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-2.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-2.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Drake shared an item<br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
@@ -11028,8 +9600,8 @@
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-3.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-3.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Melvin</p>
                                 <p class="mb-0">Commentor</p>
@@ -11039,8 +9611,8 @@
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Drake</p>
                                 <p class="mb-0">Editor</p>
@@ -11054,8 +9626,8 @@
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-1.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-1.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Andrew commented on 1 items <br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
@@ -11065,8 +9637,8 @@
                     <li class="mb-4">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-2.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-2.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <p>Drake shared an item<br>3:39 PM Jul 19</p>
                         </div>
                         <p class="d-flex align-items-center location border-0"><img
@@ -11076,8 +9648,8 @@
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-3.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-3.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Melvin</p>
                                 <p class="mb-0">Commentor</p>
@@ -11087,8 +9659,8 @@
                     <li class="mb-2">
                         <div class="d-flex align-items-center mb-2">
                             <a href="javascript:void(0);" class="me-3"><img
-                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}"
-                                    alt="Avatar" class="avatar-md"></a>
+                                    src="{{ asset('build/img/avatar/avatar-4.jpg') }}" alt="Avatar"
+                                    class="avatar-md"></a>
                             <div>
                                 <p class="mb-0 text-secondary">Drake</p>
                                 <p class="mb-0">Editor</p>
@@ -11117,8 +9689,7 @@
                 <div class="modal-body p-4">
                     <div class="drag-drop text-center mb-4">
                         <div class="upload">
-                            <a href="#"><img
-                                    src="{{ asset('build/img/icons/drag-drop.svg') }}"
+                            <a href="#"><img src="{{ asset('build/img/icons/drag-drop.svg') }}"
                                     alt=""></a>
                             <p>Drag and drop a <a href="#">file to upload</a></p>
                         </div>
@@ -11150,8 +9721,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls</a></h6>
                                     <span>616 MB</span>
@@ -11170,8 +9740,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Updated Project.zip</a></h6>
                                     <span>616 MB</span>
@@ -11210,8 +9779,7 @@
                 <div class="modal-body p-4">
                     <div class="drag-drop text-center mb-4">
                         <div class="upload">
-                            <a href="#"><img
-                                    src="{{ asset('build/img/icons/drag-drop.svg') }}"
+                            <a href="#"><img src="{{ asset('build/img/icons/drag-drop.svg') }}"
                                     alt=""></a>
                             <p>Drag and drop a <a href="#">file to upload</a></p>
                         </div>
@@ -11243,8 +9811,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/xls.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">Update work history.xls<i
                                                 data-feather="trash-2" class="feather-16"></i></a></h6>
@@ -11260,8 +9827,7 @@
                         </li>
                         <li class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center w-85">
-                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder"
-                                    class="me-2">
+                                <img src="{{ asset('build/img/icons/zip.svg') }}" alt="Folder" class="me-2">
                                 <div class="flex-fill">
                                     <h6><a href="javascript:void(0);">updated project.zip<i data-feather="trash-2"
                                                 class="feather-16"></i></a></h6>
@@ -14543,8 +13109,7 @@
                             <div class="page-title">
                                 <h4>Twitter Login Settings</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -14593,8 +13158,7 @@
                             <div class="page-title">
                                 <h4>Google Login Settings</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -14642,8 +13206,7 @@
                             <div class="page-title">
                                 <h4>LinkedIn Login Settings</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -14693,8 +13256,7 @@
                             <div class="page-title">
                                 <h4>Add State</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -14756,8 +13318,7 @@
                             <div class="page-title">
                                 <h4>Edit State</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -14818,8 +13379,7 @@
                     <div class="content">
                         <div class="modal-header p-4">
                             <h5>Detail Product</h5>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
@@ -14926,8 +13486,7 @@
                             <div class="page-title">
                                 <h4>Add Adjustment</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15066,8 +13625,7 @@
                             <div class="page-title">
                                 <h4>Edit Adjustment</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15205,8 +13763,7 @@
                             <div class="page-title">
                                 <h4>Notes</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15237,8 +13794,7 @@
                             <div class="page-title">
                                 <h4>Add Transfer</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15310,8 +13866,7 @@
                             <div class="page-title">
                                 <h4>Edit Transfer</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15447,8 +14002,7 @@
                             <div class="page-title">
                                 <h4>Import Transfer</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15554,8 +14108,7 @@
                                 <input type="checkbox" id="user4" class="check" checked>
                                 <label for="user4" class="checktoggle"> </label>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15619,8 +14172,7 @@
                             <div class="page-title">
                                 <h4>Configure Google Captcha</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15666,8 +14218,7 @@
                             <div class="page-title">
                                 <h4>Configure Google Analytics</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15705,8 +14256,7 @@
                             <div class="page-title">
                                 <h4>Configure Google Adsense Code</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15744,8 +14294,7 @@
                             <div class="page-title">
                                 <h4>Configure Google Map ID</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15790,8 +14339,7 @@
                                 <input type="checkbox" id="user1" class="check" checked>
                                 <label for="user1" class="checktoggle"> </label>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15840,8 +14388,7 @@
                                 <input type="checkbox" id="user4" class="check" checked>
                                 <label for="user4" class="checktoggle"> </label>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15886,8 +14433,7 @@
                             <div class="page-title">
                                 <h4>Add User</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -15910,8 +14456,7 @@
                                     <div class="col-lg-6">
                                         <div class="input-blocks">
                                             <label>User Name</label>
-                                            <input type="text" name="username" class="form-control"
-                                                required>
+                                            <input type="text" name="username" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -15954,8 +14499,8 @@
                                         <div class="input-blocks">
                                             <label for="confirm-password">Confirm Password</label>
                                             <div class="pass-group">
-                                                <input type="password" name="confirm_password"
-                                                    class="pass-input" required>
+                                                <input type="password" name="confirm_password" class="pass-input"
+                                                    required>
                                                 <span class="fas toggle-password fa-eye-slash"></span>
                                             </div>
                                         </div>
@@ -15973,17 +14518,17 @@
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
-                                            <input type="checkbox" id="status-add" name="status"
-                                                class="check" checked="">
+                                            <input type="checkbox" id="status-add" name="status" class="check"
+                                                checked="">
                                             <label for="status-add" class="checktoggle"></label>
                                         </div>
                                     </div>
 
                                     <div class="modal-footer-btn">
-                                        <button type="button" class="btn btn-cancel me-2"
-                                            data-bs-dismiss="modal" name="cancel-button">Cancel</button>
-                                        <button type="submit" id="submit-add-button"
-                                            class="btn btn-submit">Save Changes</button>
+                                        <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal"
+                                            name="cancel-button">Cancel</button>
+                                        <button type="submit" id="submit-add-button" class="btn btn-submit">Save
+                                            Changes</button>
                                     </div>
                                 </div>
                             </form>

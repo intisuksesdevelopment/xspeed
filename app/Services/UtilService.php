@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
@@ -8,7 +9,7 @@ class UtilService
     /**
      * Clear unnecessary decimal places
      *
-     * @param float $value
+     * @param  float  $value
      * @return string
      */
     public static function clearDecimal($value)
@@ -19,20 +20,20 @@ class UtilService
     /**
      * Format currency
      *
-     * @param float $value
-     * @param string $currency
+     * @param  float  $value
+     * @param  string  $currency
      * @return string
      */
     public static function formatCurrency($value, $currency = 'IDR')
     {
-        return number_format((float) $value, 2, ',', '.') . ' ' . strtoupper($currency);
+        return number_format((float) $value, 2, ',', '.').' '.strtoupper($currency);
     }
 
     /**
      * Convert to IDR
      *
-     * @param float $value
-     * @param string|null $fromCurrency
+     * @param  float  $value
+     * @param  string|null  $fromCurrency
      * @return string
      */
     public static function convertToIdr($value, $fromCurrency)
@@ -41,7 +42,7 @@ class UtilService
             return self::clearDecimal($value);
         }
 
-        $response = Http::get(env('EXCHANGE_RATE_API_URL') . env('EXCHANGE_RATE_API_KEY') . "/latest/{$fromCurrency}");
+        $response = Http::get(env('EXCHANGE_RATE_API_URL').env('EXCHANGE_RATE_API_KEY')."/latest/{$fromCurrency}");
 
         $rate = $response->json()['conversion_rates']['IDR'] ?? null;
 
@@ -51,6 +52,7 @@ class UtilService
             throw new \Exception('Exchange rate not found');
         }
     }
+
     public static function clearNumberFormat($numberString)
     {
         // Remove dots as the thousands separator and replace the comma with a dot
@@ -59,9 +61,11 @@ class UtilService
         // Convert to integer
         return intval($cleanString);
     }
+
     public static function formatDate($date)
-    { //2025-01-13 08:03:14
+    { // 2025-01-13 08:03:14
         $formattedDate = date('Y-m-d H:i:s', strtotime($date));
+
         // Convert to string and format with thousands separator
         return $formattedDate;
     }

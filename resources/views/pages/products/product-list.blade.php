@@ -110,11 +110,15 @@
 
                             <td>
                                 <div class="productimgname d-flex align-items-center gap-2">
+
                                     <img :src="getImage(item)" width="40" class="rounded"
                                         onerror="this.src='/build/img/image-not-found.jpg'">
-                                    <div class="product-name" x-text="item.name" data-bs-toggle="tooltip"
-                                        :title="item.name">
-                                    </div>
+
+                                    <a :href="ROUTES.productEdit(item.uuid)"
+                                        class="product-name text-decoration-none text-dark fw-semibold" x-text="item.name"
+                                        data-bs-toggle="tooltip" :title="item.name">
+                                    </a>
+
                                 </div>
                             </td>
 
@@ -136,9 +140,6 @@
 
                             <td>
                                 <div class="edit-delete-action">
-                                    <a class="me-2 edit-icon p-2":href="ROUTES.productDetail(item.uuid)">
-                                        <i data-feather="eye" class="feather-eye"></i>
-                                    </a>
                                     <a class="me-2 p-2" :href="ROUTES.productEdit(item.uuid)">
                                         <i data-feather="edit" class="feather-edit"></i>
                                     </a>

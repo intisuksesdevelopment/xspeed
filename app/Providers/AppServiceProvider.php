@@ -13,11 +13,10 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         if (env('APP_ENV') === 'production') {
-             Dotenv::createImmutable(base_path(), '.env.prod')->load();
-            }
-        else {
-             Dotenv::createImmutable(base_path(), '.env.dev')->load();
-            }
+            Dotenv::createImmutable(base_path(), '.env.prod')->load();
+        } else {
+            Dotenv::createImmutable(base_path(), '.env.dev')->load();
+        }
     }
 
     /**

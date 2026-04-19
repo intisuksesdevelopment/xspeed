@@ -3,10 +3,11 @@
 namespace App\Services;
 
 use App\Models\Image; // Make sure you import your Image model
-use Illuminate\Http\Request;
-use Illuminate\Support\AlreadyExistException; // Using the user's provided namespace for this exception
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage; // Included as per user's full class
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request; // Using the user's provided namespace for this exception
+use Illuminate\Support\AlreadyExistException;
+use Illuminate\Support\Facades\Log; // Included as per user's full class
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ImageService
@@ -16,10 +17,10 @@ class ImageService
      * This method will first delete all existing images for the reference
      * and then save the new ones provided in the request.
      *
-     * @param Request $request The incoming HTTP request.
-     * @param string $ref The reference type (e.g., 'items', 'products').
-     * @param int $refId The ID of the referenced item.
-     * @return \Illuminate\Http\JsonResponse
+     * @param  Request  $request  The incoming HTTP request.
+     * @param  string  $ref  The reference type (e.g., 'items', 'products').
+     * @param  int  $refId  The ID of the referenced item.
+     * @return JsonResponse
      */
     public static function saveAll(Request $request, $ref, $refId)
     {
@@ -31,8 +32,8 @@ class ImageService
             // This ensures that when new images are saved, old ones are removed,
             // preventing duplication during an edit operation.
             Image::where('ref', $ref)
-                 ->where('ref_id', $refId)
-                 ->delete();
+                ->where('ref_id', $refId)
+                ->delete();
             // --- IMPORTANT FIX END ---
 
             $images = [];
@@ -44,7 +45,7 @@ class ImageService
                     $imageUrl = $value;
 
                     // Create a new image instance
-                    $image = new Image();
+                    $image = new Image;
                     $image->uuid = (string) Str::uuid();
                     $image->ref_id = $refId;
                     $image->ref = $ref;
@@ -77,10 +78,12 @@ class ImageService
             // You might want to return the saved images or a more specific message
             return response()->json(['success' => true, 'message' => 'Images updated successfully!']);
         } catch (AlreadyExistException $e) { // Using the user's provided exception
-            Log::error("Error in ImageService::saveAll (AlreadyExistException): ".$e->getMessage(), ['exception' => $e]);
+            Log::error('Error in ImageService::saveAll (AlreadyExistException): '.$e->getMessage(), ['exception' => $e]);
+
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         } catch (\Exception $e) {
-            Log::error("Error in ImageService::saveAll: ".$e->getMessage(), ['exception' => $e]);
+            Log::error('Error in ImageService::saveAll: '.$e->getMessage(), ['exception' => $e]);
+
             // Return a generic error message to the user for security/simplicity
             return response()->json(['success' => false, 'message' => 'An error occurred while updating images. Please try again later.']);
         }
@@ -89,7 +92,7 @@ class ImageService
     /**
      * Retrieves the first image URL found in the request.
      *
-     * @param Request $request The incoming HTTP request.
+     * @param  Request  $request  The incoming HTTP request.
      * @return string|null The image URL or null if not found.
      */
     public static function getCoverImage(Request $request)
@@ -101,6 +104,7 @@ class ImageService
                 return $value;
             }
         }
+
         return null; // Return null if no image is found
     }
 
@@ -108,7 +112,7 @@ class ImageService
      * Validates if a given URL is a valid image URL.
      * This method performs an HTTP request to check content type.
      *
-     * @param string $url The URL to validate.
+     * @param  string  $url  The URL to validate.
      * @return bool True if the URL is a valid image URL, false otherwise.
      */
     public static function isValidImageUrl($url)
@@ -130,38 +134,41 @@ class ImageService
 
         // Check if content type is an image
         $contentType = is_array($headers['Content-Type']) ? $headers['Content-Type'][0] : $headers['Content-Type'];
-        return (strpos($contentType, 'image/') === 0);
+
+        return strpos($contentType, 'image/') === 0;
     }
 
     /**
      * Extracts the file extension from a URL.
      *
-     * @param string $url The URL.
+     * @param  string  $url  The URL.
      * @return string The file extension.
      */
     public static function getImageExtension($url)
     {
         $path = parse_url($url, PHP_URL_PATH);
+
         return pathinfo($path, PATHINFO_EXTENSION);
     }
 
     /**
      * Extracts the filename (without extension) from a URL.
      *
-     * @param string $url The URL.
+     * @param  string  $url  The URL.
      * @return string The filename.
      */
     public static function getImageFilename($url)
     {
         $path = parse_url($url, PHP_URL_PATH);
+
         return pathinfo($path, PATHINFO_FILENAME);
     }
 
     /**
      * Downloads an image from a URL and stores it locally.
      *
-     * @param string $url The URL of the image to store.
-     * @param string $filename The desired filename for the stored image.
+     * @param  string  $url  The URL of the image to store.
+     * @param  string  $filename  The desired filename for the stored image.
      * @return string|null The path to the stored image, or null if validation fails.
      */
     public static function storeImage($url, $filename)
@@ -169,8 +176,9 @@ class ImageService
         if (self::isValidImageUrl($url)) {
             // Download and save the image
             $imageContent = file_get_contents($url);
-            $filePath = 'images/' . $filename; // Saves to storage/app/images/
+            $filePath = 'images/'.$filename; // Saves to storage/app/images/
             Storage::put($filePath, $imageContent);
+
             return $filePath;
         } else {
             return null;

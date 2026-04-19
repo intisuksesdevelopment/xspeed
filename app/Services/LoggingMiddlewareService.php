@@ -1,6 +1,6 @@
 <?php
-namespace App\Services;
 
+namespace App\Services;
 
 use Illuminate\Support\Facades\Log;
 use Psr\Http\Message\RequestInterface;
@@ -28,6 +28,7 @@ class LoggingMiddlewareService
                             'status' => $response->getStatusCode(),
                             'body' => (string) $response->getBody(),
                         ]);
+
                         return $response;
                     }
                 );

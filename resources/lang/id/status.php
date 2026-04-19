@@ -1,4 +1,5 @@
 <?php
+
 return [
     'available' => 'Tersedia',
     'notavailable' => 'Tidak Tersedia',

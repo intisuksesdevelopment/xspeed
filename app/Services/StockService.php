@@ -1,18 +1,18 @@
 <?php
+
 namespace App\Services;
 
+use App\Constants\CommonConstants;
 use App\Models\Stock;
 use App\Models\StockData;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Constants\CommonConstants;
+use Illuminate\Support\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\NotFoundException;
-use Illuminate\Support\AlreadyExistException;
+use Illuminate\Support\Str;
 
 class StockService
 {
-
     public static function getPaginated(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
@@ -25,6 +25,7 @@ class StockService
         foreach ($stocks as $stock) {
             $stock->availability = $stock->isAvailable();
         }
+
         return $stocks;
     }
 
@@ -40,15 +41,16 @@ class StockService
         foreach ($stocks as $stock) {
             $stock->availability = $stock->isAvailable();
         }
+
         return $stocks;
     }
 
     public static function save(Request $request)
     {
         try {
-            $data           = $request->all();
+            $data = $request->all();
             $data['uuid'] = (string) Str::uuid();
-            $stock       = Stock::whereRaw('LOWER(periode) LIKE ?', ['%' . strtolower($data['periode']) . '%'])->get();
+            $stock = Stock::whereRaw('LOWER(periode) LIKE ?', ['%'.strtolower($data['periode']).'%'])->get();
 
             if ($stock->isNotEmpty()) {
                 $firstStock = $stock->first();
@@ -69,14 +71,14 @@ class StockService
                 $total_diff += $product['count'] - $product['stock'];
                 $total_price += $product['basic_price'] * $product['stock'];
             }
-            
+
             // Calculate total price difference
             foreach ($data['products'] as $product) {
                 $total_price_diff += $product['basic_price'] * $product['count'];
             }
             $total_price_diff -= $total_price;
-            
-            $stock = new Stock();
+
+            $stock = new Stock;
             $stock = $stock->fill($data);
             $stock->total_item = $total_item;
             $stock->stock_total = $total_stock;
@@ -86,22 +88,25 @@ class StockService
             $stock->diff_price_total = $total_price_diff;
             $stock->status = 2;
             $stock->save();
-            
+
             self::saveAllStockData($data['products'], $stock->id);
 
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
         }
     }
+
     public static function saveAllStockData($products, $stock_id)
     {
         foreach ($products as $product) {
-            $stockData = new StockData();
+            $stockData = new StockData;
             $stockData->stock_id = $stock_id;
             $stockData->item_id = ItemService::getId($product['uuid']); // Assuming uuid is the item_id
             $stockData->item_stock = $product['stock'];
@@ -110,21 +115,21 @@ class StockService
             $stockData->qty = $product['stock'];
             $stockData->diff = $product['count'] - $product['stock'];
             $stockData->price_total = $product['basic_price'] * $product['count'];
-            $stockData->created_by = auth()->user()->id?? null; // Assuming you have user authentication
+            $stockData->created_by = auth()->user()->id ?? null; // Assuming you have user authentication
             $stockData->status = 0; // Set the default status
             $stockData->save();
         }
     }
-    
+
     public static function update(Request $request)
     {
         try {
-            $data           = $request->all();
+            $data = $request->all();
             $data['status'] = $request->has('status') ? $request->input('status') : 0;
 
             $stock = Stock::find($data['id']);
             if (! $stock) {
-                throw new NotFoundException("code : " . $data['code']);
+                throw new NotFoundException('code : '.$data['code']);
             }
             // $category->validateAttributes($data);
             $stock->fill($data);
@@ -136,15 +141,17 @@ class StockService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Category not found: ' . $e->getMessage(),
+                'message' => 'Category not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -154,7 +161,7 @@ class StockService
         try {
             $stock = Stock::find($id);
             if (! $stock) {
-                throw new NotFoundException("id : " . $id);
+                throw new NotFoundException('id : '.$id);
             }
             $stock->status = 1;
             $stock->update();
@@ -165,17 +172,18 @@ class StockService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'stock not found: ' . $e->getMessage(),
+                'message' => 'stock not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
-
 }

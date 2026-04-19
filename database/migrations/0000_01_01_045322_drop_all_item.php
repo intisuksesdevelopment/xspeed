@@ -1,16 +1,13 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
-return new class  extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up(): void
     {
@@ -22,10 +19,10 @@ return new class  extends Migration
 
         // Drop each table
         foreach ($tables as $table) {
-            $tableName = array_values((array)$table)[0];
-            if($tableName!='migrations'){
+            $tableName = array_values((array) $table)[0];
+            if ($tableName != 'migrations') {
                 Schema::dropIfExists($tableName);
-            }else{
+            } else {
                 DB::table('migrations')->truncate();
             }
         }
@@ -36,13 +33,10 @@ return new class  extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down(): void
     {
         // There is no straightforward way to recreate all dropped tables
         // You can leave this method empty or implement specific logic as needed
     }
-}
-;
+};

@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Hash;
-use Session;
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Services\BrandService;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
 class BrandController extends Controller
 {
     private $brandService;
 
-    public function __construct(BrandService $brandService) {
+    public function __construct(BrandService $brandService)
+    {
         $this->brandService = $brandService;
     }
 
@@ -21,6 +19,7 @@ class BrandController extends Controller
     {
         Paginator::useBootstrap(); // Menggunakan Bootstrap
         $brands = BrandService::getPaginated($request);
+
         return view('pages.brand.brands', ['brands' => $brands]);
     }
 
@@ -33,7 +32,7 @@ class BrandController extends Controller
     {
         return BrandService::update($request);
     }
-    
+
     public function delete($id)
     {
         return BrandService::delete($id);

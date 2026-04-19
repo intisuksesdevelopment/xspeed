@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 class PosService
@@ -13,7 +14,7 @@ class PosService
             'category_id' => 'required',
         ]);
 
-        $pos = new Pos();
+        $pos = new Pos;
         $pos->name = $request->name;
         $pos->description = $request->description;
         $pos->price = $request->price;

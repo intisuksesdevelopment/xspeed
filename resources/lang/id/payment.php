@@ -1,4 +1,5 @@
 <?php
+
 return [
     'paid' => 'Lunas',
     'unpaid' => 'Belum Lunas',

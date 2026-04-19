@@ -1,13 +1,14 @@
 <?php
+
 namespace App\Models;
 
-use App\Models\Item;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'uuid',
         'ref_id',
@@ -27,7 +28,8 @@ class Image extends Model
         'updated_by',
     ];
 
-    public function item() {
-        return $this->belongsTo(Item::class, 'ref_id') ->where('ref', 'items');
+    public function item()
+    {
+        return $this->belongsTo(Item::class, 'ref_id')->where('ref', 'items');
     }
 }

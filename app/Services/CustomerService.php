@@ -1,16 +1,16 @@
 <?php
+
 namespace App\Services;
 
+use App\Constants\CommonConstants;
 use App\Models\Customer;
 use Illuminate\Http\Request;
-use App\Constants\CommonConstants;
+use Illuminate\Support\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\NotFoundException;
-use Illuminate\Support\AlreadyExistException;
 
 class CustomerService
 {
-
     public static function getPaginated(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
@@ -23,6 +23,7 @@ class CustomerService
         foreach ($customers as $customer) {
             $customer->availability = $customer->isAvailable();
         }
+
         return $customers;
     }
 
@@ -38,31 +39,34 @@ class CustomerService
         foreach ($customers as $customer) {
             $customer->availability = $customer->isAvailable();
         }
+
         return $customers;
     }
 
     public static function save(Request $request)
     {
         try {
-            $data           = $request->all();
+            $data = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
-            $customer       = Customer::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
+            $customer = Customer::whereRaw('LOWER(code) LIKE ?', ['%'.strtolower($data['code']).'%'])->get();
 
             if ($customer->isNotEmpty()) {
                 $firstCustomer = $customer->first();
                 throw new AlreadyExistException("code : {$firstCustomer->code}");
             }
 
-
-            $customer = new Customer();
+            $customer = new Customer;
             $customer->fill($data);
             $customer->save();
+
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
         }
     }
@@ -70,12 +74,12 @@ class CustomerService
     public static function update(Request $request)
     {
         try {
-            $data           = $request->all();
+            $data = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
 
             $customer = Customer::find($data['id']);
             if (! $customer) {
-                throw new NotFoundException("code : " . $data['code']);
+                throw new NotFoundException('code : '.$data['code']);
             }
             // $category->validateAttributes($data);
             $customer->fill($data);
@@ -87,15 +91,17 @@ class CustomerService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Customer not found: ' . $e->getMessage(),
+                'message' => 'Customer not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -105,7 +111,7 @@ class CustomerService
         try {
             $customer = Customer::find($id);
             if (! $customer) {
-                throw new NotFoundException("id : " . $id);
+                throw new NotFoundException('id : '.$id);
             }
             $customer->status = 1;
             $customer->update();
@@ -116,30 +122,35 @@ class CustomerService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Customer not found: ' . $e->getMessage(),
+                'message' => 'Customer not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
+
     public static function getDetail($code)
     {
         $customer = Customer::where('code', $code)->first();
         if (! $customer) {
-            throw new NotFoundException("code : " . $code);
+            throw new NotFoundException('code : '.$code);
         }
+
         return $customer;
     }
+
     public static function countAll()
     {
         $count = Customer::where('status', 0)->count();
+
         return $count;
     }
-
 }

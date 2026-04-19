@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Services\UserService;
@@ -30,7 +31,7 @@ class LoginController extends BaseController
     {
         try {
             $request->validate([
-                'email'    => 'required|email',
+                'email' => 'required|email',
                 'password' => [
                     'required',
                     'string',
@@ -38,7 +39,7 @@ class LoginController extends BaseController
                     'regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).+$/',
                     function ($attribute, $value, $fail) {
                         if (! preg_match('/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).+$/', $value)) {
-                            return $fail('The ' . $attribute . ' must be at least 8 characters long and include at least one letter, one number, and one special character.');
+                            return $fail('The '.$attribute.' must be at least 8 characters long and include at least one letter, one number, and one special character.');
                         }
                     },
                 ],
@@ -55,8 +56,8 @@ class LoginController extends BaseController
                     $request->session()->regenerate();
 
                     return response()->json([
-                        'success'      => true,
-                        'message'      => 'Login successful!',
+                        'success' => true,
+                        'message' => 'Login successful!',
                         'redirect_url' => url('dashboard'),
                     ]);
                 } else {
@@ -73,15 +74,17 @@ class LoginController extends BaseController
             ], 401);
         } catch (ValidationException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
                 'message' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -100,6 +103,7 @@ class LoginController extends BaseController
     {
         return view('pages.auth.register');
     }
+
     public function registration(Request $request)
     {
         return UserService::register($request);

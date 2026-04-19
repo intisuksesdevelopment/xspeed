@@ -1,16 +1,16 @@
 <?php
+
 namespace App\Services;
 
+use App\Constants\CommonConstants;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
-use App\Constants\CommonConstants;
+use Illuminate\Support\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\NotFoundException;
-use Illuminate\Support\AlreadyExistException;
 
 class WarehouseService
 {
-
     public static function getPaginated(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
@@ -23,6 +23,7 @@ class WarehouseService
         foreach ($warehouses as $warehouse) {
             $warehouse->availability = $warehouse->isAvailable();
         }
+
         return $warehouses;
     }
 
@@ -38,31 +39,34 @@ class WarehouseService
         foreach ($warehouses as $warehouse) {
             $warehouse->availability = $warehouse->isAvailable();
         }
+
         return $warehouses;
     }
 
     public static function save(Request $request)
     {
         try {
-            $data           = $request->all();
+            $data = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
-            $warehouse       = Warehouse::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
+            $warehouse = Warehouse::whereRaw('LOWER(code) LIKE ?', ['%'.strtolower($data['code']).'%'])->get();
 
             if ($warehouse->isNotEmpty()) {
                 $firstWarehouse = $warehouse->first();
                 throw new AlreadyExistException("code : {$firstWarehouse->code}");
             }
 
-
-            $warehouse = new Warehouse();
+            $warehouse = new Warehouse;
             $warehouse->fill($data);
             $warehouse->save();
+
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
         }
     }
@@ -70,12 +74,12 @@ class WarehouseService
     public static function update(Request $request)
     {
         try {
-            $data           = $request->all();
+            $data = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
 
             $warehouse = Warehouse::find($data['id']);
             if (! $warehouse) {
-                throw new NotFoundException("code : " . $data['code']);
+                throw new NotFoundException('code : '.$data['code']);
             }
             // $category->validateAttributes($data);
             $warehouse->fill($data);
@@ -87,15 +91,17 @@ class WarehouseService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Category not found: ' . $e->getMessage(),
+                'message' => 'Category not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -105,7 +111,7 @@ class WarehouseService
         try {
             $warehouse = Warehouse::find($id);
             if (! $warehouse) {
-                throw new NotFoundException("id : " . $id);
+                throw new NotFoundException('id : '.$id);
             }
             $warehouse->status = 1;
             $warehouse->update();
@@ -116,27 +122,29 @@ class WarehouseService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Warehouse not found: ' . $e->getMessage(),
+                'message' => 'Warehouse not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
+
     public static function getIdByCode($code)
-{
-    $warehouse = Warehouse::where('code', $code)->first();
+    {
+        $warehouse = Warehouse::where('code', $code)->first();
 
-    if (!$warehouse) {
-        throw new NotFoundException("Warehouse not found with code: " . $code);
+        if (! $warehouse) {
+            throw new NotFoundException('Warehouse not found with code: '.$code);
+        }
+
+        return $warehouse->id;
     }
-
-    return $warehouse->id;
-}
-
 }

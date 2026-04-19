@@ -1,9 +1,7 @@
 <?php $page = 'product-details'; ?>
 @extends('pages.layout.mainlayout')
-
 @section('content')
-    <div class="page-wrapper" x-data="productDetail()" x-init="fetchItem()">
-
+    <div class="page-wrapper">
         <div class="content">
             <div class="page-header">
                 <div class="page-title">
@@ -11,161 +9,103 @@
                     <h6>Full details of a product</h6>
                 </div>
             </div>
-
+            <!-- /add -->
             <div class="row">
-                <!-- 🔥 LEFT -->
                 <div class="col-lg-8 col-sm-12">
                     <div class="card">
                         <div class="card-body">
-
-                            <!-- LOADING -->
-                            <div x-show="loading">Loading...</div>
-
-                            <!-- DATA -->
-                            <div class="productdetails" x-show="!loading && item">
+                            <div class="bar-code-view d-none">
+                                <img src="{{ asset('build/img/barcode/barcode1.png') }}" alt="barcode">
+                                <a class="printimg">
+                                    <img src="{{ asset('build/img/icons/printer.svg') }}" alt="print">
+                                </a>
+                            </div>
+                            <div class="productdetails">
                                 <ul class="product-bar">
-
                                     <li>
                                         <h4>Product</h4>
-                                        <h6 x-text="item.name"></h6>
+                                        <h6>{{ $item['name'] }}</h6>
                                     </li>
-
                                     <li>
                                         <h4>Category</h4>
-                                        <h6 x-text="formatCategory(item.category)"></h6>
+                                        <h6>{{ $item['category']['code'] . ' - ' . $item['category']['name'] }}</h6>
                                     </li>
-
-                                    <li x-show="item.subcategory">
+                                    <li>
                                         <h4>Sub Category</h4>
-                                        <h6 x-text="formatCategory(item.subcategory)"></h6>
+                                        @isset($item['subcategory'])
+                                            <h6>{{ $item['subcategory']['code'] . ' - ' . $item['subcategory']['name'] }}</h6>
+                                        @endisset
                                     </li>
-
                                     <li>
                                         <h4>Brand</h4>
-                                        <h6 x-text="formatCategory(item.brand)"></h6>
+                                        <h6>{{ $item['brand']['code'] . ' - ' . $item['brand']['name'] }}</h6>
                                     </li>
-
                                     <li>
                                         <h4>Unit</h4>
-                                        <h6 x-text="item.unit"></h6>
+                                        <h6>{{ $item['unit'] }}</h6>
                                     </li>
-
                                     <li>
                                         <h4>SKU</h4>
-                                        <h6 x-text="item.sku"></h6>
+                                        <h6>{{ $item['sku'] }}</h6>
                                     </li>
-
                                     <li>
                                         <h4>Minimum Qty</h4>
-                                        <h6 x-text="item.stock_min + ' ' + item.unit"></h6>
+                                        <h6>{{ $item['stock_min'] . ' ' . $item['unit'] }}</h6>
                                     </li>
-
                                     <li>
                                         <h4>Quantity</h4>
-                                        <h6 x-text="item.stock + ' ' + item.unit"></h6>
+                                        <h6>{{ $item['stock'] . ' ' . $item['unit'] }}</h6>
                                     </li>
-
+                                    {{-- <li>
+                                        <h4>Tax</h4>
+                                        <h6>0.00 %</h6>
+                                    </li> --}}
+                                    {{-- <li>
+                                        <h4>Discount Type</h4>
+                                        <h6>Percentage</h6>
+                                    </li> --}}
                                     <li>
                                         <h4>Basic Price</h4>
-                                        <h6 x-text="item.basic_price"></h6>
+                                        <h6>{{ $item['basic_price'] }}</h6>
                                     </li>
-
                                     <li>
                                         <h4>Sell Price</h4>
-                                        <h6 x-text="item.sell_price"></h6>
+                                        <h6>{{ $item['sell_price'] }}</h6>
                                     </li>
-
                                     <li>
                                         <h4>Status</h4>
-                                        <h6 x-text="item.availability ?? mapStatus(item.status)"></h6>
+                                        <h6>{{ $item['status'] }}</h6>
                                     </li>
-
                                     <li>
                                         <h4>Description</h4>
-                                        <h6 x-text="item.description || '-'"></h6>
-                                    </li>
+                                        <h6>{{ $item['description'] }}</h6>
 
+                                    </li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
-                <!-- 🔥 RIGHT (IMAGES) -->
                 <div class="col-lg-4 col-sm-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="slider-product-details">
-
-                                <div class="owl-carousel owl-theme product-slide" x-ref="carousel">
-
-                                    <template x-for="img in (item?.images || [])" :key="img.id">
+                                <div class="owl-carousel owl-theme product-slide">
+                                    @foreach ($item['images'] as $image)
                                         <div class="slider-product">
-                                            <img :src="img.path" alt="img">
-                                            <h4 x-text="img.name || ''"></h4>
-                                            <h6 x-text="img.description || ''"></h6>
+                                            <img src="{{ $image['path'] }}" alt="img">
+                                            <h4>{{ $image['name'] }}</h4>
+                                            <h6>{{ $image['description'] }}</h6>
                                         </div>
-                                    </template>
-
+                                    @endforeach
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
+
+            <!-- /add -->
         </div>
     </div>
-
-    <!-- 🔥 ALPINE -->
-    <script>
-        let uuid = window.location.pathname.split('/').pop();
-
-        function productDetail() {
-            return {
-                item: null,
-                loading: true,
-
-                async fetchItem() {
-                    try {
-                        const url = `/api/product/detail/${uuid}`;
-
-                        const res = await fetch(url);
-                        const json = await res.json();
-
-                        this.item = json.data;
-
-                        this.$nextTick(() => {
-                            if (this.item?.images?.length) {
-                                $(this.$refs.carousel).owlCarousel({
-                                    items: 1,
-                                    loop: true,
-                                    nav: true
-                                });
-                            }
-                        });
-
-                        this.item = json.data;
-
-                        this.$nextTick(() => {
-                            if (this.item?.images?.length) {
-                                $(this.$refs.carousel).owlCarousel({
-                                    items: 1,
-                                    loop: true,
-                                    nav: true
-                                });
-                            }
-                        });
-
-                    } catch (e) {
-                        console.error('Error:', e);
-                    } finally {
-                        this.loading = false;
-                    }
-                }
-            }
-        }
-    </script>
 @endsection

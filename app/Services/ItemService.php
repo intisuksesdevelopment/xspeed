@@ -1,155 +1,170 @@
 <?php
+
 namespace App\Services;
 
-use App\Models\Item;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Services\UtilService;
-use App\Services\ImageService;
-use Yajra\DataTables\DataTables;
 use App\Constants\CommonConstants;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\NotFoundException;
-use Illuminate\Support\AlreadyExistException;
+use App\Models\Item;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\AlreadyExistException;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\NotFoundException;
+use Illuminate\Support\Str;
+use Yajra\DataTables\DataTables;
+
 class ItemService
 {
+    public static function getPaginatedList(Request $request)
+    {
+        $perPage = (int) $request->input('per_page', 10);
+        $page = (int) $request->input('page', 1);
+        $offset = ($page - 1) * $perPage;
 
-public static function getPaginatedList(Request $request)
-{
-    $perPage = (int) $request->input('per_page', 10);
-    $page = (int) $request->input('page', 1);
-    $offset = ($page - 1) * $perPage;
+        $query = DB::table('items as i')
+            ->select([
+                'i.id',
+                'i.uuid',
+                'i.name',
+                'i.sku',
+                'i.sell_price',
+                'i.stock',
+                'i.unit',
+                'i.image_url',
+                'i.category_id',
+                'i.brand_id',
+                'i.status',
+                'i.created_at',
+                'c.name as category_name',
+                'c.code as category_code',
+                'b.name as brand_name',
+                'b.code as brand_code',
+            ])
+            ->leftJoin('categories as c', 'c.id', '=', 'i.category_id')
+            ->leftJoin('brands as b', 'b.id', '=', 'i.brand_id');
 
-    $query = DB::table('items as i')
-        ->select([
-            'i.id',
-            'i.uuid',
-            'i.name',
-            'i.sku',
-            'i.sell_price',
-            'i.stock',
-            'i.unit',
-            'i.image_url',
-            'i.category_id',
-            'i.brand_id',
-            'i.status',
-            'i.created_at',
-            'c.name as category_name',
-            'c.code as category_code',
-            'b.name as brand_name',
-            'b.code as brand_code',
-        ])
-        ->leftJoin('categories as c', 'c.id', '=', 'i.category_id')
-        ->leftJoin('brands as b', 'b.id', '=', 'i.brand_id');
+        // 🔥 FILTER
+        if ($request->category) {
+            $query->where('c.code', $request->category);
+        }
 
-    // 🔥 FILTER
-    if ($request->category) {
-        $query->where('c.code', $request->category);
+        // 🔥 COUNT (clone)
+        $countQuery = clone $query;
+        $total = $countQuery->count();
+
+        // 🔥 DATA
+        $items = $query
+            ->orderBy('i.created_at', 'desc')
+            ->limit($perPage)
+            ->offset($offset)
+            ->get();
+
+        // 🔥 TRANSFORM (lebih ringan dari Eloquent)
+        $items->transform(function ($item) {
+            $item->availability = match ($item->status) {
+                0 => 'Tersedia',
+                1 => 'Dihapus',
+                2 => 'Tidak Aktif',
+                default => 'Unknown'
+            };
+
+            return $item;
+        });
+
+        $lastPage = (int) ceil($total / $perPage);
+
+        return [
+            'current_page' => $page,
+            'data' => $items,
+            'per_page' => $perPage,
+            'total' => $total,
+            'last_page' => $lastPage,
+        ];
     }
 
-    // 🔥 COUNT (clone)
-    $countQuery = clone $query;
-    $total = $countQuery->count();
+    public static function getPaginatedv2(Request $request)
+    {
+        $perPage = (int) $request->input('per_page', 10);
+        $page = (int) $request->input('page', 1);
 
-    // 🔥 DATA
-    $items = $query
-        ->orderBy('i.created_at', 'desc')
-        ->limit($perPage)
-        ->offset($offset)
-        ->get();
+        $query = Item::query()
+            ->select([
+                'id',
+                'uuid',
+                'name',
+                'sku',
+                'sell_price',
+                'stock',
+                'unit',
+                'image_url',
+                'category_id',
+                'brand_id',
+                'rack_id',
+                'status',
+                'created_at',
+            ])
+            ->with([
+                'category:id,name,code',
+                'brand:id,name,code',
+                'rack:id,name',
+            ]);
 
-    // 🔥 TRANSFORM (lebih ringan dari Eloquent)
-    $items->transform(function ($item) {
-        $item->availability = match ($item->status) {
-            0 => 'Tersedia',
-            1 => 'Dihapus',
-            2 => 'Tidak Aktif',
-            default => 'Unknown'
-        };
-        return $item;
-    });
+        // 🔥 FILTER (pakai whereHas, jangan join)
+        if ($request->category) {
+            $query->whereHas('category', fn ($q) => $q->where('code', $request->category)
+            );
+        }
 
-    $lastPage = (int) ceil($total / $perPage);
+        // 🔥 CLONE query untuk count
+        $countQuery = clone $query;
 
-    return [
-        'current_page' => $page,
-        'data' => $items,
-        'per_page' => $perPage,
-        'total' => $total,
-        'last_page' => $lastPage,
-    ];
-}
-public static function getPaginated(Request $request)
-{
-    $perPage = (int) $request->input('per_page', 10);
-    $page = (int) $request->input('page', 1);
+        // 🔥 COUNT (tanpa order, lebih cepat)
+        $total = $countQuery->toBase()->getCountForPagination();
 
-    $query = Item::query()
-        ->select([
-            'id',
-            'uuid',
-            'name',
-            'sku',
-            'sell_price',
-            'stock',
-            'unit',
-            'image_url',
-            'category_id',
-            'brand_id',
-            'rack_id',
-            'status',
-            'created_at'
-        ])
-        ->with([
-            'category:id,name,code',
-            'brand:id,name,code',
-            'rack:id,name'
-        ]);
+        // 🔥 DATA
+        $items = $query
+            ->orderBy('created_at', 'desc')
+            ->forPage($page, $perPage)
+            ->get();
 
-    // 🔥 FILTER (pakai whereHas, jangan join)
-    if ($request->category) {
-        $query->whereHas('category', fn($q) =>
-            $q->where('code', $request->category)
-        );
+        // 🔥 TAMBAH availability TANPA loop berat
+        $items->transform(function ($item) {
+            $item->availability = match ($item->status) {
+                0 => 'Tersedia',
+                1 => 'Dihapus',
+                2 => 'Tidak Aktif',
+                default => 'Unknown'
+            };
+
+            return $item;
+        });
+
+        // 🔥 HITUNG last page
+        $lastPage = (int) ceil($total / $perPage);
+
+        return [
+            'current_page' => $page,
+            'data' => $items,
+            'per_page' => $perPage,
+            'total' => $total,
+            'last_page' => $lastPage,
+        ];
     }
 
-    // 🔥 CLONE query untuk count
-    $countQuery = clone $query;
+    public static function getPaginated(Request $request)
+    {
+        $perPage = $request->input('per_page', CommonConstants::PAGE);
+        $sortBy = $request->input('sortBy', CommonConstants::SORT);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $items = Item::with('images')->with(['category', 'brand', 'rack'])->orderBy($sortBy, $sortDirection)->paginate($perPage);
+        foreach ($items as $item) {
+            $item->availability = $item->isAvailable();
+        }
 
-    // 🔥 COUNT (tanpa order, lebih cepat)
-    $total = $countQuery->toBase()->getCountForPagination();
+        return $items;
+    }
 
-    // 🔥 DATA
-    $items = $query
-        ->orderBy('created_at', 'desc')
-        ->forPage($page, $perPage)
-        ->get();
-
-    // 🔥 TAMBAH availability TANPA loop berat
-    $items->transform(function ($item) {
-        $item->availability = match ($item->status) {
-            0 => 'Tersedia',
-            1 => 'Dihapus',
-            2 => 'Tidak Aktif',
-            default => 'Unknown'
-        };
-        return $item;
-    });
-
-    // 🔥 HITUNG last page
-    $lastPage = (int) ceil($total / $perPage);
-
-    return [
-        'current_page' => $page,
-        'data' => $items,
-        'per_page' => $perPage,
-        'total' => $total,
-        'last_page' => $lastPage,
-    ];
-}
     public static function getActive(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
@@ -161,50 +176,53 @@ public static function getPaginated(Request $request)
         $items = Item::with(['category', 'subcategory', 'brand', 'warehouse', 'rack', 'images'])->where('status', 0)->orderBy($sortBy, $sortDirection)->get();
         foreach ($items as $item) {
             $item->availability = $item->isAvailable();
-            $item->sell_price   = UtilService::convertToIdr($item->sell_price, $item->currency);
-            $item->currency     = 'IDR';
+            $item->sell_price = UtilService::convertToIdr($item->sell_price, $item->currency);
+            $item->currency = 'IDR';
         }
+
         return $items;
     }
+
     public static function getActive2($perPage = null, $sortBy = null, $sortDirection = null)
-{
-    $perPage = $perPage ?? CommonConstants::PAGE;
-    $sortBy = $sortBy ?? CommonConstants::SORT;
-    $sortDirection = $sortDirection ?? CommonConstants::DIRECTION;
+    {
+        $perPage = $perPage ?? CommonConstants::PAGE;
+        $sortBy = $sortBy ?? CommonConstants::SORT;
+        $sortDirection = $sortDirection ?? CommonConstants::DIRECTION;
 
-    // whitelist kolom biar aman
-    $allowedSort = ['id', 'name', 'sell_price', 'created_at'];
-    if (!in_array($sortBy, $allowedSort)) {
-        $sortBy = 'id';
-    }
+        // whitelist kolom biar aman
+        $allowedSort = ['id', 'name', 'sell_price', 'created_at'];
+        if (! in_array($sortBy, $allowedSort)) {
+            $sortBy = 'id';
+        }
 
-    $allowedDirection = ['asc', 'desc'];
-    if (!in_array(strtolower($sortDirection), $allowedDirection)) {
-        $sortDirection = 'asc';
-    }
+        $allowedDirection = ['asc', 'desc'];
+        if (! in_array(strtolower($sortDirection), $allowedDirection)) {
+            $sortDirection = 'asc';
+        }
 
-    $items = Item::with([
+        $items = Item::with([
             'category',
             'subcategory',
             'brand',
             'warehouse',
             'rack',
-            'images'
+            'images',
         ])
-        ->where('status', 0)
-        ->orderBy($sortBy, $sortDirection)
-        ->paginate($perPage);
+            ->where('status', 0)
+            ->orderBy($sortBy, $sortDirection)
+            ->paginate($perPage);
 
-    // transform data
-    $items->getCollection()->transform(function ($item) {
-        $item->availability = $item->isAvailable();
-        $item->sell_price   = UtilService::convertToIdr($item->sell_price, $item->currency);
-        $item->currency     = 'IDR';
-        return $item;
-    });
+        // transform data
+        $items->getCollection()->transform(function ($item) {
+            $item->availability = $item->isAvailable();
+            $item->sell_price = UtilService::convertToIdr($item->sell_price, $item->currency);
+            $item->currency = 'IDR';
 
-    return $items;
-}
+            return $item;
+        });
+
+        return $items;
+    }
 
     public static function getDetail($uuid)
     {
@@ -215,20 +233,23 @@ public static function getPaginated(Request $request)
         }
         $item->status = $item->isAvailable();
         $item->images = $item->images()->get();
+
         return $item;
     }
-     public static function getSearch($query, $limit = 10)
+
+    public static function getSearch($query, $limit = 10)
     {
         $items = Item::query()
             ->when($query, function ($q) use ($query) {
-                $q->where('name', 'like', '%' . $query . '%')
-                  ->orWhere('sku', 'like', '%' . $query . '%');
+                $q->where('name', 'like', '%'.$query.'%')
+                    ->orWhere('sku', 'like', '%'.$query.'%');
             })
             ->limit($limit)
             ->get();
 
         return $items;
     }
+
     public static function getId($uuid)
     {
         $item = Item::where('uuid', $uuid)->first();
@@ -237,22 +258,24 @@ public static function getPaginated(Request $request)
             throw new NotFoundException("uuid : {$uuid}");
         }
         $item->status = $item->isAvailable();
+
         return $item['id'];
     }
+
     public static function save(Request $request)
     {
         try {
             $data = $request->all();
 
             // Check for existing item with case-insensitive name match
-            $item = Item::whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($data['name']) . '%'])->first();
+            $item = Item::whereRaw('LOWER(name) LIKE ?', ['%'.strtolower($data['name']).'%'])->first();
             if ($item) {
                 throw new AlreadyExistException("name : {$data['name']}");
             }
 
             // Create a new item
-            $item              = new Item();
-            $data['uuid']      = (string) Str::uuid(); // Generate a unique identifier
+            $item = new Item;
+            $data['uuid'] = (string) Str::uuid(); // Generate a unique identifier
             $data['image_url'] = ImageService::getCoverImage($request);
             // Validate and fill item attributes
             $item->validateAttributes($data);
@@ -265,9 +288,11 @@ public static function getPaginated(Request $request)
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
         }
     }
@@ -280,10 +305,10 @@ public static function getPaginated(Request $request)
             if (! $item) {
                 throw new AlreadyExistException("name : {$data['name']}");
             }
-            $data['id']        = $item->id;
+            $data['id'] = $item->id;
             $data['image_url'] = ImageService::getCoverImage($request);
 
-            $data['stock']     = (int) $data['stock'];
+            $data['stock'] = (int) $data['stock'];
             $data['stock_min'] = (int) $data['stock_min'];
 
             $item->validateAttributes($data, $item->id);
@@ -296,12 +321,15 @@ public static function getPaginated(Request $request)
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
         }
     }
+
     public static function delete($uuid)
     {
         try {
@@ -309,7 +337,7 @@ public static function getPaginated(Request $request)
             $item = Item::where('uuid', $uuid)->first();
 
             if (! $item) {
-                throw new NotFoundException("uuid : " . $uuid);
+                throw new NotFoundException('uuid : '.$uuid);
             }
 
             // Update the status
@@ -322,18 +350,21 @@ public static function getPaginated(Request $request)
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Item not found: ' . $e->getMessage(),
+                'message' => 'Item not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
+
     public static function getItemsByCategory($categoryId = null, bool $isPaging = false, int $perPage = 10)
     {
         $query = Item::query()->where('status', 0)->with(['category']);
@@ -348,20 +379,22 @@ public static function getPaginated(Request $request)
             return new JsonResponse($query->get());
         }
     }
-   
+
     public static function getWithMinStock()
     {
         $items = Item::whereColumn('stock', '<=', 'stock_min')->get();
+
         return $items;
     }
+
     public static function checkStock($items)
     {
-        $stock['available']     = [];
+        $stock['available'] = [];
         $stock['not_available'] = [];
         foreach ($items as $item) {
 
             $itemSelect = Item::where('uuid', $item['uuid'])->first();
-            $remaining  = $itemSelect->stock - ($item['qty'] ?? 1);
+            $remaining = $itemSelect->stock - ($item['qty'] ?? 1);
             if ($remaining >= 0) {
                 $stock['available'][] = $item;
             } else {
@@ -374,42 +407,43 @@ public static function getPaginated(Request $request)
 
     public static function uploadItem($row)
     {
-        $item              = new Item();
-        $item->uuid        = (string) Str::uuid();
-        $item->sku         = $row[1];
+        $item = new Item;
+        $item->uuid = (string) Str::uuid();
+        $item->sku = $row[1];
         $item->description = $row[2];
+
         return $row;
     }
 
     public static function getData(Request $request)
-{
-    // Ambil parameter filter & sorting
-    $search = $request->input('searchInput');
-    $warehouse = $request->input('filterWarehouse');
-    $brand = $request->input('filterBrand');
-    
-    // Ambil info kolom urutan (order)
-    $columnIndex = $request->input('order.0.column');
-    $orderBy = $request->input("columns.$columnIndex.name");
-    $sortBy = $request->input('order.0.dir') === 'desc' ? 'desc' : 'asc';
+    {
+        // Ambil parameter filter & sorting
+        $search = $request->input('searchInput');
+        $warehouse = $request->input('filterWarehouse');
+        $brand = $request->input('filterBrand');
 
-    // // Cache key berdasarkan semua input
-    // $cacheKey = 'datatable_products_' . md5(json_encode([
-    //     'search' => $search,
-    //     'warehouse' => $warehouse,
-    //     'brand' => $brand,
-    //     'orderBy' => $orderBy,
-    //     'sortBy' => $sortBy,
-    //     'page' => $request->input('start'),
-    // ]));
+        // Ambil info kolom urutan (order)
+        $columnIndex = $request->input('order.0.column');
+        $orderBy = $request->input("columns.$columnIndex.name");
+        $sortBy = $request->input('order.0.dir') === 'desc' ? 'desc' : 'asc';
 
-    // return 
-    // Cache::remember($cacheKey, now()->addMinutes(5), function () use ($search, $warehouse, $brand, $orderBy, $sortBy) {
+        // // Cache key berdasarkan semua input
+        // $cacheKey = 'datatable_products_' . md5(json_encode([
+        //     'search' => $search,
+        //     'warehouse' => $warehouse,
+        //     'brand' => $brand,
+        //     'orderBy' => $orderBy,
+        //     'sortBy' => $sortBy,
+        //     'page' => $request->input('start'),
+        // ]));
+
+        // return
+        // Cache::remember($cacheKey, now()->addMinutes(5), function () use ($search, $warehouse, $brand, $orderBy, $sortBy) {
         $query = Item::with(['category', 'brand'])
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($q) use ($search) {
                     $q->where('name', 'like', "%{$search}%")
-                      ->orWhere('sku', 'like', "%{$search}%");
+                        ->orWhere('sku', 'like', "%{$search}%");
                 });
             })
             ->when($warehouse, function ($q) use ($warehouse) {
@@ -426,39 +460,38 @@ public static function getPaginated(Request $request)
             });
 
         // Sorting dinamis (pastikan kolom ada di tabel item)
-        $sortableColumns = ['name', 'sku', 'sell_price', 'unit', 'stock', 'created_at','status'];
+        $sortableColumns = ['name', 'sku', 'sell_price', 'unit', 'stock', 'created_at', 'status'];
         if (in_array($orderBy, $sortableColumns)) {
             $query->orderBy($orderBy, $sortBy);
         }
+
         return DataTables::of($query)
             ->addColumn('checkbox', function ($row) {
                 return '<label class="checkboxs">
-                            <input type="checkbox" value="' . $row->id . '">
+                            <input type="checkbox" value="'.$row->id.'">
                             <span class="checkmarks"></span>
                         </label>';
             })
             ->addColumn('product', function ($row) {
                 return view('pages.products.product-column', compact('row'))->render();
             })
-            ->addColumn('category', fn($row) => $row->category->code ?? 'N/A')
-            ->addColumn('brand', fn($row) => $row->brand->code ?? 'N/A')
-            ->addColumn('created_at', fn($row) => UtilService::formatDate($row->created_at) ?? 'N/A')
+            ->addColumn('category', fn ($row) => $row->category->code ?? 'N/A')
+            ->addColumn('brand', fn ($row) => $row->brand->code ?? 'N/A')
+            ->addColumn('created_at', fn ($row) => UtilService::formatDate($row->created_at) ?? 'N/A')
             ->addColumn('status', function ($row) {
                 $availability = $row->isAvailable();
+
                 return $row->status == 0
-                    ? '<span class="badge badge-linesuccess">' . $availability . '</span>'
-                    : '<span class="badge badge-linedanger">' . $availability . '</span>';
+                    ? '<span class="badge badge-linesuccess">'.$availability.'</span>'
+                    : '<span class="badge badge-linedanger">'.$availability.'</span>';
             })
             ->addColumn('actions', function ($row) {
                 return view('pages.products.product-actions', compact('row'))->render();
             })
             ->rawColumns(['checkbox', 'product', 'status', 'actions', 'created_at'])
             ->make(true);
-    // });
-}
-
-    
-
+        // });
+    }
 }
 
 // uuid

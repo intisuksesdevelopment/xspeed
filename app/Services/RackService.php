@@ -1,16 +1,16 @@
 <?php
+
 namespace App\Services;
 
+use App\Constants\CommonConstants;
 use App\Models\Rack;
 use Illuminate\Http\Request;
-use App\Constants\CommonConstants;
+use Illuminate\Support\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\NotFoundException;
-use Illuminate\Support\AlreadyExistException;
 
 class RackService
 {
-
     public static function getPaginated(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
@@ -23,6 +23,7 @@ class RackService
         foreach ($racks as $rack) {
             $rack->availability = $rack->isAvailable();
         }
+
         return $racks;
     }
 
@@ -38,22 +39,23 @@ class RackService
         foreach ($racks as $rack) {
             $rack->availability = $rack->isAvailable();
         }
+
         return $racks;
     }
 
     public static function save(Request $request)
     {
         try {
-            $data           = $request->all();
+            $data = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
-            $rack       = Rack::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
+            $rack = Rack::whereRaw('LOWER(code) LIKE ?', ['%'.strtolower($data['code']).'%'])->get();
 
             if ($rack->isNotEmpty()) {
                 $firstRack = $rack->first();
                 throw new AlreadyExistException("code : {$firstRack->code}");
             }
 
-            $rack = new Rack();
+            $rack = new Rack;
             // $supplier->validateAttributes($data);
             $rack->fill($data);
             $rack->save();
@@ -61,9 +63,11 @@ class RackService
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
         }
     }
@@ -71,12 +75,12 @@ class RackService
     public static function update(Request $request)
     {
         try {
-            $data           = $request->all();
+            $data = $request->all();
             $data['status'] = $request->has('status') ? $request->input('status') : 0;
 
             $rack = Rack::find($data['id']);
             if (! $rack) {
-                throw new NotFoundException("code : " . $data['code']);
+                throw new NotFoundException('code : '.$data['code']);
             }
             // $category->validateAttributes($data);
             $rack->fill($data);
@@ -88,15 +92,17 @@ class RackService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Category not found: ' . $e->getMessage(),
+                'message' => 'Category not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -106,7 +112,7 @@ class RackService
         try {
             $rack = Rack::find($id);
             if (! $rack) {
-                throw new NotFoundException("id : " . $id);
+                throw new NotFoundException('id : '.$id);
             }
             $rack->status = 1;
             $rack->update();
@@ -117,17 +123,18 @@ class RackService
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'rack not found: ' . $e->getMessage(),
+                'message' => 'rack not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred: '.$e->getMessage(),
             ], 500);
         }
     }
-
 }

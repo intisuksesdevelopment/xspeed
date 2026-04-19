@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Hash;
-use Session;
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Services\WarehouseService;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
 class WarehouseController extends Controller
 {
     private $warehouseService;
 
-    public function __construct(WarehouseService $warehouseService) {
+    public function __construct(WarehouseService $warehouseService)
+    {
         $this->warehouseService = $warehouseService;
     }
 
@@ -21,6 +19,7 @@ class WarehouseController extends Controller
     {
         Paginator::useBootstrap(); // Menggunakan Bootstrap
         $warehouses = WarehouseService::getPaginated($request);
+
         return view('pages.warehouse.warehouse', ['warehouses' => $warehouses]);
     }
 
@@ -33,7 +32,7 @@ class WarehouseController extends Controller
     {
         return WarehouseService::update($request);
     }
-    
+
     public function delete($id)
     {
         return WarehouseService::delete($id);

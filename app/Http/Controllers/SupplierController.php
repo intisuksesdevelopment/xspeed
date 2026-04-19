@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Hash;
-use Session;
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Services\SupplierService;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Str;
 
@@ -14,7 +11,8 @@ class SupplierController extends Controller
 {
     private $supplierService;
 
-    public function __construct(SupplierService $supplierService) {
+    public function __construct(SupplierService $supplierService)
+    {
         $this->supplierService = $supplierService;
     }
 
@@ -22,13 +20,14 @@ class SupplierController extends Controller
     {
         Paginator::useBootstrap(); // Menggunakan Bootstrap
         $suppliers = SupplierService::getPaginated($request);
+
         return view('pages.supplier.suppliers', ['suppliers' => $suppliers]);
     }
 
     public function add(Request $request)
     {
         $request->merge(['uuid' => Str::uuid()]);
-        
+
         return SupplierService::save($request);
     }
 

@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SaleData extends Model
 {
     use HasFactory;
+
     protected $table = 'sales_data';
+
     protected $fillable = [
         'sales_id',
         'item_id',
@@ -29,9 +31,11 @@ class SaleData extends Model
         'update_by',
         'status',
     ];
+
     protected $hidden = [
-        'id','sales_id'
+        'id', 'sales_id',
     ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'uid');

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'uuid',
         'ref_id',
@@ -23,9 +24,9 @@ class Contact extends Model
         'created_by',
         'updated_by',
     ];
-    
+
     protected $hidden = [
-        'id'
+        'id',
     ];
 
     public function isAvailable()

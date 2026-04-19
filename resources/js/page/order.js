@@ -1,4 +1,8 @@
 let itemOrderList = [];
+const API_PRODUCT_URL = "{{ route('api-product-paged') }}";
+const API_BRAND_URL = "{{ route('api-brand-all') }}";
+const API_WAREHOUSE_URL = "{{ route('api-warehouse-all') }}";
+const API_CONTACT_URL = "{{ route('api-contact-all') }}";
 document.addEventListener("DOMContentLoaded", function () {
     const items = JSON.parse(atob(encodedItems));
     const brands = JSON.parse(atob(encodedBrands));
@@ -535,7 +539,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             console.log(`Fetching contacts for supplier ID: ${supplierId}`);
             // Fetch contacts based on the selected supplier
-            fetch(`admin/contact/${supplierId}`) // Replace with your API endpoint
+            fetch(`/api/contact/detail/${supplierId}`)
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error(
@@ -544,20 +548,28 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                     return response.json();
                 })
-                .then((data) => {
+                .then((res) => {
+                    const data = res.data; // ✅ ambil array-nya
+
                     console.log("Contacts fetched successfully:", data);
-                    // Populate the contact-select dropdown
+
+                    if (!Array.isArray(data)) {
+                        console.error("Data is not array:", data);
+                        return;
+                    }
+
                     data.forEach((contact) => {
                         const option = document.createElement("option");
-                        option.value = contact.uuid; // Assuming the API returns UUIDs
-                        option.textContent = contact.name; // Assuming the API returns names
+                        option.value = contact.uuid;
+                        option.textContent = contact.name;
                         contactSelect.appendChild(option);
                     });
 
                     document.getElementById("supplier-name").textContent =
-                        data[0].supplier_name || "-";
+                        data[0]?.supplier_name || "-";
                     document.getElementById("supplier-address").textContent =
-                        data[0].supplier_address || "-";
+                        data[0]?.supplier_address || "-";
+
                     $("#contact-select").trigger("change");
                 })
                 .catch((error) =>
@@ -567,41 +579,64 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("No supplier selected.");
         }
     });
-    $("#contact-select").on("change", function (event) {
-        const contactId = this.value; // Get the selected contact UUID
+    $("#contact-select").on("change", function () {
+        const contactId = this.value;
 
-        if (contactId) {
-            console.log(`Fetching data for contact ID: ${contactId}`);
+        // Reset tampilan dulu
+        const setDefault = () => {
+            $("#contact-name").text("-");
+            $("#contact-position").text("-");
+            $("#contact-phone").text("-");
+            $("#supplier-email").text("-");
+        };
 
-            // Fetch contact details based on the selected contact ID
-            fetch(`admin/contact/${contactId}`) // Replace with your API endpoint
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(
-                            `HTTP error! Status: ${response.status}`,
-                        );
-                    }
-                    return response.json();
-                })
-                .then((contact) => {
-                    console.log("Contact details:", contact);
-
-                    // Update the div with contact details
-                    document.getElementById("contact-name").textContent =
-                        contact[0].name || "-";
-                    document.getElementById("contact-position").textContent =
-                        contact[0].position || "-";
-                    document.getElementById("contact-phone").textContent =
-                        contact[0].phone || "-";
-                    document.getElementById("supplier-email").textContent =
-                        contact[0].email || "-";
-                })
-                .catch((error) =>
-                    console.error("Error fetching contact details:", error),
-                );
-        } else {
+        if (!contactId) {
             console.log("No contact selected");
+            setDefault();
+            return;
         }
+
+        console.log(`Fetching data for contact ID: ${contactId}`);
+
+        fetch(`/api/contact/detail/${contactId}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((res) => {
+                console.log("Contact details:", res);
+
+                // VALIDASI SUPER AMAN
+                if (
+                    !res ||
+                    !res.success ||
+                    !Array.isArray(res.data) ||
+                    res.data.length === 0 ||
+                    !res.data[0]
+                ) {
+                    console.warn("Invalid or empty contact data:", res);
+
+                    $("#contact-name").text("-");
+                    $("#contact-position").text("-");
+                    $("#contact-phone").text("-");
+                    $("#supplier-email").text("-");
+                    return;
+                }
+
+                const contact = res.data[0];
+
+                // DOUBLE SAFETY
+                $("#contact-name").text(contact?.name ?? "-");
+                $("#contact-position").text(contact?.position ?? "-");
+                $("#contact-phone").text(contact?.phone ?? "-");
+                $("#supplier-email").text(contact?.email ?? "-");
+            })
+            .catch((error) => {
+                console.error("Error fetching contact details:", error);
+                setDefault(); // fallback kalau error
+            });
     });
     document
         .getElementById("orderAddForm")

@@ -9,7 +9,7 @@ use Log;
 
 class ContactService
 {
-    public function get(Request $request, $supplierId)
+    public static function get(Request $request, $supplierId)
     {
         // Log the request for debugging purposes (optional)
         Log::info("Fetching contact for supplier ID: {$supplierId}");
@@ -19,9 +19,9 @@ class ContactService
         $contacts = Contact::where('ref', 'supplier')
             ->where('ref_id', $supplier['id'] ?? 0)->get();
 
-        if (! $contacts || $contacts->isEmpty()) {
+        if (!$contacts || $contacts->isEmpty()) {
             $contacts = Contact::where('uuid', $supplierId)->get();
-            if (! $contacts) {
+            if (!$contacts) {
                 return response()->json([
                     'message' => "No contact found for supplier ID: {$supplierId}",
                 ], 404);
@@ -39,8 +39,8 @@ class ContactService
     public static function getDetail($code)
     {
         $customer = Contact::where('uuid', $code)->first();
-        if (! $customer) {
-            throw new NotFoundException('code : '.$code);
+        if (!$customer) {
+            throw new NotFoundException('code : ' . $code);
         }
 
         return $customer;

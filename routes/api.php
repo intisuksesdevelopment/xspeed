@@ -28,8 +28,7 @@ Route::prefix('/category')->group(function () {
 Route::prefix('/warehouse')->group(function () {
     Route::get('/all', [ApiController::class, 'getWarehouses'])->name('api-warehouse-all');
 });
-Route::prefix('contact')->group(function () {
-    Route::get('/{supplierUuid}', [ContactService::class, 'get']);
-    Route::get('/{supplierUuid}', [ContactService::class, 'get']);
+Route::prefix('/contact')->group(function () {
+    Route::get('/detail/{uuid}', [ApiController::class, 'getContacts'])->name('api-contact-detail');
 });
 // });

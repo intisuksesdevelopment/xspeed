@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\BrandService;
 use App\Services\CategoryService;
+use App\Services\ContactService;
 use App\Services\ItemService;
 use App\Services\WarehouseService;
 use Illuminate\Http\Request;
@@ -66,6 +67,13 @@ class ApiController extends Controller
         return response()->json([
             'success' => true,
             'data' => WarehouseService::getActive($request),
+        ]);
+    }
+    public function getContacts(Request $request, $uuid)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => ContactService::get($request, $uuid),
         ]);
     }
 }

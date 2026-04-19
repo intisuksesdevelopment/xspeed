@@ -1,6 +1,3 @@
-<div style="background:red;color:white;padding:10px">
-    MODAL LOADED
-</div>
 @if (Route::is(['add-product']) ||
         Route::is(['product-list']) ||
         Route::is(['product-edit-form']) ||

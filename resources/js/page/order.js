@@ -186,12 +186,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     function setBrandsList() {
         const brandList = $("#brand-list");
-        const formattedBrands = brands.map((brand) => ({
-            id: brand.id,
-            text: brand.name,
-        }));
 
-        // Populate select2 with data
+        const formattedBrands = [
+            {
+                id: "",
+                text: "All Brands",
+            },
+            ...brands.map((brand) => ({
+                id: brand.id,
+                text: brand.name,
+            })),
+        ];
+
         brandList.select2({
             dropdownParent: $("#add-order-item"),
             data: formattedBrands,
@@ -201,16 +207,55 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     function setCategoryList() {
         const categoryList = $("#category-list");
-        const formattedCategories = categories.map((category) => ({
-            id: category.id,
-            text: category.name,
-        }));
+
+        const formattedCategories = [
+            {
+                id: "",
+                text: "All Categories",
+            },
+            ...categories.map((category) => ({
+                id: category.id,
+                text: category.name,
+            })),
+        ];
+
         categoryList.select2({
             dropdownParent: $("#add-order-item"),
             data: formattedCategories,
             placeholder: "-- Select a Category --",
             allowClear: true,
         });
+
+        // default ke All
+        categoryList.val("").trigger("change");
+    }
+    function setSubcategoryList(selectedCategoryId = "") {
+        const subcategoryList = $("#subcategory-list");
+
+        // Filter subcategory berdasarkan category
+        let filtered = selectedCategoryId
+            ? subcategories.filter((s) => s.category_id == selectedCategoryId)
+            : subcategories;
+
+        // Format + tambah "All"
+        const formatted = [
+            { id: "", text: "All Subcategories" },
+            ...filtered.map((s) => ({
+                id: s.id,
+                text: s.name,
+            })),
+        ];
+
+        // Re-init select2
+        subcategoryList.empty().select2({
+            dropdownParent: $("#add-order-item"),
+            data: formatted,
+            placeholder: "All Subcategories",
+            allowClear: true,
+        });
+
+        // Default ke "All"
+        subcategoryList.val("").trigger("change");
     }
 
     function initItems() {

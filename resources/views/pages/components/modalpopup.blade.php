@@ -14765,96 +14765,79 @@
 @endif
 
 @if (Route::is(['order', 'order-add-form']))
-    <!--add popup -->
-    <div class="modal fade" id="add-order-item">
-        <div class="modal-dialog add-centered">
-            <div class="modal-content">
-                <div class="page-wrapper p-0 m-0">
-                    <div class="content p-0">
-                        <div class="modal-header border-0 custom-modal-header">
-                            <div class="page-title">
-                                <h4> Add Product</h4>
-                            </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <form action="sales-list">
-                                    <div class="row">
-                                        <div class="col-lg- col-sm-6 col-12">
-                                            <div class="mb-3 add-product">
-                                                <label class="form-label">Product Name</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-sm-6 col-12">
-                                            <div class="mb-3 add-product">
-                                                <label class="form-label">Brand</label>
-                                                <select class="select2 form-control" id="brand-list"
-                                                    name="brand_id">
+    <div class="modal fade" id="add-order-item" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content shadow-sm">
 
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-6 col-12">
-                                            <div class="mb-3 add-product">
-                                                <label class="form-label">Category</label>
-                                                <select class="select2 form-control" id="category-list"
-                                                    name="category_id">
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-6 col-12">
-                                            <div class="mb-3 add-product">
-                                                <label class="form-label">Sub Category</label>
-                                                <select class="select2 form-control" id="subcategory-list"
-                                                    name="subcategory_id">
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="table-responsive product-list">
-                                            <table class="table datanew" id="item-list">
-                                                <thead>
-                                                    <tr style="cursor: pointer">
-                                                        <th class="no-sort">
-                                                            <label class="checkboxs">
-                                                                <input type="checkbox" id="select-all-product">
-                                                                <span class="checkmarks"></span>
-                                                            </label>
-                                                        </th>
-                                                        <th>Product</th>
-                                                        <th>Sku</th>
-                                                        <th>Qty</th>
-                                                        <th>Currency</th>
-                                                        <th>Sell Price</th>
-                                                        <th>Total Cost</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer-btn">
-                                        <button type="button" class="btn btn-cancel me-2"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-submit">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title fw-semibold">Add Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
+
+                <!-- Body -->
+                <div class="modal-body">
+
+                    <!-- Form -->
+                    <form id="form-add-order">
+
+                        <!-- Product Name -->
+                        <div class="mb-3">
+                            <label class="form-label">Product Name</label>
+                            <input type="text" class="form-control"
+                                placeholder="Search or input product...">
+                        </div>
+
+                        <!-- Filters -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Brand</label>
+                                <select class="form-select" id="brand-list"></select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Category</label>
+                                <select class="form-select" id="category-list"></select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Sub Category</label>
+                                <select class="form-select" id="subcategory-list"></select>
+                            </div>
+                        </div>
+
+                        <!-- Table -->
+                        <div class="table-responsive border rounded">
+                            <table class="table table-hover align-middle mb-0" id="item-list">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="text-center" style="width:40px;">
+                                            <input type="checkbox" id="select-all-product"
+                                                class="form-check-input">
+                                        </th>
+                                        <th>Product</th>
+                                        <th>SKU</th>
+                                        <th class="text-center">Qty</th>
+                                        <th class="text-center">Currency</th>
+                                        <th class="text-end">Sell Price</th>
+                                        <th class="text-end">Total Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" form="form-add-order" class="btn btn-primary">
+                        Submit
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>

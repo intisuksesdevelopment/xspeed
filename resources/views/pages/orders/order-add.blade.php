@@ -47,97 +47,102 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-4 col-sm-6 col-12">
+
+                                            <!-- Supplier -->
+                                            <div class="col-lg-4 col-md-4 col-sm-12">
                                                 <div class="mb-3 add-product">
                                                     <label class="form-label">Supplier</label>
-                                                    <select x-model="supplierId" class="select2 form-control"
-                                                        @change="updateContactInfo()" id="supplier-select"
-                                                        name="supplier_id">
-                                                        <option value="" disabled selected>Silakan pilih</option>
-                                                        <template x-for="supplier in suppliers" :key="supplier.uuid">
-                                                            <option :value="supplier.uuid" x-text="supplier.name"></option>
-                                                        </template>
-                                                    </select>
+                                                    <select x-ref="supplier" x-model="supplierId" class="form-control"
+                                                        x-cloak></select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4 col-sm-6 col-12">
+
+                                            <!-- Contact -->
+                                            <div class="col-lg-4 col-md-4 col-sm-12">
                                                 <div class="mb-3 add-product">
-                                                    <label class="form-label">Contact Sales</label>
-                                                    <select x-model="contactId" class="select2 form-control"
-                                                        id="contact-select" name="contact_id">
-                                                        <option value="">Loading contacts...</option>
-                                                    </select>
+                                                    <label class="form-label">Contact</label>
+
+                                                    <!-- Loading spinner -->
+                                                    <div x-show="loadingContacts" x-cloak class="d-flex align-items-center">
+                                                        <div class="spinner-border spinner-border-sm text-primary me-2">
+                                                        </div>
+                                                        Loading contacts...
+                                                    </div>
+
+                                                    <!-- Contact dropdown -->
+                                                    <select x-ref="contact" x-model="contactId" class="form-control"
+                                                        x-show="!loadingContacts" x-cloak></select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4 col-sm-6 col-12">
-                                                <div class="card bg-dark text-light mb-3 shadow-sm"
-                                                    style="max-width: 24rem; border-radius: 0.75rem;">
-                                                    <!-- Card Header -->
+
+                                            <!-- Info Card -->
+                                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                                <div class="card bg-dark text-light mb-3 shadow-sm">
                                                     <div
                                                         class="card-header d-flex justify-content-between align-items-center">
-                                                        <span class="fw-bold form-label">Detail Contact & Supplier</span>
-                                                        <button class="btn btn-sm  d-flex align-items-center" type="button"
+                                                        <span class="fw-bold">Detail Contact & Supplier</span>
+                                                        <button class="btn btn-sm d-flex align-items-center" type="button"
                                                             data-bs-toggle="collapse" data-bs-target="#contactSupplierInfo"
                                                             aria-expanded="false" aria-controls="contactSupplierInfo">
-                                                            <span class="me-1 form-label"><i data-feather="chevrons-down"
-                                                                    class="form-label"></i></span>
-
+                                                            <i data-feather="chevrons-down"></i>
                                                         </button>
                                                     </div>
 
-                                                    <!-- Card Body (Collapse with fade) -->
-                                                    <div class="collapse fade" id="contactSupplierInfo">
+                                                    <div class="collapse fade show" id="contactSupplierInfo">
                                                         <div class="card-body">
-                                                            <div class="add-product">
-                                                                <!-- Contact Info Grid -->
-                                                                <div class="row mb-2">
-                                                                    <div
-                                                                        class="col-5 text-xs font-bold text-primarydark text-uppercase">
-                                                                        Nama:</div>
-                                                                    <div class="col-7 text-light" id="contact-name"></div>
-                                                                </div>
-                                                                <div class="row mb-2">
-                                                                    <div
-                                                                        class="col-5 text-xs font-bold text-primarydark text-uppercase">
-                                                                        Divisi:</div>
-                                                                    <div class="col-7 text-light" id="contact-position">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row mb-2 pb-1 border-bottom border-primarydark">
-                                                                    <div
-                                                                        class="col-5 text-xs font-bold text-primarydark text-uppercase">
-                                                                        Telepon:</div>
-                                                                    <div class="col-7 text-light text-sm font-semibold"
-                                                                        id="contact-phone"></div>
-                                                                </div>
 
-                                                                <!-- Supplier Info Grid -->
-                                                                <div class="row mt-2">
-                                                                    <div
-                                                                        class="col-5 text-xs font-bold text-primarydark text-uppercase">
-                                                                        Supplier:</div>
-                                                                    <div class="col-7 text-light font-bold uppercase"
-                                                                        id="supplier-name"></div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div
-                                                                        class="col-5 text-xs font-bold text-primarydark text-uppercase">
-                                                                        Alamat:</div>
-                                                                    <div class="col-7 text-light text-[10px] font-semibold"
-                                                                        id="supplier-address"></div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div
-                                                                        class="col-5 text-xs font-bold text-primarydark text-uppercase">
-                                                                        Email:</div>
-                                                                    <div class="col-7 text-light text-[10px] font-semibold"
-                                                                        id="supplier-email"></div>
+                                                            <!-- Contact Info -->
+                                                            <div class="row mb-2">
+                                                                <div
+                                                                    class="col-5 text-xs font-bold text-primarydark text-uppercase">
+                                                                    Nama:</div>
+                                                                <div class="col-7 text-light" x-text="contactName"></div>
+                                                            </div>
+                                                            <div class="row mb-2">
+                                                                <div
+                                                                    class="col-5 text-xs font-bold text-primarydark text-uppercase">
+                                                                    Divisi:</div>
+                                                                <div class="col-7 text-light" x-text="contactPosition">
                                                                 </div>
                                                             </div>
+                                                            <div class="row mb-2 pb-1 border-bottom border-primarydark">
+                                                                <div
+                                                                    class="col-5 text-xs font-bold text-primarydark text-uppercase">
+                                                                    Telepon:</div>
+                                                                <div class="col-7 text-light text-sm font-semibold"
+                                                                    x-text="contactPhone"></div>
+                                                            </div>
+
+                                                            <!-- Supplier Info -->
+                                                            <div class="row mt-2">
+                                                                <div
+                                                                    class="col-5 text-xs font-bold text-primarydark text-uppercase">
+                                                                    Supplier:</div>
+                                                                <div class="col-7 text-light font-bold uppercase"
+                                                                    x-text="supplierName"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div
+                                                                    class="col-5 text-xs font-bold text-primarydark text-uppercase">
+                                                                    Alamat:</div>
+                                                                <div class="col-7 text-light text-[10px] font-semibold"
+                                                                    x-text="supplierAddress"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div
+                                                                    class="col-5 text-xs font-bold text-primarydark text-uppercase">
+                                                                    Email:</div>
+                                                                <div class="col-7 text-light text-[10px] font-semibold"
+                                                                    x-text="supplierEmail"></div>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
+
+
                                         </div>
 
                                     </div>
@@ -229,7 +234,8 @@
                                                                 <tr>
                                                                     <td class="danger">Discount (<span
                                                                             id="discount-value">0</span>%)</td>
-                                                                    <td class="danger text-end" id="discount">0,00</td>
+                                                                    <td class="danger text-end" id="discount">0,00
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Total</td>
@@ -257,7 +263,8 @@
                                                                             @foreach ($paymentMethods as $paymentMethod)
                                                                                 <option value="{{ $paymentMethod['id'] }}"
                                                                                     data-method="{{ $paymentMethod['method'] }}">
-                                                                                    {{ $paymentMethod['name'] }}</option>
+                                                                                    {{ $paymentMethod['name'] }}
+                                                                                </option>
                                                                             @endforeach
                                                                         </select>
                                                                     </div>
@@ -306,14 +313,16 @@
                                                                                 id="account_number" name="account_number">
                                                                         </div>
                                                                         <div class="mb-3 input-blocks">
-                                                                            <label class="form-label">Account Name</label>
+                                                                            <label class="form-label">Account
+                                                                                Name</label>
                                                                             <input type="text" class="form-control"
                                                                                 id="account_name" name="account_name">
                                                                         </div>
                                                                     </div>
                                                                     <div id="div-credit">
                                                                         <div class="mb-3 input-blocks">
-                                                                            <label class="form-label">Card Number</label>
+                                                                            <label class="form-label">Card
+                                                                                Number</label>
                                                                             <input type="text" class="form-control"
                                                                                 id="card_number" name="card_number">
                                                                         </div>
@@ -348,7 +357,8 @@
                                                                             class="input-blocks summer-description-box transfer mb-3">
                                                                             <label>Notes</label>
                                                                             <textarea name="description" class="form-control h-100" rows="5" maxlength="300"></textarea>
-                                                                            <p class="mt-1">Maximum 300 Characters</p>
+                                                                            <p class="mt-1">Maximum 300 Characters
+                                                                            </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -481,12 +491,18 @@
     const apiSubcategoryUrl = 'subcategory';
     document.addEventListener('alpine:init', () => {
         Alpine.data('orderData', () => ({
-            suppliers: [], // Initially empty, will be populated via fetchSuppliers
+            suppliers: [],
             contacts: [],
-            paymentMethods: @json($paymentMethods), // Passed from backend
+            paymentMethods: @json($paymentMethods),
             orderItems: [],
             supplierId: '',
             contactId: '',
+            contactName: '-',
+            contactPosition: '-',
+            contactPhone: '-',
+            supplierName: '-',
+            supplierAddress: '-',
+            supplierEmail: '-',
             paymentMethod: 'cash',
             paymentAmount: 0,
             paymentChange: 0,
@@ -495,13 +511,14 @@
                 discountAmount: 0,
                 total: 0,
             },
-            transactionId: `ORD-{{ now()->format('Ymd') }}-0001`, // Auto-generated transaction ID
+            transactionId: `ORD-{{ now()->format('Ymd') }}-0001`,
             brands: [],
             categories: [],
             subcategories: [],
             brandId: '',
             categoryId: '',
             subcategoryId: '',
+            loadingContacts: false,
             async fetchBrands() {
                 try {
                     const data = await window.apiFetch({
@@ -514,13 +531,106 @@
             },
             async fetchSuppliers() {
                 try {
-                    const data = await window.apiFetch({
-                        endpoint: apiSupplierUrl
-                    });
+                    const res = await fetch('/api/supplier/all');
+                    const data = await res.json();
                     this.suppliers = data.data || [];
-                } catch (error) {
-                    console.error("Error fetching suppliers:", error);
+
+                    this.$nextTick(() => {
+                        const select = this.$refs.supplier;
+
+                        // Tambahkan "All Suppliers"
+                        const options = [{
+                            id: '',
+                            text: 'All Suppliers'
+                        }].concat(
+                            this.suppliers.map(s => ({
+                                id: s.uuid,
+                                text: s.name
+                            }))
+                        );
+
+                        $(select).empty();
+                        options.forEach(opt => {
+                            const option = document.createElement('option');
+                            option.value = opt.id;
+                            option.textContent = opt.text;
+                            select.appendChild(option);
+                        });
+
+                        $(select).select2({
+                            dropdownParent: $(select).closest('.page-wrapper'),
+                            placeholder: 'Silakan pilih',
+                            allowClear: true
+                        });
+
+                        $(select).on('change', e => {
+                            this.supplierId = e.target.value;
+                            this.fetchContacts();
+                            this.updateSupplierInfo();
+                        });
+                    });
+                } catch (err) {
+                    console.error('Error fetching suppliers:', err);
                 }
+            },
+            async fetchContacts() {
+                if (!this.supplierId) {
+                    this.contacts = [];
+                    this.contactId = '';
+                    this.updateContactInfo();
+                    return;
+                }
+
+                this.loadingContacts = true;
+                try {
+                    const res = await fetch(`/api/contact/${this.supplierId}`);
+                    const data = await res.json();
+                    this.contacts = data.data || [];
+
+                    if (this.contacts.length > 0) {
+                        this.contactId = this.contacts[0].uuid;
+                    } else {
+                        this.contactId = '';
+                    }
+
+                    const select = this.$refs.contact;
+                    $(select).empty();
+                    this.contacts.forEach(c => {
+                        const option = document.createElement('option');
+                        option.value = c.uuid;
+                        option.textContent = c.name;
+                        select.appendChild(option);
+                    });
+
+                    $(select).select2({
+                        placeholder: 'Select Contact',
+                        allowClear: true
+                    });
+                    $(select).val(this.contactId).trigger('change');
+
+                    this.updateContactInfo();
+
+                } catch (err) {
+                    console.error(err);
+                    this.contacts = [];
+                    this.contactId = '';
+                } finally {
+                    this.loadingContacts = false;
+                }
+            },
+
+            updateContactInfo() {
+                const contact = this.contacts.find(c => c.uuid === this.contactId) || {};
+                this.contactName = contact.name || '-';
+                this.contactPosition = contact.position || '-';
+                this.contactPhone = contact.phone || '-';
+            },
+
+            updateSupplierInfo() {
+                const supplier = this.suppliers.find(s => s.uuid === this.supplierId) || {};
+                this.supplierName = supplier.name || '-';
+                this.supplierAddress = supplier.address || '-';
+                this.supplierEmail = supplier.email || '-';
             },
             async fetchCategories() {
                 try {
@@ -542,16 +652,18 @@
                     console.error("Error fetching subcategories:", error);
                 }
             },
-
-            async fetchContacts() {
-                if (this.supplierId) {
-                    const data = await window.fetchContacts(this
-                        .supplierId); // Fetch contacts based on selected supplier
-                    this.contacts = data || [];
-                }
+            updateSupplierInfo() {
+                const supplier = this.suppliers.find(s => s.uuid === this.supplierId) || {};
+                this.supplierName = supplier.name || '-';
+                this.supplierAddress = supplier.address || '-';
+                this.supplierEmail = supplier.email || '-';
             },
-
-            // Recalculate the order totals
+            updateContactInfo() {
+                const contact = this.contacts.find(c => c.uuid === this.contactId) || {};
+                this.contactName = contact.name || '-';
+                this.contactPosition = contact.position || '-';
+                this.contactPhone = contact.phone || '-';
+            },
             recalculateTotal() {
                 const subtotal = this.orderItems.reduce((acc, item) => acc + (item.qty * item
                     .sell_price), 0);
@@ -566,7 +678,6 @@
                 this.updateChange();
             },
 
-            // Format number as currency (IDR)
             formatCurrency(amount) {
                 return new Intl.NumberFormat('id-ID', {
                     style: 'currency',
@@ -574,7 +685,6 @@
                 }).format(amount);
             },
 
-            // Add item to the order (or increase quantity if already in the order)
             addItem(item) {
                 const existing = this.orderItems.find(i => i.sku === item.sku);
                 if (existing) {
@@ -608,100 +718,14 @@
                 this.paymentAmount = 0;
                 this.recalculateTotal();
             },
-
-            // Update the change amount based on the payment
             updateChange() {
-                this.paymentChange = this.paymentAmount >= this.totals.total ? this.paymentAmount -
+                this.paymentChange = this.paymentAmount >= this.totals.total ? this
+                    .paymentAmount -
                     this.totals.total : 0;
-            },
-
-            // Initialize the data when Alpine component is created
-            async fetchContacts() {
-                if (!this.supplierId) {
-                    this.contacts = [];
-                    this.updateContactSelect([]);
-                    this.updateContactInfo();
-                    return;
-                }
-
-                try {
-                    // Ganti dengan endpoint API Anda
-                    const response = await fetch(`/api/contact/${this.supplierId}`);
-                    const data = await response.json();
-                    this.contacts = data.data || data || [];
-                    this.updateContactSelect(this.contacts);
-                    this.updateContactInfo();
-                } catch (error) {
-                    console.error('Error fetching contacts:', error);
-                    this.contacts = [];
-                    this.updateContactSelect([]);
-                }
-            },
-            updateContactInfo() {
-                // Cek apakah ada supplier yang dipilih
-                if (this.supplierId) {
-                    // Lakukan fetch atau panggil API untuk mengambil kontak berdasarkan supplierId
-                    fetch(`/api/contacts?supplierId=${this.supplierId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            this.contacts = data.contacts;
-                            this.contactId = ''; // Reset pilihan kontak
-                        })
-                        .catch(error => {
-                            console.error('Error fetching contacts:', error);
-                            this.contacts = []; // Kosongkan kontak jika gagal
-                        });
-                } else {
-                    // Jika tidak ada supplier yang dipilih, kosongkan kontak
-                    this.contacts = [];
-                }
-            },
-            updateContactSelect(contacts) {
-                const select = document.getElementById('contact-select');
-                select.innerHTML = '';
-
-                if (contacts.length === 0) {
-                    select.innerHTML = '<option value="">No contacts available</option>';
-                    return;
-                }
-
-                contacts.forEach(contact => {
-                    const option = document.createElement('option');
-                    option.value = contact.uuid || contact.id;
-                    option.textContent = contact.name ||
-                        `${contact.first_name} ${contact.last_name}`;
-                    select.appendChild(option);
-                });
-
-                // Re-init Select2 jika digunakan
-                if (typeof $.fn.select2 !== 'undefined') {
-                    $(select).select2('destroy').select2();
-                }
-            },
-
-            // ✅ Update Contact & Supplier info card
-            updateContactInfo() {
-                // Update Contact Info
-                const selectedContact = this.contacts.find(c => c.uuid === this.contactId);
-                document.getElementById('contact-name').textContent =
-                    selectedContact?.name || selectedContact?.first_name + ' ' + selectedContact
-                    ?.last_name || 'N/A';
-                document.getElementById('contact-position').textContent = selectedContact
-                    ?.position || 'N/A';
-                document.getElementById('contact-phone').textContent = selectedContact?.phone ||
-                    'N/A';
-
-                // Update Supplier Info
-                const selectedSupplier = this.suppliers.find(s => s.uuid === this.supplierId);
-                document.getElementById('supplier-name').textContent = selectedSupplier?.name ||
-                    'N/A';
-                document.getElementById('supplier-address').textContent = selectedSupplier
-                    ?.address || 'N/A';
-                document.getElementById('supplier-email').textContent = selectedSupplier?.email ||
-                    'N/A';
             },
             init() {
                 this.fetchSuppliers();
+                this.fetchContacts();
                 this.fetchBrands();
                 this.fetchCategories();
                 this.fetchSubcategories();

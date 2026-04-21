@@ -87,7 +87,6 @@ Route::middleware(['auth', LocalizationMiddleware::class])->prefix('admin')->gro
     });
     Route::prefix('contact')->group(function () {
         Route::get('/{supplierUuid}', [ContactService::class, 'get']);
-        Route::get('/{supplierUuid}', [ContactService::class, 'get']);
     });
     Route::prefix('sales')->group(function () {
         Route::get('/', [SalesController::class, 'index'])->name('sales-list');

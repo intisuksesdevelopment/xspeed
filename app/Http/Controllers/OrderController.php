@@ -28,14 +28,14 @@ class OrderController extends Controller
 
     public function addForm(Request $request)
     {
-        $data['suppliers'] = SupplierService::getActive($request);
-        $data['categories'] = CategoryService::getActive($request);
-        $data['subcategories'] = SubCategoryService::getActive($request);
-        $data['warehouses'] = WarehouseService::getActive($request);
-        $data['racks'] = RackService::getActive($request);
-        $data['brands'] = BrandService::getActive($request);
-        $data['units'] = UnitService::getActive($request);
-        $data['items'] = ItemService::getActive($request);
+        // $data['suppliers'] = SupplierService::getActive($request);
+        // $data['categories'] = CategoryService::getActive($request);
+        // $data['subcategories'] = SubCategoryService::getActive($request);
+        // $data['warehouses'] = WarehouseService::getActive($request);
+        // $data['racks'] = RackService::getActive($request);
+        // $data['brands'] = BrandService::getActive($request);
+        // $data['units'] = UnitService::getActive($request);
+        // $data['items'] = ItemService::getActive($request);
         $data['paymentMethods'] = PaymentService::getActive($request);
         $data['banks'] = BankService::getActive($request);
 

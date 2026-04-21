@@ -209,9 +209,7 @@
     <script src="{{ asset('/build/js/page/pos.js') }}"></script>
 @endif
 
-@if (Route::is(['order', 'order-add-form']))
-    <script src="{{ asset('/build/js/page/order.js') }}"></script>
-@endif
+
 
 <!-- Custom JS -->
 <script src="{{ asset('/build/js/theme-script.js') }}"></script>

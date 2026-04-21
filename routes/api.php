@@ -25,10 +25,19 @@ Route::prefix('/brand')->group(function () {
 Route::prefix('/category')->group(function () {
     Route::get('/all', [ApiController::class, 'getCategories'])->name('api-category-all');
 });
+Route::prefix('/subcategory')->group(function () {
+    Route::get('/{categoryId}', [ApiController::class, 'getSubcategories'])->name('api-subcategory-all');
+});
+Route::prefix('/supplier')->group(function () {
+    Route::get('/all', [ApiController::class, 'getSuppliers'])->name('api-supplier-all');
+});
+
 Route::prefix('/warehouse')->group(function () {
     Route::get('/all', [ApiController::class, 'getWarehouses'])->name('api-warehouse-all');
 });
 Route::prefix('/contact')->group(function () {
+    
+    Route::get('/{supplierUuid}', [ApiController::class, 'getContactBySupplier'])->name('api-contact-supplier');
     Route::get('/detail/{uuid}', [ApiController::class, 'getContacts'])->name('api-contact-detail');
 });
 // });

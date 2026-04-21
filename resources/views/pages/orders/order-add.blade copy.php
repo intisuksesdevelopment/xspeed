@@ -1,7 +1,7 @@
 <?php $page = 'order-add'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
-    <div x-data="orderData()" class="page-wrapper">
+    <div class="page-wrapper">
         <div class="content">
             @component('pages.components.breadcrumb')
                 @slot('title')
@@ -50,22 +50,21 @@
                                             <div class="col-lg-4 col-sm-6 col-12">
                                                 <div class="mb-3 add-product">
                                                     <label class="form-label">Supplier</label>
-                                                    <select x-model="supplierId" class="select2 form-control"
-                                                        @change="updateContactInfo()" id="supplier-select"
+                                                    <select class="select2 form-control" id="supplier-select"
                                                         name="supplier_id">
-                                                        <option value="" disabled selected>Silakan pilih</option>
-                                                        <template x-for="supplier in suppliers" :key="supplier.uuid">
-                                                            <option :value="supplier.uuid" x-text="supplier.name"></option>
-                                                        </template>
+                                                        @foreach ($suppliers as $supplier)
+                                                            <option value="{{ $supplier['uuid'] }}"
+                                                                {{ $loop->first ? 'selected' : '' }}>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-sm-6 col-12">
                                                 <div class="mb-3 add-product">
                                                     <label class="form-label">Contact Sales</label>
-                                                    <select x-model="contactId" class="select2 form-control"
-                                                        id="contact-select" name="contact_id">
-                                                        <option value="">Loading contacts...</option>
+                                                    <select class="select2 form-control" id="contact-select"
+                                                        name="contact_id">
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -175,7 +174,7 @@
                                                     <div class="col-lg-12 col-sm-6 col-12">
                                                         <div id="order-list">
                                                             <div class="table-responsive product-list">
-                                                                {{-- <table class="table datanew  table-hover">
+                                                                <table class="table datanew  table-hover">
                                                                     <thead>
                                                                         <tr>
                                                                             <th class="no-sort">
@@ -202,7 +201,7 @@
                                                                     <tbody>
 
                                                                     </tbody>
-                                                                </table> --}}
+                                                                </table>
                                                             </div>
                                                         </div>
 
@@ -378,338 +377,12 @@
 
         </div>
     </div>
+    <script>
+        const encodedItems = "{{ base64_encode(json_encode($items)) }}";
+        const encodedBrands = "{{ base64_encode(json_encode($brands)) }}";
+        const encodedCategories = "{{ base64_encode(json_encode($categories)) }}";
+        const encodedSubcategories = "{{ base64_encode(json_encode($subcategories)) }}";
+        const encodedSuppliers = "{{ base64_encode(json_encode($suppliers)) }}";
+        const productCategoryRoute = @json(route('product-category', ['category_id' => 'CATEGORY_ID']));
+    </script>
 @endsection
-@if (Route::is(['order', 'order-add-form']))
-    <div class="modal fade" id="add-order-item" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content shadow-sm">
-
-                <!-- Header -->
-                <div class="modal-header">
-                    <h5 class="modal-title fw-semibold">Add Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <!-- Body -->
-                <div class="modal-body">
-
-                    <!-- Form -->
-                    <form id="form-add-order">
-
-                        <!-- Product Name -->
-                        <div class="mb-3">
-                            <label class="form-label">Product Name</label>
-                            <input type="text" class="form-control" placeholder="Search or input product...">
-                        </div>
-
-                        <!-- Filters -->
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-4">
-                                <label class="form-label">Brand</label>
-                                <select class="form-select" id="brand-list"></select>
-                                <select x-model="brandId" class="select2 form-control" id="brand-select"
-                                    name="brand_id">
-                                    <template x-for="brand in brands" :key="brand.uuid">
-                                        <option :value="brand.uuid" x-text="brand.name"></option>
-                                    </template>
-                                </select>
-                            </div>
-                            {{-- <div class="col-md-4">
-                                <label class="form-label">Category</label>
-                                <select x-model="categoryId" class="select2 form-control" id="category-select"
-                                    name="category_id">
-                                    <template x-for="category in categories" :key="category.uuid">
-                                        <option :value="category.uuid" x-text="category.name"></option>
-                                    </template>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Sub Category</label>
-                                <select x-model="subcategoryId" class="select2 form-control" id="subcategory-select"
-                                    name="subcategory_id">
-                                    <template x-for="subcategory in subcategories" :key="subcategory.uuid">
-                                        <option :value="subcategory.uuid" x-text="subcategory.name"></option>
-                                    </template>
-                            </div> --}}
-                        </div>
-
-                        <!-- Table -->
-                        <div class="table-responsive border rounded">
-                            {{-- <table class="table table-hover align-middle mb-0" id="item-list">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th class="text-center" style="width:40px;">
-                                            <input type="checkbox" id="select-all-product" class="form-check-input">
-                                        </th>
-                                        <th>Product</th>
-                                        <th>SKU</th>
-                                        <th class="text-center">Qty</th>
-                                        <th class="text-center">Currency</th>
-                                        <th class="text-end">Sell Price</th>
-                                        <th class="text-end">Total Cost</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table> --}}
-                        </div>
-
-                    </form>
-                </div>
-
-                <!-- Footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                        Cancel
-                    </button>
-                    <button type="submit" form="form-add-order" class="btn btn-primary">
-                        Submit
-                    </button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <!-- /add popup -->
-@endif
-<!-- Di head atau sebelum closing body -->
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<script src="{{ asset('/build/js/page/order.js') }}"></script>
-<script>
-    const apiBrandUrl = 'brand/all';
-    const apiCategoryUrl = 'category/all';
-    const apiSupplierUrl = 'supplier/all';
-    const apiSubcategoryUrl = 'subcategory';
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('orderData', () => ({
-            suppliers: [], // Initially empty, will be populated via fetchSuppliers
-            contacts: [],
-            paymentMethods: @json($paymentMethods), // Passed from backend
-            orderItems: [],
-            supplierId: '',
-            contactId: '',
-            paymentMethod: 'cash',
-            paymentAmount: 0,
-            paymentChange: 0,
-            totals: {
-                subtotal: 0,
-                discountAmount: 0,
-                total: 0,
-            },
-            transactionId: `ORD-{{ now()->format('Ymd') }}-0001`, // Auto-generated transaction ID
-            brands: [],
-            categories: [],
-            subcategories: [],
-            brandId: '',
-            categoryId: '',
-            subcategoryId: '',
-            async fetchBrands() {
-                try {
-                    const data = await window.apiFetch({
-                        endpoint: apiBrandUrl
-                    });
-                    this.brands = data.data || [];
-                } catch (error) {
-                    console.error("Error fetching brands:", error);
-                }
-            },
-            async fetchSuppliers() {
-                try {
-                    const data = await window.apiFetch({
-                        endpoint: apiSupplierUrl
-                    });
-                    this.suppliers = data.data || [];
-                } catch (error) {
-                    console.error("Error fetching suppliers:", error);
-                }
-            },
-            async fetchCategories() {
-                try {
-                    const data = await window.apiFetch({
-                        endpoint: apiCategoryUrl
-                    });
-                    this.categories = data.data || [];
-                } catch (error) {
-                    console.error("Error fetching categories:", error);
-                }
-            },
-            async fetchSubcategories(categoryId) {
-                try {
-                    const data = await window.apiFetch({
-                        endpoint: `${apiSubcategoryUrl}/${categoryId}`
-                    });
-                    this.subcategories = data.data || [];
-                } catch (error) {
-                    console.error("Error fetching subcategories:", error);
-                }
-            },
-
-            async fetchContacts() {
-                if (this.supplierId) {
-                    const data = await window.fetchContacts(this
-                        .supplierId); // Fetch contacts based on selected supplier
-                    this.contacts = data || [];
-                }
-            },
-
-            // Recalculate the order totals
-            recalculateTotal() {
-                const subtotal = this.orderItems.reduce((acc, item) => acc + (item.qty * item
-                    .sell_price), 0);
-                const discountAmount = subtotal * 0.1; // Example: 10% discount
-                const total = subtotal - discountAmount;
-
-                this.totals = {
-                    subtotal,
-                    discountAmount,
-                    total
-                };
-                this.updateChange();
-            },
-
-            // Format number as currency (IDR)
-            formatCurrency(amount) {
-                return new Intl.NumberFormat('id-ID', {
-                    style: 'currency',
-                    currency: 'IDR'
-                }).format(amount);
-            },
-
-            // Add item to the order (or increase quantity if already in the order)
-            addItem(item) {
-                const existing = this.orderItems.find(i => i.sku === item.sku);
-                if (existing) {
-                    existing.qty++;
-                } else {
-                    this.orderItems.push({
-                        ...item,
-                        qty: 1
-                    });
-                }
-                this.recalculateTotal();
-            },
-
-            // Remove item from the order
-            removeItem(sku) {
-                this.orderItems = this.orderItems.filter(item => item.sku !== sku);
-                this.recalculateTotal();
-            },
-
-            // Select/Deselect all items
-            selectAllItems() {
-                const isSelected = document.getElementById("select-all").checked;
-                this.orderItems.forEach(item => item.selected = isSelected);
-            },
-
-            // Reset order form (clear all items, payment, supplier, etc.)
-            cancelOrder() {
-                this.orderItems = [];
-                this.supplierId = '';
-                this.contactId = '';
-                this.paymentAmount = 0;
-                this.recalculateTotal();
-            },
-
-            // Update the change amount based on the payment
-            updateChange() {
-                this.paymentChange = this.paymentAmount >= this.totals.total ? this.paymentAmount -
-                    this.totals.total : 0;
-            },
-
-            // Initialize the data when Alpine component is created
-            async fetchContacts() {
-                if (!this.supplierId) {
-                    this.contacts = [];
-                    this.updateContactSelect([]);
-                    this.updateContactInfo();
-                    return;
-                }
-
-                try {
-                    // Ganti dengan endpoint API Anda
-                    const response = await fetch(`/api/contact/${this.supplierId}`);
-                    const data = await response.json();
-                    this.contacts = data.data || data || [];
-                    this.updateContactSelect(this.contacts);
-                    this.updateContactInfo();
-                } catch (error) {
-                    console.error('Error fetching contacts:', error);
-                    this.contacts = [];
-                    this.updateContactSelect([]);
-                }
-            },
-            updateContactInfo() {
-                // Cek apakah ada supplier yang dipilih
-                if (this.supplierId) {
-                    // Lakukan fetch atau panggil API untuk mengambil kontak berdasarkan supplierId
-                    fetch(`/api/contacts?supplierId=${this.supplierId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            this.contacts = data.contacts;
-                            this.contactId = ''; // Reset pilihan kontak
-                        })
-                        .catch(error => {
-                            console.error('Error fetching contacts:', error);
-                            this.contacts = []; // Kosongkan kontak jika gagal
-                        });
-                } else {
-                    // Jika tidak ada supplier yang dipilih, kosongkan kontak
-                    this.contacts = [];
-                }
-            },
-            updateContactSelect(contacts) {
-                const select = document.getElementById('contact-select');
-                select.innerHTML = '';
-
-                if (contacts.length === 0) {
-                    select.innerHTML = '<option value="">No contacts available</option>';
-                    return;
-                }
-
-                contacts.forEach(contact => {
-                    const option = document.createElement('option');
-                    option.value = contact.uuid || contact.id;
-                    option.textContent = contact.name ||
-                        `${contact.first_name} ${contact.last_name}`;
-                    select.appendChild(option);
-                });
-
-                // Re-init Select2 jika digunakan
-                if (typeof $.fn.select2 !== 'undefined') {
-                    $(select).select2('destroy').select2();
-                }
-            },
-
-            // ✅ Update Contact & Supplier info card
-            updateContactInfo() {
-                // Update Contact Info
-                const selectedContact = this.contacts.find(c => c.uuid === this.contactId);
-                document.getElementById('contact-name').textContent =
-                    selectedContact?.name || selectedContact?.first_name + ' ' + selectedContact
-                    ?.last_name || 'N/A';
-                document.getElementById('contact-position').textContent = selectedContact
-                    ?.position || 'N/A';
-                document.getElementById('contact-phone').textContent = selectedContact?.phone ||
-                    'N/A';
-
-                // Update Supplier Info
-                const selectedSupplier = this.suppliers.find(s => s.uuid === this.supplierId);
-                document.getElementById('supplier-name').textContent = selectedSupplier?.name ||
-                    'N/A';
-                document.getElementById('supplier-address').textContent = selectedSupplier
-                    ?.address || 'N/A';
-                document.getElementById('supplier-email').textContent = selectedSupplier?.email ||
-                    'N/A';
-            },
-            init() {
-                this.fetchSuppliers();
-                this.fetchBrands();
-                this.fetchCategories();
-                this.fetchSubcategories();
-                generateTransactionID("ORD"); // Tambahkan
-                document.getElementById('transaction-id').textContent = this.transactionId;
-                document.getElementById('trx_id').value = this.transactionId;
-            }
-
-        }));
-    });
-</script>

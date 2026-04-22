@@ -199,6 +199,152 @@
                                                     <div class="col-lg-12 col-sm-6 col-12">
                                                         <div id="order-list">
                                                             <div class="table-responsive product-list">
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+
+                                                                        <!-- 🔍 SEARCH PRODUCT -->
+                                                                        <div class="mb-3 position-relative">
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder="Search product by name / SKU..."
+                                                                                x-model="search"
+                                                                                @input.debounce.400ms="searchProducts()">
+
+                                                                            <!-- LOADING -->
+                                                                            <div x-show="loadingProducts"
+                                                                                class="mt-1 text-primary">
+                                                                                <small>Loading products...</small>
+                                                                            </div>
+
+                                                                            <!-- RESULT DROPDOWN -->
+                                                                            <div class="list-group position-absolute w-100 shadow z-3"
+                                                                                x-show="searchResults.length > 0"
+                                                                                style="max-height: 300px; overflow-y: auto;">
+
+                                                                                <template x-for="product in searchResults"
+                                                                                    :key="product.id">
+                                                                                    <button type="button"
+                                                                                        class="list-group-item list-group-item-action"
+                                                                                        @click="selectProduct(product)">
+
+                                                                                        <div
+                                                                                            class="d-flex justify-content-between">
+                                                                                            <strong
+                                                                                                x-text="product.name"></strong>
+                                                                                            <small
+                                                                                                x-text="product.sku"></small>
+                                                                                        </div>
+
+                                                                                        <div class="text-muted small">
+                                                                                            Price:
+                                                                                            <span
+                                                                                                x-text="formatCurrency(product.sell_price)"></span>
+                                                                                        </div>
+                                                                                    </button>
+                                                                                </template>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <!-- 📋 TABLE -->
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-hover align-middle">
+                                                                                <thead class="table-light">
+                                                                                    <tr>
+                                                                                        <th>Product</th>
+                                                                                        <th>SKU</th>
+                                                                                        <th>Price</th>
+                                                                                        <th width="120">Qty</th>
+                                                                                        <th>Total</th>
+                                                                                        <th width="100">Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+
+                                                                                <tbody>
+                                                                                    <template x-for="item in orderItems"
+                                                                                        :key="item.sku">
+                                                                                        <tr>
+                                                                                            <!-- PRODUCT -->
+                                                                                            <td x-text="item.name"></td>
+
+                                                                                            <!-- SKU -->
+                                                                                            <td x-text="item.sku"></td>
+
+                                                                                            <!-- PRICE -->
+                                                                                            <td
+                                                                                                x-text="formatCurrency(item.sell_price)">
+                                                                                            </td>
+
+                                                                                            <!-- QTY -->
+                                                                                            <td>
+                                                                                                <input type="number"
+                                                                                                    class="form-control"
+                                                                                                    min="1"
+                                                                                                    x-model.number="item.qty"
+                                                                                                    @input="recalculateTotal()">
+                                                                                            </td>
+
+                                                                                            <!-- TOTAL -->
+                                                                                            <td
+                                                                                                x-text="formatCurrency(item.qty * item.sell_price)">
+                                                                                            </td>
+
+                                                                                            <!-- ACTION -->
+                                                                                            <td>
+                                                                                                <button
+                                                                                                    class="btn btn-danger btn-sm"
+                                                                                                    @click="removeItem(item.sku)">
+                                                                                                    Delete
+                                                                                                </button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </template>
+
+                                                                                    <!-- EMPTY STATE -->
+                                                                                    <tr x-show="orderItems.length === 0">
+                                                                                        <td colspan="6"
+                                                                                            class="text-center text-muted">
+                                                                                            No products added
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+
+                                                                        <!-- 💰 SUMMARY -->
+                                                                        <div class="row mt-3">
+                                                                            <div class="col-lg-6"></div>
+
+                                                                            <div class="col-lg-6">
+                                                                                <div class="border rounded p-3 bg-light">
+                                                                                    <div
+                                                                                        class="d-flex justify-content-between">
+                                                                                        <span>Subtotal</span>
+                                                                                        <strong
+                                                                                            x-text="formatCurrency(totals.subtotal)"></strong>
+                                                                                    </div>
+
+                                                                                    <div
+                                                                                        class="d-flex justify-content-between">
+                                                                                        <span>Discount (10%)</span>
+                                                                                        <strong
+                                                                                            x-text="formatCurrency(totals.discountAmount)"></strong>
+                                                                                    </div>
+
+                                                                                    <hr>
+
+                                                                                    <div
+                                                                                        class="d-flex justify-content-between">
+                                                                                        <span>Total</span>
+                                                                                        <strong class="text-primary"
+                                                                                            x-text="formatCurrency(totals.total)">
+                                                                                        </strong>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
                                                                 {{-- <table class="table datanew  table-hover">
                                                                     <thead>
                                                                         <tr>
@@ -464,7 +610,7 @@
 
                         <!-- Table -->
                         <div class="table-responsive border rounded">
-                            {{-- <table class="table table-hover align-middle mb-0" id="item-list">
+                            <table class="table table-hover align-middle mb-0" id="item-list">
                                 <thead class="table-light">
                                     <tr>
                                         <th class="text-center" style="width:40px;">
@@ -479,7 +625,7 @@
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
-                            </table> --}}
+                            </table>
                         </div>
 
                     </form>
@@ -509,6 +655,7 @@
     const apiSupplierUrl = 'supplier/all';
     const apiSubcategoryUrl = 'subcategory';
     const apiContactUrl = 'contact/';
+    const apiProductUrl = 'product/';
     document.addEventListener('alpine:init', () => {
         Alpine.data('orderData', () => ({
             suppliers: [],
@@ -536,9 +683,14 @@
             categories: [],
             subcategories: [],
             brandId: '',
+
             categoryId: '',
             subcategoryId: '',
             loadingContacts: false,
+
+            search: '',
+            searchResults: [],
+            loadingProducts: false,
             async fetchBrands() {
                 try {
                     const data = await window.apiFetch({
@@ -638,7 +790,25 @@
                     });
                 });
             },
+            async searchProducts() {
+                if (!this.search) {
+                    this.searchResults = [];
+                    return;
+                }
 
+                this.loadingProducts = true;
+                try {
+                    const data = await window.apiFetch({
+                        endpoint: `${apiProductUrl}/search?keyword=${this.search}`
+                    });
+
+                    this.searchResults = data.data || [];
+                } catch (err) {
+                    console.error("Error search product:", err);
+                } finally {
+                    this.loadingProducts = false;
+                }
+            },
             updateContactInfo() {
                 const contact = this.contacts.find(c => c.uuid === this.contactId) || {};
                 this.contactName = contact.name || '-';

@@ -1,7 +1,7 @@
 <?php $page = 'order-add'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
-    <div x-data="orderData()" class="page-wrapper">
+    <div x-data="orderData()" @contact-selected.window="handleContact($event.detail)" class="page-wrapper">
         <div class="content">
             @component('pages.components.breadcrumb')
                 @slot('title')
@@ -61,17 +61,36 @@
                                             <div class="col-lg-4 col-md-4 col-sm-12">
                                                 <div class="mb-3 add-product">
                                                     <label class="form-label">Contact</label>
+                                                    <div x-data="dropdownContact()"
+                                                        @contacts-updated.window="contacts = $event.detail"
+                                                        class="position-relative">
 
-                                                    <!-- Loading spinner -->
-                                                    <div x-show="loadingContacts" x-cloak class="d-flex align-items-center">
-                                                        <div class="spinner-border spinner-border-sm text-primary me-2">
+                                                        <!-- Trigger (seperti select) -->
+                                                        <div @click="toggle"
+                                                            class="form-control d-flex justify-content-between align-items-center"
+                                                            style="cursor:pointer">
+
+                                                            <span x-text="selectedName || 'Pilih Contact'"></span>
+                                                            <span>▼</span>
                                                         </div>
-                                                        Loading contacts...
-                                                    </div>
 
-                                                    <!-- Contact dropdown -->
-                                                    <select x-ref="contact" x-model="contactId" class="form-control"
-                                                        x-show="!loadingContacts" x-cloak></select>
+                                                        <!-- Dropdown -->
+                                                        <div x-show="open" @click.outside="open = false"
+                                                            class="border bg-white position-absolute w-100 mt-1"
+                                                            style="z-index:999; max-height:200px; overflow-y:auto; left:0; right:0;">
+
+                                                            <template x-for="contact in contacts" :key="contact.uuid">
+                                                                <div @click="select(contact)" class="p-2 hover-bg"
+                                                                    style="cursor:pointer">
+                                                                    <span x-text="contact.name"></span>
+                                                                </div>
+                                                            </template>
+
+                                                            <div x-show="contacts.length === 0" class="p-2 text-muted">
+                                                                Tidak ada contact
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -489,6 +508,7 @@
     const apiCategoryUrl = 'category/all';
     const apiSupplierUrl = 'supplier/all';
     const apiSubcategoryUrl = 'subcategory';
+    const apiContactUrl = 'contact/';
     document.addEventListener('alpine:init', () => {
         Alpine.data('orderData', () => ({
             suppliers: [],
@@ -531,8 +551,9 @@
             },
             async fetchSuppliers() {
                 try {
-                    const res = await fetch('/api/supplier/all');
-                    const data = await res.json();
+                    const data = await window.apiFetch({
+                        endpoint: apiSupplierUrl
+                    });
                     this.suppliers = data.data || [];
 
                     this.$nextTick(() => {
@@ -578,23 +599,25 @@
                     this.contacts = [];
                     this.contactId = '';
                     this.updateContactInfo();
+                    this.loadingContacts = false;
                     return;
                 }
-
                 this.loadingContacts = true;
-                try {
-                    const res = await fetch(`/api/contact/${this.supplierId}`);
-                    const data = await res.json();
-                    this.contacts = data.data || [];
+                const data = await window.apiFetch({
+                    endpoint: apiContactUrl + this.supplierId
+                });
+                this.contacts = data.data || [];
+                this.$dispatch('contacts-updated', this.contacts);
+                this.$nextTick(() => {
+                    const select = this.$refs.contact;
 
-                    if (this.contacts.length > 0) {
-                        this.contactId = this.contacts[0].uuid;
-                    } else {
-                        this.contactId = '';
+                    if (!select) {
+                        console.warn('Select belum ready');
+                        return;
                     }
 
-                    const select = this.$refs.contact;
                     $(select).empty();
+
                     this.contacts.forEach(c => {
                         const option = document.createElement('option');
                         option.value = c.uuid;
@@ -606,17 +629,14 @@
                         placeholder: 'Select Contact',
                         allowClear: true
                     });
+
                     $(select).val(this.contactId).trigger('change');
 
-                    this.updateContactInfo();
-
-                } catch (err) {
-                    console.error(err);
-                    this.contacts = [];
-                    this.contactId = '';
-                } finally {
-                    this.loadingContacts = false;
-                }
+                    $(select).on('change', e => {
+                        this.contactId = e.target.value;
+                        this.updateContactInfo();
+                    });
+                });
             },
 
             updateContactInfo() {
@@ -723,9 +743,38 @@
                     .paymentAmount -
                     this.totals.total : 0;
             },
+            dropdownContact() {
+                return {
+                    open: false,
+                    contacts: [],
+                    selected: null,
+                    selectedName: '',
+
+                    init() {
+                        this.contacts = this.$root.contacts || [];
+                    },
+
+                    toggle() {
+                        this.open = !this.open;
+                    },
+
+                    select(contact) {
+                        this.selected = contact;
+                        this.selectedName = contact.name;
+                        this.open = false;
+
+                        this.$dispatch('contact-selected', contact);
+                    }
+                }
+            },
+            handleContact(contact) {
+                this.contactId = contact.uuid;
+                this.contactName = contact.name;
+                this.contactPosition = contact.position;
+                this.contactPhone = contact.phone;
+            },
             init() {
                 this.fetchSuppliers();
-                this.fetchContacts();
                 this.fetchBrands();
                 this.fetchCategories();
                 this.fetchSubcategories();

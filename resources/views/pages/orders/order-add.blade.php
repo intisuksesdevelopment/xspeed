@@ -1,6 +1,12 @@
 <?php $page = 'order-add'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
+    <style>
+        .dropdown-menu {
+            z-index: 9999 !important;
+        }
+    </style>
+
     <div x-data="orderData()" @contact-selected.window="handleContact($event.detail)" class="page-wrapper">
         <div class="content">
             @component('pages.components.breadcrumb')
@@ -192,362 +198,139 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="tab-content" id="pills-tabContent">
-                                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                                                aria-labelledby="pills-home-tab">
-                                                <div class="row">
-                                                    <div class="col-lg-12 col-sm-6 col-12">
-                                                        <div id="order-list">
-                                                            <div class="table-responsive product-list">
-                                                                <div class="row">
-                                                                    <div class="col-lg-12">
+                                        <div class="table-responsive" style="overflow: visible;">
+                                            <!-- TABLE -->
 
-                                                                        <!-- 🔍 SEARCH PRODUCT -->
-                                                                        <div class="mb-3 position-relative">
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder="Search product by name / SKU..."
-                                                                                x-model="search"
-                                                                                @input.debounce.400ms="searchProducts()">
+                                            <table class="table table-hover align-middle">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th>Product</th>
+                                                        <th>SKU</th>
+                                                        <th>Price</th>
+                                                        <th width="100">Qty</th>
+                                                        <th>Total</th>
+                                                        <th width="80">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <template x-for="(item,index) in orderItems" :key="index">
+                                                        <tr>
+                                                            <!-- PRODUCT SEARCH -->
+                                                            <td class="position-relative">
 
-                                                                            <!-- LOADING -->
-                                                                            <div x-show="loadingProducts"
-                                                                                class="mt-1 text-primary">
-                                                                                <small>Loading products...</small>
+                                                                <!-- INPUT -->
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Search product..." x-model="item.search"
+                                                                    @input.debounce.300ms="searchProductsInRow(index)"
+                                                                    @focus="item.showDropdown = true"
+                                                                    @click.outside="item.showDropdown = false">
+
+                                                                <!-- DROPDOWN -->
+                                                                <div x-show="item.showDropdown && item.searchResults.length > 0"
+                                                                    x-cloak class="dropdown-menu show w-100"
+                                                                    style="  position: absolute;
+                                                                                top: 100%;
+                                                                                left: 0;
+                                                                                z-index: 99999;
+                                                                                max-height: 250px;
+                                                                                overflow-y: auto;
+                                                                            ">
+
+                                                                    <template x-for="(product, i) in item.searchResults"
+                                                                        :key="i">
+                                                                        <button type="button" class="dropdown-item"
+                                                                            @mousedown.prevent="selectProductInRow(index, product)">
+
+                                                                            <div class="d-flex justify-content-between">
+                                                                                <span x-text="product.name"></span>
+                                                                                <small x-text="product.sku"></small>
                                                                             </div>
 
-                                                                            <!-- RESULT DROPDOWN -->
-                                                                            <div class="list-group position-absolute w-100 shadow z-3"
-                                                                                x-show="searchResults.length > 0"
-                                                                                style="max-height: 300px; overflow-y: auto;">
+                                                                            <small class="text-muted"
+                                                                                x-text="formatCurrency(product.sell_price)">
+                                                                            </small>
+                                                                        </button>
+                                                                    </template>
 
-                                                                                <template x-for="product in searchResults"
-                                                                                    :key="product.id">
-                                                                                    <button type="button"
-                                                                                        class="list-group-item list-group-item-action"
-                                                                                        @click="selectProduct(product)">
-
-                                                                                        <div
-                                                                                            class="d-flex justify-content-between">
-                                                                                            <strong
-                                                                                                x-text="product.name"></strong>
-                                                                                            <small
-                                                                                                x-text="product.sku"></small>
-                                                                                        </div>
-
-                                                                                        <div class="text-muted small">
-                                                                                            Price:
-                                                                                            <span
-                                                                                                x-text="formatCurrency(product.sell_price)"></span>
-                                                                                        </div>
-                                                                                    </button>
-                                                                                </template>
-
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <!-- 📋 TABLE -->
-                                                                        <div class="table-responsive">
-                                                                            <table class="table table-hover align-middle">
-                                                                                <thead class="table-light">
-                                                                                    <tr>
-                                                                                        <th>Product</th>
-                                                                                        <th>SKU</th>
-                                                                                        <th>Price</th>
-                                                                                        <th width="120">Qty</th>
-                                                                                        <th>Total</th>
-                                                                                        <th width="100">Action</th>
-                                                                                    </tr>
-                                                                                </thead>
-
-                                                                                <tbody>
-                                                                                    <template x-for="item in orderItems"
-                                                                                        :key="item.sku">
-                                                                                        <tr>
-                                                                                            <!-- PRODUCT -->
-                                                                                            <td x-text="item.name"></td>
-
-                                                                                            <!-- SKU -->
-                                                                                            <td x-text="item.sku"></td>
-
-                                                                                            <!-- PRICE -->
-                                                                                            <td
-                                                                                                x-text="formatCurrency(item.sell_price)">
-                                                                                            </td>
-
-                                                                                            <!-- QTY -->
-                                                                                            <td>
-                                                                                                <input type="number"
-                                                                                                    class="form-control"
-                                                                                                    min="1"
-                                                                                                    x-model.number="item.qty"
-                                                                                                    @input="recalculateTotal()">
-                                                                                            </td>
-
-                                                                                            <!-- TOTAL -->
-                                                                                            <td
-                                                                                                x-text="formatCurrency(item.qty * item.sell_price)">
-                                                                                            </td>
-
-                                                                                            <!-- ACTION -->
-                                                                                            <td>
-                                                                                                <button
-                                                                                                    class="btn btn-danger btn-sm"
-                                                                                                    @click="removeItem(item.sku)">
-                                                                                                    Delete
-                                                                                                </button>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </template>
-
-                                                                                    <!-- EMPTY STATE -->
-                                                                                    <tr x-show="orderItems.length === 0">
-                                                                                        <td colspan="6"
-                                                                                            class="text-center text-muted">
-                                                                                            No products added
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-
-                                                                        <!-- 💰 SUMMARY -->
-                                                                        <div class="row mt-3">
-                                                                            <div class="col-lg-6"></div>
-
-                                                                            <div class="col-lg-6">
-                                                                                <div class="border rounded p-3 bg-light">
-                                                                                    <div
-                                                                                        class="d-flex justify-content-between">
-                                                                                        <span>Subtotal</span>
-                                                                                        <strong
-                                                                                            x-text="formatCurrency(totals.subtotal)"></strong>
-                                                                                    </div>
-
-                                                                                    <div
-                                                                                        class="d-flex justify-content-between">
-                                                                                        <span>Discount (10%)</span>
-                                                                                        <strong
-                                                                                            x-text="formatCurrency(totals.discountAmount)"></strong>
-                                                                                    </div>
-
-                                                                                    <hr>
-
-                                                                                    <div
-                                                                                        class="d-flex justify-content-between">
-                                                                                        <span>Total</span>
-                                                                                        <strong class="text-primary"
-                                                                                            x-text="formatCurrency(totals.total)">
-                                                                                        </strong>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
+                                                                    <!-- EMPTY -->
+                                                                    <div x-show="item.searchResults.length === 0"
+                                                                        class="dropdown-item text-muted">
+                                                                        No results
                                                                     </div>
                                                                 </div>
-                                                                {{-- <table class="table datanew  table-hover">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th class="no-sort">
-                                                                                <label class="checkboxs">
-                                                                                    <input type="checkbox"
-                                                                                        id="select-all">
-                                                                                    <span class="checkmarks"></span>
-                                                                                </label>
-                                                                            </th>
-                                                                            <th>Product</th>
-                                                                            <th>SKU</th>
-                                                                            <th>Category</th>
-                                                                            <th>Brand</th>
-                                                                            <th>Sell Price</th>
-                                                                            <th>Unit</th>
-                                                                            <th>Stock</th>
-                                                                            <th>Order</th>
-                                                                            <th>Total</th>
-                                                                            <th>Created by</th>
-                                                                            <th>Status</th>
-                                                                            <th class="no-sort">Action</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
 
-                                                                    </tbody>
-                                                                </table> --}}
-                                                            </div>
-                                                        </div>
+                                                            </td>
+                                                            <!-- SKU -->
+                                                            <td x-text="item.sku||'-'"></td>
 
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-8 col-sm-6 col-12">
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-6 col-12">
-                                                        <div class="order-total">
-                                                            <table class="table table-responsive table-borderless">
-                                                                <tr>
-                                                                    <td>Sub Total</td>
-                                                                    <td class="text-end" id="subtotal">0,00</td>
-                                                                </tr>
-                                                                {{-- <tr>
-                                                                <td>Tax (<span id="tax-value">10</span>%)</td>
-                                                                <td class="text-end" id="tax">0,00</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Shipping</td>
-                                                                <td class="text-end" id="shipping">0,00</td>
-                                                            </tr> --}}
-                                                                <tr>
-                                                                    <td class="danger">Discount (<span
-                                                                            id="discount-value">0</span>%)</td>
-                                                                    <td class="danger text-end" id="discount">0,00
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Total</td>
-                                                                    <td class="text-end"><span id="total">0,00</span>
-                                                                        IDR</td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
+                                                            <!-- PRICE -->
+                                                            <td x-text="formatCurrency(item.sell_price||0)"></td>
 
-                                                        <div class="d-grid btn-block mb-3">
-                                                            <a class="btn btn-secondary" href="javascript:void(0);">
-                                                                Grand Total : <span id="grandtotal">0,00</span><span>
-                                                                    IDR</span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="block-section payment-method">
-                                                            <h6>Payment Method</h6>
-                                                            <div
-                                                                class="row d-flex align-items-center justify-content-center methods">
-                                                                <div class="col-12 col-md-12 col-lg-12 col-sm-12">
-                                                                    <div class="input-blocks mb-3 ">
-                                                                        <select class="select" name="payment_method"
-                                                                            id="payment-method-select"
-                                                                            onchange="paymentMethodChange()">
-                                                                            @foreach ($paymentMethods as $paymentMethod)
-                                                                                <option value="{{ $paymentMethod['id'] }}"
-                                                                                    data-method="{{ $paymentMethod['method'] }}">
-                                                                                    {{ $paymentMethod['name'] }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                    <div id="div-payment">
-                                                                        <div class="mb-3 input-blocks">
-                                                                            <label class="form-label">Payment
-                                                                                Amount</label>
-                                                                            <div class="input-group">
-                                                                                <input type="text" class="form-control"
-                                                                                    id="payment_total"
-                                                                                    name="payment_total" placeholder="0"
-                                                                                    oninput="formatThousandSeparator(this)"
-                                                                                    onchange="calculateChange(this)">
-                                                                                <button type="button"
-                                                                                    class="col-lg-3 btn btn-primary ms-2"
-                                                                                    onclick="paymentFull()">Payment
-                                                                                    Full</button>
+                                                            <!-- QTY -->
+                                                            <td><input type="number" min="1" class="form-control"
+                                                                    x-model.number="item.qty" @input="recalculateTotal()">
+                                                            </td>
 
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div id="div-cash">
-                                                                        <div class="mb-3 input-blocks">
-                                                                            <label class="form-label">Payment
-                                                                                Change</label>
-                                                                            <input type="text" class="form-control"
-                                                                                id="payment_change" name="payment_change"
-                                                                                placeholder="0" readonly>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="mb-3 input-blocks" id="div-bank">
-                                                                        <label class="form-label">Bank</label>
-                                                                        <select class="select" name="bank"
-                                                                            id="bank-select">
-                                                                            @foreach ($banks as $bank)
-                                                                                <option value="{{ $bank['code'] }}">
-                                                                                    {{ $bank['name'] }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                    <div id="div-account">
-                                                                        <div class="mb-3 input-blocks">
-                                                                            <label class="form-label">Account
-                                                                                Number</label>
-                                                                            <input type="text" class="form-control"
-                                                                                id="account_number" name="account_number">
-                                                                        </div>
-                                                                        <div class="mb-3 input-blocks">
-                                                                            <label class="form-label">Account
-                                                                                Name</label>
-                                                                            <input type="text" class="form-control"
-                                                                                id="account_name" name="account_name">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div id="div-credit">
-                                                                        <div class="mb-3 input-blocks">
-                                                                            <label class="form-label">Card
-                                                                                Number</label>
-                                                                            <input type="text" class="form-control"
-                                                                                id="card_number" name="card_number">
-                                                                        </div>
-                                                                        <div class="mb-3 input-blocks">
-                                                                            <label class="form-label">Installment</label>
-                                                                            <select class="select" name="installment"
-                                                                                id="installment-select">
+                                                            <!-- TOTAL -->
+                                                            <td
+                                                                x-text="formatCurrency((item.qty||0)*(item.sell_price||0))">
+                                                            </td>
 
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div id="div-duedate">
-                                                                        <div class="input-blocks">
-                                                                            <label>Due Date</label>
-                                                                            <div class="input-groupicon calender-input">
-                                                                                <i data-feather="calendar"
-                                                                                    class="info-img"></i>
-                                                                                <input type="text"
-                                                                                    class="datetimepicker" id="due-date"
-                                                                                    name="due-date"
-                                                                                    style="z-index: 1000;position: relative;"
-                                                                                    placeholder="Choose">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="d-none">
-                                                                        <input type="text" id="payment-desc"
-                                                                            name="payment_desc">
-                                                                    </div>
-                                                                    <div class="col-lg-12">
-                                                                        <div
-                                                                            class="input-blocks summer-description-box transfer mb-3">
-                                                                            <label>Notes</label>
-                                                                            <textarea name="description" class="form-control h-100" rows="5" maxlength="300"></textarea>
-                                                                            <p class="mt-1">Maximum 300 Characters
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                            <!-- ACTION -->
+                                                            <td>
+                                                                <button class="btn btn-danger btn-sm"
+                                                                    @click="removeItem(index)">Delete</button>
+                                                            </td>
+                                                        </tr>
+                                                    </template>
 
+                                                    <!-- EMPTY STATE -->
+                                                    <tr x-show="orderItems.length===0">
+                                                        <td colspan="6" class="text-center text-muted">No products
+                                                            added</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+
+                                            <!-- BUTTON ADD ROW -->
+                                            <div class="mt-2">
+                                                <button type="button" class="btn btn-sm btn-secondary"
+                                                    @click="addEmptyRow()">
+                                                    Add Product Row
+                                                </button>
                                             </div>
 
+                                            <!-- SUMMARY -->
+                                            <div class="mt-3 border rounded p-3 bg-light w-50">
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Subtotal</span>
+                                                    <strong x-text="formatCurrency(totals.subtotal)"></strong>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Discount (10%)</span>
+                                                    <strong x-text="formatCurrency(totals.discountAmount)"></strong>
+                                                </div>
+                                                <hr>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Total</span>
+                                                    <strong class="text-primary"
+                                                        x-text="formatCurrency(totals.total)"></strong>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="btn-addproduct mb-4">
-                        <button type="button" class="btn btn-cancel me-2"
-                            onclick="window.location.href='{{ url('product') }}'">Cancel</button>
-                        <button type="submit" class="btn btn-submit" id="submit-add-button">Save Order</button>
+                    <div class="col-lg-12">
+                        <div class="btn-addproduct mb-4">
+                            <button type="button" class="btn btn-cancel me-2"
+                                onclick="window.location.href='{{ url('product') }}'">Cancel</button>
+                            <button type="submit" class="btn btn-submit" id="submit-add-button">Save Order</button>
+                        </div>
                     </div>
-                </div>
             </form>
             <!-- /add -->
 
@@ -661,7 +444,15 @@
             suppliers: [],
             contacts: [],
             paymentMethods: @json($paymentMethods),
-            orderItems: [],
+            orderItems: [{
+                sku: '',
+                name: '',
+                sell_price: 0,
+                qty: 1,
+                search: '',
+                searchResults: [],
+                loadingProducts: false
+            }],
             supplierId: '',
             contactId: '',
             contactName: '-',
@@ -691,6 +482,7 @@
             search: '',
             searchResults: [],
             loadingProducts: false,
+            showDropdown: false,
             async fetchBrands() {
                 try {
                     const data = await window.apiFetch({
@@ -750,6 +542,9 @@
                 if (!this.supplierId) {
                     this.contacts = [];
                     this.contactId = '';
+                    this.contactName = '-';
+                    this.contactPosition = '-';
+                    this.contactPhone = '-';
                     this.updateContactInfo();
                     this.loadingContacts = false;
                     return;
@@ -809,19 +604,6 @@
                     this.loadingProducts = false;
                 }
             },
-            updateContactInfo() {
-                const contact = this.contacts.find(c => c.uuid === this.contactId) || {};
-                this.contactName = contact.name || '-';
-                this.contactPosition = contact.position || '-';
-                this.contactPhone = contact.phone || '-';
-            },
-
-            updateSupplierInfo() {
-                const supplier = this.suppliers.find(s => s.uuid === this.supplierId) || {};
-                this.supplierName = supplier.name || '-';
-                this.supplierAddress = supplier.address || '-';
-                this.supplierEmail = supplier.email || '-';
-            },
             async fetchCategories() {
                 try {
                     const data = await window.apiFetch({
@@ -854,65 +636,7 @@
                 this.contactPosition = contact.position || '-';
                 this.contactPhone = contact.phone || '-';
             },
-            recalculateTotal() {
-                const subtotal = this.orderItems.reduce((acc, item) => acc + (item.qty * item
-                    .sell_price), 0);
-                const discountAmount = subtotal * 0.1; // Example: 10% discount
-                const total = subtotal - discountAmount;
 
-                this.totals = {
-                    subtotal,
-                    discountAmount,
-                    total
-                };
-                this.updateChange();
-            },
-
-            formatCurrency(amount) {
-                return new Intl.NumberFormat('id-ID', {
-                    style: 'currency',
-                    currency: 'IDR'
-                }).format(amount);
-            },
-
-            addItem(item) {
-                const existing = this.orderItems.find(i => i.sku === item.sku);
-                if (existing) {
-                    existing.qty++;
-                } else {
-                    this.orderItems.push({
-                        ...item,
-                        qty: 1
-                    });
-                }
-                this.recalculateTotal();
-            },
-
-            // Remove item from the order
-            removeItem(sku) {
-                this.orderItems = this.orderItems.filter(item => item.sku !== sku);
-                this.recalculateTotal();
-            },
-
-            // Select/Deselect all items
-            selectAllItems() {
-                const isSelected = document.getElementById("select-all").checked;
-                this.orderItems.forEach(item => item.selected = isSelected);
-            },
-
-            // Reset order form (clear all items, payment, supplier, etc.)
-            cancelOrder() {
-                this.orderItems = [];
-                this.supplierId = '';
-                this.contactId = '';
-                this.paymentAmount = 0;
-                this.recalculateTotal();
-            },
-            updateChange() {
-                this.paymentChange = this.paymentAmount >= this.totals.total ? this
-                    .paymentAmount -
-                    this.totals.total : 0;
-            },
             dropdownContact() {
                 return {
                     open: false,
@@ -942,6 +666,77 @@
                 this.contactName = contact.name;
                 this.contactPosition = contact.position;
                 this.contactPhone = contact.phone;
+                this.contactEmail = contact.email;
+            },
+            formatCurrency(amount) {
+                return new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR'
+                }).format(amount);
+            },
+
+            recalculateTotal() {
+                let subtotal = 0;
+                this.orderItems.forEach(item => subtotal += (item.qty || 0) * (item.sell_price ||
+                    0));
+                this.totals.subtotal = subtotal;
+                this.totals.discountAmount = subtotal * 0.1;
+                this.totals.total = subtotal - this.totals.discountAmount;
+            },
+            addEmptyRow() {
+                this.orderItems.push({
+                    sku: '',
+                    name: '',
+                    sell_price: 0,
+                    qty: 1,
+                    search: '',
+                    searchResults: [],
+                    loadingProducts: false,
+                    showDropdown: false
+                });
+            },
+            removeItem(index) {
+                this.orderItems.splice(index, 1);
+                this.recalculateTotal();
+            },
+            searchProductsInRow(index) {
+                const item = this.orderItems[index];
+
+                if (!item.search || item.search.length < 2) {
+                    item.searchResults = [];
+                    return;
+                }
+
+                item.loadingProducts = true;
+                item.showDropdown = true; // ✅ pastikan dropdown muncul
+
+                window.apiFetch({
+                        endpoint: `product/search?keyword=${item.search}`
+                    })
+                    .then((res) => {
+                        item.searchResults = res.data || [];
+                    })
+                    .catch((e) => {
+                        console.error(e);
+                        item.searchResults = [];
+                    })
+                    .finally(() => {
+                        item.loadingProducts = false;
+                    });
+            },
+            selectProductInRow(index, product) {
+                const item = this.orderItems[index];
+
+                item.sku = product.sku;
+                item.name = product.name;
+                item.sell_price = product.sell_price;
+                item.qty = 1;
+
+                item.search = product.name; // ✅ isi input
+                item.searchResults = [];
+                item.showDropdown = false;
+
+                this.recalculateTotal();
             },
             init() {
                 this.fetchSuppliers();

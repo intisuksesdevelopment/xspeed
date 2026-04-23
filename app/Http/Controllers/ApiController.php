@@ -91,7 +91,7 @@ class ApiController extends Controller
             'data' => ContactService::get($request, $uuid),
         ]);
     }
-        public function getContactBySupplier(Request $request, $supplierUuid)
+    public function getContactBySupplier(Request $request, $supplierUuid)
     {
         return response()->json([
             'success' => true,

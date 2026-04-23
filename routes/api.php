@@ -16,7 +16,7 @@ Route::prefix('/product')->group(function () {
     // Route::get('/all', [ItemController::class, 'getData'])->name('api-product-all');
     Route::get('/paged', [ApiController::class, 'getProductsPaginated'])->name('api-product-paged');
     Route::get('/detail/{uuid}', [ApiController::class, 'getProductDetail'])->name('api-product-detail');
-    Route::get('/search', [ApiController::class, 'quickSearch'])->name('api-product-search');
+    Route::get('/search', [ApiController::class, 'getProductSearch'])->name('api-product-search');
 
 });
 Route::prefix('/brand')->group(function () {
@@ -36,7 +36,7 @@ Route::prefix('/warehouse')->group(function () {
     Route::get('/all', [ApiController::class, 'getWarehouses'])->name('api-warehouse-all');
 });
 Route::prefix('/contact')->group(function () {
-    
+
     Route::get('/{supplierUuid}', [ApiController::class, 'getContactBySupplier'])->name('api-contact-supplier');
     Route::get('/detail/{uuid}', [ApiController::class, 'getContacts'])->name('api-contact-detail');
 });

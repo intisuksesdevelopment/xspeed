@@ -20,6 +20,25 @@
             background: white;
             border-radius: 8px;
         }
+
+        #item-list {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        #item-list td,
+        #item-list th {
+            vertical-align: middle;
+        }
+
+        #item-list td:nth-child(1) {
+            white-space: normal;
+            /* product boleh multi-line */
+        }
+
+        #item-list td:not(:nth-child(1)) {
+            white-space: nowrap;
+        }
     </style>
 
     <div class="page-wrapper">
@@ -153,14 +172,14 @@
                                     <div class="accordion-body">
 
                                         <table class="table table-hover">
-                                            <thead>
+                                            <thead class="table-light">
                                                 <tr>
-                                                    <th>Product</th>
-                                                    <th>SKU</th>
-                                                    <th>Price</th>
-                                                    <th>Qty</th>
-                                                    <th>Total</th>
-                                                    <th>Action</th>
+                                                    <th style="width:320px;">Product</th>
+                                                    <th style="width:120px;">SKU</th>
+                                                    <th style="width:140px;" class="text-end">Sell Price</th>
+                                                    <th style="width:140px;" class="text-center">Qty</th>
+                                                    <th style="width:160px;" class="text-end">Total Cost</th>
+                                                    <th style="width:80px;" class="text-center"></th>
                                                 </tr>
                                             </thead>
 
@@ -320,23 +339,9 @@
             $('.dropdown-menu').hide();
         });
         $(document).ready(function() {
-
+            initWarehouseSelect();
             initSupplierSelect();
             initOrder();
-        });
-        $(document).on('click', '.dropdown-item', function() {
-            const parent = $(this).closest('[id^="dropdown-"]');
-
-            const index = parent.attr('id').replace('dropdown-', '');
-
-            selectProduct(
-                index,
-                $(this).data('sku'),
-                $(this).data('name'),
-                $(this).data('price')
-            );
-
-            parent.hide();
         });
         $(document).on('click', function(e) {
             if (!$(e.target).closest('[id^="dropdown-"], input').length) {
@@ -363,7 +368,9 @@
                 sku: item.sku,
                 name: item.name,
                 sell_price: item.sell_price,
-                qty: 1
+                qty: 1,
+                search: item.name, // 🔥 ini yang bikin text muncul
+                readonly: true // 🔥 ini yang bikin readonly
             };
 
             $('#dropdown-' + index).hide();
@@ -396,8 +403,8 @@
         }
         async function initTransaction() {
             const trxId = generateTransactionID("ORD");
-            $('#transaction_id').text(trxId);
-            $('#transaction_id').val(trxId);
+            $('#transaction-id').text(trxId);
+            $('#transactionId').val(trxId);
 
         }
         /* =========================
@@ -502,6 +509,9 @@
 
             if (keyword.length < 2) return;
 
+            // 🔥 tampilkan loading
+            $('#loading-' + index).show();
+
             const res = await apiFetch({
                 endpoint: apiProductUrl + 'search',
                 params: {
@@ -510,12 +520,17 @@
             });
 
             let items = res.data || [];
-
             let dropdown = $('#dropdown-' + index);
 
-            dropdown
-                .empty()
-                .show(); // 🔥 WAJIB
+            dropdown.empty().show();
+
+            // 🔥 hide loading setelah data datang
+            $('#loading-' + index).hide();
+
+            if (items.length === 0) {
+                dropdown.append(`<div class="dropdown-item text-muted">Tidak ada data</div>`);
+                return;
+            }
 
             items.forEach(p => {
                 const row = $(`
@@ -616,7 +631,7 @@
             let taxAmount = 0;
             let discAmount = 0;
 
-            const taxType = $('#tax-rate').val();
+            const taxType = $('#tax-type').val();
             const taxPercent = parseFloat($('input[name="taxPercent"]').val()) || 0;
 
             // hitung subtotal
@@ -662,31 +677,57 @@
 
             orderItems.forEach((item, index) => {
                 html += `
-        <tr>
-            <td>
-                <input type="text"
-                       class="form-control"
-                       value="${item.search || ''}"
-                       onkeyup="searchProduct(${index}, this)">
-                <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div>
-            </td>
+                <tr>
+                    <td>
+                        ${
+                            item.readonly
+                                ? `<span class="form-label">${item.search}</span>`
+                                : `<input-wrapper>
+                                                            <div style="position:relative;">
+                                                                <input type="text"
+                                                                    class="form-control pe-5"
+                                                                    value="${item.search || ''}"
+                                                                    onkeyup="searchProduct(${index}, this)">
 
-            <td>${item.sku || '-'}</td>
-            <td>${formatCurrency(item.sell_price || 0)}</td>
+                                                                <div id="loading-${index}"
+                                                                    style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
+                                                                    <div class="spinner-border spinner-border-sm text-primary"></div>
+                                                                </div>
+                                                            </div>
 
-            <td>
-                <input type="number" value="${item.qty}" class="form-control">
-            </td>
+                                                            <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
+                                            }
+                    </td>
 
-            <td>${formatCurrency((item.qty || 0) * (item.sell_price || 0))}</td>
+                    <td>${item.sku || '-'}</td>
+                    <td class="text-end">${formatCurrency(item.sell_price || 0)}</td>
 
-            <td>
-                <button class="btn btn-danger btn-sm" onclick="removeRow(${index})">
-                    Delete
-                </button>
-            </td>
-        </tr>
-        `;
+                    <td class="text-center">
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary"
+                                type="button"
+                                onclick="changeQty(${index}, -1)"
+                                ${item.qty <= 1 ? 'disabled' : ''}>
+                                -
+                            </button>
+                            <input type="number"
+                                value="${item.qty}"
+                                class="form-control text-center"
+                                onchange="updateQty(${index}, this.value)">
+
+                            <button class="btn btn-outline-secondary" type="button" onclick="changeQty(${index}, 1)">+</button>
+                        </div>
+                    </td>
+
+                    <td class="text-end">${formatCurrency((item.qty || 0) * (item.sell_price || 0))}</td>
+
+                    <td class="text-center">
+                        <button class="btn btn-danger btn-sm" onclick="removeRow(${index})">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                `;
             });
 
             $('#order-table-body').html(html);
@@ -761,6 +802,30 @@
 
             // 4. reset
             $el.val(null).trigger('change');
+        }
+
+        function changeQty(index, delta) {
+            let current = orderItems[index].qty || 1;
+
+            let newQty = current + delta;
+
+            if (newQty < 1) newQty = 1; // biar gak minus
+
+            orderItems[index].qty = newQty;
+
+            renderTable();
+            recalcTotal();
+        }
+
+        function updateQty(index, value) {
+            let qty = parseInt(value);
+
+            if (isNaN(qty) || qty < 1) qty = 1;
+
+            orderItems[index].qty = qty;
+
+            renderTable();
+            recalcTotal();
         }
     </script>
 @endsection

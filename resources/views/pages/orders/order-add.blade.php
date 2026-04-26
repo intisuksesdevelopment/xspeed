@@ -1,14 +1,31 @@
 <?php $page = 'order-add'; ?>
 @extends('pages.layout.mainlayout')
+
 @section('content')
     <style>
         .dropdown-menu {
             z-index: 9999 !important;
         }
+
+        .overlay-detail-panel {
+            position: absolute;
+            top: 110%;
+            right: 0;
+            width: 300px;
+
+            z-index: 99999;
+            /* 🔥 penting */
+            display: none;
+
+            background: white;
+            border-radius: 8px;
+        }
     </style>
 
-    <div x-data="orderData()" @contact-selected.window="handleContact($event.detail)" class="page-wrapper">
+    <div class="page-wrapper">
         <div class="content">
+
+            <!-- BREADCRUMB -->
             @component('pages.components.breadcrumb')
                 @slot('title')
                     New Order
@@ -23,356 +40,206 @@
                     Back to Order
                 @endslot
             @endcomponent
-            <!-- /add -->
+
             <form id="orderAddForm" method="post" action="{{ route('order-add') }}">
                 @csrf
+
                 <div class="card">
                     <div class="card-body add-product pb-0">
-                        <div class="accordion-card-one accordion" id="accordionExample">
+
+                        <!-- ORDER INFO -->
+                        <div class="accordion" id="accordionExample">
+
                             <div class="accordion-item">
-                                <div class="accordion-header" id="headingOne">
-                                    <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                                        aria-controls="collapseOne">
-                                        <div class="addproduct-icon">
-                                            <h5><i data-feather="info" class="add-info"></i><span>Order Information</span>
-                                            </h5>
-                                            <a href="javascript:void(0);"><i data-feather="chevron-down"
-                                                    class="chevron-down-add"></i></a>
-                                        </div>
+                                <div class="accordion-header">
+                                    <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                        <h5>Order Information</h5>
                                     </div>
                                 </div>
-                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                                    data-bs-parent="#accordionExample">
+
+                                <div id="collapseOne" class="accordion-collapse collapse show">
+
                                     <div class="accordion-body">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-sm-6 col-12">
-                                                <span>Transaction ID : #<span id="transaction-id"></span></span>
-                                                <span class="d-none"><input id="trx_id" name="trx_id"></span>
-                                                <span class="d-none"><input id="type" name="type"
-                                                        value="order"></span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
 
-                                            <!-- Supplier -->
-                                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                                <div class="mb-3 add-product">
-                                                    <label class="form-label">Supplier</label>
-                                                    <select x-ref="supplier" x-model="supplierId" class="form-control"
-                                                        x-cloak></select>
-                                                </div>
-                                            </div>
+                                        <!-- TRX -->
+                                        <span>Transaction ID : #<span id="transaction-id"></span></span>
+                                        <input type="hidden" id="transactionId" name="transactionId">
+                                        <input type="hidden" name="type" value="order">
+                                        <input type="hidden" name="taxPercent" value="0">
+                                        <input type="hidden" name="taxAmount" value="0">
+                                        <input type="hidden" name="discPercent" value="0">
+                                        <input type="hidden" name="discAmount" value="0">
 
-                                            <!-- Contact -->
-                                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                                <div class="mb-3 add-product">
-                                                    <label class="form-label">Contact</label>
-                                                    <div x-data="dropdownContact()"
-                                                        @contacts-updated.window="contacts = $event.detail"
-                                                        class="position-relative">
-
-                                                        <!-- Trigger (seperti select) -->
-                                                        <div @click="toggle"
-                                                            class="form-control d-flex justify-content-between align-items-center"
-                                                            style="cursor:pointer">
-
-                                                            <span x-text="selectedName || 'Pilih Contact'"></span>
-                                                            <span>▼</span>
-                                                        </div>
-
-                                                        <!-- Dropdown -->
-                                                        <div x-show="open" @click.outside="open = false"
-                                                            class="border bg-white position-absolute w-100 mt-1"
-                                                            style="z-index:999; max-height:200px; overflow-y:auto; left:0; right:0;">
-
-                                                            <template x-for="contact in contacts" :key="contact.uuid">
-                                                                <div @click="select(contact)" class="p-2 hover-bg"
-                                                                    style="cursor:pointer">
-                                                                    <span x-text="contact.name"></span>
-                                                                </div>
-                                                            </template>
-
-                                                            <div x-show="contacts.length === 0" class="p-2 text-muted">
-                                                                Tidak ada contact
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        <div class="row g-2 mt-2 position-relative">
+                                            <!-- SUPPLIER -->
+                                            <div class="col-lg-3">
+                                                <label>Supplier</label>
+                                                <select id="supplier-select" name="supplier_id" class="form-select">
+                                                    <option></option>
+                                                </select>
                                             </div>
 
-                                            <!-- Info Card -->
-                                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                                <div class="card bg-dark text-light mb-3 shadow-sm">
-                                                    <div
-                                                        class="card-header d-flex justify-content-between align-items-center">
-                                                        <span class="fw-bold">Detail Contact & Supplier</span>
-                                                        <button class="btn btn-sm d-flex align-items-center" type="button"
-                                                            data-bs-toggle="collapse" data-bs-target="#contactSupplierInfo"
-                                                            aria-expanded="false" aria-controls="contactSupplierInfo">
-                                                            <i data-feather="chevrons-down"></i>
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="collapse fade show" id="contactSupplierInfo">
-                                                        <div class="card-body">
-
-                                                            <!-- Contact Info -->
-                                                            <div class="row mb-2">
-                                                                <div
-                                                                    class="col-5 text-xs font-bold text-primarydark text-uppercase">
-                                                                    Nama:</div>
-                                                                <div class="col-7 text-light" x-text="contactName"></div>
-                                                            </div>
-                                                            <div class="row mb-2">
-                                                                <div
-                                                                    class="col-5 text-xs font-bold text-primarydark text-uppercase">
-                                                                    Divisi:</div>
-                                                                <div class="col-7 text-light" x-text="contactPosition">
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-2 pb-1 border-bottom border-primarydark">
-                                                                <div
-                                                                    class="col-5 text-xs font-bold text-primarydark text-uppercase">
-                                                                    Telepon:</div>
-                                                                <div class="col-7 text-light text-sm font-semibold"
-                                                                    x-text="contactPhone"></div>
-                                                            </div>
-
-                                                            <!-- Supplier Info -->
-                                                            <div class="row mt-2">
-                                                                <div
-                                                                    class="col-5 text-xs font-bold text-primarydark text-uppercase">
-                                                                    Supplier:</div>
-                                                                <div class="col-7 text-light font-bold uppercase"
-                                                                    x-text="supplierName"></div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div
-                                                                    class="col-5 text-xs font-bold text-primarydark text-uppercase">
-                                                                    Alamat:</div>
-                                                                <div class="col-7 text-light text-[10px] font-semibold"
-                                                                    x-text="supplierAddress"></div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div
-                                                                    class="col-5 text-xs font-bold text-primarydark text-uppercase">
-                                                                    Email:</div>
-                                                                <div class="col-7 text-light text-[10px] font-semibold"
-                                                                    x-text="supplierEmail"></div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <!-- CONTACT -->
+                                            <div class="col-lg-3">
+                                                <label>Contact</label>
+                                                <select id="contact-select" name="contact_id" class="form-select"
+                                                    data-placeholder="Pilih Contact">
+                                                    <option></option>
+                                                </select>
                                             </div>
 
-
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-card-one accordion" id="accordionExample2">
-                            <div class="accordion-item">
-                                <div class="accordion-header" id="headingTwo">
-                                    <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                                        aria-controls="collapseTwo">
-                                        <div class="text-editor add-list">
-                                            <div class="addproduct-icon list icon">
-                                                <h5><i data-feather="life-buoy" class="add-info"></i><span>Product
-                                                        Orders</span></h5>
-                                                <a href="javascript:void(0);"><i data-feather="chevron-down"
-                                                        class="chevron-down-add"></i></a>
+                                            <!-- TAX -->
+                                            <div class="col-lg-3">
+                                                <label>Tax Tipe</label>
+                                                <select id="tax-type" name="taxType" class="form-select">
+                                                    <option value="include">Include</option>
+                                                    <option value="exclude">Exclude ({{ $config['ppn_rate'] ?? 0 }}%)
+                                                    </option>
+                                                </select>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="collapseTwo" class="accordion-collapse collapse show"
-                                    aria-labelledby="headingTwo" data-bs-parent="#accordionExample2">
-                                    <div class="accordion-body">
-                                        <div class="input-blocks add-products">
-                                            <div class="single-pill-product">
-                                                <ul class="nav nav-pills" id="pills-tab1" role="tablist">
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="table-responsive" style="overflow: visible;">
-                                            <!-- TABLE -->
-
-                                            <table class="table table-hover align-middle">
-                                                <thead class="table-light">
-                                                    <tr>
-                                                        <th>Product</th>
-                                                        <th>SKU</th>
-                                                        <th>Price</th>
-                                                        <th width="100">Qty</th>
-                                                        <th>Total</th>
-                                                        <th width="80">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <template x-for="(item,index) in orderItems" :key="index">
-                                                        <tr>
-                                                            <!-- PRODUCT SEARCH -->
-                                                            <td class="position-relative">
-
-                                                                <!-- INPUT -->
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="Search product..." x-model="item.search"
-                                                                    @input.debounce.300ms="searchProductsInRow(index)"
-                                                                    @focus="item.showDropdown = true"
-                                                                    @click.outside="item.showDropdown = false">
-
-                                                                <!-- DROPDOWN -->
-                                                                <div x-show="item.showDropdown && item.searchResults.length > 0"
-                                                                    x-cloak class="dropdown-menu show w-100"
-                                                                    style="  position: absolute;
-                                                                                top: 100%;
-                                                                                left: 0;
-                                                                                z-index: 99999;
-                                                                                max-height: 250px;
-                                                                                overflow-y: auto;
-                                                                            ">
-
-                                                                    <template x-for="(product, i) in item.searchResults"
-                                                                        :key="i">
-                                                                        <button type="button" class="dropdown-item"
-                                                                            @mousedown.prevent="selectProductInRow(index, product)">
-
-                                                                            <div class="d-flex justify-content-between">
-                                                                                <span x-text="product.name"></span>
-                                                                                <small x-text="product.sku"></small>
-                                                                            </div>
-
-                                                                            <small class="text-muted"
-                                                                                x-text="formatCurrency(product.sell_price)">
-                                                                            </small>
-                                                                        </button>
-                                                                    </template>
-
-                                                                    <!-- EMPTY -->
-                                                                    <div x-show="item.searchResults.length === 0"
-                                                                        class="dropdown-item text-muted">
-                                                                        No results
-                                                                    </div>
-                                                                </div>
-
-                                                            </td>
-                                                            <!-- SKU -->
-                                                            <td x-text="item.sku||'-'"></td>
-
-                                                            <!-- PRICE -->
-                                                            <td x-text="formatCurrency(item.sell_price||0)"></td>
-
-                                                            <!-- QTY -->
-                                                            <td><input type="number" min="1" class="form-control"
-                                                                    x-model.number="item.qty" @input="recalculateTotal()">
-                                                            </td>
-
-                                                            <!-- TOTAL -->
-                                                            <td
-                                                                x-text="formatCurrency((item.qty||0)*(item.sell_price||0))">
-                                                            </td>
-
-                                                            <!-- ACTION -->
-                                                            <td>
-                                                                <button class="btn btn-danger btn-sm"
-                                                                    @click="removeItem(index)">Delete</button>
-                                                            </td>
-                                                        </tr>
-                                                    </template>
-
-                                                    <!-- EMPTY STATE -->
-                                                    <tr x-show="orderItems.length===0">
-                                                        <td colspan="6" class="text-center text-muted">No products
-                                                            added</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-
-                                            <!-- BUTTON ADD ROW -->
-                                            <div class="mt-2">
-                                                <button type="button" class="btn btn-sm btn-secondary"
-                                                    @click="addEmptyRow()">
-                                                    Add Product Row
+                                            <!-- DETAIL PANEL -->
+                                            <div class="col-lg-1 d-flex align-items-end">
+                                                <button type="button" id="toggle-detail"
+                                                    class="btn btn-outline-info btn-sm">
+                                                    Detail
                                                 </button>
                                             </div>
+                                            <div class="overlay-detail-panel">
 
-                                            <!-- SUMMARY -->
-                                            <div class="mt-3 border rounded p-3 bg-light w-50">
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Subtotal</span>
-                                                    <strong x-text="formatCurrency(totals.subtotal)"></strong>
+                                                <div class="p-3 border rounded bg-light shadow">
+
+                                                    <div><b>Nama:</b> <span id="contact-name">-</span></div>
+                                                    <div><b>Divisi:</b> <span id="contact-position">-</span></div>
+                                                    <div><b>Telp:</b> <span id="contact-phone">-</span></div>
+
+                                                    <hr>
+
+                                                    <div><b>Supplier:</b> <span id="supplier-name">-</span></div>
+                                                    <div><b>Address:</b> <span id="supplier-address">-</span></div>
+                                                    <div><b>Email:</b> <span id="supplier-email">-</span></div>
+
                                                 </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Discount (10%)</span>
-                                                    <strong x-text="formatCurrency(totals.discountAmount)"></strong>
-                                                </div>
-                                                <hr>
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Total</span>
-                                                    <strong class="text-primary"
-                                                        x-text="formatCurrency(totals.total)"></strong>
-                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="row g-2 mt-2">
+                                            <!-- SUPPLIER -->
+                                            <div class="col-lg-3">
+                                                <label>Gudang</label>
+                                                <select id="warehouse-select" name="warehouse_id" class="form-select">
+                                                    <option></option>
+                                                </select>
                                             </div>
                                         </div>
+
+
+
+
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- PRODUCT -->
+                            <div class="accordion-item mt-3">
+                                <div class="accordion-header">
+                                    <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                        <h5>Product Orders</h5>
+                                    </div>
+                                </div>
+
+                                <div id="collapseTwo" class="accordion-collapse collapse show">
+
+                                    <div class="accordion-body">
+
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>SKU</th>
+                                                    <th>Price</th>
+                                                    <th>Qty</th>
+                                                    <th>Total</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody id="order-table-body"></tbody>
+                                        </table>
+
+                                        <button type="button" class="btn btn-secondary btn-sm" onclick="addRow()">
+                                            Add Product Row
+                                        </button>
+
+                                        <hr>
+
+                                        <div class="p-3 bg-light border rounded w-50">
+                                            <div class="d-flex justify-content-between">
+                                                <span>Subtotal</span>
+                                                <strong id="subtotal">Rp 0</strong>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between">
+                                                <span>Total</span>
+                                                <strong id="total">Rp 0</strong>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="btn-addproduct mb-4">
-                            <button type="button" class="btn btn-cancel me-2"
-                                onclick="window.location.href='{{ url('product') }}'">Cancel</button>
-                            <button type="submit" class="btn btn-submit" id="submit-add-button">Save Order</button>
+
+                        <!-- BUTTON -->
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary">Save Order</button>
                         </div>
+
                     </div>
+                </div>
+
             </form>
-            <!-- /add -->
 
         </div>
     </div>
-@endsection
-@if (Route::is(['order', 'order-add-form']))
-    <div class="modal fade" id="add-order-item" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content shadow-sm">
 
-                <!-- Header -->
-                <div class="modal-header">
-                    <h5 class="modal-title fw-semibold">Add Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
+    @if (Route::is(['order', 'order-add-form']))
+        <div class="modal fade" id="add-order-item" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content shadow-sm">
 
-                <!-- Body -->
-                <div class="modal-body">
+                    <!-- Header -->
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-semibold">Add Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
 
-                    <!-- Form -->
-                    <form id="form-add-order">
+                    <!-- Body -->
+                    <div class="modal-body">
 
-                        <!-- Product Name -->
-                        <div class="mb-3">
-                            <label class="form-label">Product Name</label>
-                            <input type="text" class="form-control" placeholder="Search or input product...">
-                        </div>
+                        <!-- Form -->
+                        <form id="form-add-order">
 
-                        <!-- Filters -->
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-4">
-                                <label class="form-label">Brand</label>
-                                <select class="form-select" id="brand-list"></select>
-                                <select x-model="brandId" class="select2 form-control" id="brand-select"
-                                    name="brand_id">
-                                    <template x-for="brand in brands" :key="brand.uuid">
-                                        <option :value="brand.uuid" x-text="brand.name"></option>
-                                    </template>
-                                </select>
+                            <!-- Product Name -->
+                            <div class="mb-3">
+                                <label class="form-label">Product Name</label>
+                                <input type="text" class="form-control" placeholder="Search or input product...">
                             </div>
-                            {{-- <div class="col-md-4">
+
+                            <!-- Filters -->
+                            <div class="row g-2 mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Brand</label>
+                                    <select class="form-select" id="brand-list"></select>
+                                    <select x-model="brandId" class="select2 form-control" id="brand-select"
+                                        name="brand_id">
+                                        <template x-for="brand in brands" :key="brand.uuid">
+                                            <option :value="brand.uuid" x-text="brand.name"></option>
+                                        </template>
+                                    </select>
+                                </div>
+                                {{-- <div class="col-md-4">
                                 <label class="form-label">Category</label>
                                 <select x-model="categoryId" class="select2 form-control" id="category-select"
                                     name="category_id">
@@ -389,365 +256,511 @@
                                         <option :value="subcategory.uuid" x-text="subcategory.name"></option>
                                     </template>
                             </div> --}}
-                        </div>
+                            </div>
 
-                        <!-- Table -->
-                        <div class="table-responsive border rounded">
-                            <table class="table table-hover align-middle mb-0" id="item-list">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th class="text-center" style="width:40px;">
-                                            <input type="checkbox" id="select-all-product" class="form-check-input">
-                                        </th>
-                                        <th>Product</th>
-                                        <th>SKU</th>
-                                        <th class="text-center">Qty</th>
-                                        <th class="text-center">Currency</th>
-                                        <th class="text-end">Sell Price</th>
-                                        <th class="text-end">Total Cost</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+                            <!-- Table -->
+                            <div class="table-responsive border rounded">
+                                <table class="table table-hover align-middle mb-0" id="item-list">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="text-center" style="width:40px;">
+                                                <input type="checkbox" id="select-all-product" class="form-check-input">
+                                            </th>
+                                            <th>Product</th>
+                                            <th>SKU</th>
+                                            <th class="text-center">Qty</th>
+                                            <th class="text-center">Currency</th>
+                                            <th class="text-end">Sell Price</th>
+                                            <th class="text-end">Total Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
 
-                    </form>
+                        </form>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="submit" form="form-add-order" class="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+
                 </div>
-
-                <!-- Footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                        Cancel
-                    </button>
-                    <button type="submit" form="form-add-order" class="btn btn-primary">
-                        Submit
-                    </button>
-                </div>
-
             </div>
         </div>
-    </div>
-    <!-- /add popup -->
-@endif
-<!-- Di head atau sebelum closing body -->
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<script src="{{ asset('/build/js/page/order.js') }}"></script>
-<script>
-    const apiBrandUrl = 'brand/all';
-    const apiCategoryUrl = 'category/all';
-    const apiSupplierUrl = 'supplier/all';
-    const apiSubcategoryUrl = 'subcategory';
-    const apiContactUrl = 'contact/';
-    const apiProductUrl = 'product/';
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('orderData', () => ({
-            suppliers: [],
-            contacts: [],
-            paymentMethods: @json($paymentMethods),
-            orderItems: [{
-                sku: '',
-                name: '',
-                sell_price: 0,
-                qty: 1,
-                search: '',
-                searchResults: [],
-                loadingProducts: false
-            }],
-            supplierId: '',
-            contactId: '',
-            contactName: '-',
-            contactPosition: '-',
-            contactPhone: '-',
-            supplierName: '-',
-            supplierAddress: '-',
-            supplierEmail: '-',
-            paymentMethod: 'cash',
-            paymentAmount: 0,
-            paymentChange: 0,
-            totals: {
-                subtotal: 0,
-                discountAmount: 0,
-                total: 0,
-            },
-            transactionId: `ORD-{{ now()->format('Ymd') }}-0001`,
-            brands: [],
-            categories: [],
-            subcategories: [],
-            brandId: '',
+        <!-- /add popup -->
+    @endif
 
-            categoryId: '',
-            subcategoryId: '',
-            loadingContacts: false,
 
-            search: '',
-            searchResults: [],
-            loadingProducts: false,
-            showDropdown: false,
-            async fetchBrands() {
-                try {
-                    const data = await window.apiFetch({
-                        endpoint: apiBrandUrl
-                    });
-                    this.brands = data.data || [];
-                } catch (error) {
-                    console.error("Error fetching brands:", error);
+    <!-- script kamu -->
+    <script src="{{ asset('/build/js/page/order.js') }}"></script>
+    <script>
+        const apiBrandUrl = 'brand/all';
+        const apiCategoryUrl = 'category/all';
+        const apiSupplierUrl = 'supplier/all';
+        const apiWarehouseUrl = 'warehouse/all';
+        const apiSubcategoryUrl = 'subcategory';
+        const apiContactUrl = 'contact/';
+        const apiProductUrl = 'product/';
+        const config = @json($config);
+
+        const searchProduct = debounce(function(index, el) {
+            searchProductCore(index, el);
+        }, 1500);
+
+        let orderItems = [];
+        let selectedSupplier = null;
+        $(document).on('click', function() {
+            $('.dropdown-menu').hide();
+        });
+        $(document).ready(function() {
+
+            initSupplierSelect();
+            initOrder();
+        });
+        $(document).on('click', '.dropdown-item', function() {
+            const parent = $(this).closest('[id^="dropdown-"]');
+
+            const index = parent.attr('id').replace('dropdown-', '');
+
+            selectProduct(
+                index,
+                $(this).data('sku'),
+                $(this).data('name'),
+                $(this).data('price')
+            );
+
+            parent.hide();
+        });
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('[id^="dropdown-"], input').length) {
+                $('[id^="dropdown-"]').hide();
+            }
+        });
+        $(document).on('change', '#tax-rate', function() {
+
+            if (this.value === 'include') {
+                $('input[name="taxPercent"]').val(0);
+            } else {
+                $('input[name="taxPercent"]').val(config.ppn_rate || 0);
+            }
+
+            recalcTotal();
+        });
+        $(document).on('click', '.product-item', function() {
+
+            const item = $(this).data('item');
+            const index = $(this).data('index');
+
+            orderItems[index] = {
+                ...orderItems[index],
+                sku: item.sku,
+                name: item.name,
+                sell_price: item.sell_price,
+                qty: 1
+            };
+
+            $('#dropdown-' + index).hide();
+
+            renderTable();
+            recalcTotal();
+        });
+        $('#toggle-detail').on('click', function(e) {
+            e.stopPropagation();
+            $('.overlay-detail-panel').toggle();
+        });
+
+        // klik luar → close
+        $(document).on('click', function() {
+            $('.overlay-detail-panel').hide();
+        });
+
+        // biar klik di dalam panel gak nutup
+        $('.overlay-detail-panel').on('click', function(e) {
+            e.stopPropagation();
+        });
+        /* =========================
+           INIT ORDER STATE
+        ========================= */
+        function initOrder() {
+            initTransaction();
+            addRow();
+
+            recalcTotal();
+        }
+        async function initTransaction() {
+            const trxId = generateTransactionID("ORD");
+            $('#transaction_id').text(trxId);
+            $('#transaction_id').val(trxId);
+
+        }
+        /* =========================
+           WAREHOUSE SELECT2
+        ========================= */
+        async function initWarehouseSelect() {
+            const $warehouse = $('#warehouse-select');
+
+            await loadSelect2($warehouse, {
+                endpoint: apiWarehouseUrl,
+                placeholder: 'Pilih Gudang',
+                cacheKey: 'warehouses'
+            });
+        }
+
+        /* =========================
+           SUPPLIER SELECT2
+        ========================= */
+        async function initSupplierSelect() {
+            const $supplier = $('#supplier-select');
+
+            await loadSelect2($supplier, {
+                endpoint: apiSupplierUrl,
+                placeholder: 'Pilih Supplier',
+                cacheKey: 'suppliers'
+            });
+
+            $supplier.on('change', async function() {
+                const id = $(this).val();
+
+                if (!id) return;
+
+                const supplier = Select2Cache.suppliers.find(s => s.uuid === id);
+                selectedSupplier = supplier;
+
+                loadSupplierInfo(supplier);
+
+                await initContactSelect(id);
+            });
+        }
+
+        /* =========================
+           CONTACT SELECT2
+        ========================= */
+        async function initContactSelect() {
+
+            if (!selectedSupplier) return;
+
+            const $contact = $('#contact-select');
+
+            safeDestroySelect2($contact);
+            $contact.empty();
+
+            const res = await apiFetch({
+                endpoint: apiContactUrl + selectedSupplier.uuid
+            });
+
+            contactList = res.data || [];
+
+            // placeholder
+            $contact.append(new Option('', '', false, false));
+
+            // data
+            contactList.forEach(item => {
+                $contact.append(new Option(item.name, item.uuid, false, false));
+            });
+
+            // init select2
+            $contact.select2({
+                placeholder: 'Pilih Contact',
+                allowClear: true,
+                width: '100%'
+            });
+
+            // 🔥 gunakan select2 event
+            $contact.off('select2:select').on('select2:select', function(e) {
+
+                const id = e.params.data.id;
+                const contact = contactList.find(c => c.uuid === id);
+
+                if (!contact) return;
+
+                $('#contact-name').text(contact.name || '-');
+                $('#contact-position').text(contact.position || '-');
+                $('#contact-phone').text(contact.phone || '-');
+            });
+        }
+        /* =========================
+           LOAD SUPPLIER DETAIL
+        ========================= */
+        function loadSupplierInfo(supplier) {
+            $('#supplier-name').text(supplier?.name || '-');
+            $('#supplier-address').text(supplier?.address || '-');
+            $('#supplier-email').text(supplier?.email || '-');
+        }
+
+        /* =========================
+           PRODUCT SEARCH ROW
+        ========================= */
+        async function searchProductCore(index, el) {
+            let keyword = $(el).val();
+
+            if (keyword.length < 2) return;
+
+            const res = await apiFetch({
+                endpoint: apiProductUrl + 'search',
+                params: {
+                    q: keyword
                 }
-            },
-            async fetchSuppliers() {
-                try {
-                    const data = await window.apiFetch({
-                        endpoint: apiSupplierUrl
-                    });
-                    this.suppliers = data.data || [];
+            });
 
-                    this.$nextTick(() => {
-                        const select = this.$refs.supplier;
+            let items = res.data || [];
 
-                        // Tambahkan "All Suppliers"
-                        const options = [{
-                            id: '',
-                            text: 'All Suppliers'
-                        }].concat(
-                            this.suppliers.map(s => ({
-                                id: s.uuid,
-                                text: s.name
-                            }))
-                        );
+            let dropdown = $('#dropdown-' + index);
 
-                        $(select).empty();
-                        options.forEach(opt => {
-                            const option = document.createElement('option');
-                            option.value = opt.id;
-                            option.textContent = opt.text;
-                            select.appendChild(option);
-                        });
+            dropdown
+                .empty()
+                .show(); // 🔥 WAJIB
 
-                        $(select).select2({
-                            dropdownParent: $(select).closest('.page-wrapper'),
-                            placeholder: 'Silakan pilih',
-                            allowClear: true
-                        });
+            items.forEach(p => {
+                const row = $(`
+            <div class="dropdown-item product-item"
+                data-index="${index}"
+                style="cursor:pointer;padding:6px;">
+                ${p.name} - ${p.sku}
+            </div>
+        `);
 
-                        $(select).on('change', e => {
-                            this.supplierId = e.target.value;
-                            this.fetchContacts();
-                            this.updateSupplierInfo();
-                        });
-                    });
-                } catch (err) {
-                    console.error('Error fetching suppliers:', err);
-                }
-            },
-            async fetchContacts() {
-                if (!this.supplierId) {
-                    this.contacts = [];
-                    this.contactId = '';
-                    this.contactName = '-';
-                    this.contactPosition = '-';
-                    this.contactPhone = '-';
-                    this.updateContactInfo();
-                    this.loadingContacts = false;
-                    return;
-                }
-                this.loadingContacts = true;
-                const data = await window.apiFetch({
-                    endpoint: apiContactUrl + this.supplierId
-                });
-                this.contacts = data.data || [];
-                this.$dispatch('contacts-updated', this.contacts);
-                this.$nextTick(() => {
-                    const select = this.$refs.contact;
+                row.data('item', p);
+                dropdown.append(row);
+            });
+        }
 
-                    if (!select) {
-                        console.warn('Select belum ready');
-                        return;
-                    }
+        function debounce(fn, delay = 300) {
+            let timer;
+            return function(...args) {
+                clearTimeout(timer);
+                timer = setTimeout(() => fn.apply(this, args), delay);
+            };
+        }
+        /* =========================
+           SELECT PRODUCT
+        ========================= */
+        function selectProduct(index, sku, name, price) {
+            orderItems[index] = {
+                ...orderItems[index],
+                sku: sku,
+                name: name,
+                sell_price: price,
+                qty: 1
+            };
 
-                    $(select).empty();
+            recalcTotal();
+        }
 
-                    this.contacts.forEach(c => {
-                        const option = document.createElement('option');
-                        option.value = c.uuid;
-                        option.textContent = c.name;
-                        select.appendChild(option);
-                    });
+        /* =========================
+           ADD ROW
+        ========================= */
+        function addRow() {
 
-                    $(select).select2({
-                        placeholder: 'Select Contact',
-                        allowClear: true
-                    });
-
-                    $(select).val(this.contactId).trigger('change');
-
-                    $(select).on('change', e => {
-                        this.contactId = e.target.value;
-                        this.updateContactInfo();
-                    });
-                });
-            },
-            async searchProducts() {
-                if (!this.search) {
-                    this.searchResults = [];
-                    return;
-                }
-
-                this.loadingProducts = true;
-                try {
-                    const data = await window.apiFetch({
-                        endpoint: `${apiProductUrl}/search?keyword=${this.search}`
-                    });
-
-                    this.searchResults = data.data || [];
-                } catch (err) {
-                    console.error("Error search product:", err);
-                } finally {
-                    this.loadingProducts = false;
-                }
-            },
-            async fetchCategories() {
-                try {
-                    const data = await window.apiFetch({
-                        endpoint: apiCategoryUrl
-                    });
-                    this.categories = data.data || [];
-                } catch (error) {
-                    console.error("Error fetching categories:", error);
-                }
-            },
-            async fetchSubcategories(categoryId) {
-                try {
-                    const data = await window.apiFetch({
-                        endpoint: `${apiSubcategoryUrl}/${categoryId}`
-                    });
-                    this.subcategories = data.data || [];
-                } catch (error) {
-                    console.error("Error fetching subcategories:", error);
-                }
-            },
-            updateSupplierInfo() {
-                const supplier = this.suppliers.find(s => s.uuid === this.supplierId) || {};
-                this.supplierName = supplier.name || '-';
-                this.supplierAddress = supplier.address || '-';
-                this.supplierEmail = supplier.email || '-';
-            },
-            updateContactInfo() {
-                const contact = this.contacts.find(c => c.uuid === this.contactId) || {};
-                this.contactName = contact.name || '-';
-                this.contactPosition = contact.position || '-';
-                this.contactPhone = contact.phone || '-';
-            },
-
-            dropdownContact() {
-                return {
-                    open: false,
-                    contacts: [],
-                    selected: null,
-                    selectedName: '',
-
-                    init() {
-                        this.contacts = this.$root.contacts || [];
-                    },
-
-                    toggle() {
-                        this.open = !this.open;
-                    },
-
-                    select(contact) {
-                        this.selected = contact;
-                        this.selectedName = contact.name;
-                        this.open = false;
-
-                        this.$dispatch('contact-selected', contact);
-                    }
-                }
-            },
-            handleContact(contact) {
-                this.contactId = contact.uuid;
-                this.contactName = contact.name;
-                this.contactPosition = contact.position;
-                this.contactPhone = contact.phone;
-                this.contactEmail = contact.email;
-            },
-            formatCurrency(amount) {
-                return new Intl.NumberFormat('id-ID', {
-                    style: 'currency',
-                    currency: 'IDR'
-                }).format(amount);
-            },
-
-            recalculateTotal() {
-                let subtotal = 0;
-                this.orderItems.forEach(item => subtotal += (item.qty || 0) * (item.sell_price ||
-                    0));
-                this.totals.subtotal = subtotal;
-                this.totals.discountAmount = subtotal * 0.1;
-                this.totals.total = subtotal - this.totals.discountAmount;
-            },
-            addEmptyRow() {
-                this.orderItems.push({
+            // kalau masih belum ada row → langsung boleh tambah
+            if (orderItems.length === 0) {
+                orderItems.push({
                     sku: '',
                     name: '',
                     sell_price: 0,
                     qty: 1,
                     search: '',
-                    searchResults: [],
-                    loadingProducts: false,
-                    showDropdown: false
+                    searchResults: []
                 });
-            },
-            removeItem(index) {
-                this.orderItems.splice(index, 1);
-                this.recalculateTotal();
-            },
-            searchProductsInRow(index) {
-                const item = this.orderItems[index];
 
-                if (!item.search || item.search.length < 2) {
-                    item.searchResults = [];
-                    return;
-                }
-
-                item.loadingProducts = true;
-                item.showDropdown = true; // ✅ pastikan dropdown muncul
-
-                window.apiFetch({
-                        endpoint: `product/search?keyword=${item.search}`
-                    })
-                    .then((res) => {
-                        item.searchResults = res.data || [];
-                    })
-                    .catch((e) => {
-                        console.error(e);
-                        item.searchResults = [];
-                    })
-                    .finally(() => {
-                        item.loadingProducts = false;
-                    });
-            },
-            selectProductInRow(index, product) {
-                const item = this.orderItems[index];
-
-                item.sku = product.sku;
-                item.name = product.name;
-                item.sell_price = product.sell_price;
-                item.qty = 1;
-
-                item.search = product.name; // ✅ isi input
-                item.searchResults = [];
-                item.showDropdown = false;
-
-                this.recalculateTotal();
-            },
-            init() {
-                this.fetchSuppliers();
-                this.fetchBrands();
-                this.fetchCategories();
-                this.fetchSubcategories();
-                generateTransactionID("ORD"); // Tambahkan
-                document.getElementById('transaction-id').textContent = this.transactionId;
-                document.getElementById('trx_id').value = this.transactionId;
+                renderTable();
+                return;
             }
 
-        }));
-    });
-</script>
+            // ambil row terakhir
+            const lastItem = orderItems[orderItems.length - 1];
+
+            // 🔥 validasi hanya untuk row ke-2 dan seterusnya
+            if (!lastItem.sku) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: 'Isi product di baris sebelumnya dulu'
+                });
+                return;
+            }
+
+            // kalau valid → tambah row
+            orderItems.push({
+                sku: '',
+                name: '',
+                sell_price: 0,
+                qty: 1,
+                search: '',
+                searchResults: []
+            });
+
+            renderTable();
+        }
+        /* =========================
+           REMOVE ROW
+        ========================= */
+        function removeRow(index) {
+            orderItems.splice(index, 1);
+            recalcTotal();
+            renderTable();
+        }
+
+        /* =========================
+           TOTAL CALCULATION
+        ========================= */
+        function recalcTotal() {
+
+            let subtotal = 0;
+            let taxAmount = 0;
+            let discAmount = 0;
+
+            const taxType = $('#tax-rate').val();
+            const taxPercent = parseFloat($('input[name="taxPercent"]').val()) || 0;
+
+            // hitung subtotal
+            orderItems.forEach(item => {
+                subtotal += (item.qty || 0) * (item.sell_price || 0);
+            });
+
+            // 🔥 TAX LOGIC
+            if (taxType === 'include') {
+                // harga sudah termasuk pajak
+                taxAmount = subtotal * (taxPercent / (100 + taxPercent));
+            } else {
+                // pajak di luar
+                taxAmount = subtotal * (taxPercent / 100);
+            }
+
+            // 🔥 TOTAL
+            let total = taxType === 'include' ?
+                subtotal // sudah termasuk pajak
+                :
+                subtotal + taxAmount;
+
+            // 🔥 render UI
+            $('#subtotal').text(formatCurrency(subtotal));
+            $('#tax-amount').text(formatCurrency(taxAmount));
+            $('#total').text(formatCurrency(total));
+        }
+        /* =========================
+           FORMAT CURRENCY
+        ========================= */
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            }).format(amount);
+        }
+
+        /* =========================
+           RENDER TABLE (optional kalau kamu mau full JS control)
+        ========================= */
+        function renderTable() {
+            let html = '';
+
+            orderItems.forEach((item, index) => {
+                html += `
+        <tr>
+            <td>
+                <input type="text"
+                       class="form-control"
+                       value="${item.search || ''}"
+                       onkeyup="searchProduct(${index}, this)">
+                <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div>
+            </td>
+
+            <td>${item.sku || '-'}</td>
+            <td>${formatCurrency(item.sell_price || 0)}</td>
+
+            <td>
+                <input type="number" value="${item.qty}" class="form-control">
+            </td>
+
+            <td>${formatCurrency((item.qty || 0) * (item.sell_price || 0))}</td>
+
+            <td>
+                <button class="btn btn-danger btn-sm" onclick="removeRow(${index})">
+                    Delete
+                </button>
+            </td>
+        </tr>
+        `;
+            });
+
+            $('#order-table-body').html(html);
+        }
+        const Select2Cache = {};
+
+        function safeDestroySelect2($el) {
+            if ($el.hasClass("select2-hidden-accessible")) {
+                $el.blur();
+                $el.select2('destroy');
+            }
+        }
+        async function loadSelect2($el, options) {
+            const {
+                endpoint,
+                placeholder = 'Select',
+                params = {},
+                map = (item) => ({
+                    id: item.uuid,
+                    text: item.name,
+                    data: item
+                }),
+                cacheKey = null
+            } = options;
+
+            // cache
+            if (cacheKey && Select2Cache[cacheKey]) {
+                renderOptions($el, Select2Cache[cacheKey], placeholder);
+                return Select2Cache[cacheKey];
+            }
+
+            $el.prop('disabled', true);
+
+            const res = await apiFetch({
+                endpoint,
+                params
+            });
+
+            const data = res.data || [];
+
+            if (cacheKey) {
+                Select2Cache[cacheKey] = data;
+            }
+
+            renderOptions($el, data, placeholder, map);
+
+            $el.prop('disabled', false);
+
+            return data;
+        }
+
+        function renderOptions($el, data, placeholder, map) {
+
+            safeDestroySelect2($el);
+            $el.empty();
+
+            // 1. placeholder dulu
+            $el.append(new Option('', '', false, false));
+
+            // 2. data
+            data.forEach(item => {
+                const opt = map(item);
+                $el.append(new Option(opt.text, opt.id, false, false));
+            });
+
+            // 3. baru init select2
+            $el.select2({
+                placeholder,
+                allowClear: true,
+                width: '100%'
+            });
+
+            // 4. reset
+            $el.val(null).trigger('change');
+        }
+    </script>
+@endsection

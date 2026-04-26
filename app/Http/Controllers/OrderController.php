@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\BankService;
 use App\Services\BrandService;
 use App\Services\CategoryService;
+use App\Services\ConfigService;
 use App\Services\ItemService;
 use App\Services\OrderService;
 use App\Services\PaymentService;
@@ -36,6 +37,7 @@ class OrderController extends Controller
         // $data['brands'] = BrandService::getActive($request);
         // $data['units'] = UnitService::getActive($request);
         // $data['items'] = ItemService::getActive($request);
+        $data['config'] = ConfigService::getActive($request);
         $data['paymentMethods'] = PaymentService::getActive($request);
         $data['banks'] = BankService::getActive($request);
 

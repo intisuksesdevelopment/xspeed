@@ -169,13 +169,11 @@
 @endif
 
 @include('pages.components.modalpopup')
-@yield('content')
-</div>
+
 <!-- /Main Wrapper -->
 @include('pages.layout.partials.theme-settings')
-
-
 @include('pages.layout.partials.footer-scripts')
+@yield('content')
 </body>
 
 </html>

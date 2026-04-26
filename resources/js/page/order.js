@@ -1,4 +1,4 @@
-const baseApiUrl = '/api/';
+const apiFetchBaseUrl = '/api/';
 window.apiFetch = async function(options = {}) {
     const {
         endpoint = '',
@@ -10,7 +10,7 @@ window.apiFetch = async function(options = {}) {
 
     try {
         // Build URL dengan params
-        let url = baseApiUrl + endpoint;
+        let url = apiFetchBaseUrl + endpoint;
         if (Object.keys(params).length > 0) {
             const query = new URLSearchParams(params).toString();
             url += (url.includes('?') ? '&' : '?') + query;

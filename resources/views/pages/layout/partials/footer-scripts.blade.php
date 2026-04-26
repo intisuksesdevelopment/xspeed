@@ -1,6 +1,8 @@
 <!-- jQuery -->
 <script src="{{ asset('/build/js/jquery-3.7.1.min.js') }}"></script>
-
+<script>
+    window.$ = window.jQuery;
+</script>
 <!-- Feather Icon JS -->
 <script src="{{ asset('/build/js/feather.min.js') }}"></script>
 
@@ -202,7 +204,7 @@
 
 
 @if (Route::is(['product-add', 'stock-add-form', 'pos', 'order-add-form']))
-    <script src="{{ asset('/build/js/custom-select2.js') }}"></script>
+    {{-- <script src="{{ asset('/build/js/select2.min.js') }}"></script> --}}
 @endif
 
 @if (Route::is(['pos']))

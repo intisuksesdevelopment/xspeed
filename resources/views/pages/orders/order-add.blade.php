@@ -197,7 +197,14 @@
                                                 <span>Subtotal</span>
                                                 <strong id="subtotal">Rp 0</strong>
                                             </div>
-
+                                            <div class="d-flex justify-content-between">
+                                                <span>Discount(<span name="discPercent">0</span>%)</span>
+                                                <strong id="discTotal">Rp 0</strong>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span>Tax(<span name="taxPercent">0</span>%)</span>
+                                                <strong id="taxTotal">Rp 0</strong>
+                                            </div>
                                             <div class="d-flex justify-content-between">
                                                 <span>Total</span>
                                                 <strong id="total">Rp 0</strong>
@@ -328,7 +335,8 @@
         const apiContactUrl = 'contact/';
         const apiProductUrl = 'product/';
         const config = @json($config);
-
+        const taxPercent = config.ppn_rate || 0;
+        const discPercent = 0;
         const searchProduct = debounce(function(index, el) {
             searchProductCore(index, el);
         }, 1500);
@@ -348,12 +356,13 @@
                 $('[id^="dropdown-"]').hide();
             }
         });
-        $(document).on('change', '#tax-rate', function() {
+        $(document).on('change', '#tax-type', function() {
 
             if (this.value === 'include') {
                 $('input[name="taxPercent"]').val(0);
             } else {
-                $('input[name="taxPercent"]').val(config.ppn_rate || 0);
+                $('input[name="taxPercent"]').val(taxPercent);
+                $('span[name="taxPercent"]').text(taxPercent);
             }
 
             recalcTotal();
@@ -683,19 +692,19 @@
                             item.readonly
                                 ? `<span class="form-label">${item.search}</span>`
                                 : `<input-wrapper>
-                                                            <div style="position:relative;">
-                                                                <input type="text"
-                                                                    class="form-control pe-5"
-                                                                    value="${item.search || ''}"
-                                                                    onkeyup="searchProduct(${index}, this)">
+                                                                    <div style="position:relative;">
+                                                                        <input type="text"
+                                                                            class="form-control pe-5"
+                                                                            value="${item.search || ''}"
+                                                                            onkeyup="searchProduct(${index}, this)">
 
-                                                                <div id="loading-${index}"
-                                                                    style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
-                                                                    <div class="spinner-border spinner-border-sm text-primary"></div>
-                                                                </div>
-                                                            </div>
+                                                                        <div id="loading-${index}"
+                                                                            style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
+                                                                            <div class="spinner-border spinner-border-sm text-primary"></div>
+                                                                        </div>
+                                                                    </div>
 
-                                                            <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
+                                                                    <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
                                             }
                     </td>
 

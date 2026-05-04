@@ -60,7 +60,7 @@
                 @endslot
             @endcomponent
 
-            <form id="orderAddForm" method="post" action="{{ route('order-add') }}">
+            <form id="orderAddForm" method="post" action="{{ route('api-order-add') }}">
                 @csrf
 
                 <div class="card">
@@ -694,19 +694,19 @@
                             item.readonly
                                 ? `<span class="form-label">${item.search}</span>`
                                 : `<input-wrapper>
-                                                                                    <div style="position:relative;">
-                                                                                        <input type="text"
-                                                                                            class="form-control pe-5"
-                                                                                            value="${item.search || ''}"
-                                                                                            onkeyup="searchProduct(${index}, this)">
+                                                                                                        <div style="position:relative;">
+                                                                                                            <input type="text"
+                                                                                                                class="form-control pe-5"
+                                                                                                                value="${item.search || ''}"
+                                                                                                                onkeyup="searchProduct(${index}, this)">
 
-                                                                                        <div id="loading-${index}"
-                                                                                            style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
-                                                                                            <div class="spinner-border spinner-border-sm text-primary"></div>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                                            <div id="loading-${index}"
+                                                                                                                style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
+                                                                                                                <div class="spinner-border spinner-border-sm text-primary"></div>
+                                                                                                            </div>
+                                                                                                        </div>
 
-                                                                                    <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
+                                                                                                        <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
                                             }
                     </td>
 
@@ -838,5 +838,79 @@
             renderTable();
             recalcTotal();
         }
+        $('#orderAddForm').on('submit', function() {
+
+            let items = orderItems.map(i => ({
+                product_id: i.product_id || null,
+                sku: i.sku,
+                name: i.name,
+                sell_price: i.sell_price,
+                qty: i.qty
+            }));
+
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'items',
+                value: JSON.stringify(items)
+            }).appendTo('#orderAddForm');
+        });
+        document.getElementById('orderAddForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            try {
+                // =========================
+                // BUILD ITEMS
+                // =========================
+                const items = orderItems.map(i => ({
+                    item_id: i.item_id || null,
+                    sku: i.sku,
+                    name: i.name,
+                    sell_price: i.sell_price,
+                    qty: i.qty
+                }));
+
+                if (items.length === 0) {
+                    alert('Item tidak boleh kosong');
+                    return;
+                }
+
+                // =========================
+                // FORM DATA
+                // =========================
+                const formData = new FormData(this);
+
+                formData.append('items', JSON.stringify(items));
+
+                // =========================
+                // FETCH
+                // =========================
+                const res = await fetch("{{ route('api-order-add') }}", {
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('input[name=_token]').value
+                    },
+                    body: formData
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw data;
+                }
+
+                // =========================
+                // SUCCESS
+                // =========================
+                alert('Order berhasil dibuat');
+
+                // optional redirect
+                window.location.href = "{{ url('order') }}";
+
+            } catch (err) {
+                console.error(err);
+
+                alert(err.message || 'Terjadi kesalahan');
+            }
+        });
     </script>
 @endsection

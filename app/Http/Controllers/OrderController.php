@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Services\BankService;
 use App\Services\BrandService;
 use App\Services\CategoryService;
@@ -14,6 +15,7 @@ use App\Services\SubCategoryService;
 use App\Services\SupplierService;
 use App\Services\UnitService;
 use App\Services\WarehouseService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
@@ -51,7 +53,7 @@ class OrderController extends Controller
             $items = $request->input('items', []);
 
             if (empty($items)) {
-                throw new \Exception('Item tidak boleh kosong');
+                throw new Exception('Item tidak boleh kosong');
             }
 
             // =========================

@@ -102,7 +102,7 @@ class ApiController extends Controller
 
     public function addOrder(Request $request)
     {
-
+        dd($request->all());
         $validated = $request->validate([
             'transactionId' => 'required|string',
             'supplierUuid' => 'required|uuid',

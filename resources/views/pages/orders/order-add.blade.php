@@ -93,7 +93,7 @@
                                             <!-- SUPPLIER -->
                                             <div class="col-lg-3">
                                                 <label>Supplier</label>
-                                                <select id="supplier-select" name="supplier_id" class="form-select">
+                                                <select id="supplier-select" name="supplierUuid" class="form-select">
                                                     <option></option>
                                                 </select>
                                             </div>
@@ -101,7 +101,7 @@
                                             <!-- CONTACT -->
                                             <div class="col-lg-3">
                                                 <label>Contact</label>
-                                                <select id="contact-select" name="contact_id" class="form-select"
+                                                <select id="contact-select" name="contactId" class="form-select"
                                                     data-placeholder="Pilih Contact">
                                                     <option></option>
                                                 </select>
@@ -146,7 +146,7 @@
                                             <!-- SUPPLIER -->
                                             <div class="col-lg-3">
                                                 <label>Gudang</label>
-                                                <select id="warehouse-select" name="warehouse_id" class="form-select">
+                                                <select id="warehouse-select" name="warehouseId" class="form-select">
                                                     <option></option>
                                                 </select>
                                             </div>
@@ -192,22 +192,24 @@
 
                                         <hr>
 
-                                        <div class="p-3 bg-light border rounded w-50">
-                                            <div class="d-flex justify-content-between">
-                                                <span>Subtotal</span>
-                                                <strong id="subtotal">Rp 0</strong>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <span>Discount(<span name="discPercent">0</span>%)</span>
-                                                <strong id="discTotal">Rp 0</strong>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <span>Tax(<span name="taxPercent">0</span>%)</span>
-                                                <strong id="taxTotal">Rp 0</strong>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <span>Total</span>
-                                                <strong id="total">Rp 0</strong>
+                                        <div class="d-flex">
+                                            <div class="p-3 bg-light border rounded w-50 ms-auto">
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Subtotal</span>
+                                                    <strong id="subtotal">Rp 0</strong>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Discount(<span name="discPercent">0</span>%)</span>
+                                                    <strong id="discTotal">Rp 0</strong>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Tax(<span name="taxPercent">0</span>%)</span>
+                                                    <strong id="taxTotal">Rp 0</strong>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Total</span>
+                                                    <strong id="total">Rp 0</strong>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -692,19 +694,19 @@
                             item.readonly
                                 ? `<span class="form-label">${item.search}</span>`
                                 : `<input-wrapper>
-                                                                    <div style="position:relative;">
-                                                                        <input type="text"
-                                                                            class="form-control pe-5"
-                                                                            value="${item.search || ''}"
-                                                                            onkeyup="searchProduct(${index}, this)">
+                                                                                    <div style="position:relative;">
+                                                                                        <input type="text"
+                                                                                            class="form-control pe-5"
+                                                                                            value="${item.search || ''}"
+                                                                                            onkeyup="searchProduct(${index}, this)">
 
-                                                                        <div id="loading-${index}"
-                                                                            style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
-                                                                            <div class="spinner-border spinner-border-sm text-primary"></div>
-                                                                        </div>
-                                                                    </div>
+                                                                                        <div id="loading-${index}"
+                                                                                            style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
+                                                                                            <div class="spinner-border spinner-border-sm text-primary"></div>
+                                                                                        </div>
+                                                                                    </div>
 
-                                                                    <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
+                                                                                    <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
                                             }
                     </td>
 

@@ -36,8 +36,10 @@ Route::prefix('/warehouse')->group(function () {
     Route::get('/all', [ApiController::class, 'getWarehouses'])->name('api-warehouse-all');
 });
 Route::prefix('/contact')->group(function () {
-
     Route::get('/{supplierUuid}', [ApiController::class, 'getContactBySupplier'])->name('api-contact-supplier');
     Route::get('/detail/{uuid}', [ApiController::class, 'getContacts'])->name('api-contact-detail');
+});
+Route::prefix('/order')->group(function () {
+    Route::post('/add', [ApiController::class, 'addOrder'])->name('api-order-add');
 });
 // });

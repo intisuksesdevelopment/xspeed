@@ -6,6 +6,7 @@ use App\Services\BrandService;
 use App\Services\CategoryService;
 use App\Services\ContactService;
 use App\Services\ItemService;
+use App\Services\OrderService;
 use App\Services\SubCategoryService;
 use App\Services\SupplierService;
 use App\Services\WarehouseService;
@@ -97,5 +98,31 @@ class ApiController extends Controller
             'success' => true,
             'data' => ContactService::get($request, $supplierUuid),
         ]);
+    }
+
+    public function addOrder(Request $request)
+    {
+
+        $validated = $request->validate([
+            'transactionId' => 'required|string',
+            'supplierUuid' => 'required|uuid',
+            'warehouseId' => 'required|uuid',
+            'taxPercent' => 'nullable|numeric',
+            'discPercent' => 'nullable|numeric',
+            'items' => 'required|array',
+            'items.*.itemUuid' => 'required|uuid',
+            'items.*.quantity' => 'required|integer|min:1',
+        ]);
+
+        try {
+            $order = OrderService::createOrder($request);
+
+            return redirect()
+                ->route('order')
+                ->with('success', 'Order berhasil dibuat');
+        } catch (\Throwable $e) {
+
+            return back()->with('error', $e->getMessage());
+        }
     }
 }

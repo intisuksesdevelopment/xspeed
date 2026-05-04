@@ -44,8 +44,67 @@ class OrderController extends Controller
         return view('pages.orders.order-add', $data);
     }
 
-    public function add(Request $request)
+    public function createOrder($request)
     {
-        return OrderService::save($request);
+        return DB::transaction(function () use ($request) {
+
+            $items = $request->input('items', []);
+
+            if (empty($items)) {
+                throw new \Exception('Item tidak boleh kosong');
+            }
+
+            // =========================
+            // HITUNG ULANG (ANTI MANIPULASI)
+            // =========================
+            $subtotal = 0;
+
+            foreach ($items as $item) {
+                $subtotal += $item['qty'] * $item['sell_price'];
+            }
+
+            $taxPercent = $request->taxPercent ?? 0;
+            $discPercent = $request->discPercent ?? 0;
+
+            $taxAmount = $subtotal * ($taxPercent / 100);
+            $discAmount = $subtotal * ($discPercent / 100);
+
+            $total = $subtotal + $taxAmount - $discAmount;
+
+            // =========================
+            // SAVE ORDER (HEADER)
+            // =========================
+            $order = Order::create([
+                'transaction_id' => $request->transactionId,
+                'supplier_id' => $request->supplier_id,
+                'contact_id' => $request->contact_id,
+                'warehouse_id' => $request->warehouse_id,
+
+                'subtotal' => $subtotal,
+                'tax_percent' => $taxPercent,
+                'tax_amount' => $taxAmount,
+                'disc_percent' => $discPercent,
+                'disc_amount' => $discAmount,
+                'total' => $total,
+            ]);
+
+            // =========================
+            // SAVE ITEMS
+            // =========================
+            foreach ($items as $item) {
+
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $item['product_id'] ?? null,
+                    'sku' => $item['sku'],
+                    'name' => $item['name'],
+                    'price' => $item['sell_price'],
+                    'qty' => $item['qty'],
+                    'total' => $item['qty'] * $item['sell_price'],
+                ]);
+            }
+
+            return $order;
+        });
     }
 }

@@ -46,13 +46,14 @@ class Item extends Model
     ];
 
     protected $hidden = [
-        'id', 'basic_price',
+        'id',
+        'basic_price',
     ];
 
     public function validateAttributes($attributes, $id = null)
     {
         $validator = Validator::make($attributes, [
-            'uuid' => 'required|uuid|unique:items,uuid,'.$id,
+            'uuid' => 'required|uuid|unique:items,uuid,' . $id,
             'name' => 'required|string',
             'category_id' => 'required|integer',
             'sub_category_id' => 'nullable|integer',
@@ -61,7 +62,7 @@ class Item extends Model
             'basic_price' => 'required|numeric',
             'sell_price' => 'required|numeric',
             'unit' => 'required|string|max:50',
-            'stock' => 'required|integer',
+            'stock' => 'required|numeric',
             'stock_min' => 'required|integer',
             'currency' => 'required|string|max:3',
             'sku' => 'nullable|string|max:50',
@@ -121,7 +122,10 @@ class Item extends Model
     {
         return $this->belongsTo(Rack::class);
     }
-
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class, 'item_id');
+    }
     public function isAvailable()
     {
         switch ($this['status']) {

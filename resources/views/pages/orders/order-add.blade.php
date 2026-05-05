@@ -193,7 +193,7 @@
                                         <hr>
 
                                         <div class="d-flex">
-                                            <div class="p-3 bg-light border rounded w-50 ms-auto">
+                                            <div class="p-3 border rounded w-50 ms-auto">
                                                 <div class="d-flex justify-content-between">
                                                     <span>Subtotal</span>
                                                     <strong id="subtotal">Rp 0</strong>
@@ -338,16 +338,37 @@
         const apiProductUrl = 'product/';
         const config = @json($config);
         const taxPercent = config.ppn_rate || 0;
-        const discPercent = 0;
-        const searchProduct = debounce(function(index, el) {
-            searchProductCore(index, el);
-        }, 1500);
+        let discPercent = 0;
+        const searchProduct = debounce(async function(index, el) {
+            const keyword = el.value;
+
+            if (keyword.length < 2) return;
+
+            $('#loading-' + index).show();
+
+            const res = await apiFetch({
+                endpoint: apiProductUrl + 'search',
+                params: {
+                    q: keyword,
+                    limit: 10
+                }
+            });
+
+            $('#loading-' + index).hide();
+
+            renderDropdown(index, res.data || []);
+        }, 400);
+        const state = {
+            items: [],
+            supplier: null,
+            discPercent: 0,
+            taxPercent: config.ppn_rate || 0,
+            taxType: 'include'
+        };
 
         let orderItems = [];
         let selectedSupplier = null;
-        $(document).on('click', function() {
-            $('.dropdown-menu').hide();
-        });
+
         $(document).ready(function() {
             initWarehouseSelect();
             initSupplierSelect();
@@ -358,16 +379,14 @@
                 $('[id^="dropdown-"]').hide();
             }
         });
-        $(document).on('change', '#tax-type', function() {
+        $('#tax-type').on('change', function() {
+            state.taxType = this.value;
 
-            if (this.value === 'include') {
-                $('input[name="taxPercent"]').val(0);
-            } else {
-                $('input[name="taxPercent"]').val(taxPercent);
-                $('span[name="taxPercent"]').text(taxPercent);
-            }
+            state.taxPercent = this.value === 'include' ?
+                0 :
+                config.ppn_rate || 0;
 
-            recalcTotal();
+            renderSummary();
         });
         $(document).on('click', '.product-item', function() {
 
@@ -443,17 +462,18 @@
                 cacheKey: 'suppliers'
             });
 
-            $supplier.on('change', async function() {
+            $supplier.on('change', function() {
                 const id = $(this).val();
 
-                if (!id) return;
-
                 const supplier = Select2Cache.suppliers.find(s => s.uuid === id);
-                selectedSupplier = supplier;
+
+                state.supplier = supplier;
+                state.discPercent = supplier?.discount || 0;
 
                 loadSupplierInfo(supplier);
+                initContactSelect();
 
-                await initContactSelect(id);
+                renderSummary();
             });
         }
 
@@ -583,46 +603,38 @@
            ADD ROW
         ========================= */
         function addRow() {
+            const last = state.items[state.items.length - 1];
 
-            // kalau masih belum ada row → langsung boleh tambah
-            if (orderItems.length === 0) {
-                orderItems.push({
-                    sku: '',
-                    name: '',
-                    sell_price: 0,
-                    qty: 1,
-                    search: '',
-                    searchResults: []
-                });
-
-                renderTable();
-                return;
+            if (last && !last.sku) {
+                return Swal.fire('Oops', 'Isi product sebelumnya dulu', 'warning');
             }
 
-            // ambil row terakhir
-            const lastItem = orderItems[orderItems.length - 1];
-
-            // 🔥 validasi hanya untuk row ke-2 dan seterusnya
-            if (!lastItem.sku) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Oops...',
-                    text: 'Isi product di baris sebelumnya dulu'
-                });
-                return;
-            }
-
-            // kalau valid → tambah row
-            orderItems.push({
+            state.items.push({
+                product_id: null,
                 sku: '',
                 name: '',
                 sell_price: 0,
                 qty: 1,
                 search: '',
-                searchResults: []
+                readonly: false
             });
 
             renderTable();
+        }
+
+        function setProduct(index, item) {
+            state.items[index] = {
+                ...state.items[index],
+                product_id: item.id,
+                sku: item.sku,
+                name: item.name,
+                sell_price: item.sell_price,
+                qty: 1,
+                search: item.name,
+                readonly: true
+            };
+
+            renderAll();
         }
         /* =========================
            REMOVE ROW
@@ -636,6 +648,53 @@
         /* =========================
            TOTAL CALCULATION
         ========================= */
+        function calculateSummary() {
+            let subtotal = 0;
+
+            state.items.forEach(item => {
+                subtotal += (item.qty || 0) * (item.sell_price || 0);
+            });
+
+            const discAmount = subtotal * (state.discPercent / 100);
+            const afterDisc = subtotal - discAmount;
+
+            let taxAmount = 0;
+            let total = 0;
+
+            if (state.taxType === 'include') {
+                taxAmount = afterDisc * (state.taxPercent / (100 + state.taxPercent));
+                total = afterDisc;
+            } else {
+                taxAmount = afterDisc * (state.taxPercent / 100);
+                total = afterDisc + taxAmount;
+            }
+
+            return {
+                subtotal,
+                discAmount,
+                taxAmount,
+                total
+            };
+        }
+
+        function renderSummary() {
+            const {
+                subtotal,
+                discAmount,
+                taxAmount,
+                total
+            } = calculateSummary();
+
+            $('#subtotal').text(formatCurrency(subtotal));
+            $('#discTotal').text(formatCurrency(discAmount));
+            $('#taxTotal').text(formatCurrency(taxAmount));
+            $('#total').text(formatCurrency(total));
+
+            $('span[name="discPercent"]').text(state.discPercent);
+            $('input[name="discPercent"]').val(state.discPercent);
+            $('input[name="taxPercent"]').val(state.taxPercent);
+        }
+
         function recalcTotal() {
 
             let subtotal = 0;
@@ -644,30 +703,37 @@
 
             const taxType = $('#tax-type').val();
             const taxPercent = parseFloat($('input[name="taxPercent"]').val()) || 0;
-
             // hitung subtotal
             orderItems.forEach(item => {
                 subtotal += (item.qty || 0) * (item.sell_price || 0);
             });
 
+            discAmount = subtotal * (parseFloat(discPercent) / 100);
+
             // 🔥 TAX LOGIC
             if (taxType === 'include') {
-                // harga sudah termasuk pajak
                 taxAmount = subtotal * (taxPercent / (100 + taxPercent));
             } else {
-                // pajak di luar
                 taxAmount = subtotal * (taxPercent / 100);
             }
 
-            // 🔥 TOTAL
-            let total = taxType === 'include' ?
-                subtotal // sudah termasuk pajak
-                :
-                subtotal + taxAmount;
+            let totalAfterDisc = subtotal - discAmount;
+
+            if (taxType === 'include') {
+                taxAmount = totalAfterDisc * (taxPercent / (100 + taxPercent));
+                total = totalAfterDisc;
+            } else {
+                taxAmount = totalAfterDisc * (taxPercent / 100);
+                total = totalAfterDisc + taxAmount;
+            }
 
             // 🔥 render UI
+            $('span[name="discPercent"]').text(discPercent);
+            $('input[name="discPercent"]').val(discPercent);
+
             $('#subtotal').text(formatCurrency(subtotal));
-            $('#tax-amount').text(formatCurrency(taxAmount));
+            $('#taxTotal').text(formatCurrency(taxAmount));
+            $('#discTotal').text(formatCurrency(discAmount));
             $('#total').text(formatCurrency(total));
         }
         /* =========================
@@ -694,19 +760,19 @@
                             item.readonly
                                 ? `<span class="form-label">${item.search}</span>`
                                 : `<input-wrapper>
-                                                                                                        <div style="position:relative;">
-                                                                                                            <input type="text"
-                                                                                                                class="form-control pe-5"
-                                                                                                                value="${item.search || ''}"
-                                                                                                                onkeyup="searchProduct(${index}, this)">
+                                            <div style="position:relative;">
+                                                <input type="text"
+                                                    class="form-control pe-5"
+                                                    value="${item.search || ''}"
+                                                    onkeyup="searchProduct(${index}, this)">
 
-                                                                                                            <div id="loading-${index}"
-                                                                                                                style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
-                                                                                                                <div class="spinner-border spinner-border-sm text-primary"></div>
-                                                                                                            </div>
-                                                                                                        </div>
+                                                <div id="loading-${index}"
+                                                    style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
+                                                    <div class="spinner-border spinner-border-sm text-primary"></div>
+                                                </div>
+                                            </div>
 
-                                                                                                        <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
+                                            <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
                                             }
                     </td>
 
@@ -828,88 +894,60 @@
             recalcTotal();
         }
 
-        function updateQty(index, value) {
-            let qty = parseInt(value);
+        function updateQty(index, qty) {
+            qty = parseInt(qty) || 1;
+            if (qty < 1) qty = 1;
 
-            if (isNaN(qty) || qty < 1) qty = 1;
+            state.items[index].qty = qty;
 
-            orderItems[index].qty = qty;
-
-            renderTable();
-            recalcTotal();
+            renderAll();
         }
-        $('#orderAddForm').on('submit', function() {
 
-            let items = orderItems.map(i => ({
-                product_id: i.product_id || null,
-                sku: i.sku,
-                name: i.name,
-                sell_price: i.sell_price,
-                qty: i.qty
-            }));
-
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'items',
-                value: JSON.stringify(items)
-            }).appendTo('#orderAddForm');
-        });
+        function renderAll() {
+            renderTable();
+            renderSummary();
+        }
         document.getElementById('orderAddForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
+            if (!state.supplier) {
+                return Swal.fire('Oops', 'Supplier wajib dipilih', 'warning');
+            }
+
+            if (state.items.length === 0 || state.items.some(i => !i.sku)) {
+                return Swal.fire('Oops', 'Product belum lengkap', 'warning');
+            }
+
+            const btn = this.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerText = 'Saving...';
+
             try {
-                // =========================
-                // BUILD ITEMS
-                // =========================
-                const items = orderItems.map(i => ({
-                    item_id: i.item_id || null,
-                    sku: i.sku,
-                    name: i.name,
-                    sell_price: i.sell_price,
-                    qty: i.qty
-                }));
-
-                if (items.length === 0) {
-                    alert('Item tidak boleh kosong');
-                    return;
-                }
-
-                // =========================
-                // FORM DATA
-                // =========================
                 const formData = new FormData(this);
 
-                formData.append('items', JSON.stringify(items));
+                formData.append('items', JSON.stringify(state.items));
 
-                // =========================
-                // FETCH
-                // =========================
-                const res = await fetch("{{ route('api-order-add') }}", {
-                    method: "POST",
+                const res = await fetch(this.action, {
+                    method: 'POST',
                     headers: {
-                        'X-CSRF-TOKEN': document.querySelector('input[name=_token]').value
+                        'X-CSRF-TOKEN': document.querySelector('[name=_token]').value
                     },
                     body: formData
                 });
 
                 const data = await res.json();
 
-                if (!res.ok) {
-                    throw data;
-                }
+                if (!res.ok) throw data;
 
-                // =========================
-                // SUCCESS
-                // =========================
-                alert('Order berhasil dibuat');
-
-                // optional redirect
-                window.location.href = "{{ url('order') }}";
+                Swal.fire('Success', 'Order berhasil dibuat', 'success');
+                window.location.href = "/order";
 
             } catch (err) {
                 console.error(err);
-
-                alert(err.message || 'Terjadi kesalahan');
+                Swal.fire('Oops', err.message || 'Terjadi kesalahan', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Save Order';
             }
         });
     </script>

@@ -156,7 +156,7 @@ class ItemService
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         $items = Item::with('images')->with(['category', 'brand', 'rack'])->orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($items as $item) {
             $item->availability = $item->isAvailable();
@@ -171,7 +171,7 @@ class ItemService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $items = Item::with(['category', 'subcategory', 'brand', 'warehouse', 'rack', 'images'])->where('status', 0)->orderBy($sortBy, $sortDirection)->get();
         foreach ($items as $item) {
@@ -187,7 +187,7 @@ class ItemService
     {
         $perPage = $perPage ?? CommonConstants::PAGE;
         $sortBy = $sortBy ?? CommonConstants::SORT;
-        $sortDirection = $sortDirection ?? CommonConstants::DIRECTION;
+        $sortDirection = $sortDirection ?? CommonConstants::DIRECTION_DESC;
 
         // whitelist kolom biar aman
         $allowedSort = ['id', 'name', 'sell_price', 'created_at'];

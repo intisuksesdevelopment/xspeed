@@ -17,7 +17,7 @@ class SubCategoryService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $subcategories = SubCategory::orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($subcategories as $subcategory) {
@@ -33,7 +33,7 @@ class SubCategoryService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $subcategories = SubCategory::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
         foreach ($subcategories as $subcategory) {
@@ -48,7 +48,7 @@ class SubCategoryService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $subcategories = SubCategory::where('category_id', $categoryId)->where('status', 0)->orderBy($sortBy, $sortDirection)->get();
         foreach ($subcategories as $subcategory) {

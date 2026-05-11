@@ -20,7 +20,7 @@ class SalesService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $sales = Sale::orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($sales as $sale) {
@@ -36,7 +36,7 @@ class SalesService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', 'created_at');
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $sales = Sale::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
         foreach ($sales as $sale) {

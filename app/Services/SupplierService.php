@@ -16,7 +16,7 @@ class SupplierService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $suppliers = Supplier::orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($suppliers as $supplier) {
@@ -32,7 +32,7 @@ class SupplierService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $suppliers = Supplier::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
         foreach ($suppliers as $supplier) {

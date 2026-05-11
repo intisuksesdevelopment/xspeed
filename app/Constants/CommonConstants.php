@@ -9,5 +9,6 @@ class CommonConstants
 
     const SORT = 'id';
 
-    const DIRECTION = 'desc';
+    const DIRECTION_DESC = 'desc';
+    const DIRECTION_ASC = 'asc';
 }

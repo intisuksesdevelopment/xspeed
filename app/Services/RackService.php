@@ -17,7 +17,7 @@ class RackService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $racks = Rack::orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($racks as $rack) {
@@ -33,7 +33,7 @@ class RackService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $racks = Rack::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
         foreach ($racks as $rack) {

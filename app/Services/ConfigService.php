@@ -13,7 +13,7 @@ class ConfigService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $configs = Config::orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($configs as $config) {

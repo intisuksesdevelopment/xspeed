@@ -19,7 +19,7 @@ class StockService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $stocks = Stock::orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($stocks as $stock) {
@@ -35,7 +35,7 @@ class StockService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $stocks = Stock::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
         foreach ($stocks as $stock) {

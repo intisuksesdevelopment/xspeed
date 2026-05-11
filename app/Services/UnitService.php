@@ -17,7 +17,7 @@ class UnitService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $units = Unit::orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($units as $unit) {
@@ -33,7 +33,7 @@ class UnitService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $units = Unit::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
         foreach ($units as $unit) {

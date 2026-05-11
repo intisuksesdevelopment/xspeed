@@ -186,8 +186,7 @@
                                             <tbody id="order-table-body"></tbody>
                                         </table>
 
-                                        <button type="button" class="btn btn-secondary btn-sm" onclick="addRow()">
-                                            Add Product Row
+                                        <button type="button" class="btn btn-primary btn-sm" onclick="addRow()">Add Product
                                         </button>
 
                                         <hr>
@@ -366,7 +365,6 @@
             taxType: 'include'
         };
 
-        let orderItems = [];
         let selectedSupplier = null;
 
         $(document).ready(function() {
@@ -393,8 +391,8 @@
             const item = $(this).data('item');
             const index = $(this).data('index');
 
-            orderItems[index] = {
-                ...orderItems[index],
+            state.items[index] = {
+                ...state.items[index],
                 sku: item.sku,
                 name: item.name,
                 sell_price: item.sell_price,
@@ -482,7 +480,7 @@
         ========================= */
         async function initContactSelect() {
 
-            if (!selectedSupplier) return;
+            if (!state.supplier) return;
 
             const $contact = $('#contact-select');
 
@@ -490,7 +488,7 @@
             $contact.empty();
 
             const res = await apiFetch({
-                endpoint: apiContactUrl + selectedSupplier.uuid
+                endpoint: apiContactUrl + state.supplier.uuid
             });
 
             contactList = res.data || [];
@@ -588,8 +586,8 @@
            SELECT PRODUCT
         ========================= */
         function selectProduct(index, sku, name, price) {
-            orderItems[index] = {
-                ...orderItems[index],
+            state.items[index] = {
+                ...state.items[index],
                 sku: sku,
                 name: name,
                 sell_price: price,
@@ -603,10 +601,13 @@
            ADD ROW
         ========================= */
         function addRow() {
-            const last = state.items[state.items.length - 1];
+            // cek hanya jika sudah ada item sebelumnya
+            if (state.items.length > 0) {
+                const last = state.items[state.items.length - 1];
 
-            if (last && !last.sku) {
-                return Swal.fire('Oops', 'Isi product sebelumnya dulu', 'warning');
+                if (!last.sku) {
+                    return Swal.fire('Oops', 'Isi product sebelumnya dulu', 'warning');
+                }
             }
 
             state.items.push({
@@ -640,7 +641,7 @@
            REMOVE ROW
         ========================= */
         function removeRow(index) {
-            orderItems.splice(index, 1);
+            state.items.splice(index, 1);
             recalcTotal();
             renderTable();
         }
@@ -692,6 +693,7 @@
 
             $('span[name="discPercent"]').text(state.discPercent);
             $('input[name="discPercent"]').val(state.discPercent);
+            $('span[name="taxPercent"]').text(state.taxPercent);
             $('input[name="taxPercent"]').val(state.taxPercent);
         }
 
@@ -704,7 +706,7 @@
             const taxType = $('#tax-type').val();
             const taxPercent = parseFloat($('input[name="taxPercent"]').val()) || 0;
             // hitung subtotal
-            orderItems.forEach(item => {
+            state.items.forEach(item => {
                 subtotal += (item.qty || 0) * (item.sell_price || 0);
             });
 
@@ -752,7 +754,7 @@
         function renderTable() {
             let html = '';
 
-            orderItems.forEach((item, index) => {
+            state.items.forEach((item, index) => {
                 html += `
                 <tr>
                     <td>
@@ -760,19 +762,19 @@
                             item.readonly
                                 ? `<span class="form-label">${item.search}</span>`
                                 : `<input-wrapper>
-                                            <div style="position:relative;">
-                                                <input type="text"
-                                                    class="form-control pe-5"
-                                                    value="${item.search || ''}"
-                                                    onkeyup="searchProduct(${index}, this)">
+                                                        <div style="position:relative;">
+                                                            <input type="text"
+                                                                class="form-control pe-5"
+                                                                value="${item.search || ''}"
+                                                                onkeyup="searchProduct(${index}, this)">
 
-                                                <div id="loading-${index}"
-                                                    style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
-                                                    <div class="spinner-border spinner-border-sm text-primary"></div>
-                                                </div>
-                                            </div>
+                                                            <div id="loading-${index}"
+                                                                style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
+                                                                <div class="spinner-border spinner-border-sm text-primary"></div>
+                                                            </div>
+                                                        </div>
 
-                                            <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
+                                                        <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
                                             }
                     </td>
 
@@ -882,13 +884,13 @@
         }
 
         function changeQty(index, delta) {
-            let current = orderItems[index].qty || 1;
+            let current = state.items[index].qty || 1;
 
             let newQty = current + delta;
 
             if (newQty < 1) newQty = 1; // biar gak minus
 
-            orderItems[index].qty = newQty;
+            state.items[index].qty = newQty;
 
             renderTable();
             recalcTotal();
@@ -901,6 +903,50 @@
             state.items[index].qty = qty;
 
             renderAll();
+        }
+
+        function escapeHtml(str) {
+            return $('<div>').text(str || '').html();
+        }
+
+        function renderDropdown(index, items = []) {
+
+            const dropdown = $('#dropdown-' + index);
+
+            dropdown.empty().show();
+
+            // kosong
+            if (items.length === 0) {
+                dropdown.append(`
+            <div class="dropdown-item text-muted">
+                Tidak ada data
+            </div>
+        `);
+                return;
+            }
+
+            items.forEach(item => {
+
+                const row = $(`
+            <div class="dropdown-item product-item"
+                data-index="${index}"
+                style="cursor:pointer;padding:8px;">
+                
+                <div class="fw-semibold">
+                    ${escapeHtml(item.name)}
+                </div>
+
+                <small class="text-muted">
+                    ${escapeHtml(item.sku)}
+                </small>
+            </div>
+        `);
+
+                // simpan object product
+                row.data('item', item);
+
+                dropdown.append(row);
+            });
         }
 
         function renderAll() {

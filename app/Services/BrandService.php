@@ -16,7 +16,7 @@ class BrandService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $brands = Brand::where('status', 0)->orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($brands as $brand) {
@@ -32,7 +32,7 @@ class BrandService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $brands = Brand::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
         foreach ($brands as $brand) {

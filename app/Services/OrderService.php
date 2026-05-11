@@ -21,7 +21,7 @@ class OrderService
         // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
         // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION);
+        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
         $orders = Order::orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($orders as $order) {

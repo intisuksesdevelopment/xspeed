@@ -693,43 +693,55 @@
 
             $('span[name="discPercent"]').text(state.discPercent);
             $('input[name="discPercent"]').val(state.discPercent);
+            $('input[name="discAmount"]').val(discAmount);
             $('span[name="taxPercent"]').text(state.taxPercent);
             $('input[name="taxPercent"]').val(state.taxPercent);
+            $('input[name="taxAmount"]').val(taxAmount);
         }
 
         function recalcTotal() {
-
             let subtotal = 0;
-            let taxAmount = 0;
-            let discAmount = 0;
 
             const taxType = $('#tax-type').val();
-            const taxPercent = parseFloat($('input[name="taxPercent"]').val()) || 0;
+
+            const taxPercent = parseFloat(state.taxPercent) || 0;
+            const discPercent = parseFloat(state.discPercent) || 0;
+
             // hitung subtotal
             state.items.forEach(item => {
-                subtotal += (item.qty || 0) * (item.sell_price || 0);
+                const qty = parseFloat(item.qty) || 0;
+                const price = parseFloat(item.sell_price) || 0;
+
+                subtotal += qty * price;
             });
 
-            discAmount = subtotal * (parseFloat(discPercent) / 100);
+            // diskon
+            const discAmount = subtotal * (discPercent / 100);
 
-            // 🔥 TAX LOGIC
+            // setelah diskon
+            const totalAfterDisc = subtotal - discAmount;
+
+            let taxAmount = 0;
+            let total = 0;
+
+            // TAX
             if (taxType === 'include') {
-                taxAmount = subtotal * (taxPercent / (100 + taxPercent));
-            } else {
-                taxAmount = subtotal * (taxPercent / 100);
-            }
 
-            let totalAfterDisc = subtotal - discAmount;
-
-            if (taxType === 'include') {
+                // pajak sudah termasuk di harga
                 taxAmount = totalAfterDisc * (taxPercent / (100 + taxPercent));
+
+                // total tetap
                 total = totalAfterDisc;
+
             } else {
+
+                // pajak ditambahkan
                 taxAmount = totalAfterDisc * (taxPercent / 100);
+
                 total = totalAfterDisc + taxAmount;
             }
 
-            // 🔥 render UI
+            // render UI
             $('span[name="discPercent"]').text(discPercent);
             $('input[name="discPercent"]').val(discPercent);
 
@@ -739,8 +751,8 @@
             $('#total').text(formatCurrency(total));
         }
         /* =========================
-           FORMAT CURRENCY
-        ========================= */
+                  FORMAT CURRENCY
+               ========================= */
         function formatCurrency(amount) {
             return new Intl.NumberFormat('id-ID', {
                 style: 'currency',
@@ -762,19 +774,19 @@
                             item.readonly
                                 ? `<span class="form-label">${item.search}</span>`
                                 : `<input-wrapper>
-                                                        <div style="position:relative;">
-                                                            <input type="text"
-                                                                class="form-control pe-5"
-                                                                value="${item.search || ''}"
-                                                                onkeyup="searchProduct(${index}, this)">
+                                                                                    <div style="position:relative;">
+                                                                                        <input type="text"
+                                                                                            class="form-control pe-5"
+                                                                                            value="${item.search || ''}"
+                                                                                            onkeyup="searchProduct(${index}, this)">
 
-                                                            <div id="loading-${index}"
-                                                                style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
-                                                                <div class="spinner-border spinner-border-sm text-primary"></div>
-                                                            </div>
-                                                        </div>
+                                                                                        <div id="loading-${index}"
+                                                                                            style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
+                                                                                            <div class="spinner-border spinner-border-sm text-primary"></div>
+                                                                                        </div>
+                                                                                    </div>
 
-                                                        <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
+                                                                                    <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
                                             }
                     </td>
 
@@ -825,7 +837,7 @@
                 placeholder = 'Select',
                 params = {},
                 map = (item) => ({
-                    id: item.uuid,
+                    id: item.uuid ?? item.id,
                     text: item.name,
                     data: item
                 }),
@@ -931,7 +943,7 @@
             <div class="dropdown-item product-item"
                 data-index="${index}"
                 style="cursor:pointer;padding:8px;">
-                
+
                 <div class="fw-semibold">
                     ${escapeHtml(item.name)}
                 </div>

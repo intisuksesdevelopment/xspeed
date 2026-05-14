@@ -324,6 +324,51 @@
         <!-- /add popup -->
     @endif
 
+    <!-- Payment Modal -->
+    <div class="modal fade" id="modal-payment" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow-sm">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-semibold">Payment Method</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3 d-flex justify-content-between align-items-center">
+                        <span class="fs-5">Total Bayar:</span>
+                        <strong class="fs-4 text-primary" id="payment_total_display">Rp 0</strong>
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <label class="form-label">Metode Pembayaran</label>
+                        <select id="payment_method_select" class="form-select">
+                            <option value="1">Cash</option>
+                            <option value="2">Bank Transfer</option>
+                            <option value="3">Debit</option>
+                            <option value="4">Due Date / Tempo</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 d-none" id="div_due_date">
+                        <label class="form-label">Jatuh Tempo <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="payment_due_date">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" id="label_payment_amount">Nominal Uang (Rp)</label>
+                        <input type="number" class="form-control" id="payment_amount_input" min="0">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" id="label_payment_change">Kembalian (Rp)</label>
+                        <input type="text" class="form-control" id="payment_change_display" readonly value="0">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" id="btn-confirm-payment" class="btn btn-primary">Confirm & Pay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Payment Modal -->
+
 
     <!-- script kamu -->
     <script src="{{ asset('/build/js/page/order.js') }}"></script>
@@ -983,16 +1028,90 @@
                 return Swal.fire('Oops', 'Product belum lengkap', 'warning');
             }
 
-            const btn = this.querySelector('button[type="submit"]');
+            const { total } = calculateSummary();
+            
+            $('#payment_total_display').text(formatCurrency(total));
+            $('#payment_amount_input').val(total);
+            $('#payment_change_display').val(0);
+            
+            $('#modal-payment').data('total', total);
+            
+            // Reset to default
+            $('#payment_method_select').val('1').trigger('change');
+            
+            const paymentModal = new bootstrap.Modal(document.getElementById('modal-payment'));
+            paymentModal.show();
+        });
+
+        function calculatePayment() {
+            const total = parseFloat($('#modal-payment').data('total')) || 0;
+            const paid = parseFloat($('#payment_amount_input').val()) || 0;
+            const isDueDate = $('#payment_method_select').val() == '4';
+
+            if (isDueDate) {
+                const remaining = total - paid;
+                $('#payment_change_display').val(remaining > 0 ? remaining : 0);
+            } else {
+                const change = paid - total;
+                $('#payment_change_display').val(change > 0 ? change : 0);
+            }
+        }
+
+        $('#payment_method_select').on('change', function() {
+            if($(this).val() == '4') {
+                $('#div_due_date').removeClass('d-none');
+                $('#label_payment_amount').text('DP / Uang Muka (Rp)');
+                $('#label_payment_change').text('Kurang Bayar (Rp)');
+                $('#payment_amount_input').val(0); // Default DP 0
+            } else {
+                $('#div_due_date').addClass('d-none');
+                $('#label_payment_amount').text('Nominal Uang (Rp)');
+                $('#label_payment_change').text('Kembalian (Rp)');
+                const total = parseFloat($('#modal-payment').data('total')) || 0;
+                $('#payment_amount_input').val(total); // Default full payment
+            }
+            calculatePayment();
+        });
+
+        $('#payment_amount_input').on('input', calculatePayment);
+
+        document.getElementById('btn-confirm-payment').addEventListener('click', async function() {
+            const btn = this;
+            const isDueDate = $('#payment_method_select').val() == '4';
+            const dueDate = $('#payment_due_date').val();
+
+            if (isDueDate && !dueDate) {
+                return Swal.fire('Oops', 'Tanggal Jatuh Tempo wajib diisi', 'warning');
+            }
+
             btn.disabled = true;
-            btn.innerText = 'Saving...';
+            btn.innerText = 'Processing...';
+
+            const formElement = document.getElementById('orderAddForm');
 
             try {
-                const formData = new FormData(this);
+                const formData = new FormData(formElement);
 
                 formData.append('items', JSON.stringify(state.items));
+                
+                const total = parseFloat($('#modal-payment').data('total')) || 0;
+                const paid = parseFloat($('#payment_amount_input').val()) || 0;
+                
+                const change = (!isDueDate && paid > total) ? paid - total : 0;
+                const remaining = paid < total ? total - paid : 0;
+                const status = remaining > 0 ? 1 : 0;
+                
+                formData.append('payment_method', $('#payment_method_select').val());
+                formData.append('payment_total', paid);
+                formData.append('payment_change', change);
+                formData.append('payment_remaining', remaining);
+                formData.append('status', status);
 
-                const res = await fetch(this.action, {
+                if (isDueDate) {
+                    formData.append('payment_date', dueDate);
+                }
+
+                const res = await fetch(formElement.action, {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('[name=_token]').value
@@ -1004,15 +1123,17 @@
 
                 if (!res.ok) throw data;
 
-                Swal.fire('Success', 'Order berhasil dibuat', 'success');
-                window.location.href = "/order";
+                $('#modal-payment').modal('hide');
+                Swal.fire('Success', 'Order berhasil dibuat', 'success').then(() => {
+                    window.location.href = "/order";
+                });
 
             } catch (err) {
                 console.error(err);
                 Swal.fire('Oops', err.message || 'Terjadi kesalahan', 'error');
             } finally {
                 btn.disabled = false;
-                btn.innerText = 'Save Order';
+                btn.innerText = 'Confirm & Pay';
             }
         });
     </script>

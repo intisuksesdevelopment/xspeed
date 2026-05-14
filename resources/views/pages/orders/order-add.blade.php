@@ -393,6 +393,7 @@
 
             state.items[index] = {
                 ...state.items[index],
+                uuid: item.uuid,
                 sku: item.sku,
                 name: item.name,
                 sell_price: item.sell_price,
@@ -588,6 +589,7 @@
         function selectProduct(index, sku, name, price) {
             state.items[index] = {
                 ...state.items[index],
+                uuid: item.uuid,    
                 sku: sku,
                 name: name,
                 sell_price: price,
@@ -611,7 +613,7 @@
             }
 
             state.items.push({
-                product_id: null,
+                uuid: null,
                 sku: '',
                 name: '',
                 sell_price: 0,
@@ -627,6 +629,7 @@
             state.items[index] = {
                 ...state.items[index],
                 product_id: item.id,
+                uuid: item.uuid,
                 sku: item.sku,
                 name: item.name,
                 sell_price: item.sell_price,
@@ -744,6 +747,10 @@
             // render UI
             $('span[name="discPercent"]').text(discPercent);
             $('input[name="discPercent"]').val(discPercent);
+            $('input[name="discAmount"]').val(discAmount);
+            $('span[name="taxPercent"]').text(taxPercent);
+            $('input[name="taxPercent"]').val(taxPercent);
+            $('input[name="taxAmount"]').val(taxAmount);
 
             $('#subtotal').text(formatCurrency(subtotal));
             $('#taxTotal').text(formatCurrency(taxAmount));

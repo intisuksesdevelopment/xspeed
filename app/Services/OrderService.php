@@ -31,126 +31,176 @@ class OrderService
         return $orders;
     }
 
-    public static function save(Request $request)
-    {
-        try {
+public static function createOrder(Request $request)
+{
+    try {
 
-            $request['payment_total'] = UtilService::clearNumberFormat($request->input('payment_total'));
-            $request['payment_change'] = UtilService::clearNumberFormat($request->input('payment_change'));
+        $request['payment_total'] = UtilService::clearNumberFormat($request->input('payment_total'));
+        $request['payment_change'] = UtilService::clearNumberFormat($request->input('payment_change'));
 
-            // validate item is not empty
+        // decode items json string
+        $request->merge([
+            'items' => json_decode($request->input('items'), true),
+        ]);
 
-            $items = $request->input('itemOrderList');
+        // validation
+        $validated = $request->validate([
+            'transactionId' => 'required|string',
+            'type' => 'required|string',
 
-            $decodedItems = json_decode($items, true);
+            'supplierUuid' => 'nullable|uuid',
+            'contact_id' => 'nullable',
 
-            if (empty($decodedItems)) {
-                throw new \Exception('Product must not empty');
-            }
+            // request kirim angka
+            'warehouseId' => 'required|integer',
 
-            $sales = Sale::where('trx_id', $request->input('trx_id'))->first();
-            if ($sales) {
-                throw new AlreadyExistException("trx_id : {$request->input('trx_id')}");
-            } else {
-                $tax = $request->input('tax') / 100;
-                $disc = $request->input('discount') / 100;
-                $shipping = $request->input('shipping') ?? 0;
-                $dp = 0;
-                $up = 0;
-                $charge = 0;
-                $subTotalItem = 0;
-                $finalTotal = 0;
-                $subtotal = 0;
-                $total = 0;
-                $items = json_decode($items, true);
-                $checkStock = ItemService::checkStock($items);
-                if ($checkStock['not_available']) {
-                    throw new NotFoundException('Stock not enough for: '.implode(', ', array_column($checkStock['not_available'], 'name')));
-                }
+            'taxPercent' => 'nullable|numeric|min:0',
+            'discPercent' => 'nullable|numeric|min:0',
 
-                foreach ($items as $item) {
-                    $item['qty'] = $item['qty'] ?? 1;
-                    $subtotal += ($item['qty'] * $item['sell_price']);
-                    $subTotalItem += $item['qty'];
-                }
+            'items' => 'required|array|min:1',
+            'items.*.uuid' => 'required|uuid',
+            'items.*.qty' => 'required|integer|min:1',
+            'items.*.sell_price' => 'required|numeric|min:0',
+        ]);
 
-                $tax = $subtotal * $tax;
-                $disc = $subtotal * $disc;
-                $total = $subtotal + $tax + $shipping - $disc;
+        $items = $request->input('items');
 
-                $request['uuid'] = Str::uuid();
-                $request['name'] = strtoupper($request->input('type').'-'.$request->input('trx_id'));
-                $request['tax_percent'] = $request->input('tax') ?? 0;
-                $request['tax_total'] = $tax;
-                $request['disc_percent'] = $request->input('discount') ?? 0;
-                $request['disc_total'] = $disc;
-                $request['dp_total'] = $request->input('dp_total') ?? 0;
-                $request['up_total'] = $request->input('up_total') ?? 0;
-                $request['sub_total'] = $subtotal;
-                $request['charge_data'] = $request->input('charge_data') ?? '[]';
-                $request['charge_total'] = $request->input('charge_total') ?? 0;
-                $request['sub_total_item'] = $subTotalItem;
-                $request['final_total'] = $total;
+        $sales = Sale::query()
+            ->where('trx_id', $request->input('transactionId'))
+            ->first();
 
-                $request['payment_id'] = $request->input('payment_method') ?? 12;
-                $request['payment_data'] = $request->input('payment_desc') ?? null;
-                $request['payment_date'] = $request->input('payment_date') ?? null;
-                $request['description'] = $request->input('description') ?? null;
-                $request['payment_amount'] = UtilService::clearNumberFormat($request->input('payment_total') ?? 0);
-                $request['payment_change'] = $request->input('payment_change') ?? 0;
-                $request['payment_remaining'] = $request->input('payment_remaining') ?? 0;
-                $request['payment_status'] = $request->input('status') ?? 0;
-                $request['payment_at'] = date('Y-m-d H:i:s');
-                $request['currency'] = $request->input('currency') ?? 'idr';
-                $request['created_by'] = Auth::user()->nik;
-                $request['status'] = 0;
-
-                $custData = ContactService::getDetail($request->input('contact_id'));
-                $request['cust_id'] = $custData['id'];
-                $request['cust_address'] = $custData['address'];
-                $request['cust_phone'] = $custData['phone'];
-                $request['cust_name'] = $custData['name'];
-                $request['cust_email'] = $custData['email'];
-
-                $sales = new Sale;
-                $sales->fill($request->all());
-                $sales->save();
-
-                foreach ($items as $item) {
-                    $saleData = new SaleData;
-                    $saleData['sales_id'] = $sales->id;
-                    $itemData = ItemService::getDetail($item['uuid']);
-                    $item['item_id'] = $itemData['id'];
-                    $item['item_id'] = $itemData['id'];
-                    $item['item_name'] = $itemData['name'];
-                    $item['item_code'] = $itemData['sku'];
-                    $item['item_unit'] = $itemData['unit'];
-                    $item['item_desc'] = $itemData['item_desc'];
-                    $item['item_amount'] = $item['qty'];
-                    $item['item_price'] = $itemData['sell_price'];
-                    $item['item_total'] = $itemData['sell_price'] * $item['qty'];
-                    $item['created_at'] = date('Y-m-d H:i:s');
-                    $item['created_by'] = Auth::user()->nik;
-                    $item['status'] = 0;
-
-                    $saleData->fill($item);
-                    $saleData->save();
-                }
-
-                return response()->json(['success' => true, 'message' => 'Add successfully!']);
-            }
-        } catch (NotFoundException $e) {
-            Log::error($e->getMessage());
-
-            return response()->json(['success' => false, 'message' => $e->getMessage()]);
-        } catch (AlreadyExistException $e) {
-            Log::error($e->getMessage());
-
-            return response()->json(['success' => false, 'message' => $e->getMessage()]);
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-
-            return response()->json(['success' => false, 'message' => $e->getMessage() ?? 'An error occurred. Please try again later.']);
+        if ($sales) {
+            throw new \Exception("trx_id : {$request->input('transactionId')}");
         }
+
+        $tax = $request->input('taxPercent', 0) / 100;
+        $disc = $request->input('discPercent', 0) / 100;
+        $shipping = $request->input('shipping') ?? 0;
+
+        $subTotalItem = 0;
+        $subtotal = 0;
+
+        $checkStock = ItemService::checkStock($items);
+        dd
+        if ($checkStock['not_available']) {
+            throw new \Exception(
+                'Stock not enough for: ' .
+                implode(', ', array_column($checkStock['not_available'], 'name'))
+            );
+        }
+
+        foreach ($items as $item) {
+            $item['qty'] = $item['qty'] ?? 1;
+
+            $subtotal += ($item['qty'] * $item['sell_price']);
+            $subTotalItem += $item['qty'];
+        }
+
+        $tax = $subtotal * $tax;
+        $disc = $subtotal * $disc;
+        $total = $subtotal + $tax + $shipping - $disc;
+
+        $request['uuid'] = Str::uuid();
+        $request['trx_id'] = $request->input('transactionId');
+        $request['name'] = strtoupper(
+            $request->input('type') . '-' . $request->input('transactionId')
+        );
+
+        $request['tax_percent'] = $request->input('taxPercent') ?? 0;
+        $request['tax_total'] = $tax;
+
+        $request['disc_percent'] = $request->input('discPercent') ?? 0;
+        $request['disc_total'] = $disc;
+
+        $request['dp_total'] = $request->input('dp_total') ?? 0;
+        $request['up_total'] = $request->input('up_total') ?? 0;
+
+        $request['sub_total'] = $subtotal;
+
+        $request['charge_data'] = $request->input('charge_data') ?? '[]';
+        $request['charge_total'] = $request->input('charge_total') ?? 0;
+
+        $request['sub_total_item'] = $subTotalItem;
+        $request['final_total'] = $total;
+
+        $request['payment_id'] = $request->input('payment_method') ?? 12;
+        $request['payment_data'] = $request->input('payment_desc') ?? null;
+        $request['payment_date'] = $request->input('payment_date') ?? null;
+
+        $request['description'] = $request->input('description') ?? null;
+
+        $request['payment_amount'] = UtilService::clearNumberFormat(
+            $request->input('payment_total') ?? 0
+        );
+
+        $request['payment_change'] = $request->input('payment_change') ?? 0;
+        $request['payment_remaining'] = $request->input('payment_remaining') ?? 0;
+
+        $request['payment_status'] = $request->input('status') ?? 0;
+
+        $request['payment_at'] = date('Y-m-d H:i:s');
+
+        $request['currency'] = $request->input('currency') ?? 'idr';
+
+        $request['created_by'] = Auth::user()->nik;
+
+        $request['status'] = 0;
+
+        $custData = ContactService::getDetail($request->input('contact_id'));
+
+        $request['cust_id'] = $custData['id'] ?? null;
+        $request['cust_address'] = $custData['address'] ?? null;
+        $request['cust_phone'] = $custData['phone'] ?? null;
+        $request['cust_name'] = $custData['name'] ?? null;
+        $request['cust_email'] = $custData['email'] ?? null;
+
+        $sales = new Sale;
+        $sales->fill($request->all());
+        $sales->save();
+
+        foreach ($items as $item) {
+
+            $saleData = new SaleData;
+
+            $saleData['sales_id'] = $sales->id;
+
+            $itemData = ItemService::getDetail($item['uuid']);
+
+            $item['item_id'] = $itemData['id'];
+            $item['item_name'] = $itemData['name'];
+            $item['item_code'] = $itemData['sku'];
+            $item['item_unit'] = $itemData['unit'];
+            $item['item_desc'] = $itemData['item_desc'];
+
+            $item['item_amount'] = $item['qty'];
+
+            $item['item_price'] = $itemData['sell_price'];
+
+            $item['item_total'] =
+                $itemData['sell_price'] * $item['qty'];
+
+            $item['created_at'] = date('Y-m-d H:i:s');
+            $item['created_by'] = Auth::user()->nik;
+
+            $item['status'] = 0;
+
+            $saleData->fill($item);
+            $saleData->save();
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Add successfully!'
+        ]);
+
+    } catch (\Exception $e) {
+
+        Log::error($e->getMessage());
+
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+        ], 500);
     }
+}
 }

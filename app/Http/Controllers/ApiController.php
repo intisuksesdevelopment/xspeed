@@ -64,6 +64,7 @@ class ApiController extends Controller
             'data' => CategoryService::getActive($request),
         ]);
     }
+
     public function getSubcategories(Request $request, $categoryId)
     {
         return response()->json([
@@ -71,6 +72,7 @@ class ApiController extends Controller
             'data' => SubCategoryService::getByCategoryId($request, $categoryId),
         ]);
     }
+
     public function getSuppliers(Request $request)
     {
         return response()->json([
@@ -78,6 +80,7 @@ class ApiController extends Controller
             'data' => SupplierService::getActive($request),
         ]);
     }
+
     public function getWarehouses(Request $request)
     {
         return response()->json([
@@ -85,6 +88,7 @@ class ApiController extends Controller
             'data' => WarehouseService::getActive($request),
         ]);
     }
+
     public function getContacts(Request $request, $uuid)
     {
         return response()->json([
@@ -92,6 +96,7 @@ class ApiController extends Controller
             'data' => ContactService::get($request, $uuid),
         ]);
     }
+
     public function getContactBySupplier(Request $request, $supplierUuid)
     {
         return response()->json([
@@ -102,18 +107,24 @@ class ApiController extends Controller
 
     public function addOrder(Request $request)
     {
-        dd($request->all());
+
+        $request->merge([
+            'items' => json_decode($request->items, true),
+        ]);
+
         $validated = $request->validate([
             'transactionId' => 'required|string',
             'supplierUuid' => 'required|uuid',
-            'warehouseId' => 'required|uuid',
+
+            'warehouseId' => 'required|integer',
+
             'taxPercent' => 'nullable|numeric',
             'discPercent' => 'nullable|numeric',
-            'items' => 'required|array',
-            'items.*.itemUuid' => 'required|uuid',
-            'items.*.quantity' => 'required|integer|min:1',
-        ]);
 
+            'items' => 'required|array',
+            'items.*.uuid' => 'required|uuid',
+            'items.*.qty' => 'required|integer|min:1',
+        ]);
         try {
             $order = OrderService::createOrder($request);
 

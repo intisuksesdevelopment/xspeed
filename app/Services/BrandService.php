@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Constants\CommonConstants;
 use App\Models\Brand;
 use Illuminate\Http\Request;
-use Illuminate\Support\AlreadyExistException;
+use App\Exceptions\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
 
 class BrandService

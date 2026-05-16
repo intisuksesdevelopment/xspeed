@@ -3,14 +3,14 @@
 namespace App\Services;
 
 use App\Constants\CommonConstants;
+use App\Exceptions\AlreadyExistException;
+use App\Exceptions\NotFoundException;
 use App\Models\Item;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\AlreadyExistException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\NotFoundException;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
@@ -226,7 +226,7 @@ class ItemService
 
     public static function getDetail($uuid)
     {
-        $item = Item::where('uuid', $uuid)->with(['category', 'subcategory', 'brand', 'warehouse', 'rack', 'images'])->first();
+        $item = Item::query()->where('uuid', $uuid)->with(['category', 'subcategory', 'brand', 'warehouse', 'rack', 'images'])->first();
 
         if (! $item) {
             throw new NotFoundException("uuid : {$uuid}");
@@ -255,7 +255,7 @@ class ItemService
         $item = Item::where('uuid', $uuid)->first();
 
         if (! $item) {
-            throw new NotFoundException("uuid : {$uuid}");
+            throw new NotFoundException("Item not found: uuid {$uuid}");
         }
         $item->status = $item->isAvailable();
 
@@ -268,9 +268,9 @@ class ItemService
             $data = $request->all();
 
             // Check for existing item with case-insensitive name match
-            $item = Item::whereRaw('LOWER(name) LIKE ?', ['%'.strtolower($data['name']).'%'])->first();
+            $item = Item::query()->whereRaw('LOWER(name) LIKE ?', ['%'.strtolower($data['name']).'%'])->first();
             if ($item) {
-                throw new AlreadyExistException("name : {$data['name']}");
+                throw new AlreadyExistException("Item already exists: name {$data['name']}");
             }
 
             // Create a new item
@@ -286,14 +286,10 @@ class ItemService
             ImageService::saveAll($request, 'items', $item->id);
 
             return response()->json(['success' => true, 'message' => 'Add successfully!']);
-        } catch (AlreadyExistException $e) {
-            Log::error($e->getMessage());
-
-            return response()->json(['success' => false, 'message' => $e->getMessage()]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
-            return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
 
@@ -303,7 +299,7 @@ class ItemService
             $data = $request->all();
             $item = Item::where('uuid', $data['uuid'])->first();
             if (! $item) {
-                throw new AlreadyExistException("name : {$data['name']}");
+                throw new NotFoundException("Item not found: uuid {$data['uuid']}");
             }
             $data['id'] = $item->id;
             $data['image_url'] = ImageService::getCoverImage($request);
@@ -318,15 +314,11 @@ class ItemService
             // Handle image saving
             ImageService::saveAll($request, 'items', $item->id);
 
-            return response()->json(['success' => true, 'message' => 'Add successfully!']);
-        } catch (AlreadyExistException $e) {
-            Log::error($e->getMessage());
-
-            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+            return response()->json(['success' => true, 'message' => 'Update successfully!']);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
-            return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
 
@@ -337,7 +329,7 @@ class ItemService
             $item = Item::where('uuid', $uuid)->first();
 
             if (! $item) {
-                throw new NotFoundException('uuid : '.$uuid);
+                throw new NotFoundException('Item not found: uuid '.$uuid);
             }
 
             // Update the status
@@ -348,19 +340,12 @@ class ItemService
                 'success' => true,
                 'message' => 'Removed successfully!',
             ]);
-        } catch (NotFoundException $e) {
-            Log::error($e->getMessage());
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Item not found: '.$e->getMessage(),
-            ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: '.$e->getMessage(),
+                'message' => $e->getMessage(),
             ], 500);
         }
     }

@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Constants\CommonConstants;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\AlreadyExistException;
+use App\Exceptions\AlreadyExistException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;

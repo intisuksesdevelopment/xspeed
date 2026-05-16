@@ -107,33 +107,13 @@ class ApiController extends Controller
 
     public function addOrder(Request $request)
     {
-
-        $request->merge([
-            'items' => json_decode($request->items, true),
-        ]);
-
-        $validated = $request->validate([
-            'transactionId' => 'required|string',
-            'supplierUuid' => 'required|uuid',
-
-            'warehouseId' => 'required|integer',
-
-            'taxPercent' => 'nullable|numeric',
-            'discPercent' => 'nullable|numeric',
-
-            'items' => 'required|array',
-            'items.*.uuid' => 'required|uuid',
-            'items.*.qty' => 'required|integer|min:1',
-        ]);
         try {
-            $order = OrderService::createOrder($request);
-
-            return redirect()
-                ->route('order')
-                ->with('success', 'Order berhasil dibuat');
+            return OrderService::createOrder($request);
         } catch (\Throwable $e) {
-
-            return back()->with('error', $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
         }
     }
 }

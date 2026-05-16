@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Constants\CommonConstants;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\AlreadyExistException;
+use App\Exceptions\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

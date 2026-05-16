@@ -6,10 +6,10 @@ use App\Constants\CommonConstants;
 use App\Models\Sale;
 use App\Models\SaleData;
 use Illuminate\Http\Request;
-use Illuminate\Support\AlreadyExistException;
+use App\Exceptions\AlreadyExistException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\NotFoundException;
+use App\Exceptions\NotFoundException;
 use Illuminate\Support\Str;
 
 class SalesService

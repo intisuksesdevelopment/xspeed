@@ -101,7 +101,7 @@
                                             <!-- CONTACT -->
                                             <div class="col-lg-3">
                                                 <label>Contact</label>
-                                                <select id="contact-select" name="contactId" class="form-select"
+                                                <select id="contact-select" name="contact_id" class="form-select"
                                                     data-placeholder="Pilih Contact">
                                                     <option></option>
                                                 </select>
@@ -1092,23 +1092,33 @@
             try {
                 const formData = new FormData(formElement);
 
+                // Append items as JSON
                 formData.append('items', JSON.stringify(state.items));
                 
                 const total = parseFloat($('#modal-payment').data('total')) || 0;
                 const paid = parseFloat($('#payment_amount_input').val()) || 0;
                 
+                // Calculate change and remaining based on payment method
                 const change = (!isDueDate && paid > total) ? paid - total : 0;
                 const remaining = paid < total ? total - paid : 0;
                 const status = remaining > 0 ? 1 : 0;
                 
+                // Append payment data
                 formData.append('payment_method', $('#payment_method_select').val());
                 formData.append('payment_total', paid);
                 formData.append('payment_change', change);
                 formData.append('payment_remaining', remaining);
                 formData.append('status', status);
 
-                if (isDueDate) {
+                // Append due date if payment method is tempo
+                if (isDueDate && dueDate) {
                     formData.append('payment_date', dueDate);
+                }
+
+                // Debug: Log form data
+                console.log('Submitting order with data:');
+                for (let [key, value] of formData.entries()) {
+                    console.log(key + ': ' + value);
                 }
 
                 const res = await fetch(formElement.action, {
@@ -1121,15 +1131,23 @@
 
                 const data = await res.json();
 
-                if (!res.ok) throw data;
+                if (!res.ok || !data.success) {
+                    throw new Error(data.message || 'Terjadi kesalahan saat menyimpan order');
+                }
 
-                $('#modal-payment').modal('hide');
-                Swal.fire('Success', 'Order berhasil dibuat', 'success').then(() => {
+                // Close modal
+                const modalElement = document.getElementById('modal-payment');
+                const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                if (modalInstance) {
+                    modalInstance.hide();
+                }
+
+                Swal.fire('Success', data.message || 'Order berhasil dibuat', 'success').then(() => {
                     window.location.href = "/order";
                 });
 
             } catch (err) {
-                console.error(err);
+                console.error('Order submission error:', err);
                 Swal.fire('Oops', err.message || 'Terjadi kesalahan', 'error');
             } finally {
                 btn.disabled = false;

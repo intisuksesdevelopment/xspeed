@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
+use App\Exceptions\NotFoundException;
 use App\Models\Contact;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
-use Log;
+use Illuminate\Support\Facades\Log;
 
 class ContactService
 {
@@ -36,11 +37,15 @@ class ContactService
         return $contacts;
     }
 
-    public static function getDetail($code)
+    public static function getDetail($identifier)
     {
-        $customer = Contact::where('uuid', $code)->first();
+        // Try to find by UUID first, then by ID
+        $customer = Contact::where('uuid', $identifier)
+            ->orWhere('id', $identifier)
+            ->first();
+            
         if (!$customer) {
-            throw new NotFoundException('code : ' . $code);
+            throw new NotFoundException('Contact not found: ' . $identifier);
         }
 
         return $customer;

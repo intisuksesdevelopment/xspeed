@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\Image; // Make sure you import your Image model
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request; // Using the user's provided namespace for this exception
-use Illuminate\Support\AlreadyExistException;
+use App\Exceptions\AlreadyExistException;
 use Illuminate\Support\Facades\Log; // Included as per user's full class
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;

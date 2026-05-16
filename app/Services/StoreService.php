@@ -5,9 +5,9 @@ namespace App\Services;
 use App\Constants\CommonConstants;
 use App\Models\Store;
 use Illuminate\Http\Request;
-use Illuminate\Support\AlreadyExistException;
+use App\Exceptions\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\NotFoundException;
+use App\Exceptions\NotFoundException;
 
 class StoreService
 {

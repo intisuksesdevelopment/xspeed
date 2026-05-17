@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\BrandService;
-use App\Services\CategoryService;
+use App\Services\BankService;
+use App\Services\ConfigService;
 use App\Services\ItemService;
-use App\Services\RackService;
+use App\Services\PaymentService;
 use App\Services\SalesService;
-use App\Services\SubCategoryService;
-use App\Services\UnitService;
 use App\Services\WarehouseService;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
@@ -33,14 +31,11 @@ class SalesController extends Controller
 
     public function addForm(Request $request)
     {
-        $data['categories'] = CategoryService::getActive($request);
-        $data['subcategories'] = SubCategoryService::getActive($request);
-        $data['warehouses'] = WarehouseService::getActive($request);
-        $data['racks'] = RackService::getActive($request);
-        $data['brands'] = BrandService::getActive($request);
-        $data['units'] = UnitService::getActive($request);
+        $data['config'] = ConfigService::getActive($request);
+        $data['paymentMethods'] = PaymentService::getActive($request);
+        $data['banks'] = BankService::getActive($request);
 
-        return view('pages.products.product-add', $data);
+        return view('pages.sales.sales-add', $data);
     }
 
     public function invoices(Request $request)

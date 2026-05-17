@@ -33,6 +33,7 @@ class Order extends Model
         'sub_total_item',
         'final_total',
         'payment_id',
+        'bank_account_id',
         'payment_data',
         'expired_date',
         'payment_date',

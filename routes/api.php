@@ -31,6 +31,9 @@ Route::prefix('/subcategory')->group(function () {
 Route::prefix('/supplier')->group(function () {
     Route::get('/all', [ApiController::class, 'getSuppliers'])->name('api-supplier-all');
 });
+Route::prefix('/customer')->group(function () {
+    Route::get('/all', [ApiController::class, 'getCustomers'])->name('api-customer-all');
+});
 
 Route::prefix('/warehouse')->group(function () {
     Route::get('/all', [ApiController::class, 'getWarehouses'])->name('api-warehouse-all');
@@ -39,7 +42,21 @@ Route::prefix('/contact')->group(function () {
     Route::get('/{supplierUuid}', [ApiController::class, 'getContactBySupplier'])->name('api-contact-supplier');
     Route::get('/detail/{uuid}', [ApiController::class, 'getContacts'])->name('api-contact-detail');
 });
+Route::prefix('/payment-method')->group(function () {
+    Route::get('/all', [ApiController::class, 'getPaymentMethods'])->name('api-payment-method-all');
+});
+Route::prefix('/bank')->group(function () {
+    Route::get('/all', [ApiController::class, 'getBanks'])->name('api-bank-all');
+});
+Route::prefix('/bank-account')->group(function () {
+    Route::get('/all', [ApiController::class, 'getBankAccounts'])->name('api-bank-account-all');
+    Route::post('/create', [ApiController::class, 'createBankAccount'])->name('api-bank-account-create');
+});
 Route::prefix('/order')->group(function () {
     Route::post('/add', [ApiController::class, 'addOrder'])->name('api-order-add');
+    Route::delete('/delete/{uuid}', [ApiController::class, 'deleteOrder'])->name('api-order-delete');
+});
+Route::prefix('/sales')->group(function () {
+    Route::post('/add', [ApiController::class, 'addSales'])->name('api-sales-add');
 });
 // });

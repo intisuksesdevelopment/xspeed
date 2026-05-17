@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Constants\CommonConstants;
+use App\Exceptions\AlreadyExistException;
+use App\Exceptions\NotFoundException;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
-use App\Exceptions\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
 
 class SupplierService
@@ -142,5 +143,15 @@ class SupplierService
         $count = Supplier::where('status', 0)->count();
 
         return $count;
+    }
+    public static function getDetail($uuid)
+    {
+        $supplier = Supplier::where('uuid', $uuid)->first();
+
+        if (! $supplier) {
+            throw new NotFoundException('id : '.$id);
+        }
+
+        return $supplier;
     }
 }

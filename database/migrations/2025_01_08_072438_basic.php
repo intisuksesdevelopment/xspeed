@@ -83,21 +83,7 @@ return new class extends Migration
             $table->string('created_by')->nullable()->comment('username user who created the record');
             $table->string('updated_by')->nullable()->comment('username user who last updated the record');
         });
-        Schema::create('bank_accounts', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('bank_id')->nullable();
-            $table->string('uuid')->unique();
-            $table->string('name');
-            $table->string('account_number');
-            $table->integer('type')->comment('0=company;1=supplier;2=user;3=buyer')->default(0);
-            $table->text('description')->nullable();
-            $table->integer('is_primary')->comment('0=primary;1=not_primary;')->default(0);
-            $table->integer('status')->comment('0=active;1=deleted;')->default(0);
-            $table->timestamps();
-            $table->string('created_by')->nullable()->comment('username user who created the record');
-            $table->string('updated_by')->nullable()->comment('username user who last updated the record');
-            $table->foreign('bank_id')->references('id')->on('banks');
-        });
+        // bank_accounts table moved to separate migration: 2026_05_16_150349_create_bank_accounts_table.php
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
@@ -147,7 +133,7 @@ return new class extends Migration
         Schema::dropIfExists('brands');
         Schema::dropIfExists('warehouse');
         Schema::dropIfExists('banks');
-        Schema::dropIfExists('bank_accounts');
+        // bank_accounts drop moved to separate migration: 2026_05_16_150349_create_bank_accounts_table.php
         Schema::dropIfExists('suppliers');
 
     }

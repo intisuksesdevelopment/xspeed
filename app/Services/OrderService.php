@@ -4,8 +4,9 @@ namespace App\Services;
 
 use App\Constants\CommonConstants;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Sale;
-use App\Models\SaleData;
+use App\Services\SupplierService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -79,11 +80,11 @@ public static function createOrder(Request $request)
         DB::beginTransaction();
 
         try {
-            $sales = Sale::query()
+            $order = Order::query()
                 ->where('trx_id', $request->input('transactionId'))
                 ->first();
 
-            if ($sales) {
+            if ($order) {
                 throw new \Exception("Duplicate transaction ID: {$request->input('transactionId')}");
             }
 
@@ -138,6 +139,7 @@ public static function createOrder(Request $request)
             $request['final_total'] = $total;
 
             $request['payment_id'] = $request->input('payment_method') ?? 12;
+            $request['bank_account_id'] = $request->input('bank_account_id') ?? null;
             $request['payment_data'] = $request->input('payment_desc') ?? null;
             $request['payment_date'] = $request->input('payment_date') ?? null;
 
@@ -160,74 +162,72 @@ public static function createOrder(Request $request)
 
             $request['status'] = 0;
 
-            // Get customer data only if contact_id is provided
-            $contactId = $request->input('contact_id');
-            if ($contactId) {
+            // Get supplier data
+            $supplierUuid = $request->input('supplierUuid');
+            if ($supplierUuid) {
                 try {
-                    $custData = ContactService::getDetail($contactId);
-                    $request['cust_id'] = $custData['id'] ?? null;
-                    $request['cust_address'] = $custData['address'] ?? null;
-                    $request['cust_phone'] = $custData['phone'] ?? null;
-                    $request['cust_name'] = $custData['name'] ?? null;
-                    $request['cust_email'] = $custData['email'] ?? null;
+                    $supplier = SupplierService::getDetail($supplierUuid);
+                    $request['supplier_id'] = $supplier['id'] ?? null;
+                    $request['supplier_name'] = $supplier['name'] ?? null;
+                    $request['supplier_address'] = $supplier['address'] ?? null;
+                    $request['supplier_phone'] = $supplier['phone'] ?? null;
+                    $request['supplier_email'] = $supplier['email'] ?? null;
                 } catch (\Exception $e) {
-                    Log::warning('Failed to fetch contact details: ' . $e->getMessage());
-                    $request['cust_id'] = null;
-                    $request['cust_address'] = null;
-                    $request['cust_phone'] = null;
-                    $request['cust_name'] = null;
-                    $request['cust_email'] = null;
+                    Log::warning('Failed to fetch supplier details: ' . $e->getMessage());
+                    $request['supplier_id'] = null;
+                    $request['supplier_name'] = null;
+                    $request['supplier_address'] = null;
+                    $request['supplier_phone'] = null;
+                    $request['supplier_email'] = null;
                 }
             } else {
-                $request['cust_id'] = null;
-                $request['cust_address'] = null;
-                $request['cust_phone'] = null;
-                $request['cust_name'] = null;
-                $request['cust_email'] = null;
+                $request['supplier_id'] = null;
+                $request['supplier_name'] = null;
+                $request['supplier_address'] = null;
+                $request['supplier_phone'] = null;
+                $request['supplier_email'] = null;
             }
 
-            Log::info('Creating Sale record');
-            $sales = new Sale;
-            $sales->fill($request->all());
-            $sales->save();
+            Log::info('Creating Order record');
+            $order = new Order;
+            $order->fill($request->all());
+            $order->save();
 
-            Log::info('Sale created', ['sale_id' => $sales->id]);
+            Log::info('Order created', ['order_id' => $order->id]);
 
             foreach ($items as $item) {
 
-                $saleData = new SaleData;
+                $orderItem = new OrderItem;
 
-                $saleData['sales_id'] = $sales->id;
+                $orderItem['order_id'] = $order->id;
 
                 $itemData = ItemService::getDetail($item['uuid']);
 
-                $item['item_id'] = $itemData['id'];
-                $item['item_name'] = $itemData['name'];
-                $item['item_code'] = $itemData['sku'];
-                $item['item_unit'] = $itemData['unit'];
-                $item['item_desc'] = $itemData['item_desc'] ?? null;
+                $orderItem['item_id'] = $itemData['id'];
+                $orderItem['item_name'] = $itemData['name'];
+                $orderItem['sku'] = $itemData['sku'];
+                $orderItem['unit'] = $itemData['unit'];
 
-                $item['item_amount'] = $item['qty'];
+                $orderItem['qty'] = $item['qty'];
+                $orderItem['qty_received'] = 0;
 
-                $item['item_price'] = $itemData['sell_price'];
+                $orderItem['price'] = $itemData['sell_price'];
+                $orderItem['discount'] = 0;
 
-                $item['item_total'] =
-                    $itemData['sell_price'] * $item['qty'];
+                $orderItem['total'] = $itemData['sell_price'] * $item['qty'];
 
-                $item['created_at'] = date('Y-m-d H:i:s');
-                $item['created_by'] = Auth::check() ? Auth::user()->nik : 'system';
+                $orderItem['created_by'] = Auth::check() ? Auth::user()->username : 'system';
 
-                $item['status'] = 0;
+                $orderItem['status'] = 0;
 
-                $saleData->fill($item);
-                $saleData->save();
+                $orderItem->save();
 
-                Log::info('SaleData created', ['sale_data_id' => $saleData->id, 'item_name' => $item['item_name']]);
+                Log::info('OrderItem created', ['order_item_id' => $orderItem->id, 'item_name' => $orderItem['item_name']]);
             }
 
             // Commit transaction
             DB::commit();
-            Log::info('Order created successfully', ['sale_id' => $sales->id]);
+            Log::info('Order created successfully', ['order_id' => $order->id]);
 
             return response()->json([
                 'success' => true,

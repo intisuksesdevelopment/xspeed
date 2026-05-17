@@ -27,6 +27,7 @@ class Sale extends Model
         'sub_total_item',
         'final_total',
         'payment_id',
+        'bank_account_id',
         'payment_data',
         'expired_date',
         'payment_amount',
@@ -45,11 +46,11 @@ class Sale extends Model
         'cust_phone',
         'cust_name',
         'cust_email',
+        'warehouse_id',
         'created_at',
         'updated_at',
         'process_at',
         'confirm_at',
-
     ];
 
     protected $hidden = [

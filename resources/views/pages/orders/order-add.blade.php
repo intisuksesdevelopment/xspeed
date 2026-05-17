@@ -341,10 +341,43 @@
                     <div class="mb-3">
                         <label class="form-label">Metode Pembayaran</label>
                         <select id="payment_method_select" class="form-select">
-                            <option value="1">Cash</option>
-                            <option value="2">Bank Transfer</option>
-                            <option value="3">Debit</option>
-                            <option value="4">Due Date / Tempo</option>
+                            <option value="">Loading...</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Bank Account <span class="text-danger">*</span></label>
+                        <select id="bank_account_select" class="form-select">
+                            <option value="">Loading...</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 d-none" id="div_manual_bank_account">
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <label class="form-label">Bank <span class="text-danger">*</span></label>
+                                <select id="manual_bank_id" class="form-select">
+                                    <option value="">Pilih Bank</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Nomor Rekening <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="manual_account_number"
+                                    placeholder="1234567890">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Nama Pemilik <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="manual_account_name"
+                                    placeholder="Nama Pemilik Rekening">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Cabang</label>
+                                <input type="text" class="form-control" id="manual_branch" placeholder="Cabang Bank">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 d-none" id="div_installment_period">
+                        <label class="form-label">Periode Cicilan <span class="text-danger">*</span></label>
+                        <select id="installment_period_select" class="form-select">
+                            <option value="">Pilih Periode</option>
                         </select>
                     </div>
                     <div class="mb-3 d-none" id="div_due_date">
@@ -380,6 +413,8 @@
         const apiSubcategoryUrl = 'subcategory';
         const apiContactUrl = 'contact/';
         const apiProductUrl = 'product/';
+        const apiPaymentMethodUrl = 'payment-method/all';
+        const apiBankAccountUrl = 'bank-account/all';
         const config = @json($config);
         const taxPercent = config.ppn_rate || 0;
         let discPercent = 0;
@@ -415,6 +450,8 @@
         $(document).ready(function() {
             initWarehouseSelect();
             initSupplierSelect();
+            initPaymentMethods();
+            initBankAccounts();
             initOrder();
         });
         $(document).on('click', function(e) {
@@ -517,6 +554,11 @@
                 loadSupplierInfo(supplier);
                 initContactSelect();
 
+                // Reload bank accounts for selected supplier (for order type)
+                if (supplier) {
+                    initBankAccounts('supplier', supplier.id);
+                }
+
                 renderSummary();
             });
         }
@@ -530,42 +572,56 @@
 
             const $contact = $('#contact-select');
 
+            // Show loading state
             safeDestroySelect2($contact);
             $contact.empty();
+            $contact.append(new Option('Loading...', '', false, false));
+            $contact.prop('disabled', true);
 
-            const res = await apiFetch({
-                endpoint: apiContactUrl + state.supplier.uuid
-            });
+            try {
+                const res = await apiFetch({
+                    endpoint: apiContactUrl + state.supplier.uuid
+                });
 
-            contactList = res.data || [];
+                contactList = res.data || [];
 
-            // placeholder
-            $contact.append(new Option('', '', false, false));
+                // Clear and rebuild
+                $contact.empty();
 
-            // data
-            contactList.forEach(item => {
-                $contact.append(new Option(item.name, item.uuid, false, false));
-            });
+                // placeholder
+                $contact.append(new Option('', '', false, false));
 
-            // init select2
-            $contact.select2({
-                placeholder: 'Pilih Contact',
-                allowClear: true,
-                width: '100%'
-            });
+                // data
+                contactList.forEach(item => {
+                    $contact.append(new Option(item.name, item.uuid, false, false));
+                });
 
-            // 🔥 gunakan select2 event
-            $contact.off('select2:select').on('select2:select', function(e) {
+                // init select2
+                $contact.select2({
+                    placeholder: 'Pilih Contact',
+                    allowClear: true,
+                    width: '100%'
+                });
 
-                const id = e.params.data.id;
-                const contact = contactList.find(c => c.uuid === id);
+                // 🔥 gunakan select2 event
+                $contact.off('select2:select').on('select2:select', function(e) {
 
-                if (!contact) return;
+                    const id = e.params.data.id;
+                    const contact = contactList.find(c => c.uuid === id);
 
-                $('#contact-name').text(contact.name || '-');
-                $('#contact-position').text(contact.position || '-');
-                $('#contact-phone').text(contact.phone || '-');
-            });
+                    if (!contact) return;
+
+                    $('#contact-name').text(contact.name || '-');
+                    $('#contact-position').text(contact.position || '-');
+                    $('#contact-phone').text(contact.phone || '-');
+                });
+            } catch (error) {
+                console.error('Failed to load contacts:', error);
+                $contact.empty();
+                $contact.append(new Option('Failed to load contacts', '', false, false));
+            } finally {
+                $contact.prop('disabled', false);
+            }
         }
         /* =========================
            LOAD SUPPLIER DETAIL
@@ -575,6 +631,231 @@
             $('#supplier-address').text(supplier?.address || '-');
             $('#supplier-email').text(supplier?.email || '-');
         }
+
+        /* =========================
+           INIT PAYMENT METHODS
+        ========================= */
+        let paymentMethodsData = [];
+
+        async function initPaymentMethods() {
+            const $paymentMethod = $('#payment_method_select');
+
+            try {
+                const res = await apiFetch({
+                    endpoint: apiPaymentMethodUrl
+                });
+
+                paymentMethodsData = res.data || [];
+
+                $paymentMethod.empty();
+
+                if (paymentMethodsData.length === 0) {
+                    $paymentMethod.append(new Option('No payment methods available', '', false, false));
+                    return;
+                }
+
+                paymentMethodsData.forEach(method => {
+                    $paymentMethod.append(new Option(method.name, method.id, false, false));
+                });
+
+                // Set default to first option
+                $paymentMethod.val(paymentMethodsData[0].id);
+
+            } catch (error) {
+                console.error('Failed to load payment methods:', error);
+                $paymentMethod.empty();
+                $paymentMethod.append(new Option('Failed to load payment methods', '', false, false));
+            }
+        }
+
+        /* =========================
+           INIT BANK ACCOUNTS
+        ========================= */
+        let bankAccountsData = [];
+        let banksData = [];
+
+        async function initBankAccounts(ownerType = 'store', ownerId = null) {
+            const $bankAccount = $('#bank_account_select');
+
+            try {
+                // Load banks for manual input
+                await loadBanksForManualInput();
+
+                const params = {
+                    owner_type: ownerType
+                };
+                if (ownerId) {
+                    params.owner_id = ownerId;
+                }
+
+                const res = await apiFetch({
+                    endpoint: apiBankAccountUrl,
+                    params: params
+                });
+
+                bankAccountsData = res.data || [];
+
+                $bankAccount.empty();
+
+                $bankAccount.append(new Option('Pilih Bank Account', '', false, false));
+                $bankAccount.append(new Option('+ Input Manual', 'manual', false, false));
+
+                bankAccountsData.forEach(account => {
+                    const bankName = account.bank?.name || 'Unknown Bank';
+                    const accountInfo = `${bankName} - ${account.account_number} (${account.account_name})`;
+                    $bankAccount.append(new Option(accountInfo, account.id, false, false));
+                });
+
+                // Set default to first real account if exists
+                if (bankAccountsData.length > 0) {
+                    $bankAccount.val(bankAccountsData[0].id);
+                }
+
+            } catch (error) {
+                console.error('Failed to load bank accounts:', error);
+                $bankAccount.empty();
+                $bankAccount.append(new Option('Failed to load bank accounts', '', false, false));
+            }
+        }
+
+        async function loadBanksForManualInput() {
+            try {
+                const res = await apiFetch({
+                    endpoint: 'bank/all'
+                });
+
+                banksData = res.data || [];
+
+                const $manualBank = $('#manual_bank_id');
+                $manualBank.empty();
+                $manualBank.append(new Option('Pilih Bank', '', false, false));
+
+                banksData.forEach(bank => {
+                    $manualBank.append(new Option(bank.name, bank.id, false, false));
+                });
+            } catch (error) {
+                console.error('Failed to load banks:', error);
+            }
+        }
+
+        // Handle bank account selection change
+        $('#bank_account_select').on('change', function() {
+            const value = $(this).val();
+
+            if (value === 'manual') {
+                $('#div_manual_bank_account').removeClass('d-none');
+            } else {
+                $('#div_manual_bank_account').addClass('d-none');
+                // Clear manual inputs
+                $('#manual_bank_id').val('');
+                $('#manual_account_number').val('');
+                $('#manual_account_name').val('');
+                $('#manual_branch').val('');
+            }
+        });
+
+        async function saveNewBankAccount(ownerType, ownerId) {
+            const bankId = $('#manual_bank_id').val();
+            const accountNumber = $('#manual_account_number').val();
+            const accountName = $('#manual_account_name').val();
+            const branch = $('#manual_branch').val();
+
+            if (!bankId || !accountNumber || !accountName) {
+                throw new Error('Bank, Nomor Rekening, dan Nama Pemilik wajib diisi');
+            }
+
+            try {
+                const res = await fetch('/api/bank-account/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('[name=_token]').value
+                    },
+                    body: JSON.stringify({
+                        bank_id: bankId,
+                        owner_type: ownerType,
+                        owner_id: ownerId,
+                        account_number: accountNumber,
+                        account_name: accountName,
+                        branch: branch,
+                        status: 0
+                    })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok || !data.success) {
+                    throw new Error(data.message || 'Gagal menyimpan bank account');
+                }
+
+                return data.data.id; // Return the new bank account ID
+            } catch (error) {
+                console.error('Failed to save bank account:', error);
+                throw error;
+            }
+        }
+
+        // Handle payment method change to show/hide installment options
+        $('#payment_method_select').on('change', function() {
+            const selectedId = parseInt($(this).val());
+            const selectedMethod = paymentMethodsData.find(m => m.id === selectedId);
+
+            if (!selectedMethod) return;
+
+            const isCredit = selectedMethod.type === 'credit';
+            const isDueDate = selectedMethod.name.toLowerCase().includes('due date');
+
+            // Show/hide installment period for credit types (except Due Date)
+            if (isCredit && !isDueDate) {
+                $('#div_installment_period').removeClass('d-none');
+                populateInstallmentPeriods(selectedMethod);
+            } else {
+                $('#div_installment_period').addClass('d-none');
+            }
+
+            // Show/hide due date field
+            if (isDueDate || isCredit) {
+                $('#div_due_date').removeClass('d-none');
+                $('#label_payment_amount').text('DP / Uang Muka (Rp)');
+                $('#label_payment_change').text('Kurang Bayar (Rp)');
+                $('#payment_amount_input').val(0);
+            } else {
+                $('#div_due_date').addClass('d-none');
+                $('#label_payment_amount').text('Nominal Uang (Rp)');
+                $('#label_payment_change').text('Kembalian (Rp)');
+                const total = parseFloat($('#modal-payment').data('total')) || 0;
+                $('#payment_amount_input').val(total);
+            }
+
+            calculatePayment();
+        });
+
+        function populateInstallmentPeriods(method) {
+            const $installmentPeriod = $('#installment_period_select');
+            $installmentPeriod.empty();
+            $installmentPeriod.append(new Option('Pilih Periode', '', false, false));
+
+            try {
+                const periods = JSON.parse(method.method || '[]');
+
+                let label = '';
+                if (method.name.toLowerCase().includes('daily')) {
+                    label = 'Hari';
+                } else if (method.name.toLowerCase().includes('monthly')) {
+                    label = 'Bulan';
+                } else if (method.name.toLowerCase().includes('annual')) {
+                    label = 'Tahun';
+                }
+
+                periods.forEach(period => {
+                    $installmentPeriod.append(new Option(`${period} ${label}`, period, false, false));
+                });
+            } catch (e) {
+                console.error('Failed to parse installment periods:', e);
+            }
+        }
+
+
 
         /* =========================
            PRODUCT SEARCH ROW
@@ -634,7 +915,7 @@
         function selectProduct(index, sku, name, price) {
             state.items[index] = {
                 ...state.items[index],
-                uuid: item.uuid,    
+                uuid: item.uuid,
                 sku: sku,
                 name: name,
                 sell_price: price,
@@ -826,19 +1107,19 @@
                             item.readonly
                                 ? `<span class="form-label">${item.search}</span>`
                                 : `<input-wrapper>
-                                                                                    <div style="position:relative;">
-                                                                                        <input type="text"
-                                                                                            class="form-control pe-5"
-                                                                                            value="${item.search || ''}"
-                                                                                            onkeyup="searchProduct(${index}, this)">
+                                                                                        <div style="position:relative;">
+                                                                                            <input type="text"
+                                                                                                class="form-control pe-5"
+                                                                                                value="${item.search || ''}"
+                                                                                                onkeyup="searchProduct(${index}, this)">
 
-                                                                                        <div id="loading-${index}"
-                                                                                            style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
-                                                                                            <div class="spinner-border spinner-border-sm text-primary"></div>
+                                                                                            <div id="loading-${index}"
+                                                                                                style="position:absolute; top:50%; right:10px; transform:translateY(-50%); display:none;">
+                                                                                                <div class="spinner-border spinner-border-sm text-primary"></div>
+                                                                                            </div>
                                                                                         </div>
-                                                                                    </div>
 
-                                                                                    <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
+                                                                                        <div class="dropdown-menu" id="dropdown-${index}" style="display:none;"></div> `
                                             }
                     </td>
 
@@ -1028,17 +1309,19 @@
                 return Swal.fire('Oops', 'Product belum lengkap', 'warning');
             }
 
-            const { total } = calculateSummary();
-            
+            const {
+                total
+            } = calculateSummary();
+
             $('#payment_total_display').text(formatCurrency(total));
             $('#payment_amount_input').val(total);
             $('#payment_change_display').val(0);
-            
+
             $('#modal-payment').data('total', total);
-            
+
             // Reset to default
             $('#payment_method_select').val('1').trigger('change');
-            
+
             const paymentModal = new bootstrap.Modal(document.getElementById('modal-payment'));
             paymentModal.show();
         });
@@ -1058,7 +1341,7 @@
         }
 
         $('#payment_method_select').on('change', function() {
-            if($(this).val() == '4') {
+            if ($(this).val() == '4') {
                 $('#div_due_date').removeClass('d-none');
                 $('#label_payment_amount').text('DP / Uang Muka (Rp)');
                 $('#label_payment_change').text('Kurang Bayar (Rp)');
@@ -1077,11 +1360,43 @@
 
         document.getElementById('btn-confirm-payment').addEventListener('click', async function() {
             const btn = this;
-            const isDueDate = $('#payment_method_select').val() == '4';
-            const dueDate = $('#payment_due_date').val();
+            const selectedPaymentId = parseInt($('#payment_method_select').val());
+            const selectedMethod = paymentMethodsData.find(m => m.id === selectedPaymentId);
+            let selectedBankAccountId = $('#bank_account_select').val();
 
-            if (isDueDate && !dueDate) {
-                return Swal.fire('Oops', 'Tanggal Jatuh Tempo wajib diisi', 'warning');
+            if (!selectedMethod) {
+                return Swal.fire('Oops', 'Pilih metode pembayaran terlebih dahulu', 'warning');
+            }
+
+            // Check if manual input is selected
+            if (selectedBankAccountId === 'manual') {
+                // Validate manual input fields
+                const bankId = $('#manual_bank_id').val();
+                const accountNumber = $('#manual_account_number').val();
+                const accountName = $('#manual_account_name').val();
+
+                if (!bankId || !accountNumber || !accountName) {
+                    return Swal.fire('Oops', 'Bank, Nomor Rekening, dan Nama Pemilik wajib diisi', 'warning');
+                }
+            } else if (!selectedBankAccountId) {
+                return Swal.fire('Oops', 'Pilih bank account terlebih dahulu', 'warning');
+            }
+
+            const isCredit = selectedMethod.type === 'credit';
+            const isDueDate = selectedMethod.name.toLowerCase().includes('due date');
+            const dueDate = $('#payment_due_date').val();
+            const installmentPeriod = $('#installment_period_select').val();
+
+            // Validation for credit payment methods - only check if div is visible
+            if (!$('#div_due_date').hasClass('d-none')) {
+                if (!dueDate) {
+                    return Swal.fire('Oops', 'Tanggal Jatuh Tempo wajib diisi', 'warning');
+                }
+            }
+
+            // Validation for installment period (credit types except Due Date)
+            if (!$('#div_installment_period').hasClass('d-none') && !installmentPeriod) {
+                return Swal.fire('Oops', 'Pilih periode cicilan terlebih dahulu', 'warning');
             }
 
             btn.disabled = true;
@@ -1090,29 +1405,47 @@
             const formElement = document.getElementById('orderAddForm');
 
             try {
+                // If manual input, save bank account first
+                if (selectedBankAccountId === 'manual') {
+                    const ownerType = 'supplier'; // For order type
+                    const ownerId = state.supplier?.id || null;
+
+                    try {
+                        selectedBankAccountId = await saveNewBankAccount(ownerType, ownerId);
+                    } catch (error) {
+                        return Swal.fire('Oops', error.message || 'Gagal menyimpan bank account', 'error');
+                    }
+                }
+
                 const formData = new FormData(formElement);
 
                 // Append items as JSON
                 formData.append('items', JSON.stringify(state.items));
-                
+
                 const total = parseFloat($('#modal-payment').data('total')) || 0;
                 const paid = parseFloat($('#payment_amount_input').val()) || 0;
-                
+
                 // Calculate change and remaining based on payment method
-                const change = (!isDueDate && paid > total) ? paid - total : 0;
+                const change = (!isCredit && !isDueDate && paid > total) ? paid - total : 0;
                 const remaining = paid < total ? total - paid : 0;
                 const status = remaining > 0 ? 1 : 0;
-                
+
                 // Append payment data
-                formData.append('payment_method', $('#payment_method_select').val());
+                formData.append('payment_method', selectedPaymentId);
+                formData.append('bank_account_id', selectedBankAccountId);
                 formData.append('payment_total', paid);
                 formData.append('payment_change', change);
                 formData.append('payment_remaining', remaining);
                 formData.append('status', status);
 
-                // Append due date if payment method is tempo
-                if (isDueDate && dueDate) {
+                // Append due date if payment method is credit or due date
+                if ((isCredit || isDueDate) && dueDate) {
                     formData.append('payment_date', dueDate);
+                }
+
+                // Append installment period for credit types
+                if (isCredit && !isDueDate && installmentPeriod) {
+                    formData.append('installment_period', installmentPeriod);
                 }
 
                 // Debug: Log form data
@@ -1143,7 +1476,7 @@
                 }
 
                 Swal.fire('Success', data.message || 'Order berhasil dibuat', 'success').then(() => {
-                    window.location.href = "/order";
+                    window.location.reload();
                 });
 
             } catch (err) {

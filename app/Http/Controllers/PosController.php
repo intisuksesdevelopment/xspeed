@@ -9,6 +9,7 @@ use App\Services\ItemService;
 use App\Services\PaymentService;
 use App\Services\SalesService;
 use App\Services\UtilService;
+use App\Services\WarehouseService;
 use Illuminate\Http\Request;
 
 class PosController extends Controller
@@ -23,10 +24,20 @@ class PosController extends Controller
         ]);
         $data['items'] = ItemService::getActive($request);
         $data['categories'] = CategoryService::getActive($request);
-        $data['sales'] = SalesService::getActive($request);
+        
+        // Get recent sales for transaction history (last 20 transactions)
+        $recentRequest = new Request([
+            'per_page' => 20,
+            'sortBy' => 'created_at',
+            'sortDirection' => 'desc',
+            'page' => 1,
+        ]);
+        $data['sales'] = SalesService::getPaginated($recentRequest);
+        
         $data['customers'] = CustomerService::getActive($request);
         $data['paymentMethods'] = PaymentService::getActive($request);
         $data['banks'] = BankService::getActive($request);
+        $data['warehouses'] = WarehouseService::getActive($request);
         UtilService::convertToIdr(100, 'USD');
 
         return view('pages.pos.pos', $data);

@@ -36,7 +36,7 @@
                                             <img src="{{ URL::asset($category['image_url']) }}" alt="Categories">
                                         </a>
                                         <h6><a href="javascript:void(0);">{{ $category['name'] }}</a></h6>
-                                        <span>{{ $category['countItems'] }} Items</span>
+                                        <span>{{ $category['items_count'] ?? 0 }} Items</span>
                                     </li>
                                 @endforeach
 
@@ -124,6 +124,17 @@
                                     <a href="#" class="btn btn-primary btn-icon" data-bs-toggle="modal"
                                         data-bs-target="#create"><i data-feather="user-plus" class="feather-16"></i></a>
                                 </div>
+                                <div class="input-block mt-3">
+                                    <label>Warehouse</label>
+                                    <select class="select2 form-control" name="warehouse" id="warehouse-select" required>
+                                        <option value="">Select Warehouse</option>
+                                        @foreach ($warehouses as $warehouse)
+                                            <option value="{{ $warehouse['id'] }}" {{ $loop->first ? 'selected' : '' }}>
+                                                {{ $warehouse['name'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="card-body">
                                     <select class="select2 form-control" name="item" id="item-select">
                                         <option disabled selected>Select Item ...</option>
@@ -132,6 +143,12 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <!-- Hidden fields for backend -->
+                                <input type="hidden" name="transactionId" id="transactionId">
+                                <input type="hidden" name="customerUuid" id="customerUuid">
+                                <input type="hidden" name="warehouseId" id="warehouseId" value="{{ $warehouses->first()['id'] ?? 1 }}">
+                                <input type="hidden" name="taxPercent" id="taxPercent" value="10">
+                                <input type="hidden" name="discPercent" id="discPercent" value="0">
                             </div>
 
                             <div class="product-added block-section">
@@ -358,10 +375,143 @@
             </form>
         </div>
     </div>
+
+    <!-- View Orders Modal -->
+    <div class="modal fade" id="orders" tabindex="-1" aria-labelledby="ordersLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ordersLabel">View Orders</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table-body">
+                                <tr>
+                                    <td colspan="6" class="text-center">No orders found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transaction History Modal -->
+    <div class="modal fade" id="recents" tabindex="-1" aria-labelledby="recentsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="recentsLabel">Recent Transactions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Transaction ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Payment</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactions-table-body">
+                                @if($sales && count($sales) > 0)
+                                    @foreach($sales as $sale)
+                                        <tr>
+                                            <td>{{ $sale['trx_id'] ?? '-' }}</td>
+                                            <td>{{ $sale['cust_name'] ?? 'Walk-in' }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($sale['created_at'])->format('d M Y H:i') }}</td>
+                                            <td>{{ $sale['sub_total_item'] ?? 0 }} items</td>
+                                            <td>{{ \App\Services\UtilService::formatCurrency($sale['final_total'] ?? 0, $sale['currency'] ?? 'IDR') }}</td>
+                                            <td>
+                                                @if($sale['payment_status'] == 0)
+                                                    <span class="badge bg-success">Paid</span>
+                                                @elseif($sale['payment_status'] == 1)
+                                                    <span class="badge bg-warning">Partial</span>
+                                                @else
+                                                    <span class="badge bg-danger">Unpaid</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="javascript:void(0);" class="btn btn-sm btn-info" onclick="viewTransaction('{{ $sale['trx_id'] }}')">
+                                                    <i data-feather="eye" class="feather-14"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="7" class="text-center">No transactions found</td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hold Order Modal -->
+    <div class="modal fade" id="hold-order" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Order Held</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i data-feather="check-circle" class="feather-40 text-success mb-3"></i>
+                    <h4>Order Held Successfully</h4>
+                    <p>You can resume this order later from View Orders</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const encodedSales = "{{ base64_encode(json_encode($sales)) }}";
         const encodedItems = "{{ base64_encode(json_encode($items)) }}";
         const encodedCustomers = "{{ base64_encode(json_encode($customers)) }}";
         const productCategoryRoute = @json(route('product-category', ['category_id' => 'CATEGORY_ID']));
+        
+        // Configuration for POS
+        const config = {
+            ppn_rate: 10,
+            currency: 'IDR'
+        };
+
+        // View transaction details
+        function viewTransaction(trxId) {
+            console.log('View transaction:', trxId);
+            // TODO: Implement transaction detail view
+            Swal.fire('Info', 'Transaction detail view coming soon', 'info');
+        }
     </script>
 @endsection

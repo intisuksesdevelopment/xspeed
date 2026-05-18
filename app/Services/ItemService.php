@@ -352,16 +352,40 @@ class ItemService
 
     public static function getItemsByCategory($categoryId = null, bool $isPaging = false, int $perPage = 10)
     {
-        $query = Item::query()->where('status', 0)->with(['category']);
+        try {
+            $query = Item::query()
+                ->where('status', 0)
+                ->with(['category', 'brand']);
 
-        if ($categoryId !== null) {
-            $query->where('category_id', $categoryId);
-        }
+            if ($categoryId !== null) {
+                $query->where('category_id', $categoryId);
+            }
 
-        if ($isPaging) {
-            return $query->paginate($perPage); // Kembalikan objek Paginator langsung
-        } else {
-            return new JsonResponse($query->get());
+            if ($isPaging) {
+                $items = $query->paginate($perPage);
+            } else {
+                $items = $query->get();
+            }
+
+            // Transform items to include necessary fields
+            $items->transform(function ($item) {
+                $item->sell_price = UtilService::convertToIdr($item->sell_price, $item->currency);
+                $item->currency = 'IDR';
+                return $item;
+            });
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Items retrieved successfully',
+                'data' => $items
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to get items by category: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve items: ' . $e->getMessage(),
+                'data' => []
+            ], 500);
         }
     }
 

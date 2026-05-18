@@ -320,4 +320,12 @@ class SalesService
             ], 500);
         }
     }
+
+    /**
+     * Alias for createSale - used by POS controller
+     */
+    public static function save(Request $request)
+    {
+        return self::createSale($request);
+    }
 }

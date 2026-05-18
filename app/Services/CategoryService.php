@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Constants\CommonConstants;
+use App\Exceptions\AlreadyExistException;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Exceptions\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -35,11 +35,15 @@ class CategoryService
         $query = Category::query()
             ->select('id', 'name', 'code', 'image_url', 'status')
             ->where('status', 0)
-            ->withCount('items') // 🔥 count category
+            ->withCount(['items' => function ($q) {
+                $q->where('status', 0); // hanya count items yang status=0
+            }])
             ->with([
                 'subcategories' => function ($q) {
                     $q->select('id', 'category_id', 'name', 'code')
-                        ->withCount('items'); // 🔥 count subcategory
+                        ->withCount(['items' => function ($q) {
+                            $q->where('status', 0); // hanya count subcategory items yang status=0
+                        }]);
                 },
             ])
             ->orderBy($sortBy, $sortDirection);

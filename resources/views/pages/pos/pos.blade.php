@@ -67,11 +67,11 @@
                                                         </h6>
                                                         <div
                                                             class="d-flex align-items-center justify-content-between price">
-                                                            <span class=" d-none" id="stock-{{ $item['sku'] }}"
-                                                                value="{{ \App\Services\UtilService::clearDecimal($item['stock']) }}"></span>
-                                                            <span class=" d-none" id="price-{{ $item['sku'] }}"
-                                                                value="{{ $item['sell_price'] }}"></span>
-                                                            <span>{{ \App\Services\UtilService::clearDecimal($item['stock']) . ' ' . $item['unit'] }}</span>
+                                                            <span class="d-none" id="stock-{{ $item['sku'] }}"
+                                                                data-value="{{ \App\Services\UtilService::clearDecimal($item['stock']) }}"></span>
+                                                            <span class="d-none" id="price-{{ $item['sku'] }}"
+                                                                data-value="{{ $item['sell_price'] }}"></span>
+                                                            <span>{{ \App\Services\UtilService::clearDecimal($item['stock']) }} {{ $item['unit'] }}</span>
                                                             <p>{{ \App\Services\UtilService::formatCurrency($item['sell_price'], $item['currency']) }}
                                                             </p>
                                                         </div>
@@ -256,6 +256,16 @@
                                 </div>
                                 <div class="block-section payment-method">
                                     <h6>Payment Method</h6>
+                                    <style>
+                                        /* Hide conditional payment divs by default, div-payment always visible */
+                                        #div-cash,
+                                        #div-bank,
+                                        #div-account,
+                                        #div-credit,
+                                        #div-duedate {
+                                            display: none;
+                                        }
+                                    </style>
                                     <div class="row d-flex align-items-center justify-content-center methods">
                                         <div class="col-12 col-md-12 col-lg-12 col-sm-12">
                                             <div class="input-blocks mb-3 ">
@@ -263,7 +273,7 @@
                                                     onchange="paymentMethodChange()">
                                                     @foreach ($paymentMethods as $paymentMethod)
                                                         <option value="{{ $paymentMethod['id'] }}"
-                                                            data-method="{{ $paymentMethod['method'] }}">
+                                                            data-method="{{ $paymentMethod['type'] }}">
                                                             {{ $paymentMethod['name'] }}</option>
                                                     @endforeach
                                                 </select>
@@ -496,9 +506,9 @@
     </div>
 
     <script>
-        const encodedSales = "{{ base64_encode(json_encode($sales)) }}";
-        const encodedItems = "{{ base64_encode(json_encode($items)) }}";
-        const encodedCustomers = "{{ base64_encode(json_encode($customers)) }}";
+        const encodedSales = @json($sales);
+        const encodedItems = @json($items);
+        const encodedCustomers = @json($customers);
         const productCategoryRoute = @json(route('product-category', ['category_id' => 'CATEGORY_ID']));
         
         // Configuration for POS

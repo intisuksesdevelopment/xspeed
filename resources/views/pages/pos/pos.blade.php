@@ -24,8 +24,7 @@
                             <ul class="tabs owl-carousel pos-category" id="categoryList">
                                 <li id="all">
                                     <a href="javascript:void(0);">
-                                        <img src="{{ asset('build/img/categories/category-01.png') }}"
-                                            alt="Categories">
+                                        <img src="{{ asset('build/img/categories/category-01.png') }}" alt="Categories">
                                     </a>
                                     <h6><a href="javascript:void(0);">All Categories</a></h6>
                                     <span>{{ $items->count() }} Items</span>
@@ -71,7 +70,8 @@
                                                                 data-value="{{ \App\Services\UtilService::clearDecimal($item['stock']) }}"></span>
                                                             <span class="d-none" id="price-{{ $item['sku'] }}"
                                                                 data-value="{{ $item['sell_price'] }}"></span>
-                                                            <span>{{ \App\Services\UtilService::clearDecimal($item['stock']) }} {{ $item['unit'] }}</span>
+                                                            <span>{{ \App\Services\UtilService::clearDecimal($item['stock']) }}
+                                                                {{ $item['unit'] }}</span>
                                                             <p>{{ \App\Services\UtilService::formatCurrency($item['sell_price'], $item['currency']) }}
                                                             </p>
                                                         </div>
@@ -137,16 +137,14 @@
                                 </div>
                                 <div class="card-body">
                                     <select class="select2 form-control" name="item" id="item-select">
-                                        <option disabled selected>Select Item ...</option>
-                                        @foreach ($items as $item)
-                                            <option value="{{ $item['sku'] }}">{{ $item['name'] }}</option>
-                                        @endforeach
+                                        <option disabled selected>Loading...</option>
                                     </select>
                                 </div>
                                 <!-- Hidden fields for backend -->
                                 <input type="hidden" name="transactionId" id="transactionId">
                                 <input type="hidden" name="customerUuid" id="customerUuid">
-                                <input type="hidden" name="warehouseId" id="warehouseId" value="{{ $warehouses->first()['id'] ?? 1 }}">
+                                <input type="hidden" name="warehouseId" id="warehouseId"
+                                    value="{{ $warehouses->first()['id'] ?? 1 }}">
                                 <input type="hidden" name="taxPercent" id="taxPercent" value="10">
                                 <input type="hidden" name="discPercent" id="discPercent" value="0">
                             </div>
@@ -273,7 +271,8 @@
                                                     onchange="paymentMethodChange()">
                                                     @foreach ($paymentMethods as $paymentMethod)
                                                         <option value="{{ $paymentMethod['id'] }}"
-                                                            data-method="{{ $paymentMethod['type'] }}">
+                                                            data-method="{{ $paymentMethod['name'] }}"
+                                                            data-installments='{{ $paymentMethod['installments'] ?? '[]' }}'>
                                                             {{ $paymentMethod['name'] }}</option>
                                                     @endforeach
                                                 </select>
@@ -445,16 +444,17 @@
                                 </tr>
                             </thead>
                             <tbody id="transactions-table-body">
-                                @if($sales && count($sales) > 0)
-                                    @foreach($sales as $sale)
+                                @if ($sales && count($sales) > 0)
+                                    @foreach ($sales as $sale)
                                         <tr>
                                             <td>{{ $sale['trx_id'] ?? '-' }}</td>
                                             <td>{{ $sale['cust_name'] ?? 'Walk-in' }}</td>
                                             <td>{{ \Carbon\Carbon::parse($sale['created_at'])->format('d M Y H:i') }}</td>
                                             <td>{{ $sale['sub_total_item'] ?? 0 }} items</td>
-                                            <td>{{ \App\Services\UtilService::formatCurrency($sale['final_total'] ?? 0, $sale['currency'] ?? 'IDR') }}</td>
+                                            <td>{{ \App\Services\UtilService::formatCurrency($sale['final_total'] ?? 0, $sale['currency'] ?? 'IDR') }}
+                                            </td>
                                             <td>
-                                                @if($sale['payment_status'] == 0)
+                                                @if ($sale['payment_status'] == 0)
                                                     <span class="badge bg-success">Paid</span>
                                                 @elseif($sale['payment_status'] == 1)
                                                     <span class="badge bg-warning">Partial</span>
@@ -463,7 +463,8 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="javascript:void(0);" class="btn btn-sm btn-info" onclick="viewTransaction('{{ $sale['trx_id'] }}')">
+                                                <a href="javascript:void(0);" class="btn btn-sm btn-info"
+                                                    onclick="viewTransaction('{{ $sale['trx_id'] }}')">
                                                     <i data-feather="eye" class="feather-14"></i>
                                                 </a>
                                             </td>
@@ -504,13 +505,17 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('/build/js/page/pos.js') }}"></script>
 
     <script>
         const encodedSales = @json($sales);
         const encodedItems = @json($items);
         const encodedCustomers = @json($customers);
         const productCategoryRoute = @json(route('product-category', ['category_id' => 'CATEGORY_ID']));
-        
+        const apiProductUrl = 'product/';
+        const apiBrandUrl = 'brand/all';
+        const apiCategoryUrl = 'category/all';
+
         // Configuration for POS
         const config = {
             ppn_rate: 10,
@@ -523,5 +528,162 @@
             // TODO: Implement transaction detail view
             Swal.fire('Info', 'Transaction detail view coming soon', 'info');
         }
+
+        /* =========================
+           INIT ITEM SELECT (AJAX)
+        ========================= */
+        const Select2Cache = {};
+
+        function safeDestroySelect2($el) {
+            if ($el.hasClass("select2-hidden-accessible")) {
+                $el.blur();
+                $el.select2('destroy');
+            }
+        }
+
+        async function apiFetch(options) {
+            const { endpoint, params = {} } = options;
+            const queryString = new URLSearchParams(params).toString();
+            const url = `/api/${endpoint}${queryString ? '?' + queryString : ''}`;
+
+            const res = await fetch(url, {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+
+            return res.json();
+        }
+
+        async function loadSelect2($el, options) {
+            const {
+                endpoint,
+                placeholder = 'Select',
+                params = {},
+                map = (item) => ({
+                    id: item.uuid ?? item.sku ?? item.id,
+                    text: item.name,
+                    data: item
+                }),
+                cacheKey = null
+            } = options;
+
+            if (cacheKey && Select2Cache[cacheKey]) {
+                renderOptions($el, Select2Cache[cacheKey], placeholder, map);
+                return Select2Cache[cacheKey];
+            }
+
+            $el.prop('disabled', true);
+
+            const res = await apiFetch({ endpoint, params });
+            const data = res.data || [];
+
+            if (cacheKey) {
+                Select2Cache[cacheKey] = data;
+            }
+
+            renderOptions($el, data, placeholder, map);
+            $el.prop('disabled', false);
+
+            return data;
+        }
+
+        function renderOptions($el, data, placeholder, map) {
+            safeDestroySelect2($el);
+            $el.empty();
+            $el.append(new Option('', '', false, false));
+            data.forEach(item => {
+                const opt = map(item);
+                $el.append(new Option(opt.text, opt.id, false, false));
+            });
+            $el.select2({
+                placeholder,
+                allowClear: true,
+                width: '100%'
+            });
+            $el.val(null).trigger('change');
+        }
+
+        function escapeHtml(str) {
+            return $('<div>').text(str || '').html();
+        }
+
+        async function initItemSelect() {
+            const $item = $('#item-select');
+
+            $item.select2({
+                ajax: {
+                    url: '/api/' + apiProductUrl + 'search',
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    data: function(params) {
+                        return {
+                            q: params.term,
+                            limit: 10
+                        };
+                    },
+                    processResults: function(data) {
+                        const items = data.data || [];
+                        return {
+                            results: items.map(item => ({
+                                id: item.sku,
+                                text: item.name + ' - ' + item.sku,
+                                data: item
+                            }))
+                        };
+                    }
+                },
+                placeholder: 'Cari Produk...',
+                allowClear: true,
+                width: '100%',
+                minimumInputLength: 2
+            });
+
+            $item.on('select2:select', function(e) {
+                const item = e.params.data.data;
+                if (item) {
+                    addProductToSales(item);
+                }
+            });
+
+            $item.on('select2:clear', function(e) {
+                salesItems = [];
+                renderSalesList();
+            });
+        }
+
+        // Add product to sales list
+        function addProductToSales(item) {
+            // Check if item already exists in sales
+            const existingIndex = salesItems.findIndex(s => s.sku === item.sku);
+
+            if (existingIndex !== -1) {
+                // Increment quantity if already exists
+                salesItems[existingIndex].qty += 1;
+            } else {
+                // Add new item
+                salesItems.push({
+                    sku: item.sku,
+                    name: item.name,
+                    price: item.sell_price,
+                    qty: 1,
+                    stock: item.stock,
+                    unit: item.unit
+                });
+            }
+
+            renderSalesList();
+            calculate();
+        }
+
+        // Initialize on document ready
+        $(document).ready(function() {
+            initItemSelect();
+        });
     </script>
 @endsection

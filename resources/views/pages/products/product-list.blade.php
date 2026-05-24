@@ -38,23 +38,32 @@
 
                     <!-- SEARCH -->
                     <div class="col-md-4">
-                        <input type="text" class="form-control" placeholder="Search..." x-model="filters.search"
-                            @keyup.debounce.500ms="fetchProducts()">
+                        <div class="input-group mb-3">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Name</a></li>
+                                <li><a class="dropdown-item" href="#">SKU</a></li>
+                                <li><a class="dropdown-item" href="#">Brand</a></li>
+                                <li><a class="dropdown-item" href="#">Rack</a></li>
+                            </ul>
+                            <input type="text" class="form-control" placeholder="{{ __('common.search') }}..."
+                                x-model="filters.search" @keyup.debounce.500ms="fetchProducts()">
+                        </div>
                     </div>
 
                     <!-- FILTER -->
                     <div class="col-md-5">
                         <div class="d-flex gap-2">
-
                             <select class="form-select" x-model="filters.warehouse" @change="fetchProducts()">
-                                <option value="">Warehouse</option>
+                                <option value=""> {{ __('common.warehouse') }}</option>
                                 <template x-for="w in warehouses" :key="w.code">
                                     <option :value="w.code" x-text="w.name"></option>
                                 </template>
                             </select>
 
                             <select class="form-select" x-model="filters.brand" @change="fetchProducts()">
-                                <option value="">Brand</option>
+                                <option value=""> {{ __('common.brand') }}</option>
                                 <template x-for="b in brands" :key="b.code">
                                     <option :value="b.code" x-text="b.name"></option>
                                 </template>

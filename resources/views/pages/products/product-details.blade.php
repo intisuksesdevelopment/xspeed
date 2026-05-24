@@ -2,34 +2,44 @@
 @extends('pages.layout.mainlayout')
 @section('content')
     <style>
+        [x-cloak] {
+            display: none !important;
+        }
+
         .product-bar li {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid #eee;
         }
+
         .product-bar li:last-child {
             border-bottom: none;
         }
+
         .product-bar h4 {
             font-weight: 600;
             margin: 0;
             color: #637381;
             min-width: 150px;
         }
+
         .product-bar h6 {
             margin: 0;
             color: #212b35;
             text-align: right;
         }
+
         .product-image {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
         }
+
         .slider-product {
             text-align: center;
         }
+
         .slider-product img {
             max-height: 300px;
             object-fit: contain;
@@ -80,6 +90,12 @@
                                 </a>
                             </div>
                             <div class="productdetails">
+                                <!-- Status Badge -->
+                                <div class="mb-3 text-end">
+                                    <span class="badge" :class="item.status === 0 ? 'bg-success' : 'bg-danger'"
+                                        x-text="item.availability || '-'">
+                                    </span>
+                                </div>
                                 <ul class="product-bar">
                                     <li>
                                         <h4>Product</h4>
@@ -87,7 +103,9 @@
                                     </li>
                                     <li>
                                         <h4>Category</h4>
-                                        <h6 x-text="item.category_name ? item.category_code + ' - ' + item.category_name : '-'"></h6>
+                                        <h6
+                                            x-text="item.category_name ? item.category_code + ' - ' + item.category_name : '-'">
+                                        </h6>
                                     </li>
                                     <li>
                                         <h4>Sub Category</h4>
@@ -134,10 +152,6 @@
                                         <h6 x-text="calculateMargin()"></h6>
                                     </li>
                                     <li>
-                                        <h4>Status</h4>
-                                        <h6 x-text="item.availability || '-'"></h6>
-                                    </li>
-                                    <li>
                                         <h4>Description</h4>
                                         <h6 x-text="item.description || '-'"></h6>
                                     </li>
@@ -149,24 +163,50 @@
                 <div class="col-lg-4 col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="slider-product-details">
-                                <div class="owl-carousel owl-theme product-slide" x-show="images.length > 0">
-                                    <template x-for="img in images" :key="img.id">
-                                        <div class="slider-product">
-                                            <img :src="img.path" :alt="img.name" class="product-image">
-                                            <h4 x-text="img.name"></h4>
-                                            <h6 x-text="img.description || ''"></h6>
-                                        </div>
+                            <div class="product-images">
+
+                                <!-- Main Image -->
+                                <div class="main-image mb-3 text-center">
+                                    <img :src="currentImage" alt="Product Image" class="img-fluid rounded"
+                                        style="max-height: 300px; object-fit: contain; cursor: zoom-in;"
+                                        @click="openPreview(currentImage, item.name)"
+                                        onerror="this.src='/build/img/image-not-found.jpg'">
+                                </div>
+                                <!-- Thumbnail Gallery -->
+                                <div class="thumbnail-gallery d-flex gap-2 flex-wrap" x-show="images.length > 0">
+                                    <template x-for="(img, index) in images" :key="img.id">
+                                        <img :src="img.path" :alt="img.name" class="thumbnail rounded"
+                                            :class="currentImage === img.path ? 'border border-primary' : ''"
+                                            style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
+                                            @click="currentImage = img.path; openPreview(img.path, img.name, img.description)">
                                     </template>
                                 </div>
+                                <!-- No Images -->
                                 <div x-show="images.length === 0" class="text-center py-4">
-                                    <img src="/build/img/image-not-found.jpg" alt="No Image" class="product-image">
+                                    <img src="/build/img/image-not-found.jpg" alt="No Image" class="img-fluid rounded"
+                                        style="max-height: 200px;">
                                     <p class="text-muted mt-2">No images available</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Preview Modal - Pure Alpine.js -->
+    <div id="image-preview-modal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: rgba(0,0,0,0.9); align-items: center; justify-content: center;"
+        onclick="if(event.target === this) closePreviewModal()">
+        <div style="position: relative; max-width: 90%; max-height: 90%;">
+            <button type="button" id="btn-close-preview"
+                style="position: absolute; top: -40px; right: 0; background: white; border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 18px;">×</button>
+            <img id="preview-img" src="" alt=""
+                style="max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 8px;">
+            <div style="text-align: center; margin-top: 15px; color: white;">
+                <p id="preview-name" style="margin: 0;"></p>
+                <small id="preview-desc" style="color: #aaa;"></small>
             </div>
         </div>
     </div>
@@ -183,10 +223,14 @@
             return {
                 item: {},
                 images: [],
+                currentImage: '/build/img/image-not-found.jpg',
                 loading: true,
                 error: null,
 
                 init() {
+                    // Add click listener to close button
+                    document.getElementById('btn-close-preview').addEventListener('click', closePreviewModal);
+
                     // Extract UUID from URL path
                     const pathParts = window.location.pathname.split('/');
                     const uuidIndex = pathParts.findIndex(p => p === 'detail');
@@ -221,14 +265,19 @@
 
                         this.item = result.data;
                         this.images = result.data.images || [];
+                        // Set first image as current image if available
+                        if (this.images.length > 0) {
+                            this.currentImage = this.images[0].path;
+                        } else {
+                            this.currentImage = '/build/img/image-not-found.jpg';
+                        }
 
-                        // Reinitialize feather icons
-                        this.$nextTick(() => {
+                        // Reinitialize feather icons after images load
+                        setTimeout(() => {
                             if (typeof feather !== 'undefined') {
                                 feather.replace();
                             }
-                            this.initSlider();
-                        });
+                        }, 100);
 
                     } catch (e) {
                         console.error('Error fetching product detail:', e);
@@ -257,24 +306,34 @@
                     return `${margin}%`;
                 },
 
-                initSlider() {
-                    // Initialize Owl Carousel if available
-                    if (typeof $.fn.owlCarousel !== 'undefined') {
-                        $('.product-slide').owlCarousel({
-                            loop: false,
-                            margin: 10,
-                            nav: true,
-                            navText: ['<i data-feather="chevron-left"></i>', '<i data-feather="chevron-right"></i>'],
-                            dots: false,
-                            responsive: {
-                                0: { items: 1 },
-                                600: { items: 1 },
-                                1000: { items: 1 }
-                            }
-                        });
-                    }
+                openPreview(imagePath, imageName = '', imageDesc = '') {
+                    // Use vanilla JS to show modal
+                    const modal = document.getElementById('image-preview-modal');
+                    const img = modal.querySelector('img');
+                    const nameEl = modal.querySelector('p');
+                    const descEl = modal.querySelector('small');
+
+                    img.src = imagePath;
+                    img.alt = imageName;
+                    nameEl.textContent = imageName;
+                    nameEl.style.display = imageName ? 'block' : 'none';
+                    descEl.style.display = imageDesc ? 'block' : 'none';
+                    descEl.textContent = imageDesc || '';
+
+                    modal.style.display = 'flex';
+                },
+
+                closePreviewModal() {
+                    const modal = document.getElementById('image-preview-modal');
+                    modal.style.display = 'none';
                 }
             }
+        }
+
+        // Global function for modal close (accessible from onclick)
+        function closePreviewModal() {
+            const modal = document.getElementById('image-preview-modal');
+            modal.style.display = 'none';
         }
     </script>
 @endsection

@@ -10,6 +10,24 @@
         .fade-row:hover {
             background-color: #f8f9fa;
         }
+
+        .product-name {
+            display: inline-block;
+            max-width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+        }
+
+        .brand-name {
+            display: inline-block;
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+        }
     </style>
     <div class="page-wrapper" x-data="productTable()" x-init="init()" x-cloak>
         <div class="content position-relative">
@@ -76,18 +94,14 @@
             <table class="table mt-3">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Product</th>
                         <th>SKU</th>
-                        <th>Category</th>
-                        <th>Brand</th>
-                        <th>Sell Price</th>
-                        <th>Unit</th>
-                        <th>Qty</th>
-                        {{-- <th>Created by</th> --}}
-                        <th>Created at</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th>Produk</th>
+                        <th>Stok</th>
+                        <th>Rak</th>
+                        <th>Merk</th>
+                        <th>Harga Pokok</th>
+                        <th>Harga Jual</th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -95,59 +109,43 @@
 
                     {{-- <!-- LOADING -->
                     <tr x-show="loading" x-cloak>
-                        <td colspan="12" class="text-center py-3">Loading...</td>
+                        <td colspan="8" class="text-center py-3">Loading...</td>
                     </tr> --}}
 
                     <!-- EMPTY -->
                     <tr x-show="!loading && items.length === 0" x-cloak>
-                        <td colspan="12" class="text-center py-3">No data found</td>
+                        <td colspan="8" class="text-center py-3">No data found</td>
                     </tr>
 
                     <!-- DATA -->
                     <template x-for="item in items" :key="item.uuid">
                         <tr>
-                            <td x-text="item.id"></td>
-
+                            <td x-text="item.sku"></td>
                             <td>
                                 <div class="productimgname d-flex align-items-center gap-2">
-
                                     <img :src="getImage(item)" width="40" class="rounded"
                                         onerror="this.src='/build/img/image-not-found.jpg'">
-
-                                    <a :href="ROUTES.productEdit(item.uuid)"
-                                        class="product-name text-decoration-none text-dark fw-semibold" x-text="item.name"
-                                        data-bs-toggle="tooltip" :title="item.name">
-                                    </a>
-
+                                    <span class="product-name" :title="item.name" x-text="item.name"></span>
                                 </div>
                             </td>
-
-                            <td x-text="item.sku"></td>
-                            <td x-text="item.category_name"></td>
-                            <td x-text="item.brand_name"></td>
-                            <td x-text="formatRupiah(item.sell_price)"></td>
-                            <td x-text="item.unit"></td>
                             <td x-text="item.stock"></td>
-                            {{-- <td x-text="item.created_by ?? '-'"></td> --}}
-                            <td x-text="formatDate(item.created_at)"></td>
-
+                            <td x-text="item.rack_name ?? '-'"></td>
+                            <td class="brand-name" x-text="item.brand_code ?? '-'" :title="item.brand_name"></td>
+                            <td x-text="formatRupiah(item.basic_price ?? 0)"></td>
+                            <td x-text="formatRupiah(item.sell_price?? 0)"></td>
                             <td>
-                                <span class="badge"
-                                    :class="item.availability == 'Tersedia' ? 'badge-linesuccess' : 'badge-linedanger'"
-                                    x-text="item.availability">
-                                </span>
-                            </td>
-
-                            <td>
-                                <div class="edit-delete-action">
-                                    <a class="me-2 p-2" :href="ROUTES.productEdit(item.uuid)">
-                                        <i data-feather="edit" class="feather-edit"></i>
+                                <div class="d-flex gap-1">
+                                    <a class="btn btn-sm btn-info" :href="ROUTES.productDetail(item.uuid)" title="Detail">
+                                        <i data-feather="eye" class="feather-14"></i>
                                     </a>
-                                    <a class="p-2" :href="ROUTES.productDelete(item.uuid)">
-                                        <i data-feather="trash-2" class="feather-trash-2"></i>
+                                    <a class="btn btn-sm btn-warning" :href="ROUTES.productEdit(item.uuid)" title="Update">
+                                        <i data-feather="edit" class="feather-14"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" :href="ROUTES.productDelete(item.uuid)"
+                                        title="Delete">
+                                        <i data-feather="trash-2" class="feather-14"></i>
                                     </a>
                                 </div>
-
                             </td>
                         </tr>
                     </template>
@@ -241,15 +239,27 @@
                 },
 
                 async fetchWarehouses() {
-                    let res = await fetch(API_WAREHOUSE_URL);
-                    let data = await res.json();
-                    this.warehouses = data.warehouses ?? [];
+                    try {
+                        console.log('Fetching warehouses from:', API_WAREHOUSE_URL);
+                        let res = await fetch(API_WAREHOUSE_URL);
+                        let data = await res.json();
+                        console.log('Warehouses response:', data);
+                        this.warehouses = data.data ?? [];
+                    } catch (e) {
+                        console.error('Failed to fetch warehouses:', e);
+                    }
                 },
 
                 async fetchBrands() {
-                    let res = await fetch(API_BRAND_URL);
-                    let data = await res.json();
-                    this.brands = data.brands ?? [];
+                    try {
+                        console.log('Fetching brands from:', API_BRAND_URL);
+                        let res = await fetch(API_BRAND_URL);
+                        let data = await res.json();
+                        console.log('Brands response:', data);
+                        this.brands = data.data ?? [];
+                    } catch (e) {
+                        console.error('Failed to fetch brands:', e);
+                    }
                 },
 
                 debounceFetch: null,
@@ -290,22 +300,29 @@
                 },
                 async fetchProducts() {
                     this.loading = true;
+                    console.log('Fetching products with filters:', this.filters);
 
                     try {
                         let params = new URLSearchParams({
                             page: this.page,
-                            per_page: this.perPage
+                            per_page: this.perPage,
+                            search: this.filters.search,
+                            warehouse: this.filters.warehouse,
+                            brand: this.filters.brand
                         });
 
+                        console.log('API URL:', `${API_PRODUCT_URL}?${params}`);
                         let res = await fetch(`${API_PRODUCT_URL}?${params}`);
 
                         let text = await res.text();
 
                         let result = JSON.parse(text);
+                        console.log('API Response:', result);
 
                         let paginated = result.data;
 
                         this.items = paginated.data || [];
+                        console.log('Items loaded:', this.items.length);
                         this.page = paginated.current_page || 1;
                         this.lastPage = paginated.last_page || 1;
                         this.total = paginated.total || 0;
@@ -315,6 +332,12 @@
                     } finally {
                         console.log('DONE FETCH');
                         this.loading = false;
+                        // Wait for Alpine.js to finish rendering before initializing feather icons
+                        this.$nextTick(() => {
+                            if (typeof feather !== 'undefined') {
+                                feather.replace();
+                            }
+                        });
                     }
                 },
                 get pages() {

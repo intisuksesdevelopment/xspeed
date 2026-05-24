@@ -29,6 +29,7 @@ class ItemService
                 'i.name',
                 'i.sku',
                 'i.sell_price',
+                'i.basic_price',
                 'i.stock',
                 'i.unit',
                 'i.image_url',
@@ -40,13 +41,36 @@ class ItemService
                 'c.code as category_code',
                 'b.name as brand_name',
                 'b.code as brand_code',
+                'r.name as rack_name',
             ])
             ->leftJoin('categories as c', 'c.id', '=', 'i.category_id')
-            ->leftJoin('brands as b', 'b.id', '=', 'i.brand_id');
+            ->leftJoin('brands as b', 'b.id', '=', 'i.brand_id')
+            ->leftJoin('racks as r', 'r.id', '=', 'i.rack_id');
 
         // 🔥 FILTER
         if ($request->category) {
             $query->where('c.code', $request->category);
+        }
+
+        // 🔥 SEARCH FILTER
+        if ($request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('i.name', 'like', "%{$search}%")
+                  ->orWhere('i.sku', 'like', "%{$search}%")
+                  ->orWhere('b.name', 'like', "%{$search}%")
+                  ->orWhere('r.name', 'like', "%{$search}%");
+            });
+        }
+
+        // 🔥 WAREHOUSE FILTER
+        if ($request->warehouse) {
+            $query->where('i.warehouse_id', $request->warehouse);
+        }
+
+        // 🔥 BRAND FILTER
+        if ($request->brand) {
+            $query->where('b.code', $request->brand);
         }
 
         // 🔥 COUNT (clone)
@@ -112,7 +136,9 @@ class ItemService
 
         // 🔥 FILTER (pakai whereHas, jangan join)
         if ($request->category) {
-            $query->whereHas('category', fn ($q) => $q->where('code', $request->category)
+            $query->whereHas(
+                'category',
+                fn($q) => $q->where('code', $request->category)
             );
         }
 
@@ -191,12 +217,12 @@ class ItemService
 
         // whitelist kolom biar aman
         $allowedSort = ['id', 'name', 'sell_price', 'created_at'];
-        if (! in_array($sortBy, $allowedSort)) {
+        if (!in_array($sortBy, $allowedSort)) {
             $sortBy = 'id';
         }
 
         $allowedDirection = ['asc', 'desc'];
-        if (! in_array(strtolower($sortDirection), $allowedDirection)) {
+        if (!in_array(strtolower($sortDirection), $allowedDirection)) {
             $sortDirection = 'asc';
         }
 
@@ -226,13 +252,45 @@ class ItemService
 
     public static function getDetail($uuid)
     {
-        $item = Item::query()->where('uuid', $uuid)->with(['category', 'subcategory', 'brand', 'warehouse', 'rack', 'images'])->first();
+        $item = Item::query()
+            ->where('uuid', $uuid)
+            ->with([
+                'category:id,code,name',
+                'subcategory:id,code,name',
+                'brand:id,code,name',
+                'warehouse:id,code,name',
+                'rack:id,code,name',
+                'images:id,ref,ref_id,name,path,description'
+            ])
+            ->first();
 
-        if (! $item) {
+        if (!$item) {
             throw new NotFoundException("uuid : {$uuid}");
         }
-        $item->status = $item->isAvailable();
-        $item->images = $item->images()->get();
+
+        // Add flattened fields for API response
+        $item->status_text = $item->isAvailable();
+        $item->category_code = $item->category?->code;
+        $item->category_name = $item->category?->name;
+        $item->subcategory_code = $item->subcategory?->code;
+        $item->subcategory_name = $item->subcategory?->name;
+        $item->brand_code = $item->brand?->code;
+        $item->brand_name = $item->brand?->name;
+        $item->warehouse_code = $item->warehouse?->code;
+        $item->warehouse_name = $item->warehouse?->name;
+        $item->rack_code = $item->rack?->code;
+        $item->rack_name = $item->rack?->name;
+
+        // Transform images to array
+        $item->setRelation('images', $item->images->map(fn($img) => (object)[
+            'id' => $img->id,
+            'name' => $img->name,
+            'path' => $img->path,
+            'description' => $img->description
+        ]));
+
+        // Hide unnecessary relation ID fields
+        $item->makeHidden(['category_id', 'sub_category_id', 'brand_id', 'warehouse_id', 'rack_id']);
 
         return $item;
     }
@@ -241,8 +299,8 @@ class ItemService
     {
         $items = Item::query()
             ->when($query, function ($q) use ($query) {
-                $q->where('name', 'like', '%'.$query.'%')
-                    ->orWhere('sku', 'like', '%'.$query.'%');
+                $q->where('name', 'like', '%' . $query . '%')
+                    ->orWhere('sku', 'like', '%' . $query . '%');
             })
             ->limit($limit)
             ->get();
@@ -254,7 +312,7 @@ class ItemService
     {
         $item = Item::where('uuid', $uuid)->first();
 
-        if (! $item) {
+        if (!$item) {
             throw new NotFoundException("Item not found: uuid {$uuid}");
         }
         $item->status = $item->isAvailable();
@@ -268,7 +326,7 @@ class ItemService
             $data = $request->all();
 
             // Check for existing item with case-insensitive name match
-            $item = Item::query()->whereRaw('LOWER(name) LIKE ?', ['%'.strtolower($data['name']).'%'])->first();
+            $item = Item::query()->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($data['name']) . '%'])->first();
             if ($item) {
                 throw new AlreadyExistException("Item already exists: name {$data['name']}");
             }
@@ -298,7 +356,7 @@ class ItemService
         try {
             $data = $request->all();
             $item = Item::where('uuid', $data['uuid'])->first();
-            if (! $item) {
+            if (!$item) {
                 throw new NotFoundException("Item not found: uuid {$data['uuid']}");
             }
             $data['id'] = $item->id;
@@ -328,8 +386,8 @@ class ItemService
             // Fetch the item model instance
             $item = Item::where('uuid', $uuid)->first();
 
-            if (! $item) {
-                throw new NotFoundException('Item not found: uuid '.$uuid);
+            if (!$item) {
+                throw new NotFoundException('Item not found: uuid ' . $uuid);
             }
 
             // Update the status
@@ -477,22 +535,22 @@ class ItemService
         return DataTables::of($query)
             ->addColumn('checkbox', function ($row) {
                 return '<label class="checkboxs">
-                            <input type="checkbox" value="'.$row->id.'">
+                            <input type="checkbox" value="' . $row->id . '">
                             <span class="checkmarks"></span>
                         </label>';
             })
             ->addColumn('product', function ($row) {
                 return view('pages.products.product-column', compact('row'))->render();
             })
-            ->addColumn('category', fn ($row) => $row->category->code ?? 'N/A')
-            ->addColumn('brand', fn ($row) => $row->brand->code ?? 'N/A')
-            ->addColumn('created_at', fn ($row) => UtilService::formatDate($row->created_at) ?? 'N/A')
+            ->addColumn('category', fn($row) => $row->category->code ?? 'N/A')
+            ->addColumn('brand', fn($row) => $row->brand->code ?? 'N/A')
+            ->addColumn('created_at', fn($row) => UtilService::formatDate($row->created_at) ?? 'N/A')
             ->addColumn('status', function ($row) {
                 $availability = $row->isAvailable();
 
                 return $row->status == 0
-                    ? '<span class="badge badge-linesuccess">'.$availability.'</span>'
-                    : '<span class="badge badge-linedanger">'.$availability.'</span>';
+                    ? '<span class="badge badge-linesuccess">' . $availability . '</span>'
+                    : '<span class="badge badge-linedanger">' . $availability . '</span>';
             })
             ->addColumn('actions', function ($row) {
                 return view('pages.products.product-actions', compact('row'))->render();

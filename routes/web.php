@@ -78,11 +78,11 @@ Route::middleware(['auth', LocalizationMiddleware::class])->prefix('admin')->gro
         Route::get('/edit/{uuid}', [ItemController::class, 'editForm'])->name('product-edit-form');
         Route::post('/edit', [ItemController::class, 'edit'])->name('product-edit');
         Route::get('/detail/{uuid}', [ItemController::class, 'detail'])->name('product-detail');
-        Route::delete('/delete/{uuid}', [ItemController::class, 'delete'])->name('product-delete');
+        Route::get('/delete/{uuid}', [ItemController::class, 'delete'])->name('product-delete');
         Route::get('/category/{category_id}', [ItemController::class, 'getItemsByCategory'])->name('product-category');
         Route::get('/barcode', [ItemController::class, 'barcode'])->name('product-barcode');
         Route::post('/export-products', function (Request $request) {
-            return Excel::download(new ItemsExport($request->all()), 'product-data'.now()->format('Y-m-d_H-i-s').'.xlsx');
+            return Excel::download(new ItemsExport($request->all()), 'product-data' . now()->format('Y-m-d_H-i-s') . '.xlsx');
         })->name('product-excel-export');
 
     });
@@ -198,7 +198,7 @@ Route::prefix('dashboard')->group(function () {
 Route::get('/set-language/{lang}', function ($lang) {
     if (in_array($lang, ['id', 'en'])) {
         Session::put('locale', $lang);
-        Log::info('Session put: '.$lang);
+        Log::info('Session put: ' . $lang);
     }
 
     return redirect()->back();

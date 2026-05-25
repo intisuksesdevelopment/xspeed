@@ -139,7 +139,10 @@
                             </td>
                             <td x-text="item.stock"></td>
                             <td x-text="item.rack_name ?? '-'"></td>
-                            <td class="brand-name" x-text="item.brand_code ?? '-'" :title="item.brand_name"></td>
+                            <td>
+                                <span class="brand-name" x-show="item.brand_name" class="text-muted"
+                                    x-text="'(' + item.brand_name + ')'"></span>
+                            </td>
                             <td x-text="formatRupiah(item.basic_price ?? 0)"></td>
                             <td x-text="formatRupiah(item.sell_price?? 0)"></td>
                             <td>
@@ -150,10 +153,9 @@
                                     <a class="btn btn-sm btn-warning" :href="ROUTES.productEdit(item.uuid)" title="Update">
                                         <i data-feather="edit" class="feather-14"></i>
                                     </a>
-                                    <a class="btn btn-sm btn-danger" :href="ROUTES.productDelete(item.uuid)"
-                                        title="Delete">
+                                    <button class="btn btn-sm btn-danger" @click="confirmDelete(item)" title="Delete">
                                         <i data-feather="trash-2" class="feather-14"></i>
-                                    </a>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -196,8 +198,34 @@
                         @click="nextPage()">Next</button>
 
                 </div>
-            </div>
 
+                <!-- Delete Confirmation Modal -->
+                <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header border-0 custom-modal-header">
+                                <div class="page-title">
+                                    <h4>Confirm Delete</h4>
+                                </div>
+                            </div>
+                            <div class="modal-deletecontent custom-modal-body text-center">
+                                <i data-feather="x-circle" class="feather-24 text-danger mx-auto d-block"></i>
+                                <h4 class="pt-2 text-muted">Delete Product</h4>
+                                <p>Are you sure you want to delete <strong x-text="itemToDelete?.name"></strong>?</p>
+                                <p class="text-muted">This action cannot be undone.</p>
+                                <div class="modal-footer-btn delete">
+                                    <a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
+                                    <a href="javascript:void(0);" class="btn btn-submit" :class="{'disabled': deleting}" @click="deleteItem()">
+                                        <i data-feather="trash-2" class="feather-14"></i> Delete
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -228,6 +256,8 @@
                 perPage: 10,
                 lastPage: 1,
                 total: 0,
+
+                itemToDelete: null,
 
                 initialized: false,
 
@@ -413,6 +443,64 @@
                         hour: '2-digit',
                         minute: '2-digit'
                     }).format(date);
+                },
+
+                confirmDelete(item) {
+                    this.itemToDelete = item;
+                    // Show Bootstrap modal
+                    const modalEl = document.getElementById('deleteConfirmModal');
+                    if (modalEl) {
+                        const modal = new bootstrap.Modal(modalEl);
+                        modal.show();
+                    }
+                },
+
+                async deleteItem() {
+                    if (!this.itemToDelete) return;
+
+                    const item = this.itemToDelete;
+                    const uuid = item.uuid;
+
+                    // Hide modal
+                    const modalEl = document.getElementById('deleteConfirmModal');
+                    if (modalEl) {
+                        const modal = bootstrap.Modal.getInstance(modalEl);
+                        if (modal) modal.hide();
+                    }
+
+                    // Optimistically remove from list
+                    this.items = this.items.filter(i => i.uuid !== uuid);
+                    this.total--;
+
+                    // Adjust page if needed
+                    if (this.items.length === 0 && this.page > 1) {
+                        this.page--;
+                        await this.fetchProducts();
+                    }
+
+                    try {
+                        let res = await fetch(`/admin/product/delete/${uuid}`, {
+                            method: 'GET',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content ||
+                                    '',
+                                'Content-Type': 'application/json'
+                            }
+                        });
+
+                        if (!res.ok) {
+                            // Restore item if deletion failed
+                            await this.fetchProducts();
+                            alert('Failed to delete product');
+                        }
+                    } catch (e) {
+                        console.error('Delete error:', e);
+                        // Restore item if deletion failed
+                        await this.fetchProducts();
+                        alert('Failed to delete product');
+                    }
+
+                    this.itemToDelete = null;
                 },
             }
         }

@@ -61,6 +61,14 @@ class ApiController extends Controller
         ]);
     }
 
+    public function getBrandsPaginated(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => BrandService::getPaginated($request),
+        ]);
+    }
+
     public function getCategories(Request $request)
     {
         return response()->json([
@@ -69,11 +77,25 @@ class ApiController extends Controller
         ]);
     }
 
-    public function getSubcategories(Request $request, $categoryId)
+    public function getSubcategories(Request $request, $categoryId = null)
+    {
+        if ($categoryId) {
+            return response()->json([
+                'success' => true,
+                'data' => SubCategoryService::getByCategoryId($request, $categoryId),
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'data' => SubCategoryService::getActive($request),
+        ]);
+    }
+
+    public function getSubcategoriesPaginated(Request $request)
     {
         return response()->json([
             'success' => true,
-            'data' => SubCategoryService::getByCategoryId($request, $categoryId),
+            'data' => SubCategoryService::getPaginated($request),
         ]);
     }
 

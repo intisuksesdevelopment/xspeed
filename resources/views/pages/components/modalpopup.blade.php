@@ -608,13 +608,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="add-name" class="form-label">Category Name</label>
-                                    <input id="name" name="name" type="text" class="form-control"
-                                        value="Computers">
+                                    <input id="name" name="name" type="text" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label for="add-code" class="form-label">Category Code</label>
-                                    <input id="code" name="code" type="text" class="form-control"
-                                        value="CT001">
+                                    <input id="code" name="code" type="text" class="form-control">
                                 </div>
                                 <div class="mb-3 input-blocks">
                                     <label for="description" class="form-label">Description</label>
@@ -679,13 +677,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="edit-name" class="form-label">Category Name</label>
-                                    <input id="edit-name" name="name" type="text" class="form-control"
-                                        value="Computers">
+                                    <input id="edit-name" name="name" type="text" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label for="edit-code" class="form-label">Category Code</label>
-                                    <input id="edit-code" name="code" type="text" class="form-control"
-                                        value="CT001">
+                                    <input id="edit-code" name="code" type="text" class="form-control">
                                 </div>
                                 <div class="mb-3 input-blocks">
                                     <label for="edit-description" class="form-label">Description</label>
@@ -14547,8 +14543,7 @@
                             <div class="page-title">
                                 <h4>Edit User</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                                aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>

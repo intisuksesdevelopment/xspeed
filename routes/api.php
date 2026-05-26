@@ -21,12 +21,15 @@ Route::prefix('/product')->group(function () {
 });
 Route::prefix('/brand')->group(function () {
     Route::get('/all', [ApiController::class, 'getBrands'])->name('api-brand-all');
+    Route::get('/paged', [ApiController::class, 'getBrandsPaginated'])->name('api-brand-paged');
 });
 Route::prefix('/category')->group(function () {
     Route::get('/all', [ApiController::class, 'getCategories'])->name('api-category-all');
 });
 Route::prefix('/subcategory')->group(function () {
-    Route::get('/{categoryId}', [ApiController::class, 'getSubcategories'])->name('api-subcategory-all');
+    Route::get('/all', [ApiController::class, 'getSubcategories'])->name('api-subcategory-all');
+    Route::get('/paged', [ApiController::class, 'getSubcategoriesPaginated'])->name('api-subcategory-paged');
+    Route::get('/{categoryId}', [ApiController::class, 'getSubcategories'])->name('api-subcategory-by-category');
 });
 Route::prefix('/supplier')->group(function () {
     Route::get('/all', [ApiController::class, 'getSuppliers'])->name('api-supplier-all');

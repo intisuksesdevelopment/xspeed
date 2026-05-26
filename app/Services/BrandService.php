@@ -13,12 +13,24 @@ class BrandService
     public static function getPaginated(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
-        // Default to 10 per page if not provided
-        $sortBy = $request->input('sortBy', CommonConstants::SORT);
-        // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
-        // Default to 'asc' if not provided
-        $brands = Brand::where('status', 0)->orderBy($sortBy, $sortDirection)->paginate($perPage);
+        $sortBy = $request->input('sortBy', 'created_at');
+        $sortDirection = $request->input('sortDirection', 'desc');
+
+        $query = Brand::query();
+
+        // Search functionality
+        $search = $request->input('search', '');
+        $searchBy = $request->input('search_by', 'name');
+
+        if ($search) {
+            if ($searchBy === 'code') {
+                $query->where('code', 'like', '%' . $search . '%');
+            } else {
+                $query->where('name', 'like', '%' . $search . '%');
+            }
+        }
+
+        $brands = $query->orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($brands as $brand) {
             $brand->availability = $brand->isAvailable();
         }

@@ -1,4 +1,3 @@
-
 @if (Route::is(['product-list']))
     <!-- Add Payroll -->
     <div class="offcanvas offcanvas-end em-payrol-add" tabindex="-1" id="offcanvasRight-add">
@@ -1690,13 +1689,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="add-name" class="form-label">Category Name</label>
-                                    <input id="add-name" name="name" type="text" class="form-control"
-                                        value="Computers">
+                                    <input id="add-name" name="name" type="text" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label for="add-code" class="form-label">Category Code</label>
-                                    <input id="add-code" name="code" type="text" class="form-control"
-                                        value="CT001">
+                                    <input id="add-code" name="code" type="text" class="form-control">
                                 </div>
                                 <div class="mb-3 input-blocks">
                                     <label for="add-description" class="form-label">Description</label>
@@ -1761,13 +1758,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="edit-name" class="form-label">Category Name</label>
-                                    <input id="edit-name" name="name" type="text" class="form-control"
-                                        value="Computers">
+                                    <input id="edit-name" name="name" type="text" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label for="edit-code" class="form-label">Category Code</label>
-                                    <input id="edit-code" name="code" type="text" class="form-control"
-                                        value="CT001">
+                                    <input id="edit-code" name="code" type="text" class="form-control">
                                 </div>
                                 <div class="mb-3 input-blocks">
                                     <label for="edit-description" class="form-label">Description</label>

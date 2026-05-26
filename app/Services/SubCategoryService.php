@@ -14,12 +14,30 @@ class SubCategoryService
     public static function getPaginated(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
-        // Default to 10 per page if not provided
-        $sortBy = $request->input('sortBy', CommonConstants::SORT);
-        // Default to 'id' if not provided
-        $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
-        // Default to 'asc' if not provided
-        $subcategories = SubCategory::orderBy($sortBy, $sortDirection)->paginate($perPage);
+        $sortBy = $request->input('sortBy', 'created_at');
+        $sortDirection = $request->input('sortDirection', 'desc');
+
+        $query = SubCategory::with('category');
+
+        // Search functionality
+        $search = $request->input('search', '');
+        $searchBy = $request->input('search_by', 'name');
+
+        if ($search) {
+            if ($searchBy === 'code') {
+                $query->where('code', 'like', '%' . $search . '%');
+            } else {
+                $query->where('name', 'like', '%' . $search . '%');
+            }
+        }
+
+        // Filter by category
+        $categoryId = $request->input('category_id', '');
+        if ($categoryId) {
+            $query->where('category_id', $categoryId);
+        }
+
+        $subcategories = $query->orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($subcategories as $subcategory) {
             $subcategory->availability = $subcategory->isAvailable();
         }

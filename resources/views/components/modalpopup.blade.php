@@ -1575,7 +1575,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label>Description</label>
-                                    <textarea name="description" class="form-control" rows="3"></textarea>
+                                    <textarea name="description" class="form-control" rows="3" maxlength="60"></textarea>
                                     <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
                                 <div class="mb-0">

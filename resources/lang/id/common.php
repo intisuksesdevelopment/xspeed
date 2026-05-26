@@ -1,6 +1,10 @@
 <?php
 return [
     'search' => 'Cari',
+    'show' => 'Tampilkan',
+    'enteries' => 'Entri',
+    'code'=>'Kode',
+    'items'=>'Barang',
     'warehouse' => 'Gudang',
     'category' => 'Kategori',
     'brand' => 'Merek',

@@ -2,6 +2,10 @@
 
 return [
     'search' => 'Search',
+    'show' => 'Show',
+    'enteries' => 'Entries',
+    'code'=>'Code',
+    'items'=>'Items',
     'warehouse' => 'Warehouse',
     'category' => 'Category',
     'brand' => 'Brand',

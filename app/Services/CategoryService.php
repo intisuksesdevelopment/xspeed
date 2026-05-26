@@ -33,27 +33,57 @@ class CategoryService
         $sortDirection = $request->input('sortDirection', 'desc');
 
         $query = Category::query()
-            ->select('id', 'name', 'code', 'image_url', 'status')
+            ->select('id', 'name', 'code', 'image_url', 'status', 'created_at', 'description')
             ->where('status', 0)
             ->withCount(['items' => function ($q) {
-                $q->where('status', 0); // hanya count items yang status=0
+                $q->where('status', 0);
             }])
             ->with([
                 'subcategories' => function ($q) {
                     $q->select('id', 'category_id', 'name', 'code')
                         ->withCount(['items' => function ($q) {
-                            $q->where('status', 0); // hanya count subcategory items yang status=0
+                            $q->where('status', 0);
                         }]);
                 },
-            ])
-            ->orderBy($sortBy, $sortDirection);
+            ]);
 
-        // optional paging
-        $categories = $isPaging
-            ? $query->paginate($perPage)
-            : $query->get();
+        // 🔥 SEARCH FILTER
+        if ($request->search) {
+            $search = $request->search;
+            $searchBy = $request->search_by;
 
-        // optional: availability (kalau bukan query berat)
+            $query->where(function($q) use ($search, $searchBy) {
+                switch ($searchBy) {
+                    case 'Name':
+                        $q->where('name', 'like', "%{$search}%");
+                        break;
+                    case 'Code':
+                        $q->where('code', 'like', "%{$search}%");
+                        break;
+                    default:
+                        $q->where('name', 'like', "%{$search}%")
+                          ->orWhere('code', 'like', "%{$search}%");
+                }
+            });
+        }
+
+        $query->orderBy($sortBy, $sortDirection);
+
+        // Handle per_page limit - if per_page is provided, use pagination
+        $perPageParam = (int) $request->input('per_page', 0);
+        if ($perPageParam > 0) {
+            $categories = $query->paginate($perPageParam);
+
+            foreach ($categories as $category) {
+                $category->availability = $category->isAvailable();
+            }
+
+            return $categories;
+        }
+
+        // No per_page, return all
+        $categories = $query->get();
+
         foreach ($categories as $category) {
             $category->availability = $category->isAvailable();
         }

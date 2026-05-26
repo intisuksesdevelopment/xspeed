@@ -34,22 +34,45 @@
 
             <div class="table-top">
 
-                <div class="row g-2 align-items-center">
+                <div class="row g-3 align-items-end">
 
                     <!-- SEARCH -->
                     <div class="col-md-4">
-                        <div class="input-group mb-3">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false"><i class="fa fa-search" aria-hidden="true"></i></button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Name</a></li>
-                                <li><a class="dropdown-item" href="#">SKU</a></li>
-                                <li><a class="dropdown-item" href="#">Brand</a></li>
-                                <li><a class="dropdown-item" href="#">Rack</a></li>
-                            </ul>
-                            <input type="text" class="form-control" placeholder="{{ __('common.search') }}..."
-                                x-model="filters.search" @keyup.debounce.500ms="fetchProducts()">
+                        <div>
+
+                            <div class="mb-1">
+                                <small class="text-muted">
+                                    {{ __('label.searchby') }}:
+                                    <strong x-text="filters.searchBy"></strong>
+                                </small>
+                            </div>
+
+                            <div class="input-group">
+
+                                <!-- Dropdown -->
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-search"></i>
+                                </button>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'Name'">{{ __('common.name') }}</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'SKU'">{{ __('common.sku') }}</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#"
+                                            @click.prevent="filters.searchBy = 'Brand'">{{ __('common.brand') }}</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'Rack'">{{ __('common.rack') }}</a>
+                                    </li>
+                                </ul>
+
+                                <!-- Input -->
+                                <input type="text" class="form-control" :placeholder="`{{ __('label.searchby') }} ${filters.searchBy}...`"
+                                    x-model="filters.search" @keyup.debounce.500ms="fetchProducts()">
+                            </div>
                         </div>
+
                     </div>
 
                     <!-- FILTER -->
@@ -215,8 +238,10 @@
                                 <p>Are you sure you want to delete <strong x-text="itemToDelete?.name"></strong>?</p>
                                 <p class="text-muted">This action cannot be undone.</p>
                                 <div class="modal-footer-btn delete">
-                                    <a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
-                                    <a href="javascript:void(0);" class="btn btn-submit" :class="{'disabled': deleting}" @click="deleteItem()">
+                                    <a href="javascript:void(0);" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</a>
+                                    <a href="javascript:void(0);" class="btn btn-submit"
+                                        @click="deleteItem()">
                                         <i data-feather="trash-2" class="feather-14"></i> Delete
                                     </a>
                                 </div>
@@ -263,6 +288,7 @@
 
                 filters: {
                     search: '',
+                    searchBy: 'Name',
                     warehouse: '',
                     brand: '',
                     sort: 'desc'
@@ -346,8 +372,10 @@
                             page: this.page,
                             per_page: this.perPage,
                             search: this.filters.search,
+                            search_by: this.filters.searchBy,
                             warehouse: this.filters.warehouse,
-                            brand: this.filters.brand
+                            brand: this.filters.brand,
+                            sort: this.filters.sort
                         });
 
                         console.log('API URL:', `${API_PRODUCT_URL}?${params}`);
@@ -479,12 +507,11 @@
                     }
 
                     try {
-                        let res = await fetch(`/admin/product/delete/${uuid}`, {
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+                        let res = await fetch(`/admin/product/delete/${uuid}?_token=${csrfToken}`, {
                             method: 'GET',
                             headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content ||
-                                    '',
-                                'Content-Type': 'application/json'
+                                'X-CSRF-TOKEN': csrfToken
                             }
                         });
 

@@ -45,7 +45,8 @@ class ItemService
             ])
             ->leftJoin('categories as c', 'c.id', '=', 'i.category_id')
             ->leftJoin('brands as b', 'b.id', '=', 'i.brand_id')
-            ->leftJoin('racks as r', 'r.id', '=', 'i.rack_id');
+            ->leftJoin('racks as r', 'r.id', '=', 'i.rack_id')
+            ->where('i.status', 0);
 
         // 🔥 FILTER
         if ($request->category) {
@@ -55,11 +56,29 @@ class ItemService
         // 🔥 SEARCH FILTER
         if ($request->search) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('i.name', 'like', "%{$search}%")
-                  ->orWhere('i.sku', 'like', "%{$search}%")
-                  ->orWhere('b.name', 'like', "%{$search}%")
-                  ->orWhere('r.name', 'like', "%{$search}%");
+            $searchBy = $request->search_by;
+
+            $query->where(function($q) use ($search, $searchBy) {
+                switch ($searchBy) {
+                    case 'Name':
+                        $q->where('i.name', 'like', "%{$search}%");
+                        break;
+                    case 'SKU':
+                        $q->where('i.sku', 'like', "%{$search}%");
+                        break;
+                    case 'Brand':
+                        $q->where('b.name', 'like', "%{$search}%");
+                        break;
+                    case 'Rack':
+                        $q->where('r.name', 'like', "%{$search}%");
+                        break;
+                    default:
+                        // Fallback to search all fields
+                        $q->where('i.name', 'like', "%{$search}%")
+                          ->orWhere('i.sku', 'like', "%{$search}%")
+                          ->orWhere('b.name', 'like', "%{$search}%")
+                          ->orWhere('r.name', 'like', "%{$search}%");
+                }
             });
         }
 
@@ -77,9 +96,12 @@ class ItemService
         $countQuery = clone $query;
         $total = $countQuery->count();
 
+        // 🔥 SORTING
+        $sortDirection = $request->sort === 'asc' ? 'asc' : 'desc';
+
         // 🔥 DATA
         $items = $query
-            ->orderBy('i.created_at', 'desc')
+            ->orderBy('i.created_at', $sortDirection)
             ->limit($perPage)
             ->offset($offset)
             ->get();

@@ -6,7 +6,10 @@ return [
     'category' => 'Category',
     'brand' => 'Brand',
     'product' => 'Product',
+    'rack' => 'Rack',
     'old' => 'Old',
     'new' => 'New',
+    'name' => 'Name',
+    'sku' => 'SKU',
 
 ];

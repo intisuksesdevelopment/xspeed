@@ -21,9 +21,24 @@ class StockService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
-        $stocks = Stock::orderBy($sortBy, $sortDirection)->paginate($perPage);
+
+        $query = Stock::query()->where('status', 0);
+
+        // Search functionality
+        $search = $request->input('search', '');
+        $searchBy = $request->input('search_by', 'periode');
+
+        if ($search) {
+            if ($searchBy === 'periode') {
+                $query->where('periode', 'like', '%' . $search . '%');
+            } else {
+                $query->where('periode', 'like', '%' . $search . '%');
+            }
+        }
+
+        $stocks = $query->orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($stocks as $stock) {
-            $stock->availability = $stock->isAvailable();
+            $stock->availability = $stock->isStatus();
         }
 
         return $stocks;

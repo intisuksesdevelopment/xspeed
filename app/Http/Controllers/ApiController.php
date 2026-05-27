@@ -15,6 +15,7 @@ use App\Services\SubCategoryService;
 use App\Services\SupplierService;
 use App\Services\UnitService;
 use App\Services\RackService;
+use App\Services\StockService;
 use App\Services\WarehouseService;
 use Illuminate\Http\Request;
 
@@ -84,6 +85,14 @@ class ApiController extends Controller
         return response()->json([
             'success' => true,
             'data' => RackService::getPaginated($request),
+        ]);
+    }
+
+    public function getStocksPaginated(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => StockService::getPaginated($request),
         ]);
     }
 

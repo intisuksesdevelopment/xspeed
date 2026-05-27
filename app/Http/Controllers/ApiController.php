@@ -13,6 +13,8 @@ use App\Services\PaymentMethodService;
 use App\Services\SalesService;
 use App\Services\SubCategoryService;
 use App\Services\SupplierService;
+use App\Services\UnitService;
+use App\Services\RackService;
 use App\Services\WarehouseService;
 use Illuminate\Http\Request;
 
@@ -66,6 +68,22 @@ class ApiController extends Controller
         return response()->json([
             'success' => true,
             'data' => BrandService::getPaginated($request),
+        ]);
+    }
+
+    public function getUnitsPaginated(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => UnitService::getPaginated($request),
+        ]);
+    }
+
+    public function getRacksPaginated(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => RackService::getPaginated($request),
         ]);
     }
 

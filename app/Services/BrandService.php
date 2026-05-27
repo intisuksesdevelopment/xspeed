@@ -16,7 +16,7 @@ class BrandService
         $sortBy = $request->input('sortBy', 'created_at');
         $sortDirection = $request->input('sortDirection', 'desc');
 
-        $query = Brand::query();
+        $query = Brand::query()->where('status', 0);
 
         // Search functionality
         $search = $request->input('search', '');

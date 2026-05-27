@@ -734,7 +734,7 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body new-employee-field">
-                            <form id="brandAddForm" method="post" action="{{ route('brand-add') }}">
+                            <form id="brandAddForm" method="post" action="{{ route('brand-add') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-title-head">
                                     <h6><span><i data-feather="info" class="feather-edit"></i></span>Brand Info

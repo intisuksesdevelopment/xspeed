@@ -19,7 +19,22 @@ class RackService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
-        $racks = Rack::orderBy($sortBy, $sortDirection)->paginate($perPage);
+
+        $query = Rack::query()->where('status', 0);
+
+        // Search functionality
+        $search = $request->input('search', '');
+        $searchBy = $request->input('search_by', 'name');
+
+        if ($search) {
+            if ($searchBy === 'code') {
+                $query->where('code', 'like', '%' . $search . '%');
+            } else {
+                $query->where('name', 'like', '%' . $search . '%');
+            }
+        }
+
+        $racks = $query->orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($racks as $rack) {
             $rack->availability = $rack->isAvailable();
         }

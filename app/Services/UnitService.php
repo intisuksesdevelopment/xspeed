@@ -19,7 +19,22 @@ class UnitService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
-        $units = Unit::orderBy($sortBy, $sortDirection)->paginate($perPage);
+
+        $query = Unit::query()->where('status', 0);
+
+        // Search functionality
+        $search = $request->input('search', '');
+        $searchBy = $request->input('search_by', 'name');
+
+        if ($search) {
+            if ($searchBy === 'unit') {
+                $query->where('unit', 'like', '%' . $search . '%');
+            } else {
+                $query->where('name', 'like', '%' . $search . '%');
+            }
+        }
+
+        $units = $query->orderBy($sortBy, $sortDirection)->paginate($perPage);
         foreach ($units as $unit) {
             $unit->availability = $unit->isAvailable();
         }

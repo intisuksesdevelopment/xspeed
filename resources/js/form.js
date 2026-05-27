@@ -166,7 +166,7 @@ function submitForm(
                         document.getElementById(modalId),
                     ).show();
 
-                    console.error(modalMessage, data.error);
+                    console.log(modalMessage, data.error);
 
                     document
                         .getElementsByName("cancel-button")

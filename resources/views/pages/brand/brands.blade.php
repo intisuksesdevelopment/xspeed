@@ -9,7 +9,8 @@
             background-color: #f8f9fa;
         }
     </style>
-    <div class="page-wrapper" x-data="brandTable()" x-init="init()" x-cloak>
+    <div class="page-wrapper" x-data="brandTable()" x-init="init()" x-cloak
+         @refresh-brands.window="fetchBrands()">
         <div class="content">
             @component('pages.components.breadcrumb')
                 @slot('title')
@@ -353,20 +354,34 @@
 
                     try {
                         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
-                        let res = await fetch(`{{ route('brand-delete', ':id') }}`.replace(':id', id) +
-                            `?_token=${csrfToken}`, {
-                                method: 'GET',
-                                headers: {
-                                    'X-CSRF-TOKEN': csrfToken
-                                }
-                            });
+                        let res = await fetch(`{{ route('brand-delete', ':id') }}`.replace(':id', id), {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken,
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            }
+                        });
 
-                        if (!res.ok) {
+                        let data = await res.json();
+
+                        if (!res.ok || !data.success) {
                             this.fetchBrands();
+                            document.getElementById('danger-message').textContent = data.message || 'Delete failed';
+                            new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                        } else {
+                            document.getElementById('success-message').textContent = data.message || 'Deleted successfully';
+                            new bootstrap.Modal(document.getElementById('success-alert-modal')).show();
+                            // Refresh table via event (not page reload)
+                            setTimeout(() => {
+                                window.refreshBrandTable();
+                            }, 1000);
                         }
                     } catch (e) {
                         console.error('Delete error:', e);
                         this.fetchBrands();
+                        document.getElementById('danger-message').textContent = 'An error occurred while deleting';
+                        new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
                     }
 
                     this.itemToDelete = null;
@@ -378,10 +393,94 @@
             }
         };
 
+        // Global function to refresh brand table
+        window.refreshBrandTable = function() {
+            window.dispatchEvent(new CustomEvent('refresh-brands'));
+        };
+
         // Form handlers
         document.addEventListener('DOMContentLoaded', function() {
-            submitForm('brandAddForm', 'submit-add-button', 'status-add', null);
-            submitForm('brandEditForm', 'submit-edit-button', 'status-edit', null);
+            // Override submitForm for add form
+            const brandAddForm = document.getElementById('brandAddForm');
+            if (brandAddForm) {
+                brandAddForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    handleBrandFormSubmit(this, 'submit-add-button', 'status-add');
+                });
+            }
+
+            // Override submitForm for edit form
+            const brandEditForm = document.getElementById('brandEditForm');
+            if (brandEditForm) {
+                brandEditForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    handleBrandFormSubmit(this, 'submit-edit-button', 'status-edit');
+                });
+            }
         });
+
+        function handleBrandFormSubmit(form, submitButtonId, statusCheckboxId) {
+            let formData = new FormData(form);
+            let submitButton = document.getElementById(submitButtonId);
+            submitButton.disabled = true;
+
+            if (statusCheckboxId) {
+                const checkbox = document.getElementById(statusCheckboxId);
+                checkbox.value = checkbox.checked ? 0 : 1;
+            }
+
+            Swal.fire({
+                title: "Processing...",
+                text: "Please wait.",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+
+            fetch(form.action, {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+                },
+                body: formData,
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                Swal.close();
+                submitButton.disabled = false;
+
+                const modalId = data.success ? "success-alert-modal" : "danger-alert-modal";
+                const messageId = data.success ? "success-message" : "danger-message";
+                let modalMessage = data.success ? data.message : "Submission failed";
+
+                if (!data.success && data.message) {
+                    if (typeof data.message === "object") {
+                        modalMessage = Object.values(data.message).flat().join(", ");
+                    } else {
+                        modalMessage = data.message;
+                    }
+                }
+
+                document.getElementById(messageId).textContent = modalMessage;
+                new bootstrap.Modal(document.getElementById(modalId)).show();
+
+                if (data.success) {
+                    setTimeout(() => {
+                        // Close modal
+                        const closeBtn = document.querySelector('#add-brand [data-bs-dismiss="modal"], #edit-brand [data-bs-dismiss="modal"]');
+                        if (closeBtn) closeBtn.click();
+                        // Refresh table only (not page reload)
+                        window.refreshBrandTable();
+                    }, 1000);
+                }
+            })
+            .catch((error) => {
+                console.error("Submission failed:", error);
+                Swal.close();
+                submitButton.disabled = false;
+                document.getElementById("danger-message").textContent = error.message || "An error occurred";
+                new bootstrap.Modal(document.getElementById("danger-alert-modal")).show();
+            });
+        }
     </script>
 @endsection

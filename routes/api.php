@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\RackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,12 @@ Route::prefix('/product')->group(function () {
 Route::prefix('/brand')->group(function () {
     Route::get('/all', [ApiController::class, 'getBrands'])->name('api-brand-all');
     Route::get('/paged', [ApiController::class, 'getBrandsPaginated'])->name('api-brand-paged');
+});
+Route::prefix('/unit')->group(function () {
+    Route::get('/paged', [ApiController::class, 'getUnitsPaginated'])->name('api-unit-paged');
+});
+Route::prefix('/rack')->group(function () {
+    Route::get('/paged', [ApiController::class, 'getRacksPaginated'])->name('api-rack-paged');
 });
 Route::prefix('/category')->group(function () {
     Route::get('/all', [ApiController::class, 'getCategories'])->name('api-category-all');

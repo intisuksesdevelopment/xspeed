@@ -1,14 +1,23 @@
 <?php $page = 'racks'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
-    <div class="page-wrapper">
+    <style>
+        .fade-row {
+            transition: all 0.2s ease;
+        }
+        .fade-row:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+    <div class="page-wrapper" x-data="rackTable()" x-init="init()" x-cloak
+         @refresh-racks.window="fetchRacks()">
         <div class="content">
             @component('pages.components.breadcrumb')
                 @slot('title')
                     Rack
                 @endslot
                 @slot('li_1')
-                    Manage your Rack
+                    Manage your racks
                 @endslot
                 @slot('li_2')
                     Add New Rack
@@ -19,73 +28,68 @@
             <div class="card table-list-card">
                 <div class="card-body">
                     <div class="table-top">
-                        <div class="search-set">
-                            <div class="search-input">
-                                <a href="" class="btn btn-searchset"><i data-feather="search"
-                                        class="feather-search"></i></a>
+
+                        <div class="row g-3 align-items-end">
+
+                            <!-- SEARCH -->
+                            <div class="col-md-5">
+                                <div>
+                                    <div class="mb-1">
+                                        <small class="text-muted">
+                                            {{ __('label.searchby') }}:
+                                            <strong x-text="filters.searchBy"></strong>
+                                        </small>
+                                    </div>
+
+                                    <div class="input-group">
+
+                                        <!-- Dropdown -->
+                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'Name'">{{ __('common.name') }}</a></li>
+                                            <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'Code'">{{ __('common.code') }}</a></li>
+                                        </ul>
+
+                                        <!-- Input -->
+                                        <input type="text" class="form-control" :placeholder="`{{ __('label.searchby') }} ${filters.searchBy}...`"
+                                            x-model="filters.search" @keyup.debounce.500ms="fetchRacks()">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="search-path">
-                            <a class="btn btn-filter" id="filter_search">
-                                <i data-feather="filter" class="filter-icon"></i>
-                                <span><img src="{{ asset('build/img/icons/closes.svg') }}"
-                                        alt="img"></span>
-                            </a>
-                        </div>
-                        <div class="form-sort">
-                            <i data-feather="sliders" class="info-img"></i>
-                            <select class="select">
-                                <option>Sort by Date</option>
-                                <option>Newest</option>
-                                <option>Oldest</option>
-                            </select>
-                        </div>
-                    </div>
-                    <!-- /Filter -->
-                    <div class="card" id="filter_inputs">
-                        <div class="card-body pb-0">
-                            <div class="row">
-                                <div class="col-lg-3 col-sm-6 col-12">
-                                    <div class="input-blocks">
-                                        <i data-feather="zap" class="info-img"></i>
-                                        <select class="select">
-                                            <option>Choose Variant</option>
-                                            <option>Size (T-shirts)</option>
-                                            <option>Size (Shoes)</option>
-                                            <option>Color</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 col-12">
-                                    <div class="input-blocks">
-                                        <i data-feather="calendar" class="info-img"></i>
-                                        <div class="input-groupicon">
-                                            <input type="text" class="datetimepicker" placeholder="Choose Date">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 col-12">
-                                    <div class="input-blocks">
-                                        <i data-feather="stop-circle" class="info-img"></i>
-                                        <select class="select">
-                                            <option>Choose Status</option>
-                                            <option>Active</option>
-                                            <option>Inactive</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6 col-12 ms-auto">
-                                    <div class="input-blocks">
-                                        <a class="btn btn-filters ms-auto"> <i data-feather="search"
-                                                class="feather-search"></i> Search </a>
-                                    </div>
+
+                            <!-- SORT -->
+                            <div class="col-md-3">
+                                <select class="form-select" x-model="filters.sort" @change="fetchRacks()">
+                                    <option value="desc">{{ __('common.new') }}</option>
+                                    <option value="asc">{{ __('common.old') }}</option>
+                                </select>
+                            </div>
+
+                            <!-- PER PAGE -->
+                            <div class="col-md-4 text-md-end">
+                                <div class="d-inline-flex align-items-center gap-2">
+                                    <span class="text-muted">{{ __('common.show') }}</span>
+                                    <select class="form-select form-select-sm w-auto" x-model="perPage"
+                                        @change="changePerPage(perPage)">
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    <span class="text-muted">{{ __('common.enteries') }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <!-- /Filter -->
-                    <div class="table-responsive">
-                        <table class="table  datanew">
+                    <div class="table-responsive position-relative">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th class="no-sort">
@@ -94,100 +98,387 @@
                                             <span class="checkmarks"></span>
                                         </label>
                                     </th>
-                                    <th>Code</th>
+                                    <th>{{ __('common.code') }}</th>
                                     <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>Created On</th>
-                                    <th>Status</th>
-                                    <th class="no-sort">Action</th>
+                                    <th>{{ __('common.name') }}</th>
+                                    <th>{{ __('common.description') }}</th>
+                                    <th class="no-sort"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($racks as $rack)
-                                    <tr>
+                                <!-- EMPTY -->
+                                <tr x-show="!loading && items.length === 0" x-cloak>
+                                    <td colspan="6" class="text-center py-3">No data found</td>
+                                </tr>
+
+                                <!-- DATA -->
+                                <template x-for="item in items" :key="item.id">
+                                    <tr class="fade-row">
                                         <td>
                                             <label class="checkboxs">
                                                 <input type="checkbox">
                                                 <span class="checkmarks"></span>
                                             </label>
                                         </td>
-                                        <td>{{ $rack['code'] }}</td>
-                                        <td><span class="d-flex"><img src="{{ URL::asset($rack['image_url']) }}"
-                                                    alt=""></span></td>
-                                        <td>{{ $rack['name'] }}</td>
-                                        <td>{{ $rack['description'] }}</td>
-                                        <td>{{ $rack['created_at'] }}</td>
+                                        <td x-text="item.code"></td>
                                         <td>
-                                            @if ($rack['status'] == 0)
-                                                <span class="badge badge-linesuccess">{{ $rack['availability'] }}</span>
-                                            @else
-                                                <span class="badge badge-linedanger">{{ $rack['availability'] }}</span>
-                                            @endif
+                                            <img :src="item.image_url" alt="" class="img-fluid rounded" style="width: 40px; height: 40px;" onerror="this.style.display='none'">
                                         </td>
+                                        <td x-text="item.name"></td>
+                                        <td class="text-truncate" style="max-width: 200px;" x-text="item.description || '-'"></td>
                                         <td class="action-table-data">
                                             <div class="edit-delete-action">
                                                 <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#edit-rack" data-id="{{ $rack['id'] }}"
-                                                    data-code="{{ $rack['code'] }}" data-name="{{ $rack['name'] }}"
-                                                    data-description="{{ $rack['description'] }}"
-                                                    data-image="{{ $rack['image_url'] }}"
-                                                    data-status="{{ $rack['status'] }}">
+                                                    data-bs-target="#edit-rack" @click="openEditModal(item)">
                                                     <i data-feather="edit" class="feather-edit"></i>
                                                 </a>
                                                 <a class="p-2" href="javascript:void(0);"
-                                                    onclick="deleteRack({{ $rack['id'] }})">
+                                                    @click="confirmDelete(item)">
                                                     <i data-feather="trash-2" class="feather-trash-2"></i>
                                                 </a>
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                </template>
                             </tbody>
                         </table>
+
+                        <!-- Loading Overlay -->
+                        <template x-if="loading">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+                                style="background: rgba(255,255,255,0.7); z-index: 10; min-height: 200px;">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- PAGINATION -->
+                    <div class="d-flex justify-content-between align-items-center mt-3" x-show="!loading && total > 0">
+                        <div>
+                            <span class="text-muted">Showing <span x-text="from"></span> to <span x-text="to"></span> of <span x-text="total"></span> entries</span>
+                        </div>
+                        <div class="d-flex gap-1">
+                            <button class="btn btn-sm btn-outline-secondary" @click="prevPage()" :disabled="page <= 1">
+                                <i class="fa fa-chevron-left"></i>
+                            </button>
+                            <template x-for="p in visiblePages" :key="p">
+                                <button class="btn btn-sm" :class="p === page ? 'btn-primary' : 'btn-outline-secondary'"
+                                    @click="goToPage(p)" x-text="p"></button>
+                            </template>
+                            <button class="btn btn-sm btn-outline-secondary" @click="nextPage()" :disabled="page >= lastPage">
+                                <i class="fa fa-chevron-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- /product list -->
         </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header border-0 custom-modal-header">
+                        <div class="page-title">
+                            <h4>Confirm Delete</h4>
+                        </div>
+                    </div>
+                    <div class="modal-deletecontent custom-modal-body text-center">
+                        <i data-feather="x-circle" class="feather-24 text-danger mx-auto d-block"></i>
+                        <h4 class="pt-2 text-muted">Delete Rack</h4>
+                        <p>Are you sure you want to delete <strong x-text="itemToDelete?.name"></strong>?</p>
+                        <p class="text-muted">This action cannot be undone.</p>
+                        <div class="modal-footer-btn delete">
+                            <a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
+                            <a href="javascript:void(0);" class="btn btn-submit" @click="deleteItem()">
+                                <i data-feather="trash-2" class="feather-14"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // custom checkbox
+        const API_RACK_URL = "{{ route('api-rack-paged') }}";
 
-            // Handle form submission
+        window.rackTable = function() {
+            return {
+                items: [],
+                loading: true,
+                page: 1,
+                perPage: 10,
+                lastPage: 1,
+                total: 0,
+                from: 0,
+                to: 0,
 
-            submitForm('rackAddForm', 'submit-add-button', 'status-add', null);
-            submitForm('rackEditForm', 'submit-edit-button', 'status-edit', null);
-            // Handle modal data injection
-            var editButtons = document.querySelectorAll('[data-bs-target="#edit-rack"]');
+                filters: {
+                    search: '',
+                    searchBy: 'Name',
+                    sort: 'desc'
+                },
 
-            editButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var rackId = this.getAttribute('data-id');
-                    var rackCode = this.getAttribute('data-code');
-                    var rackName = this.getAttribute('data-name');
-                    var rackDescription = this.getAttribute('data-description');
-                    var rackImageUrl = this.getAttribute('data-image');
-                    const rackStatus = this.getAttribute('data-status');
+                itemToDelete: null,
+
+                init() {
+                    this.fetchRacks();
+                },
+
+                async fetchRacks() {
+                    this.loading = true;
+
+                    try {
+                        let params = new URLSearchParams({
+                            search: this.filters.search,
+                            search_by: this.filters.searchBy,
+                            sortBy: 'created_at',
+                            sortDirection: this.filters.sort,
+                            page: this.page,
+                            per_page: this.perPage
+                        });
+
+                        let res = await fetch(`${API_RACK_URL}?${params}`);
+                        let result = await res.json();
+
+                        if (result.success) {
+                            let data = result.data;
+                            if (data.data && data.total !== undefined) {
+                                this.items = data.data;
+                                this.total = data.total;
+                                this.lastPage = data.last_page || 1;
+                                this.page = data.current_page || 1;
+                            } else if (Array.isArray(data)) {
+                                this.items = data;
+                                this.total = data.length;
+                                this.lastPage = 1;
+                            } else {
+                                this.items = [];
+                                this.total = 0;
+                                this.lastPage = 1;
+                            }
+                            this.updatePagination();
+                        }
+                    } catch (e) {
+                        console.error('Error fetching racks:', e);
+                    } finally {
+                        this.loading = false;
+                        this.$nextTick(() => {
+                            if (typeof feather !== 'undefined') {
+                                feather.replace();
+                            }
+                        });
+                    }
+                },
+
+                updatePagination() {
+                    this.from = (this.page - 1) * this.perPage + 1;
+                    this.to = Math.min(this.page * this.perPage, this.total);
+                },
+
+                get visiblePages() {
+                    let pages = [];
+                    let start = Math.max(1, this.page - 2);
+                    let end = Math.min(this.lastPage, start + 4);
+                    if (end - start < 4) {
+                        start = Math.max(1, end - 4);
+                    }
+                    for (let i = start; i <= end; i++) {
+                        pages.push(i);
+                    }
+                    return pages;
+                },
+
+                goToPage(p) {
+                    this.page = p;
+                    this.fetchRacks();
+                },
+
+                nextPage() {
+                    if (this.page < this.lastPage) {
+                        this.page++;
+                        this.fetchRacks();
+                    }
+                },
+
+                prevPage() {
+                    if (this.page > 1) {
+                        this.page--;
+                        this.fetchRacks();
+                    }
+                },
+
+                changePerPage(val) {
+                    this.perPage = val;
+                    this.page = 1;
+                    this.fetchRacks();
+                },
+
+                openEditModal(item) {
+                    document.getElementById('id').value = item.id;
+                    document.getElementById('code').value = item.code;
+                    document.getElementById('name').value = item.name;
+                    document.getElementById('description').value = item.description || '';
                     const statusCheckbox = document.getElementById('status-edit');
-                    statusCheckbox.checked = (rackStatus == 0);
+                    if (statusCheckbox) statusCheckbox.checked = (item.status == 0);
+                },
 
-                    // Inject data into the modal form fields
-                    document.getElementById('id').value = rackId;
-                    document.getElementById('code').value = rackCode;
-                    document.getElementById('name').value = rackName;
-                    document.getElementById('description').value = rackDescription;
-                    document.getElementById('image_url').value = rackImageUrl;
-                    document.getElementById('status-edit').value = rackStatus;
+                confirmDelete(item) {
+                    this.itemToDelete = item;
+                    const modalEl = document.getElementById('deleteConfirmModal');
+                    if (modalEl) {
+                        const modal = new bootstrap.Modal(modalEl);
+                        modal.show();
+                    }
+                },
+
+                async deleteItem() {
+                    if (!this.itemToDelete) return;
+
+                    const item = this.itemToDelete;
+                    const id = item.id;
+
+                    const modalEl = document.getElementById('deleteConfirmModal');
+                    if (modalEl) {
+                        const modal = bootstrap.Modal.getInstance(modalEl);
+                        if (modal) modal.hide();
+                    }
+
+                    this.items = this.items.filter(i => i.id !== id);
+                    this.total--;
+
+                    try {
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+                        let res = await fetch(`{{ route('rack-delete', ':id') }}`.replace(':id', id), {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken,
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        let data = await res.json();
+
+                        if (!res.ok || !data.success) {
+                            this.fetchRacks();
+                            document.getElementById('danger-message').textContent = data.message || 'Delete failed';
+                            new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                        } else {
+                            document.getElementById('success-message').textContent = data.message || 'Deleted successfully';
+                            new bootstrap.Modal(document.getElementById('success-alert-modal')).show();
+                            setTimeout(() => {
+                                window.refreshRackTable();
+                            }, 1000);
+                        }
+                    } catch (e) {
+                        console.error('Delete error:', e);
+                        this.fetchRacks();
+                        document.getElementById('danger-message').textContent = 'An error occurred while deleting';
+                        new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                    }
+
+                    this.itemToDelete = null;
+                },
+
+                refreshList() {
+                    this.fetchRacks();
+                }
+            }
+        };
+
+        // Global function to refresh rack table
+        window.refreshRackTable = function() {
+            window.dispatchEvent(new CustomEvent('refresh-racks'));
+        };
+
+        // Form handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Override submitForm for add form
+            const rackAddForm = document.getElementById('rackAddForm');
+            if (rackAddForm) {
+                rackAddForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    handleRackFormSubmit(this, 'submit-add-button', 'status-add');
                 });
-            });
-            window.deleteRack = function(id) {
-                deleteData(`{{ route('rack-delete', ':id') }}`, id, document.querySelector(
-                    'meta[name="csrf-token"]').getAttribute('content'));
-            };
+            }
 
+            // Override submitForm for edit form
+            const rackEditForm = document.getElementById('rackEditForm');
+            if (rackEditForm) {
+                rackEditForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    handleRackFormSubmit(this, 'submit-edit-button', 'status-edit');
+                });
+            }
         });
+
+        function handleRackFormSubmit(form, submitButtonId, statusCheckboxId) {
+            let formData = new FormData(form);
+            let submitButton = document.getElementById(submitButtonId);
+            submitButton.disabled = true;
+
+            if (statusCheckboxId) {
+                const checkbox = document.getElementById(statusCheckboxId);
+                checkbox.value = checkbox.checked ? 0 : 1;
+            }
+
+            Swal.fire({
+                title: "Processing...",
+                text: "Please wait.",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+
+            fetch(form.action, {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+                },
+                body: formData,
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                Swal.close();
+                submitButton.disabled = false;
+
+                const modalId = data.success ? "success-alert-modal" : "danger-alert-modal";
+                const messageId = data.success ? "success-message" : "danger-message";
+                let modalMessage = data.success ? data.message : "Submission failed";
+
+                if (!data.success && data.message) {
+                    if (typeof data.message === "object") {
+                        modalMessage = Object.values(data.message).flat().join(", ");
+                    } else {
+                        modalMessage = data.message;
+                    }
+                }
+
+                document.getElementById(messageId).textContent = modalMessage;
+                new bootstrap.Modal(document.getElementById(modalId)).show();
+
+                if (data.success) {
+                    setTimeout(() => {
+                        // Close modal
+                        const closeBtn = document.querySelector('#add-rack [data-bs-dismiss="modal"], #edit-rack [data-bs-dismiss="modal"]');
+                        if (closeBtn) closeBtn.click();
+                        // Refresh table only (not page reload)
+                        window.refreshRackTable();
+                    }, 1000);
+                }
+            })
+            .catch((error) => {
+                console.error("Submission failed:", error);
+                Swal.close();
+                submitButton.disabled = false;
+                document.getElementById("danger-message").textContent = error.message || "An error occurred";
+                new bootstrap.Modal(document.getElementById("danger-alert-modal")).show();
+            });
+        }
     </script>
 @endsection

@@ -16,30 +16,35 @@ class StockService
     public static function getPaginated(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
-        // Default to 10 per page if not provided
-        $sortBy = $request->input('sortBy', CommonConstants::SORT);
-        // Default to 'id' if not provided
+        $sortBy = $request->input('sortBy', 'created_at');
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
-        // Default to 'asc' if not provided
 
-        $query = Stock::query()->where('status', 0);
+        $query = Stock::query()->where('status', '!=', 1)
+            ->with('warehouse:id,name,code')
+            ->with('creator:id,name');
 
         // Search functionality
         $search = $request->input('search', '');
         $searchBy = $request->input('search_by', 'periode');
 
         if ($search) {
-            if ($searchBy === 'periode') {
-                $query->where('periode', 'like', '%' . $search . '%');
-            } else {
-                $query->where('periode', 'like', '%' . $search . '%');
-            }
+            $query->where('periode', 'like', '%' . $search . '%');
         }
 
-        $stocks = $query->orderBy($sortBy, $sortDirection)->paginate($perPage);
-        foreach ($stocks as $stock) {
-            $stock->availability = $stock->isStatus();
+        // Validate sortBy column
+        $allowedColumns = ['created_at', 'periode', 'id'];
+        if (!in_array($sortBy, $allowedColumns)) {
+            $sortBy = 'created_at';
         }
+        $sortDirection = $sortDirection === 'asc' ? 'asc' : 'desc';
+
+        $stocks = $query->orderBy($sortBy, $sortDirection)->paginate($perPage);
+        $stocks->getCollection()->transform(function ($stock) {
+            $stock->availability = $stock->isStatus();
+            $stock->warehouse_name = $stock->warehouse?->name ?? '-';
+            $stock->creator_name = $stock->creator?->name ?? '-';
+            return $stock;
+        });
 
         return $stocks;
     }

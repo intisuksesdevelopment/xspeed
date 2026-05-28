@@ -45,4 +45,9 @@ class StockController extends Controller
     {
         return StockService::save($request);
     }
+
+    public function delete($id)
+    {
+        return StockService::delete($id);
+    }
 }

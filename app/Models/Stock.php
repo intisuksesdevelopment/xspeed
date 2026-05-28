@@ -60,6 +60,16 @@ class Stock extends Authenticatable
         ];
     }
 
+    public function warehouse()
+    {
+        return $this->belongsTo(\App\Models\Warehouse::class, 'warehouse_id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'created_by');
+    }
+
     public function validateAttributes($attributes, $id = null)
     {
         $validator = Validator::make($attributes, [

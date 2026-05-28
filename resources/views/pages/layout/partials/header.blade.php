@@ -4,13 +4,13 @@
     <!-- Logo -->
     <div class="header-left active">
         <a href="{{ url('index') }}" class="logo logo-normal">
-            <img src="{{ asset('build/img/logo-exspeed3.png') }}" alt="">
+            <img src="{{ asset('build/img/logo-header.png') }}" alt="">
         </a>
         <a href="{{ url('index') }}" class="logo logo-white">
-            <img src="{{ asset('build/img/logo-exspeed3.png') }}" alt="">
+            <img src="{{ asset('build/img/logo-header.png') }}" alt="">
         </a>
         <a href="{{ url('index') }}" class="logo-small">
-            <img src="{{ asset('build/img/logo-exspeed3.png') }}" alt="">
+            <img src="{{ asset('build/img/logo-small.png') }}" alt="">
         </a>
         <a id="toggle_btn" href="javascript:void(0);">
             <i data-feather="chevrons-left" class="feather-16"></i>

@@ -281,6 +281,12 @@
                         data-feather="plus-circle" class="me-2"></i>Add New Category</a>
             </div>
         @endif
+        @if (Route::is(['stock-list']))
+            <div class="page-btn">
+                <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-stock-opname"><i
+                        data-feather="plus-circle" class="me-2"></i>{{ $li_2 ?? 'Add New Stock Opname' }}</a>
+            </div>
+        @endif
         {{-- @if (Route::is(['brand-list']))
             <div class="page-btn">
                 <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-brand"><i

@@ -50,7 +50,11 @@ class ItemService
 
         // 🔥 FILTER
         if ($request->category) {
-            $query->where('c.code', $request->category);
+            $query->where('i.category_id', $request->category);
+        }
+
+        if ($request->brand) {
+            $query->where('i.brand_id', $request->brand);
         }
 
         // 🔥 SEARCH FILTER

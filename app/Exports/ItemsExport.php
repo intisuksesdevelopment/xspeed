@@ -125,7 +125,7 @@ class ItemsExport implements FromQuery, WithCustomStartCell, WithDrawings, WithE
         $drawing = new Drawing;
         $drawing->setName('XspeedLogo');
         $drawing->setDescription('XspeedLogo');
-        $drawing->setPath(public_path('build/img/logo-exspeed3.png'));
+        $drawing->setPath(public_path('build/img/logo-header.png'));
         $drawing->setHeight(75);
         $drawing->setCoordinates('A2');
 

@@ -70,6 +70,14 @@ class StockService
         try {
             $data = $request->all();
             $data['uuid'] = (string) Str::uuid();
+
+            // Validate required warehouse_id
+            if (empty($data['warehouse_id'])) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Warehouse is required. Please select a warehouse.',
+                ]);
+            }
             $stock = Stock::whereRaw('LOWER(periode) LIKE ?', ['%'.strtolower($data['periode']).'%'])->get();
 
             if ($stock->isNotEmpty()) {

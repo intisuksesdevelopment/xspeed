@@ -229,10 +229,72 @@ class ItemService
         foreach ($items as $item) {
             $item->availability = $item->isAvailable();
             $item->sell_price = UtilService::convertToIdr($item->sell_price, $item->currency);
+            $item->basic_price = UtilService::convertToIdr($item->basic_price, $item->currency);
             $item->currency = 'IDR';
         }
 
         return $items;
+    }
+
+    public static function getForSelect(Request $request)
+    {
+        $search = $request->input('search', '');
+        $categoryId = $request->input('category_id');
+        $subcategoryId = $request->input('subcategory_id');
+        $brandId = $request->input('brand_id');
+        $page = (int) $request->input('page', 1);
+        $limit = 20;
+
+        $query = Item::select(['uuid', 'name', 'sku', 'stock', 'basic_price', 'image_url', 'category_id', 'sub_category_id', 'brand_id'])
+            ->where('status', 0);
+
+        // Search by name or SKU
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('sku', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Category filter
+        if (!empty($categoryId)) {
+            $query->where('category_id', $categoryId);
+        }
+
+        // Subcategory filter
+        if (!empty($subcategoryId)) {
+            $query->where('sub_category_id', $subcategoryId);
+        }
+
+        // Brand filter
+        if (!empty($brandId)) {
+            $query->where('brand_id', $brandId);
+        }
+
+        // Use simplePaginate for efficient LIMIT/OFFSET — avoids full COUNT query
+        $items = $query->orderBy('name')
+            ->simplePaginate($limit, ['*'], 'page', $page);
+
+        $results = collect($items->items())->map(function ($item) {
+            return [
+                'id' => $item->uuid,
+                'text' => $item->name,
+                'sku' => $item->sku,
+                'stock' => $item->stock,
+                'basic_price' => $item->basic_price,
+                'image_url' => $item->image_url,
+                'category_id' => $item->category_id,
+                'subcategory_id' => $item->sub_category_id,
+                'brand_id' => $item->brand_id,
+            ];
+        });
+
+        return response()->json([
+            'results' => $results,
+            'pagination' => [
+                'more' => $items->hasMorePages(),
+            ],
+        ]);
     }
 
     public static function getActive2($perPage = null, $sortBy = null, $sortDirection = null)

@@ -9,7 +9,7 @@
             background-color: #f8f9fa;
         }
     </style>
-    <div class="page-wrapper" x-data="categoryTable()" x-init="init()" x-cloak>
+    <div class="page-wrapper" x-data="categoryTable()" x-cloak>
         <div class="content">
             @component('pages.components.breadcrumb')
                 @slot('title')
@@ -186,10 +186,10 @@
                         <p>Are you sure you want to delete <strong x-text="itemToDelete?.name"></strong>?</p>
                         <p class="text-muted">This action cannot be undone.</p>
                         <div class="modal-footer-btn delete">
-                            <a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
-                            <a href="javascript:void(0);" class="btn btn-submit" @click="deleteItem()">
+                            <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-submit" @click="deleteItem()">
                                 <i data-feather="trash-2" class="feather-14"></i> Delete
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -218,6 +218,7 @@
                 },
 
                 itemToDelete: null,
+                isDeleting: false,
 
                 init() {
                     this.fetchCategories();
@@ -339,8 +340,9 @@
                 },
 
                 async deleteItem() {
-                    if (!this.itemToDelete) return;
+                    if (!this.itemToDelete || this.isDeleting) return;
 
+                    this.isDeleting = true;
                     const item = this.itemToDelete;
                     const id = item.id;
 
@@ -351,20 +353,22 @@
                         if (modal) modal.hide();
                     }
 
-                    // Optimistically remove from list
-                    this.items = this.items.filter(i => i.id !== id);
-                    this.total--;
-
                     try {
                         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
-                        let res = await fetch(`{{ route('category-delete', ':id') }}`.replace(':id', id) + `?_token=${csrfToken}`, {
-                            method: 'GET',
+                        let res = await fetch(`{{ route('category-delete', ':id') }}`.replace(':id', id), {
+                            method: 'DELETE',
                             headers: {
-                                'X-CSRF-TOKEN': csrfToken
+                                'X-CSRF-TOKEN': csrfToken,
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
                             }
                         });
 
-                        if (!res.ok) {
+                        // Only remove if delete was successful
+                        if (res.ok) {
+                            this.items = this.items.filter(i => i.id !== id);
+                            this.total--;
+                        } else {
                             await this.fetchCategories();
                             alert('Failed to delete category');
                         }
@@ -372,6 +376,8 @@
                         console.error('Delete error:', e);
                         await this.fetchCategories();
                         alert('Failed to delete category');
+                    } finally {
+                        this.isDeleting = false;
                     }
 
                     this.itemToDelete = null;

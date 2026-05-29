@@ -1,26 +1,25 @@
-<?php $page = 'subcategory'; ?>
+<?php $page = 'subrack'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
     <style>
         .fade-row {
             transition: all 0.2s ease;
         }
-
         .fade-row:hover {
             background-color: #f8f9fa;
         }
     </style>
-    <div class="page-wrapper" x-data="subCategoryTable()" x-cloak>
+    <div class="page-wrapper" x-data="subRackTable()" x-cloak>
         <div class="content">
             @component('pages.components.breadcrumb')
                 @slot('title')
-                    Sub Category list
+                    Sub Rack list
                 @endslot
                 @slot('li_1')
-                    Manage your subcategories
+                    Manage your subracks
                 @endslot
                 @slot('li_2')
-                    Add Sub Category
+                    Add Sub Rack
                 @endslot
             @endcomponent
 
@@ -60,21 +59,31 @@
                                         <!-- Input -->
                                         <input type="text" class="form-control"
                                             :placeholder="`{{ __('label.searchby') }} ${filters.searchBy}...`"
-                                            x-model="filters.search" @keyup.debounce.500ms="fetchSubCategories()">
+                                            x-model="filters.search" @keyup.debounce.500ms="fetchSubRacks()">
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- SORT -->
+                            <!-- FILTER BY RACK -->
                             <div class="col-md-3">
-                                <select class="form-select" x-model="filters.sort" @change="fetchSubCategories()">
+                                <select class="form-select" x-model="filters.rackId" @change="fetchSubRacks()">
+                                    <option value="">All Racks</option>
+                                    <template x-for="rack in racks" :key="rack.id">
+                                        <option :value="rack.id" x-text="rack.name"></option>
+                                    </template>
+                                </select>
+                            </div>
+
+                            <!-- SORT -->
+                            <div class="col-md-2">
+                                <select class="form-select" x-model="filters.sort" @change="fetchSubRacks()">
                                     <option value="desc">{{ __('common.new') }}</option>
                                     <option value="asc">{{ __('common.old') }}</option>
                                 </select>
                             </div>
 
                             <!-- PER PAGE -->
-                            <div class="col-md-4 text-md-end">
+                            <div class="col-md-2 text-md-end">
                                 <div class="d-inline-flex align-items-center gap-2">
                                     <span class="text-muted">{{ __('common.show') }}</span>
                                     <select class="form-select form-select-sm w-auto" x-model="perPage"
@@ -102,16 +111,16 @@
                                             <span class="checkmarks"></span>
                                         </label>
                                     </th>
-                                    <th>{{ __('common.name') }}</th>
-                                    <th>{{ __('common.parentcategory') }}</th>
                                     <th>{{ __('common.code') }}</th>
+                                    <th>{{ __('common.name') }}</th>
+                                    <th>{{ __('common.parentrack') ?? 'Rack' }}</th>
                                     <th class="no-sort"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- Empty state -->
                                 <tr x-show="!loading && items.length === 0">
-                                    <td colspan="5" class="text-center py-3">No data found</td>
+                                    <td colspan="6" class="text-center py-3">No data found</td>
                                 </tr>
                                 <!-- Data rows -->
                                 <template x-for="item in items" :key="item.id">
@@ -122,13 +131,13 @@
                                                 <span class="checkmarks"></span>
                                             </label>
                                         </td>
-                                        <td x-text="item.name"></td>
-                                        <td x-text="item.category?.name ?? '-'"></td>
                                         <td x-text="item.code"></td>
+                                        <td x-text="item.name"></td>
+                                        <td x-text="item.rack?.name ?? '-'"></td>
                                         <td class="action-table-data">
                                             <div class="edit-delete-action">
                                                 <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#edit-sub-category" @click="openEditModal(item)">
+                                                    data-bs-target="#edit-subrack" @click="openEditModal(item)">
                                                     <i data-feather="edit" class="feather-edit"></i>
                                                 </a>
                                                 <a class="p-2" href="javascript:void(0);" @click="confirmDelete(item)">
@@ -200,14 +209,14 @@
         </div>
     </div>
     <script>
-        const API_SUBCATEGORY_URL = "{{ route('api-subcategory-paged') }}";
-        const API_CATEGORY_URL = "{{ route('api-category-all') }}";
+        const API_SUBRACK_URL = "{{ route('api-subrack-paged') }}";
+        const API_RACK_URL = "{{ route('api-rack-paged') }}";
 
         // Store reference globally BEFORE Alpine initializes
-        window.subCategoryTable = function() {
+        window.subRackTable = function() {
             return {
                 items: [],
-                categories: [],
+                racks: [],
                 loading: true,
                 page: 1,
                 perPage: 10,
@@ -219,7 +228,7 @@
                 filters: {
                     search: '',
                     searchBy: 'Name',
-                    categoryId: '',
+                    rackId: '',
                     sort: 'desc'
                 },
 
@@ -227,62 +236,62 @@
                 isDeleting: false,
 
                 init() {
-                    this.fetchCategories().then(() => {
+                    this.fetchRacks().then(() => {
                         this.populateModalDropdowns();
                     });
-                    this.fetchSubCategories();
+                    this.fetchSubRacks();
                 },
 
                 populateModalDropdowns() {
-                    const addSelect = document.getElementById('add-category-id');
+                    const addSelect = document.getElementById('add-rack-id');
                     if (addSelect) {
                         addSelect.innerHTML = '';
-                        this.categories.forEach(cat => {
+                        this.racks.forEach(rack => {
                             const option = document.createElement('option');
-                            option.value = cat.id;
-                            option.text = cat.name;
+                            option.value = rack.id;
+                            option.text = rack.name;
                             addSelect.appendChild(option);
                         });
                     }
-                    const editSelect = document.getElementById('edit-category-id');
+                    const editSelect = document.getElementById('edit-rack-id');
                     if (editSelect) {
                         editSelect.innerHTML = '';
-                        this.categories.forEach(cat => {
+                        this.racks.forEach(rack => {
                             const option = document.createElement('option');
-                            option.value = cat.id;
-                            option.text = cat.name;
+                            option.value = rack.id;
+                            option.text = rack.name;
                             editSelect.appendChild(option);
                         });
                     }
                 },
 
-                async fetchCategories() {
+                async fetchRacks() {
                     try {
-                        let res = await fetch(API_CATEGORY_URL);
+                        let res = await fetch(API_RACK_URL);
                         let result = await res.json();
                         if (result.success) {
-                            this.categories = result.data || [];
+                            this.racks = result.data?.data || result.data || [];
                         }
                     } catch (e) {
-                        console.error('Error fetching categories:', e);
+                        console.error('Error fetching racks:', e);
                     }
                 },
 
-                async fetchSubCategories() {
+                async fetchSubRacks() {
                     this.loading = true;
 
                     try {
                         let params = new URLSearchParams({
                             search: this.filters.search,
                             search_by: this.filters.searchBy,
-                            category_id: this.filters.categoryId,
+                            rack_id: this.filters.rackId,
                             sortBy: 'created_at',
                             sortDirection: this.filters.sort,
                             page: this.page,
                             per_page: this.perPage
                         });
 
-                        let res = await fetch(`${API_SUBCATEGORY_URL}?${params}`);
+                        let res = await fetch(`${API_SUBRACK_URL}?${params}`);
                         let result = await res.json();
 
                         if (result.success) {
@@ -304,7 +313,7 @@
                             this.updatePagination();
                         }
                     } catch (e) {
-                        console.error('Error fetching subcategories:', e);
+                        console.error('Error fetching subracks:', e);
                     } finally {
                         this.loading = false;
                         this.$nextTick(() => {
@@ -335,37 +344,27 @@
 
                 goToPage(p) {
                     this.page = p;
-                    this.fetchSubCategories();
+                    this.fetchSubRacks();
                 },
 
                 nextPage() {
                     if (this.page < this.lastPage) {
                         this.page++;
-                        this.fetchSubCategories();
+                        this.fetchSubRacks();
                     }
                 },
 
                 prevPage() {
                     if (this.page > 1) {
                         this.page--;
-                        this.fetchSubCategories();
+                        this.fetchSubRacks();
                     }
                 },
 
                 changePerPage(val) {
                     this.perPage = val;
                     this.page = 1;
-                    this.fetchSubCategories();
-                },
-
-                formatDate(datetime) {
-                    if (!datetime) return '-';
-                    const date = new Date(datetime);
-                    return new Intl.DateTimeFormat('id-ID', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: '2-digit'
-                    }).format(date);
+                    this.fetchSubRacks();
                 },
 
                 openEditModal(item) {
@@ -373,8 +372,7 @@
                     document.getElementById('edit-code').value = item.code;
                     document.getElementById('edit-name').value = item.name;
                     document.getElementById('edit-description').value = item.description || '';
-                    document.getElementById('edit-image-url').value = item.image_url || '';
-                    document.getElementById('edit-category-id').value = item.category_id || '';
+                    document.getElementById('edit-rack-id').value = item.rack_id || '';
                     const statusCheckbox = document.getElementById('edit-status');
                     if (statusCheckbox) statusCheckbox.checked = (item.status == 0);
                 },
@@ -403,7 +401,7 @@
 
                     try {
                         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
-                        let res = await fetch(`{{ route('subcategory-delete', ':id') }}`.replace(':id', id), {
+                        let res = await fetch(`{{ route('subrack-delete', ':id') }}`.replace(':id', id), {
                             method: 'DELETE',
                             headers: {
                                 'X-CSRF-TOKEN': csrfToken,
@@ -417,13 +415,13 @@
                             this.items = this.items.filter(i => i.id !== id);
                             this.total--;
                         } else {
-                            this.fetchSubCategories();
-                            alert('Failed to delete category');
+                            this.fetchSubRacks();
+                            alert('Failed to delete subrack');
                         }
                     } catch (e) {
                         console.error('Delete error:', e);
-                        this.fetchSubCategories();
-                        alert('Failed to delete category');
+                        this.fetchSubRacks();
+                        alert('Failed to delete subrack');
                     } finally {
                         this.isDeleting = false;
                     }
@@ -432,7 +430,7 @@
                 },
 
                 refreshList() {
-                    this.fetchSubCategories();
+                    this.fetchSubRacks();
                 }
             }
         };

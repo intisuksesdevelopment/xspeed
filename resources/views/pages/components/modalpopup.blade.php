@@ -756,12 +756,12 @@
                                     </div>
                                     <label class="form-label">Logo</label>
                                     <div class="profile-pic-upload mb-3">
-                                        <div class="profile-pic brand-pic">
-                                            <span><i data-feather="plus-circle" class="plus-down-add"></i> Add
-                                                Image</span>
+                                        <div class="profile-pic brand-pic" id="add-brand-preview-container" style="cursor: pointer;" onclick="openImagePreview('add')">
+                                            <span id="add-brand-placeholder"><i data-feather="plus-circle" class="plus-down-add"></i> Add Image</span>
+                                            <img id="add-brand-preview" src="" alt="" style="display: none; width: 100%; height: 100%; object-fit: cover;">
                                         </div>
                                         <div class="image-upload mb-0">
-                                            <input type="file" name="image_url">
+                                            <input type="file" name="image_url" id="add-brand-file" onchange="previewBrandImage(this, 'add')">
                                             <div class="image-uploads">
                                                 <h4>Change Image</h4>
                                             </div>
@@ -809,8 +809,9 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body new-employee-field">
-                            <form id="brandEditForm" method="post" action="{{ route('brand-update') }}">
+                            <form id="brandEditForm" method="post" action="{{ route('brand-update') }}" enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <div class="mb-3 d-none">
                                     <label for="edit-id" class="form-label">Id</label>
                                     <input type="text" id="id" name="id" class="form-control">
@@ -834,13 +835,14 @@
                                         <p class="mt-1">Maximum 60 Characters</p>
                                     </div>
                                     <label class="form-label">Logo</label>
-                                    <div class="profile-pic-upload mb-3" id="image_url">
-                                        <div class="profile-pic brand-pic">
-                                            <span><i data-feather="plus-circle" class="plus-down-add"></i> Add
-                                                Image</span>
+                                    <div class="profile-pic-upload mb-3">
+                                        <div class="profile-pic brand-pic" id="edit-brand-preview-container" style="cursor: pointer;" onclick="openImagePreview('edit')">
+                                            <span id="edit-brand-placeholder"><i data-feather="plus-circle" class="plus-down-add"></i> Add Image</span>
+                                            <img id="edit-brand-preview" src="" alt="" style="display: none; width: 100%; height: 100%; object-fit: cover;">
                                         </div>
+                                        <input type="hidden" id="current-image-url" value="">
                                         <div class="image-upload mb-0">
-                                            <input type="file" name="image_url">
+                                            <input type="file" name="image_url" id="edit-brand-file" onchange="previewBrandImage(this, 'edit')">
                                             <div class="image-uploads">
                                                 <h4>Change Image</h4>
                                             </div>

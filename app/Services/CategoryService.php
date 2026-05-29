@@ -32,22 +32,15 @@ class CategoryService
         $sortBy = $request->input('sortBy', 'id');
         $sortDirection = $request->input('sortDirection', 'desc');
 
+        // Optimized query - only load what's needed for category list
         $query = Category::query()
             ->select('id', 'name', 'code', 'image_url', 'status', 'created_at', 'description')
             ->where('status', 0)
             ->withCount(['items' => function ($q) {
                 $q->where('status', 0);
-            }])
-            ->with([
-                'subcategories' => function ($q) {
-                    $q->select('id', 'category_id', 'name', 'code')
-                        ->withCount(['items' => function ($q) {
-                            $q->where('status', 0);
-                        }]);
-                },
-            ]);
+            }]);
 
-        // 🔥 SEARCH FILTER
+        // SEARCH FILTER
         if ($request->search) {
             $search = $request->search;
             $searchBy = $request->search_by;

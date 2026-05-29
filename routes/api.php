@@ -31,6 +31,11 @@ Route::prefix('/unit')->group(function () {
 Route::prefix('/rack')->group(function () {
     Route::get('/paged', [ApiController::class, 'getRacksPaginated'])->name('api-rack-paged');
 });
+Route::prefix('/subrack')->group(function () {
+    Route::get('/all', [ApiController::class, 'getSubRacks'])->name('api-subrack-all');
+    Route::get('/paged', [ApiController::class, 'getSubRacksPaginated'])->name('api-subrack-paged');
+    Route::get('/{rackId}', [ApiController::class, 'getSubRacks'])->name('api-subrack-by-rack');
+});
 Route::prefix('/stock')->group(function () {
     Route::get('/paged', [ApiController::class, 'getStocksPaginated'])->name('api-stock-paged');
 });

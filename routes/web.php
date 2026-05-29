@@ -147,6 +147,13 @@ Route::middleware(['auth', LocalizationMiddleware::class])->prefix('admin')->gro
         Route::delete('/delete/{id}', [RackController::class, 'delete'])->name('rack-delete');
     });
 
+    Route::prefix('subrack')->group(function () {
+        Route::get('/', [SubRackController::class, 'index'])->name('subrack');
+        Route::post('/add', [SubRackController::class, 'add'])->name('subrack-add');
+        Route::post('/update', [SubRackController::class, 'update'])->name('subrack-update');
+        Route::delete('/delete/{id}', [SubRackController::class, 'delete'])->name('subrack-delete');
+    });
+
     Route::prefix('units')->group(function () {
         Route::get('/', [UnitController::class, 'index'])->name('units');
         Route::post('/add', [UnitController::class, 'add'])->name('unit-add');

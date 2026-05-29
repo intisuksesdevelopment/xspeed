@@ -7,6 +7,7 @@ use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Exceptions\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BrandService
 {
@@ -41,11 +42,9 @@ class BrandService
     public static function getActive(Request $request)
     {
         $perPage = $request->input('per_page', CommonConstants::PAGE);
-        // Default to 10 per page if not provided
         $sortBy = $request->input('sortBy', CommonConstants::SORT);
-        // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
-        // Default to 'asc' if not provided
+
         $brands = Brand::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
         foreach ($brands as $brand) {
             $brand->availability = $brand->isAvailable();
@@ -57,9 +56,33 @@ class BrandService
     public static function save(Request $request)
     {
         try {
-            $data = $request->all();
+            // Validate required fields
+            if (empty($request->input('code'))) {
+                return response()->json(['success' => false, 'message' => 'Brand code is required']);
+            }
+            if (empty($request->input('name'))) {
+                return response()->json(['success' => false, 'message' => 'Brand name is required']);
+            }
+
+            $data = $request->except(['image_url']);
             $data['status'] = $request->has('status') ? 0 : 1;
-            $brand = Brand::whereRaw('LOWER(code) LIKE ?', ['%'.strtolower($data['code']).'%'])->get();
+
+            // Handle image upload - save to public/brands folder
+            if ($request->hasFile('image_url')) {
+                $file = $request->file('image_url');
+                $filename = 'brand_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+                // Ensure brands directory exists
+                $brandsDir = public_path('brands');
+                if (!file_exists($brandsDir)) {
+                    mkdir($brandsDir, 0755, true);
+                }
+
+                $file->move($brandsDir, $filename);
+                $data['image_url'] = '/brands/' . $filename;
+            }
+
+            $brand = Brand::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
 
             if ($brand->isNotEmpty()) {
                 $firstBrand = $brand->first();
@@ -67,7 +90,6 @@ class BrandService
             }
 
             $brand = new Brand;
-            // $supplier->validateAttributes($data);
             $brand->fill($data);
             $brand->save();
 
@@ -79,21 +101,35 @@ class BrandService
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
-            return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
+            return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later. ' . $e->getMessage()]);
         }
     }
 
     public static function update(Request $request)
     {
         try {
-            $data = $request->all();
+            $data = $request->except(['image_url']);
             $data['status'] = $request->has('status') ? $request->input('status') : 0;
 
             $brand = Brand::find($data['id']);
-            if (! $brand) {
-                throw new NotFoundException('code : '.$data['code']);
+            if (!$brand) {
+                throw new NotFoundHttpException('code : ' . $data['code']);
             }
-            // $category->validateAttributes($data);
+
+            // Handle image upload - save to public/brands folder
+            if ($request->hasFile('image_url')) {
+                // Delete old image if exists
+                $oldImagePath = public_path($brand->image_url);
+                if ($brand->image_url && file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+
+                $file = $request->file('image_url');
+                $filename = 'brand_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('brands'), $filename);
+                $data['image_url'] = '/brands/' . $filename;
+            }
+
             $brand->fill($data);
             $brand->update();
 
@@ -101,19 +137,19 @@ class BrandService
                 'success' => true,
                 'message' => 'Update successfully!',
             ]);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundHttpException $e) {
             Log::error($e->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'Category not found: '.$e->getMessage(),
+                'message' => 'Brand not found: ' . $e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: '.$e->getMessage(),
+                'message' => 'An error occurred. Please try again later.',
             ], 500);
         }
     }
@@ -122,9 +158,16 @@ class BrandService
     {
         try {
             $brand = Brand::find($id);
-            if (! $brand) {
-                throw new NotFoundException('id : '.$id);
+            if (!$brand) {
+                throw new NotFoundHttpException('id : ' . $id);
             }
+
+            // Delete image if exists
+            $oldImagePath = public_path($brand->image_url);
+            if ($brand->image_url && file_exists($oldImagePath)) {
+                unlink($oldImagePath);
+            }
+
             $brand->status = 1;
             $brand->update();
 
@@ -132,19 +175,19 @@ class BrandService
                 'success' => true,
                 'message' => 'Removed successfully!',
             ]);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundHttpException $e) {
             Log::error($e->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'Warehouse not found: '.$e->getMessage(),
+                'message' => 'Brand not found: ' . $e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred: '.$e->getMessage(),
+                'message' => 'An error occurred. Please try again later.',
             ], 500);
         }
     }
@@ -153,8 +196,8 @@ class BrandService
     {
         $brand = Brand::where('code', $code)->first();
 
-        if (! $brand) {
-            throw new NotFoundException('Brand not found with code: '.$code);
+        if (!$brand) {
+            throw new NotFoundHttpException('Brand not found with code: ' . $code);
         }
 
         return $brand->id;

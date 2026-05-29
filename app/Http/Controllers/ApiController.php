@@ -12,6 +12,7 @@ use App\Services\OrderService;
 use App\Services\PaymentMethodService;
 use App\Services\SalesService;
 use App\Services\SubCategoryService;
+use App\Services\SubRackService;
 use App\Services\SupplierService;
 use App\Services\UnitService;
 use App\Services\RackService;
@@ -123,6 +124,28 @@ class ApiController extends Controller
         return response()->json([
             'success' => true,
             'data' => SubCategoryService::getPaginated($request),
+        ]);
+    }
+
+    public function getSubRacks(Request $request, $rackId = null)
+    {
+        if ($rackId) {
+            return response()->json([
+                'success' => true,
+                'data' => SubRackService::getByRackId($request, $rackId),
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'data' => SubRackService::getActive($request),
+        ]);
+    }
+
+    public function getSubRacksPaginated(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => SubRackService::getPaginated($request),
         ]);
     }
 

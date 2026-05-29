@@ -17,7 +17,10 @@ class SubCategoryService
         $sortBy = $request->input('sortBy', 'created_at');
         $sortDirection = $request->input('sortDirection', 'desc');
 
-        $query = SubCategory::with('category');
+        // Optimized query - select only needed columns
+        $query = SubCategory::query()
+            ->select('id', 'category_id', 'name', 'code', 'description', 'image_url', 'status', 'created_at')
+            ->with('category:id,name,code');
 
         // Search functionality
         $search = $request->input('search', '');
@@ -53,7 +56,14 @@ class SubCategoryService
         // Default to 'id' if not provided
         $sortDirection = $request->input('sortDirection', CommonConstants::DIRECTION_DESC);
         // Default to 'asc' if not provided
-        $subcategories = SubCategory::where('status', 0)->orderBy($sortBy, $sortDirection)->get();
+        // Optimized query - only load what's needed
+        $subcategories = SubCategory::query()
+            ->select('id', 'category_id', 'name', 'code', 'status')
+            ->where('status', 0)
+            ->with('category:id,name,code')
+            ->orderBy($sortBy, $sortDirection)
+            ->get();
+
         foreach ($subcategories as $subcategory) {
             $subcategory->availability = $subcategory->isAvailable();
         }

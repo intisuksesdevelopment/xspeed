@@ -9,9 +9,8 @@
             background-color: #f8f9fa;
         }
     </style>
-    <div class="page-wrapper" x-data="stockTable()" x-init="init()" x-cloak
-         @refresh-stocks.window="fetchStocks()">
-        <div class="content">
+    <div class="page-wrapper" x-data="stockTable()" x-cloak @refresh-stocks.window="fetchStocks()">
+        <div class="content" x-init="fetchStocks()">
             @component('pages.components.breadcrumb')
                 @slot('title')
                     Stock Opname List
@@ -128,14 +127,14 @@
                                         </td>
                                         <td x-text="item.periode || '-'"></td>
                                         <td x-text="item.created_at ? formatDate(item.created_at) : '-'"></td>
-                                        <td x-text="item.warehouse_id || '-'"></td>
+                                        <td x-text="item.warehouse_name || '-'"></td>
                                         <td x-text="item.total_item || 0"></td>
                                         <td x-text="item.stock_total || 0"></td>
                                         <td x-text="item.qty_total || 0"></td>
                                         <td x-text="item.diff_total || 0"></td>
                                         <td x-text="formatCurrency(item.diff_price_total)"></td>
                                         <td x-text="formatCurrency(item.price_total)"></td>
-                                        <td x-text="item.created_by || '-'"></td>
+                                        <td x-text="item.creator_name || '-'"></td>
                                         <td>
                                             <span class="badge" :class="getStatusClass(item.status)" x-text="item.availability"></span>
                                         </td>
@@ -218,6 +217,12 @@
 
     <script>
         const API_STOCK_URL = "{{ route('api-stock-paged') }}";
+        const API_WAREHOUSE_URL = "{{ route('api-warehouse-all') }}";
+        const API_PRODUCT_URL = "{{ route('api-product-paged') }}";
+        const API_CATEGORY_URL = "{{ route('api-category-all') }}";
+        const API_BRAND_URL = "{{ route('api-brand-all') }}";
+
+        let stockProducts = [];
 
         window.stockTable = function() {
             return {
@@ -237,10 +242,6 @@
                 },
 
                 itemToDelete: null,
-
-                init() {
-                    this.fetchStocks();
-                },
 
                 async fetchStocks() {
                     this.loading = true;
@@ -390,10 +391,9 @@
                     try {
                         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
                         let res = await fetch(`{{ route('stock-delete', ':id') }}`.replace(':id', id), {
-                            method: 'DELETE',
+                            method: 'GET',
                             headers: {
                                 'X-CSRF-TOKEN': csrfToken,
-                                'Content-Type': 'application/json',
                                 'Accept': 'application/json'
                             }
                         });
@@ -431,5 +431,242 @@
         window.refreshStockTable = function() {
             window.dispatchEvent(new CustomEvent('refresh-stocks'));
         };
+
+        // Stock Opname Modal Functions
+        async function loadStockOpnameData() {
+            try {
+                // Load warehouses
+                const warehouseRes = await fetch(API_WAREHOUSE_URL);
+                const warehouseData = await warehouseRes.json();
+                if (warehouseData.success) {
+                    const warehouseSelect = document.getElementById('stock-warehouse_id');
+                    warehouseSelect.innerHTML = '<option value="" disabled selected>Select Warehouse</option>';
+                    (warehouseData.data.data || warehouseData.data).forEach(w => {
+                        warehouseSelect.innerHTML += `<option value="${w.id}">${w.name}</option>`;
+                    });
+                }
+
+                // Load categories
+                const categoryRes = await fetch(API_CATEGORY_URL);
+                const categoryData = await categoryRes.json();
+                if (categoryData.success) {
+                    const categorySelect = document.getElementById('stock-category_id');
+                    categorySelect.innerHTML = '<option value="">Select Category</option>';
+                    (categoryData.data.data || categoryData.data).forEach(c => {
+                        categorySelect.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+                    });
+                }
+
+                // Load brands
+                const brandRes = await fetch(API_BRAND_URL);
+                const brandData = await brandRes.json();
+                if (brandData.success) {
+                    const brandSelect = document.getElementById('stock-brand_id');
+                    brandSelect.innerHTML = '<option value="">Select Brand</option>';
+                    (brandData.data.data || brandData.data).forEach(b => {
+                        brandSelect.innerHTML += `<option value="${b.id}">${b.name}</option>`;
+                    });
+                }
+            } catch (e) {
+                console.error('Error loading data:', e);
+            }
+        }
+
+        // Load product on category/brand/search change
+        async function loadProducts(showAll = false) {
+            const categoryId = document.getElementById('stock-category_id')?.value || '';
+            const brandId = document.getElementById('stock-brand_id')?.value || '';
+            const searchQuery = document.getElementById('stock-product-search')?.value || '';
+
+            try {
+                // Show loading
+                document.getElementById('stock-product-loading')?.classList.remove('d-none');
+                document.getElementById('stock-product_id').innerHTML = '<option value="">Loading...</option>';
+
+                let url = API_PRODUCT_URL;
+                let params = new URLSearchParams();
+
+                if (showAll) {
+                    // Show all - no filters
+                } else {
+                    if (categoryId) params.append('category', categoryId);
+                    if (brandId) params.append('brand', brandId);
+                    if (searchQuery) params.append('search', searchQuery);
+                }
+
+                if (params.toString()) url += '?' + params.toString();
+
+                console.log('Loading products from:', url);
+
+                const res = await fetch(url);
+                const data = await res.json();
+
+                console.log('Products response:', data);
+
+                const productSelect = document.getElementById('stock-product_id');
+                productSelect.innerHTML = '<option value="">Select Product</option>';
+
+                const products = data.data?.data || data.data || [];
+                console.log('Products found:', products.length);
+
+                if (products.length === 0) {
+                    productSelect.innerHTML = '<option value="">No products found</option>';
+                } else {
+                    products.forEach(p => {
+                        productSelect.innerHTML += `<option value="${p.uuid}" data-sku="${p.sku || ''}" data-stock="${p.stock || 0}" data-price="${p.basic_price || 0}">${p.name} (${p.sku || 'No SKU'})</option>`;
+                    });
+                }
+            } catch (e) {
+                console.error('Error loading products:', e);
+                document.getElementById('stock-product_id').innerHTML = '<option value="">Error loading products</option>';
+            } finally {
+                // Hide loading
+                document.getElementById('stock-product-loading')?.classList.add('d-none');
+            }
+        }
+
+        // Add product to table
+        function addStockProduct() {
+            const productSelect = document.getElementById('stock-product_id');
+            const selected = productSelect.options[productSelect.selectedIndex];
+            if (!selected.value) {
+                alert('Please select a product');
+                return;
+            }
+
+            const sku = selected.dataset.sku;
+            const stock = parseInt(selected.dataset.stock) || 0;
+            const price = parseFloat(selected.dataset.price) || 0;
+            const name = selected.text;
+
+            // Check if already added
+            if (stockProducts.find(p => p.uuid === selected.value)) {
+                alert('Product already added');
+                return;
+            }
+
+            stockProducts.push({
+                uuid: selected.value,
+                sku: sku,
+                name: name,
+                stock: stock,
+                count: stock,
+                basic_price: price
+            });
+
+            renderStockTable();
+            productSelect.value = '';
+        }
+
+        function renderStockTable() {
+            const tbody = document.getElementById('stock-items-body');
+            tbody.innerHTML = '';
+
+            stockProducts.forEach((product, index) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${product.name}</td>
+                        <td>${product.sku}</td>
+                        <td class="text-center">${product.stock}</td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm text-center" value="${product.count}"
+                                onchange="updateStockCount(${index}, this.value)" min="0">
+                        </td>
+                        <td class="text-end">${formatCurrency(product.basic_price)}</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-danger" onclick="removeStockProduct(${index})">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('stock-products').value = JSON.stringify(stockProducts);
+        }
+
+        function updateStockCount(index, value) {
+            stockProducts[index].count = parseInt(value) || 0;
+            document.getElementById('stock-products').value = JSON.stringify(stockProducts);
+        }
+
+        function removeStockProduct(index) {
+            stockProducts.splice(index, 1);
+            renderStockTable();
+        }
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(value || 0);
+        }
+
+        // Generate reference number
+        function generatePeriode() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            document.getElementById('stock-periode').value = `SO-${year}${month}${day}-${random}`;
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load data when modal opens
+            const addStockModal = document.getElementById('add-stock-opname');
+            if (addStockModal) {
+                addStockModal.addEventListener('show.bs.modal', function() {
+                    loadStockOpnameData();
+                    generatePeriode();
+                    stockProducts = [];
+                    renderStockTable();
+                    // Load products on modal open
+                    loadProducts();
+                });
+            }
+
+            // Use event delegation for category/brand changes (modal loads after DOMContentLoaded)
+            document.addEventListener('change', function(e) {
+                if (e.target && (e.target.id === 'stock-category_id' || e.target.id === 'stock-brand_id')) {
+                    loadProducts();
+                }
+            });
+
+            // Search on type (debounce)
+            let searchTimeout;
+            document.addEventListener('input', function(e) {
+                if (e.target && e.target.id === 'stock-product-search') {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        loadProducts();
+                    }, 500);
+                }
+            });
+
+            // Show All button
+            document.addEventListener('click', function(e) {
+                if (e.target && e.target.id === 'stock-show-all-btn') {
+                    document.getElementById('stock-category_id').value = '';
+                    document.getElementById('stock-brand_id').value = '';
+                    document.getElementById('stock-product-search').value = '';
+                    loadProducts(true);
+                }
+                if (e.target && e.target.id === 'stock-add-product-btn') {
+                    addStockProduct();
+                }
+            });
+
+            // Form submit
+            submitForm('stockAddForm', 'submit-stock-button', null, function(response) {
+                if (response.success) {
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('add-stock-opname'));
+                    if (modal) modal.hide();
+                    window.refreshStockTable();
+                }
+            });
+        });
     </script>
 @endsection

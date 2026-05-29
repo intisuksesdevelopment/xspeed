@@ -1125,6 +1125,111 @@
         </div>
     </div>
 @endif
+@if (Route::is(['stock-list']))
+    <!-- Add Stock Opname -->
+    <div class="modal fade" id="add-stock-opname">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Add New Stock Opname</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body">
+                            <form id="stockAddForm" method="post" action="{{ route('stock-add') }}">
+                                @csrf
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Reference No.</label>
+                                        <input type="text" class="form-control" id="stock-periode" name="periode" readonly>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Warehouse</label>
+                                        <select class="form-select" id="stock-warehouse_id" name="warehouse_id" required>
+                                            <option value="" disabled selected>Select Warehouse</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Date</label>
+                                        <input type="text" class="form-control datetimepicker" id="stock-date" placeholder="Choose Date">
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <label class="form-label">Category</label>
+                                        <select class="form-select" id="stock-category_id">
+                                            <option value="">Select Category</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Brand</label>
+                                        <select class="form-select" id="stock-brand_id">
+                                            <option value="">Select Brand</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Search Product</label>
+                                        <input type="text" class="form-control" id="stock-product-search" placeholder="Search by SKU/Name">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Product</label>
+                                        <select class="form-select" id="stock-product_id">
+                                            <option value="">Select Product</option>
+                                        </select>
+                                        <div id="stock-product-loading" class="d-none">
+                                            <small class="text-muted"><i class="fa fa-spinner fa-spin"></i> Loading...</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 d-flex align-items-end gap-2">
+                                        <button type="button" class="btn btn-outline-secondary" id="stock-show-all-btn">
+                                            Show All
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="stock-add-product-btn">
+                                            <i class="fa fa-plus"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table" id="stock-product-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>SKU</th>
+                                                <th class="text-center">Stock</th>
+                                                <th class="text-center">Count</th>
+                                                <th class="text-end">Price</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="stock-items-body">
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <input type="hidden" id="stock-products" name="products" value="[]">
+
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" id="submit-stock-button" class="btn btn-submit">Save Stock Opname</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Stock Opname -->
+@endif
 
 @if (Route::is(['varriant-attributes']))
     <!-- Add Unit -->

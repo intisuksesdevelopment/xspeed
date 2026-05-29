@@ -29,13 +29,10 @@ class Stock extends Authenticatable
         'diff_total',
         'diff_price_total',
         'price_total',
-        'approval_id',
-        'created_at',
-        'updated_at',
+        'approve_by',
         'created_by',
-        'update_by',
+        'updated_by',
         'status',
-
     ];
 
     /**
@@ -60,10 +57,20 @@ class Stock extends Authenticatable
         ];
     }
 
+    public function warehouse()
+    {
+        return $this->belongsTo(\App\Models\Warehouse::class, 'warehouse_id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'created_by');
+    }
+
     public function validateAttributes($attributes, $id = null)
     {
         $validator = Validator::make($attributes, [
-            'uuid' => 'required|uuid|unique:items,uuid,'.$id,
+            'uuid' => 'required|uuid|unique:stocks,uuid,'.$id,
             'periode' => 'required|string|max:255',
             'warehouse_id' => 'required|integer',
             'total_item' => 'required|integer',
@@ -72,10 +79,9 @@ class Stock extends Authenticatable
             'diff_total' => 'required|numeric',
             'diff_price_total' => 'required|numeric',
             'price_total' => 'required|numeric',
-            'approval_id' => 'required|integer',
-            'created_by' => 'required|integer',
-            'update_by' => 'nullable|integer',
-            'status' => 'required|string|max:50',
+            'created_by' => 'nullable|string',
+            'updated_by' => 'nullable|string',
+            'status' => 'required|integer',
         ]);
 
         if ($validator->fails()) {

@@ -11,7 +11,7 @@
                             <img src="{{ asset('/build/img/logo-exspeed1.png') }}" alt="img" loading="lazy">
                         </div>
                         <a href="{{ url('index') }}" class="login-logo logo-white">
-                            <img src="{{ asset('/build/img/logo-exspeed3.png') }}" alt="" loading="lazy">
+                            <img src="{{ asset('/build/img/logo-header.png') }}" alt="" loading="lazy">
                         </a>
                         <div class="login-userheading">
                             <h3>Sign In</h3>

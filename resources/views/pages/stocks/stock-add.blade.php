@@ -11,7 +11,7 @@
         Create new Stock Opname
         @endslot
         @slot('li_2')
-        {{ url('product') }}
+        {{ url('stock') }}
         @endslot
         @slot('li_3')
         Back to Stock
@@ -22,6 +22,7 @@
             @csrf
             <div class="card">
                 <div class="card-body add-product pb-0">
+                    <!-- Stock Information Accordion -->
                     <div class="accordion-card-one accordion" id="accordionExample">
                         <div class="accordion-item">
                             <div class="accordion-header" id="headingOne">
@@ -40,434 +41,502 @@
                                 <div class="accordion-body">
                                     <div class="row">
                                         <div class="col-lg-4 col-sm-6 col-12">
-                                            <div class="input-blocks">
+                                            <div class="mb-3 add-product">
                                                 <label class="form-label">Reference No.</label>
-                                                <input type="text" class="form-control" id="periode" name="periode"
-                                                    readonly>
+                                                <input type="text" class="form-control" id="periode" name="periode" readonly>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="mb-3 add-product">
                                                 <label class="form-label">Warehouse</label>
-                                                <select class="select2 form-control" id="warehouse_id"
-                                                    name="warehouse_id">
-                                                    @foreach($warehouses as $warehouse)
-                                                    <option value="{{ $warehouse['id']}}" selected>{{
-                                                        $warehouse['name']}}</option>
-                                                    @endforeach
+                                                <select class="select2 form-control" id="warehouse_id" name="warehouse_id">
+                                                    <option value="" disabled selected>Select a warehouse</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-sm-6 col-12">
-                                            <div class="input-blocks">
-                                                <label>Date</label>
+                                            <div class="mb-3 add-product">
+                                                <label class="form-label">Date</label>
                                                 <div class="input-groupicon calender-input">
                                                     <i data-feather="calendar" class="info-img"></i>
-                                                    <input type="text" class="datetimepicker" id="date"
-                                                        placeholder="Choose">
+                                                    <input type="text" class="datetimepicker" id="date" placeholder="Choose">
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-                                 
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Select Products Accordion -->
                     <div class="accordion-card-one accordion" id="accordionExample2">
                         <div class="accordion-item">
                             <div class="accordion-header" id="headingTwo">
                                 <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                                     aria-controls="collapseTwo">
-                                    <div class="text-editor add-list">
-                                        <div class="addproduct-icon list icon">
-                                            <h5><i data-feather="life-buoy" class="add-info"></i><span>Product</span></h5>
-                                            <a href="javascript:void(0);"><i data-feather="chevron-down"
-                                                    class="chevron-down-add"></i></a>
-                                        </div>
+                                    <div class="addproduct-icon">
+                                        <h5><i data-feather="package" class="add-info"></i><span>Select Products</span>
+                                        </h5>
+                                        <a href="javascript:void(0);"><i data-feather="chevron-down"
+                                                class="chevron-down-add"></i></a>
                                     </div>
                                 </div>
                             </div>
                             <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordionExample2">
                                 <div class="accordion-body">
-                                    <div class="input-blocks add-products">
-                                        <div class="single-pill-product">
-                                            <ul class="nav nav-pills" id="pills-tab1" role="tablist">
-                                            </ul>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <div class="mb-3 add-product">
+                                                <label class="form-label">Category</label>
+                                                <select class="select2 form-control" id="category_id" name="category_id">
+                                                    <option value="" disabled selected>Select a category</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <div class="mb-3 add-product">
+                                                <label class="form-label">Sub Category</label>
+                                                <select class="select2 form-control" id="subcategory_id" name="subcategory_id">
+                                                    <option value="" disabled selected>Select a sub category</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <div class="mb-3 add-product">
+                                                <label class="form-label">Brand</label>
+                                                <select class="select2 form-control" id="brand_id" name="brand_id">
+                                                    <option value="" disabled selected>Select a brand</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="tab-content" id="pills-tabContent">
-                                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                                            aria-labelledby="pills-home-tab">
-                                            <div class="row">
-                                                <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="input-blocks">
-                                                        <label class="form-label">Category</label>
-                                                        <select class="select2 form-control" id="category_id"
-                                                            name="category_id">
-                                                            <option value="" disabled selected>Select a category</option>
-                                                            @foreach($categories as $category)
-                                                            <option value="{{ $category['id']}}" >{{
-                                                                $category['name']}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="input-blocks">
-                                                        <label class="form-label">Sub Category</label>
-                                                        <select class="select2 form-control" id="subcategory_id"
-                                                            name="subcategory_id">
-                                                            <option value="" disabled selected>Select a sub category</option>
-
-                                                            @foreach($subcategories as $subcategory)
-                                                            <option value="{{ $subcategory['id']}}" >{{
-                                                                $subcategory['name']}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-sm-6 col-12">
-                                                    <div class="input-blocks">
-                                                        <label class="form-label">Brand</label>
-                                                        <select class="select2 form-control" id="brand_id"
-                                                            name="brand_id">
-                                                            <option value="" disabled selected>Select a brand</option>
-                                                            @foreach($brands as $brand)
-                                                            <option value="{{ $brand['id']}}" >{{
-                                                                $brand['name']}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-6 col-sm-6 col-12">
-                                                    <div class="input-blocks">
-                                                        <label class="form-label">Product</label>
-                                                        <select class="select2 form-control" id="product_id" name="product_id">
-                                                            <option value="" disabled selected>Select a product</option>
-                                                            @foreach($items as $item)
-                                                            <option value="{{ $item['uuid']}}">{{ $item['name']}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-1 col-sm-6 col-12">
-                                                    <div class="input-blocks">
-                                                        <label class="form-label">&nbsp;</label>                                                      
-                                                        <button type="button" class="btn btn-primaryadd"
-                                                        id="add-item-btn">
-                                                        Add Product
-                                                    </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                <div class="modal-body-table">
-                                                    <div class="table-responsive">
-                                                        <table class="table" id="stock-table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th rowspan="2">Product Name</th>
-                                                                    <th rowspan="2">Sku</th>
-                                                                    <th colspan="2" class="text-center">QTY</th>
-                                                                    <th colspan="2" class="text-center">Price</th>
-                                                                    <th rowspan="2">Rack</th>
-                                                                    <th rowspan="2">Action</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th class="text-center">Before</th>
-                                                                    <th class="text-center">Count</th>
-                                                                    <th class="text-end">Buy</th>
-                                                                    <th class="text-end">Diff</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                             
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                </div>
+                                    <div class="row">
+                                        <div class="col-lg-10 col-sm-8 col-12">
+                                            <div class="input-blocks add-product">
+                                                <label class="form-label">Product</label>
+                                                <select class="form-control" id="product_id" name="product_id">
+                                                    <option value="" disabled selected>Select a product</option>
+                                                </select>
                                             </div>
                                         </div>
-
+                                        <div class="col-lg-2 col-sm-4 col-12">
+                                            <div class="input-blocks add-product">
+                                                <label class="form-label">&nbsp;</label>
+                                                <button type="button" class="btn btn-primary w-100" id="add-item-btn">
+                                                    <i data-feather="plus" class="me-1"></i> Add
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="btn-addproduct mb-4">
-                        <div class="mb-3 d-none">
-                            <label class="form-label">Id</label>
-                            <input type="text" id="products" name="products" class="form-control" >
+
+                    <!-- Added Products Table Accordion -->
+                    <div class="accordion-card-one accordion" id="accordionExample3">
+                        <div class="accordion-item">
+                            <div class="accordion-header" id="headingThree">
+                                <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                    aria-controls="collapseThree">
+                                    <div class="addproduct-icon">
+                                        <h5><i data-feather="list" class="add-info"></i><span>Added Products</span>
+                                            <span class="badge bg-primary ms-2" id="product-count">0 items</span>
+                                        </h5>
+                                        <a href="javascript:void(0);"><i data-feather="chevron-down"
+                                                class="chevron-down-add"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionExample3">
+                                <div class="accordion-body">
+                                    <div class="table-responsive">
+                                        <table class="table" id="stock-table">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th class="text-center" style="width: 50px;">#</th>
+                                                    <th>Product</th>
+                                                    <th class="text-center">Before</th>
+                                                    <th class="text-center">Count</th>
+                                                    <th class="text-end">Buy Price</th>
+                                                    <th class="text-end">Diff</th>
+                                                    <th class="text-center" style="width: 150px;">Rack</th>
+                                                    <th class="text-center" style="width: 80px;">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="stock-table-body">
+                                                <tr class="empty-state-row">
+                                                    <td colspan="8" class="text-center py-5">
+                                                        <div class="empty-state">
+                                                            <i data-feather="package" class="feather-lg text-muted mb-3"></i>
+                                                            <p class="text-muted mb-0">No products added yet. Select products above to add.</p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <button type="button" class="btn btn-cancel me-2"
-                        onclick="window.location.href='{{ url('product') }}'">Cancel</button>
-                        <button type="submit" class="btn btn-submit" id="submit-add-button">Save Product</button>
-                   
+                    </div>
+
+                    <!-- Hidden Input -->
+                    <div class="d-none">
+                        <input type="text" id="products" name="products" class="form-control">
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="col-lg-12">
+                        <div class="btn-addproduct mb-4">
+                            <button type="button" class="btn btn-cancel me-2"
+                                onclick="window.location.href='{{ url('stock') }}'">Cancel</button>
+                            <button type="submit" class="btn btn-submit" id="submit-add-button">Save Stock Opname</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
         <!-- /add -->
-
     </div>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var warehouses = @json($warehouses);
-        var categories = @json($categories);
-        var subcategories = @json($subcategories);
-        var racks = @json($racks);
-        var items = @json($items);
+        let productList = [];
+        let warehouses = [];
+        let categories = [];
+        let subcategories = [];
+        let brands = [];
+        let racks = [];
+        let selectedProductData = null;
 
-        $('#product-carousel').owlCarousel({
-            items: 1,
-            loop: true,
-            margin: 10,
-            nav: true,
-            dots: true
-        });
-        
-        let productList = [
-            
-        ];
+        // Fetch dropdown data from API (products loaded via AJAX Select2)
+        async function fetchDropdownsData() {
+            try {
+                const [warehousesRes, categoriesRes, subcategoriesRes, brandsRes, racksRes] = await Promise.all([
+                    fetch('{{ route("api.warehouses") }}'),
+                    fetch('{{ route("api.categories") }}'),
+                    fetch('{{ route("api.subcategories") }}'),
+                    fetch('{{ route("api.brands") }}'),
+                    fetch('{{ route("api.racks") }}')
+                ]);
 
+                warehouses = await warehousesRes.json();
+                categories = await categoriesRes.json();
+                subcategories = await subcategoriesRes.json();
+                brands = await brandsRes.json();
+                racks = await racksRes.json();
 
-    function removeProduct(sku) {
-        productList = productList.filter(product => product.sku !== sku);
+                populateDropdowns();
+                $('#warehouse_id').trigger('change');
+            } catch (error) {
+                console.error('Error fetching dropdown data:', error);
+                showError('Failed to load data. Please refresh the page.');
+            }
+        }
+
+        function populateDropdowns() {
+            // Warehouse
+            const warehouseSelect = $('#warehouse_id');
+            warehouseSelect.empty().append('<option value="" disabled selected>Select a warehouse</option>');
+            warehouses.forEach(warehouse => {
+                warehouseSelect.append(`<option value="${warehouse.id}">${warehouse.name}</option>`);
+            });
+            warehouseSelect.trigger('change.select2');
+
+            // Category
+            const categorySelect = $('#category_id');
+            categorySelect.empty().append('<option value="" disabled selected>Select a category</option>');
+            categories.forEach(category => {
+                categorySelect.append(`<option value="${category.id}">${category.name}</option>`);
+            });
+            categorySelect.trigger('change.select2');
+
+            // Sub Category
+            const subcategorySelect = $('#subcategory_id');
+            subcategorySelect.empty().append('<option value="" disabled selected>Select a sub category</option>');
+            subcategories.forEach(subcategory => {
+                subcategorySelect.append(`<option value="${subcategory.id}" data-category-id="${subcategory.category_id}">${subcategory.name}</option>`);
+            });
+            subcategorySelect.trigger('change.select2');
+
+            // Brand
+            const brandSelect = $('#brand_id');
+            brandSelect.empty().append('<option value="" disabled selected>Select a brand</option>');
+            brands.forEach(brand => {
+                brandSelect.append(`<option value="${brand.id}">${brand.name}</option>`);
+            });
+            brandSelect.trigger('change.select2');
+
+            // Product - AJAX powered Select2
+            initProductSelect();
+        }
+
+        function initProductSelect() {
+            if ($('#product_id').data('select2')) {
+                $('#product_id').select2('destroy');
+            }
+
+            $('#product_id').select2({
+                width: '100%',
+                placeholder: 'Search product by name or SKU...',
+                allowClear: true,
+                minimumInputLength: 2,
+                language: {
+                    searching: function() {
+                        return 'Searching products...';
+                    },
+                    inputTooShort: function() {
+                        return 'Type at least 2 characters to search';
+                    },
+                    noResults: function() {
+                        return 'No products found';
+                    }
+                },
+                ajax: {
+                    url: '{{ route("api.items") }}',
+                    dataType: 'json',
+                    delay: 400,
+                    data: function(params) {
+                        return {
+                            search: params.term || '',
+                            page: params.page || 1,
+                            category_id: $('#category_id').val() || '',
+                            subcategory_id: $('#subcategory_id').val() || '',
+                            brand_id: $('#brand_id').val() || '',
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: data.results,
+                            pagination: data.pagination
+                        };
+                    },
+                    cache: true
+                },
+                templateResult: function(data) {
+                    if (data.loading) {
+                        return $('<span class="text-muted"><i class="fa fa-spinner fa-spin me-1"></i> Searching...</span>');
+                    }
+                    if (!data.text) {
+                        return $('<span class="text-muted"></span>').text(data.text || 'Type to search...');
+                    }
+
+                    const $wrapper = $('<span class="d-flex align-items-center gap-2"></span>');
+                    if (data.sku) {
+                        $wrapper.append($('<strong class=" me-1"></strong>').text('[' + data.sku + ']'));
+                    }
+                    $wrapper.append($('<span></span>').text(data.text));
+                    return $wrapper;
+                },
+                templateSelection: function(data) {
+                    if (!data.text) return data.text;
+                    return data.sku ? '[' + data.sku + '] ' + data.text : data.text;
+                }
+            }).on('select2:select', function(e) {
+                // Store the full selected product data for when user clicks Add
+                selectedProductData = e.params.data;
+            });
+        }
+
+        // Initialize
+        fetchDropdownsData();
+
+        function removeProduct(sku) {
+            productList = productList.filter(product => product.sku !== sku);
+            renderTable();
+            showSuccess('Product removed successfully.');
+        }
+
+        function renderTable() {
+            const tbody = $('#stock-table-body');
+            tbody.empty();
+
+            // Update product count
+            $('#product-count').text(`${productList.length} item${productList.length !== 1 ? 's' : ''}`);
+
+            if (productList.length === 0) {
+                tbody.html(`
+                    <tr class="empty-state-row">
+                        <td colspan="8" class="text-center py-5">
+                            <div class="empty-state">
+                                <i data-feather="package" class="feather-lg text-muted mb-3"></i>
+                                <p class="text-muted mb-0">No products added yet. Select products above to add.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `);
+                // Reinitialize feather icons
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+                document.getElementById('products').value = '[]';
+                return;
+            }
+
+            let index = 1;
+            productList.forEach(product => {
+                const basicPrice = parseFloat(product.basic_price) || 0;
+                const stockQty = parseFloat(product.stock) || 0;
+                const buyPriceTotal = basicPrice * stockQty;
+
+                const row = `
+                    <tr data-sku="${product.sku}">
+                        <td class="text-center text-muted">${index}</td>
+                        <td>
+                            <div class="productimgname d-flex align-items-center gap-2">
+                                <img src="${product.image_url}" alt="${product.name}" class="rounded" style="width: 40px; height: 40px; object-fit: cover;">
+                                <div>
+                                    <span class="d-block fw-medium">${product.name}</span>
+                                    <small class="text-muted">${product.sku}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">${clearDecimal(stockQty)}</td>
+                        <td class="text-center" style="width: 120px;">
+                            <input type="text" class="form-control form-control-sm text-center quantity-input"
+                                   id="input-${product.sku}" value="${clearDecimal(stockQty)}">
+                        </td>
+                        <td class="text-end">${formatRupiah(buyPriceTotal)}</td>
+                        <td class="text-end" id="total-${product.sku}">0,00</td>
+                        <td style="width: 150px;">
+                            <select class="select2 form-control form-control-sm rack-select" id="rack-${product.sku}">
+                                <option value="">Select Rack</option>
+                                ${racks.map(rack => `<option value="${rack.id}">${rack.name}</option>`).join('')}
+                            </select>
+                        </td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center gap-1">
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeProduct('${product.sku}')" title="Remove">
+                                    <i data-feather="trash-2" class="feather-sm"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                tbody.append(row);
+                index++;
+            });
+
+            // Reinitialize feather icons and select2
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+            $('.rack-select').select2({
+                width: '100%',
+                placeholder: 'Select Rack'
+            });
+
+            const productListJson = JSON.stringify(productList);
+            document.getElementById('products').value = productListJson;
+        }
+
+        // Initial render
         renderTable();
-    }
 
-    function renderTable() {
-        // const tableBody = document.getElementById('stock-table');
-        // tableBody.innerHTML = ''; // Clear existing table body
-        $('#stock-table tbody').empty();
-        productList.forEach(product => {
-            const newRow = `
-                <tr>
-                    <td>
-                        <div class="productimgname">
-                            <a href="javascript:void(0);" class="product-img stock-img">
-                                <img src="${product.image_url}" alt="product">
-                            </a>
-                            <a href="javascript:void(0);">${product.name}</a>
-                        </div>
-                    </td>
-                    <td>${product.sku}</td>
-                    <td class="text-center">${clearDecimal(product.stock)}</td>
-                    <td class="text-center">
-                        <div class="product-quantity">
-                            <input type="text" class="quantity-input" id="input-${product.sku}" value="${clearDecimal(product.stock)}">
-                        </div>
-                    </td>
-                    <td class="text-end">${formatRupiah(product.stock * product.basic_price)}</td>
-                    <td class="text-end" id="total-${product.sku}">0,00</td>
-                    <td class="text-end">
-                        <select class="select2 form-control" id="rack-${product.sku}">
-                            <option value="" disabled ${!product.rack ? 'selected' : ''}>Select a rack</option>
-                            ${racks.map(rack => `<option value="${rack.id}" ${rack.id === (product.rack ? product.rack.id : null) ? 'selected' : ''}>${rack.name}</option>`).join('')}
-                        </select>
-                    </td>
-                    <td class="action-table-data">
-                        <div class="edit-delete-action">
-                            <a class="me-2 p-2" href="#" data-bs-toggle="modal" data-bs-target="#detail-product" data-sku="${product.sku}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye action-eye">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg>
-                            </a>
-                            <a class="confirm-text p-2" href="javascript:void(0);" onclick="removeProduct('${product.sku}')">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
-                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                    <line x1="10" y1="11" x2="10" y2="17"></line>
-                                    <line x1="14" y1="11" x2="14" y2="17"></line>
-                                </svg>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            `;
-            $('#stock-table tbody').append(newRow);
-        });
-        const productListJson = JSON.stringify(productList);
-        document.getElementById('products').value = productListJson;
-    }
-    renderTable();
+        // Quantity input change handler
+        $('#stock-table-body').on('input', '.quantity-input', function() {
+            const sku = $(this).attr('id').split('-')[1];
+            const newCount = parseInt($(this).val());
+            const product = productList.find(p => p.sku === sku);
 
-    $('#stock-table').on('input', '.quntity-input', function() {
-        const sku = $(this).attr('id').split('-')[1]; // Extract SKU from ID
-        const newCount = parseInt($(this).val());
-        const product = productList.find(p => p.sku === sku);
-        const existingProduct = productList.find(product => product.sku === sku);
-
-
-        // Update total price
-        const newTotal = (newCount * product.basic_price)-(product.stock * product.basic_price);
-        existingProduct.count =newTotal;
-        $(`#total-${sku}`).text(formatRupiah(newTotal));
-    });
-    $('#stock-table').on('click', '[data-bs-toggle="modal"]', function() {
-        const sku = this.getAttribute('data-sku')
-        const product = productList.find(p => p.sku === sku);
-
-        // Populate the modal with product details
-        $('#modal-product-name').text(product.name);
-        $('#modal-product-category').text(product.category.code + ' - ' + product.category.name);
-        $('#modal-product-subcategory').text(product.subcategory ? product.subcategory.code + ' - ' + product.subcategory.name : '');
-        $('#modal-product-brand').text(product.brand.code + ' - ' + product.brand.name);
-        $('#modal-product-unit').text(product.unit);
-        $('#modal-product-sku').text(product.sku);
-        $('#modal-product-min-qty').text(product.stock_min + ' ' + product.unit);
-        $('#modal-product-qty').text(product.stock + ' ' + product.unit);
-        $('#modal-product-basic-price').text(product.basic_price);
-        $('#modal-product-sell-price').text(product.sell_price);
-        $('#modal-product-status').text(product.status);
-        $('#modal-product-description').text(product.description);
-            // Clear previous images
-        $('#product-carousel').trigger('destroy.owl.carousel'); // Destroy the carousel
-        $('#product-carousel').html(''); 
-
-        // Populate the image slider with product images
-        product.images.forEach(image => {
-            const imageSlide = `
-            <div class="slider-product">
-                <img src="${image.path}" alt="img">
-                <h4>${image.name}</h4>
-                <h6>${image.description}</h6>
-            </div>
-            `;
-            $('#product-carousel').append(imageSlide);
-        });
-        // Reinitialize Owl Carousel after adding new images
-        $('#product-carousel').owlCarousel({
-                    items: 1,
-                    loop: true,
-                    margin: 10,
-                    nav: true,
-                    dots: true
-                });        
-    });
-    function generateRandomNumber() {
-            return Math.floor(Math.random() * 900) + 100;
-    }
-
-        
-    function formatDate(date) {
-            const day = ("0" + date.getDate()).slice(-2);
-            const month = ("0" + (date.getMonth() + 1)).slice(-2);
-            const year = date.getFullYear();
-            return `${day}-${month}-${year}`;
-    }
-    $('#warehouse_id').on('change', function() {
-    
-        const currentDate = new Date();
-        const formattedDate = formatDate(currentDate);
-
-        const warehouseCode = (warehouses.find(war => war.id == $('#warehouse_id').val()) != null) ? warehouses.find(war => war.id == $('#warehouse_id').val()).code : 'common';
-
-        const unixTimestamp = Math.floor(currentDate.getTime() / 1000);
-        const randomNumber = generateRandomNumber();
-        const periode = `${warehouseCode}-${unixTimestamp}${randomNumber}`;
-
-        $('#date').val(formattedDate);
-        $('#periode').val(periode);
-    });
-    $('#category_id').on('change', function() {
-        const selectedCategoryId = $(this).val();
-
-        // Filter subcategories based on selected category
-        $('#subcategory_id option').each(function() {
-            const subcategoryCategoryId = $(this).data('category-id');
-            if (subcategoryCategoryId == selectedCategoryId) {
-                $(this).show();
-            } else {
-                $(this).hide();
+            if (product) {
+                // Update total difference
+                const newTotal = (newCount * product.basic_price) - (product.stock * product.basic_price);
+                product.count = newCount;
+                $(`#total-${sku}`).text(formatRupiah(newTotal));
             }
         });
 
-        $('#subcategory_id').val('');
-        $('#subcategory_id').trigger('change');
-    });
+        // Category change handler - filter subcategories and products
+        $('#category_id').on('change', function() {
+            const selectedCategoryId = $(this).val();
 
-    $('#subcategory_id, #brand_id').on('change', function() {
-        filterProducts();
-    });
+            $('#subcategory_id option').each(function() {
+                const subcategoryCategoryId = $(this).data('category-id');
+                if (selectedCategoryId && subcategoryCategoryId == selectedCategoryId) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
 
-    $('#product_id').on('select2:open', function() {
-        filterProducts();
-    });
-
-    function filterProducts() {
-        const selectedCategoryId = $('#category_id').val();
-        const selectedSubcategoryId = $('#subcategory_id').val();
-        const selectedBrandId = $('#brand_id').val();
-
-        // Filter products based on selected category, subcategory, and brand
-        $('#product_id').html('<option value="" disabled selected>Select a product</option>'); // Clear existing options
-
-        items.forEach(function(item) {
-            if ((!selectedCategoryId || item.category_id == selectedCategoryId) &&
-                (!selectedSubcategoryId || item.subcategory_id == selectedSubcategoryId) &&
-                (!selectedBrandId || item.brand_id == selectedBrandId)) {
-                const option = `<option value="${item.uuid}" data-category-id="${item.category_id}" data-subcategory-id="${item.subcategory_id}" data-brand-id="${item.brand_id}">${item.name}</option>`;
-                $('#product_id').append(option);
-            }
+            $('#subcategory_id').val('');
+            $('#subcategory_id').trigger('change');
+            refreshProductSelect();
         });
 
-        $('#product_id').trigger('change.select2');
-    }
-    $('#warehouse_id').trigger('change');
-    $('#add-item-btn').on('click', function () {
-        const selectedProductId = $('#product_id').val();
+        // Subcategory and Brand change handler
+        $('#subcategory_id, #brand_id').on('change', function() {
+            refreshProductSelect();
+        });
 
-        if (!selectedProductId) {
-            showWarning("Please select a product.");
-            return;
+        // Clear product selection when filters change - AJAX will auto-refetch with new params
+        function refreshProductSelect() {
+            selectedProductData = null;
+            $('#product_id').val(null).trigger('change');
         }
 
-        // Get the selected item from the items array
-        const selectedItem = items.find(item => item.uuid === selectedProductId);
-        selectedItem.count = selectedItem.stock;
-        if (!selectedItem) {
-            showWarning("Selected product not found.");
-            return;
-        }
+        // Warehouse change - generate reference number
+        $('#warehouse_id').on('change', function() {
+            const currentDate = new Date();
+            const formattedDate = formatDate(currentDate);
+            const warehouseCode = warehouses.find(war => war.id == $('#warehouse_id').val())?.code || 'common';
+            const unixTimestamp = Math.floor(currentDate.getTime() / 1000);
+            const randomNumber = generateRandomNumber();
+            const periode = `${warehouseCode}-${unixTimestamp}${randomNumber}`;
 
-        const selectedProductName = selectedItem.name;
-        const selectedProductSku = selectedItem.sku;
+            $('#date').val(formattedDate);
+            $('#periode').val(periode);
+        });
 
-        
-        const existingProduct = productList.find(product => product.sku === selectedProductSku.sku);
-        
-        // If the product doesn't exist, add it to the list
-        if (!existingProduct) {
-            const { uuid,name,sku,stock,basic_price,image_url,count } = selectedItem;
+        // Add item button click
+        $('#add-item-btn').on('click', function() {
+            const selected = selectedProductData;
 
-            const product = { uuid,name,sku,stock,basic_price,image_url,count };
+            if (!selected || !selected.id) {
+                showWarning("Please select a product.");
+                return;
+            }
+
+            // Check if product already exists
+            if (productList.find(p => p.sku === selected.sku)) {
+                showWarning("Product already exists in the list.");
+                return;
+            }
+
+            // Add product to list
+            const product = {
+                uuid: selected.id,
+                name: selected.text,
+                sku: selected.sku,
+                stock: parseFloat(selected.stock) || 0,
+                basic_price: parseFloat(selected.basic_price) || 0,
+                image_url: selected.image_url || '',
+                count: parseFloat(selected.stock) || 0
+            };
+
             productList.push(product);
-            renderTable(); // Refresh the table to include the new product
-        } else {
-            console.log('Product with this SKU already exists');
-        }
-        
-    });
+            renderTable();
+            showSuccess('Product added successfully.');
+
+            // Reset product selection
+            selectedProductData = null;
+            $('#product_id').val(null).trigger('change');
+        });
+
+        // Form submit handler
         document.getElementById('stockAddForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
-            let form = this;
-            let formData = new FormData(form);
-            let submitButton = document.getElementById('submit-add-button');
+            const form = this;
+            const formData = new FormData(form);
+            const submitButton = document.getElementById('submit-add-button');
             submitButton.disabled = true;
+
             Swal.fire({
                 title: "Processing...",
                 text: "Please wait.",
@@ -476,108 +545,94 @@
                 allowOutsideClick: false
             });
 
-            const productListJson = JSON.stringify(productList);
+            // Validate warehouse is selected
+            const warehouseId = document.getElementById('warehouse_id').value;
+            if (!warehouseId) {
+                Swal.close();
+                submitButton.disabled = false;
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Please select a warehouse before submitting.',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
 
-            // Validate productListJson
-            if (!productListJson || productListJson === "[]") {
-                showError('Product list is empty. Please add at least one product.');
-                
-            } else {
-                fetch(form.action, {
+            // Validate product list
+            if (productList.length === 0) {
+                Swal.close();
+                submitButton.disabled = false;
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'Product list is empty. Please add at least one product.',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            fetch(form.action, {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                    },
+                },
                 body: formData,
-                })
-                .then(response => response.json())
-                .then(data => {
-                    Swal.close();
-                    submitButton.disabled = false;
-            
-                    const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
-                    const messageId = data.success ? 'success-message' : 'danger-message';
-                    let modalMessage = data.success ? data.message : 'Submission failed';
-            
-                    // Handle nested error messages
-                    if (!data.success && data.message) {
-                        if (typeof data.message === 'object') {
-                            modalMessage = Object.values(data.message).flat().join(', ');
-                        } else {
-                            modalMessage = data.message;
-                        }
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.close();
+                submitButton.disabled = false;
+
+                const modalId = data.success ? 'success-alert-modal' : 'danger-alert-modal';
+                const messageId = data.success ? 'success-message' : 'danger-message';
+                let modalMessage = data.success ? data.message : 'Submission failed';
+
+                // Handle nested error messages
+                if (!data.success && data.message) {
+                    if (typeof data.message === 'object') {
+                        modalMessage = Object.values(data.message).flat().join(', ');
+                    } else {
+                        modalMessage = data.message;
                     }
-            
-                    document.getElementById(messageId).textContent = modalMessage;
-                    new bootstrap.Modal(document.getElementById(modalId)).show();
-            
-                    console.error(modalMessage, data.error);
-            
-                    document.getElementsByName('cancel-button').forEach(button => button.click());
-            
-                    if (data.success) {
-                        setTimeout(() => {
-                            if (redirect) {
-                                window.location.href = redirect;
-                            } else {
-                                window.location.reload();
-                            }
-                        }, 2000);
-                    }
-                }).catch(error => {
-                    Swal.close();
-                    submitButton.disabled = false;
-                    document.getElementById('error-message').textContent = error.message || 'An error occurred';
-                    new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
-                    console.error('Submission failed:', error);
-                });
-            }
-            submitButton.disabled = false;
+                }
+
+                document.getElementById(messageId).textContent = modalMessage;
+                new bootstrap.Modal(document.getElementById(modalId)).show();
+
+                if (data.success) {
+                    setTimeout(() => {
+                        window.location.href = '{{ route("stock-list") }}';
+                    }, 2000);
+                }
+            }).catch(error => {
+                Swal.close();
+                submitButton.disabled = false;
+                document.getElementById('danger-message').textContent = error.message || 'An error occurred';
+                new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                console.error('Submission failed:', error);
+            });
         });
-        
-        // $('#submit-add-button').on('click', function () {
-        //     const productListJson = JSON.stringify(productList);
 
-        //     // Validate productListJson
-        //     if (!productListJson || productListJson === "[]") {
-        //         showError('Product list is empty. Please add at least one product.');
-        //         return; // Stop the form submission
-        //     }else{
-        //         submitForm('stockAddForm', 'submit-add-button',null,'{{ route("stock-list") }}');
-        //     }
-        // });
-        // document.getElementById('stockAddForm').addEventListener('submit', function(event) {
-        //     event.preventDefault(); // Prevent the default form submission
-
-        //     // Convert the productList array to a JSON string
-        //     const productListJson = JSON.stringify(productList);
-
-        //     // Validate productListJson
-        //     if (!productListJson || productListJson === "[]") {
-        //         showError('Product list is empty. Please add at least one product.');
-        //         return; // Stop the form submission
-        //     } else {
-        //         submitForm('stockAddForm', 'submit-add-button', null, '{{ route("stock-list") }}');
-        //     }
-        // });
-       
-       function removeProduct(sku) {
-            // Find the index of the product with the given SKU
-            const index = productList.findIndex(product => product.sku === sku);
-            if (index !== -1) {
-            productList.splice(index, 1);
+        // Expose removeProduct to global scope for onclick handlers
+        window.removeProduct = function(sku) {
+            productList = productList.filter(product => product.sku !== sku);
             renderTable();
             showSuccess('Product removed successfully.');
-            } else {
-                showError('Product not found.');
-            }
-
-        }
-        window.removeProduct = function(sku) {
-            removeProduct(sku);
         };
 
-     });
+        // Helper function to generate random number
+        function generateRandomNumber() {
+            return Math.floor(Math.random() * 900) + 100;
+        }
 
+        // Helper function to format date
+        function formatDate(date) {
+            const day = ("0" + date.getDate()).slice(-2);
+            const month = ("0" + (date.getMonth() + 1)).slice(-2);
+            const year = date.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+    });
    </script>
 @endsection

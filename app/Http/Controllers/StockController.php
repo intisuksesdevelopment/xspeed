@@ -31,18 +31,51 @@ class StockController extends Controller
 
     public function addForm(Request $request)
     {
-        $data['items'] = ItemService::getActive($request);
-        $data['categories'] = CategoryService::getActive($request);
-        $data['subcategories'] = SubCategoryService::getActive($request);
-        $data['brands'] = BrandService::getActive($request);
-        $data['racks'] = RackService::getActive($request);
-        $data['warehouses'] = WarehouseService::getActive($request);
-
-        return view('pages.stocks.stock-add', $data);
+        return view('pages.stocks.stock-add');
     }
 
     public function add(Request $request)
     {
         return StockService::save($request);
+    }
+
+    public function delete($id)
+    {
+        return StockService::delete($id);
+    }
+
+    // API Methods for dropdowns
+    public function getWarehouses(Request $request)
+    {
+        return response()->json(WarehouseService::getActive($request));
+    }
+
+    public function getCategories(Request $request)
+    {
+        return response()->json(CategoryService::getActive($request));
+    }
+
+    public function getSubcategories(Request $request)
+    {
+        return response()->json(SubCategoryService::getActive($request));
+    }
+
+    public function getBrands(Request $request)
+    {
+        return response()->json(BrandService::getActive($request));
+    }
+
+    public function getItems(Request $request)
+    {
+        // Support Select2 AJAX format with search and filters
+        if ($request->ajax() || $request->wantsJson() || $request->has('search') || $request->has('page')) {
+            return ItemService::getForSelect($request);
+        }
+        return response()->json(ItemService::getActive($request));
+    }
+
+    public function getRacks(Request $request)
+    {
+        return response()->json(RackService::getActive($request));
     }
 }

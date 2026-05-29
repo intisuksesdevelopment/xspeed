@@ -101,8 +101,17 @@ Route::middleware(['auth', LocalizationMiddleware::class])->prefix('admin')->gro
         Route::get('/', [StockController::class, 'index'])->name('stock-list');
         Route::get('/add', [StockController::class, 'addForm'])->name('stock-add-form');
         Route::post('/add', [StockController::class, 'add'])->name('stock-add');
+        Route::delete('/delete/{id}', [StockController::class, 'delete'])->name('stock-delete');
 
     });
+
+    // API routes for dropdowns
+    Route::get('/api/warehouses', [StockController::class, 'getWarehouses'])->name('api.warehouses');
+    Route::get('/api/categories', [StockController::class, 'getCategories'])->name('api.categories');
+    Route::get('/api/subcategories', [StockController::class, 'getSubcategories'])->name('api.subcategories');
+    Route::get('/api/brands', [StockController::class, 'getBrands'])->name('api.brands');
+    Route::get('/api/items', [StockController::class, 'getItems'])->name('api.items');
+    Route::get('/api/racks', [StockController::class, 'getRacks'])->name('api.racks');
 
     Route::prefix('category')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('category');

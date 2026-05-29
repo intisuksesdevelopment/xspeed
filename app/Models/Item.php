@@ -47,7 +47,6 @@ class Item extends Model
 
     protected $hidden = [
         'id',
-        'basic_price',
     ];
 
     public function validateAttributes($attributes, $id = null)

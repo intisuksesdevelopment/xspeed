@@ -30,6 +30,10 @@ Route::prefix('/unit')->group(function () {
 });
 Route::prefix('/rack')->group(function () {
     Route::get('/paged', [ApiController::class, 'getRacksPaginated'])->name('api-rack-paged');
+    Route::get('/all', [ApiController::class, 'getRacks'])->name('api-rack-all');
+});
+Route::prefix('/items')->group(function () {
+    Route::get('/', [ApiController::class, 'getItems'])->name('api-items');
 });
 Route::prefix('/subrack')->group(function () {
     Route::get('/all', [ApiController::class, 'getSubRacks'])->name('api-subrack-all');
@@ -41,6 +45,7 @@ Route::prefix('/stock')->group(function () {
 });
 Route::prefix('/category')->group(function () {
     Route::get('/all', [ApiController::class, 'getCategories'])->name('api-category-all');
+    Route::get('/', [ApiController::class, 'getCategories'])->name('api-categories');
 });
 Route::prefix('/subcategory')->group(function () {
     Route::get('/all', [ApiController::class, 'getSubcategories'])->name('api-subcategory-all');
@@ -56,6 +61,7 @@ Route::prefix('/customer')->group(function () {
 
 Route::prefix('/warehouse')->group(function () {
     Route::get('/all', [ApiController::class, 'getWarehouses'])->name('api-warehouse-all');
+    Route::get('/', [ApiController::class, 'getWarehouses'])->name('api-warehouses');
 });
 Route::prefix('/contact')->group(function () {
     Route::get('/{supplierUuid}', [ApiController::class, 'getContactBySupplier'])->name('api-contact-supplier');

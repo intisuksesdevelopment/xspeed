@@ -78,4 +78,8 @@ class StockController extends Controller
     {
         return response()->json(RackService::getActive($request));
     }
+    public function getSubracks(Request $request)
+    {
+        return response()->json(RackService::getSubRacks($request));
+    }
 }

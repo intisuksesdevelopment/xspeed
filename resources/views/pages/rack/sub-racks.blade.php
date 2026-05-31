@@ -1,4 +1,4 @@
-<?php $page = 'subrack'; ?>
+<?php $page = 'subracks'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
     <style>
@@ -9,7 +9,7 @@
             background-color: #f8f9fa;
         }
     </style>
-    <div class="page-wrapper" x-data="subRackTable()" x-cloak>
+    <div class="page-wrapper" x-data="subRackTable()" x-cloak @refresh-subracks.window="fetchSubRacks()">
         <div class="content">
             @component('pages.components.breadcrumb')
                 @slot('title')
@@ -431,8 +431,104 @@
 
                 refreshList() {
                     this.fetchSubRacks();
+                },
+
+                triggerRefresh() {
+                    this.fetchSubRacks();
                 }
             }
         };
+
+        // Global function to refresh subrack table
+        window.refreshSubRackTable = function() {
+            window.dispatchEvent(new CustomEvent('refresh-subracks'));
+        };
+
+        // Form handlers for subrack modals
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add Sub Rack form handler
+            const subrackAddForm = document.getElementById('subrackAddForm');
+            if (subrackAddForm) {
+                subrackAddForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    handleSubRackFormSubmit(this, 'submit-subrack-add-button', 'status-add');
+                });
+            }
+
+            // Edit Sub Rack form handler
+            const subrackEditForm = document.getElementById('subrackEditForm');
+            if (subrackEditForm) {
+                subrackEditForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    handleSubRackFormSubmit(this, 'submit-subrack-edit-button', 'edit-status');
+                });
+            }
+        });
+
+        function handleSubRackFormSubmit(form, submitButtonId, statusCheckboxId) {
+            let formData = new FormData(form);
+            let submitButton = document.getElementById(submitButtonId);
+            if (submitButton) submitButton.disabled = true;
+
+            if (statusCheckboxId) {
+                const checkbox = document.getElementById(statusCheckboxId);
+                if (checkbox) {
+                    checkbox.value = checkbox.checked ? 0 : 1;
+                }
+            }
+
+            Swal.fire({
+                title: "Processing...",
+                text: "Please wait.",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+
+            fetch(form.action, {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+                },
+                body: formData,
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                Swal.close();
+                if (submitButton) submitButton.disabled = false;
+
+                const modalId = data.success ? "success-alert-modal" : "danger-alert-modal";
+                const messageId = data.success ? "success-message" : "danger-message";
+                let modalMessage = data.success ? data.message : "Submission failed";
+
+                if (!data.success && data.message) {
+                    if (typeof data.message === "object") {
+                        modalMessage = Object.values(data.message).flat().join(", ");
+                    } else {
+                        modalMessage = data.message;
+                    }
+                }
+
+                document.getElementById(messageId).textContent = modalMessage;
+                new bootstrap.Modal(document.getElementById(modalId)).show();
+
+                if (data.success) {
+                    setTimeout(() => {
+                        // Close modal
+                        const closeBtn = document.querySelector('#add-sub-rack [data-bs-dismiss="modal"], #edit-sub-rack [data-bs-dismiss="modal"]');
+                        if (closeBtn) closeBtn.click();
+                        // Refresh table only (not page reload)
+                        window.refreshSubRackTable();
+                    }, 1000);
+                }
+            })
+            .catch((error) => {
+                console.error("Submission failed:", error);
+                Swal.close();
+                if (submitButton) submitButton.disabled = false;
+                document.getElementById("danger-message").textContent = error.message || "An error occurred";
+                new bootstrap.Modal(document.getElementById("danger-alert-modal")).show();
+            });
+        }
     </script>
 @endsection

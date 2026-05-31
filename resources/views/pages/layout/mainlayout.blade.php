@@ -89,7 +89,7 @@
 
     <body class="account-page">
 @endif
-@component('components.loader')
+@component('pages.components.loader')
 @endcomponent
 <!-- Main Wrapper -->
 @if (!Route::is(['lock-screen']))

@@ -14,6 +14,7 @@ return [
     'sb.brands' => 'Brands',
     'sb.units' => 'Units',
     'sb.racks' => 'Racks',
+    'sb.sub_racks' => 'Sub Racks',
     'sb.print_barcode' => 'Print Barcode',
 
 ];

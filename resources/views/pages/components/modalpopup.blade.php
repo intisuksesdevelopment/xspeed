@@ -497,7 +497,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label>Description</label>
-                                    <textarea name="description" class="form-control" rows="3"></textarea>
+                                    <textarea name="description" class="form-control" rows="3" maxlength="60"></textarea>
                                     <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
                                 <div class="mb-0">
@@ -555,7 +555,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label>Description</label>
-                                    <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+                                    <textarea id="description" name="description" class="form-control" rows="3" maxlength="60"></textarea>
                                     <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
                                 <div class="mb-0">
@@ -734,7 +734,8 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body new-employee-field">
-                            <form id="brandAddForm" method="post" action="{{ route('brand-add') }}" enctype="multipart/form-data">
+                            <form id="brandAddForm" method="post" action="{{ route('brand-add') }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-title-head">
                                     <h6><span><i data-feather="info" class="feather-edit"></i></span>Brand Info
@@ -751,17 +752,21 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <label>Description</label>
-                                        <textarea name="description" class="form-control" rows="3"></textarea>
+                                        <textarea name="description" class="form-control" rows="3" maxlength="60"></textarea>
                                         <p class="mt-1">Maximum 60 Characters</p>
                                     </div>
                                     <label class="form-label">Logo</label>
                                     <div class="profile-pic-upload mb-3">
-                                        <div class="profile-pic brand-pic" id="add-brand-preview-container" style="cursor: pointer;" onclick="openImagePreview('add')">
-                                            <span id="add-brand-placeholder"><i data-feather="plus-circle" class="plus-down-add"></i> Add Image</span>
-                                            <img id="add-brand-preview" src="" alt="" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                                        <div class="profile-pic brand-pic" id="add-brand-preview-container"
+                                            style="cursor: pointer;" onclick="openImagePreview('add')">
+                                            <span id="add-brand-placeholder"><i data-feather="plus-circle"
+                                                    class="plus-down-add"></i> Add Image</span>
+                                            <img id="add-brand-preview" src="" alt=""
+                                                style="display: none; width: 100%; height: 100%; object-fit: cover;">
                                         </div>
                                         <div class="image-upload mb-0">
-                                            <input type="file" name="image_url" id="add-brand-file" onchange="previewBrandImage(this, 'add')">
+                                            <input type="file" name="image_url" id="add-brand-file"
+                                                onchange="previewBrandImage(this, 'add')">
                                             <div class="image-uploads">
                                                 <h4>Change Image</h4>
                                             </div>
@@ -809,7 +814,8 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body new-employee-field">
-                            <form id="brandEditForm" method="post" action="{{ route('brand-update') }}" enctype="multipart/form-data">
+                            <form id="brandEditForm" method="post" action="{{ route('brand-update') }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="mb-3 d-none">
@@ -831,18 +837,22 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <label>Description</label>
-                                        <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+                                        <textarea id="description" name="description" class="form-control" rows="3" maxlength="60"></textarea>
                                         <p class="mt-1">Maximum 60 Characters</p>
                                     </div>
                                     <label class="form-label">Logo</label>
                                     <div class="profile-pic-upload mb-3">
-                                        <div class="profile-pic brand-pic" id="edit-brand-preview-container" style="cursor: pointer;" onclick="openImagePreview('edit')">
-                                            <span id="edit-brand-placeholder"><i data-feather="plus-circle" class="plus-down-add"></i> Add Image</span>
-                                            <img id="edit-brand-preview" src="" alt="" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                                        <div class="profile-pic brand-pic" id="edit-brand-preview-container"
+                                            style="cursor: pointer;" onclick="openImagePreview('edit')">
+                                            <span id="edit-brand-placeholder"><i data-feather="plus-circle"
+                                                    class="plus-down-add"></i> Add Image</span>
+                                            <img id="edit-brand-preview" src="" alt=""
+                                                style="display: none; width: 100%; height: 100%; object-fit: cover;">
                                         </div>
                                         <input type="hidden" id="current-image-url" value="">
                                         <div class="image-upload mb-0">
-                                            <input type="file" name="image_url" id="edit-brand-file" onchange="previewBrandImage(this, 'edit')">
+                                            <input type="file" name="image_url" id="edit-brand-file"
+                                                onchange="previewBrandImage(this, 'edit')">
                                             <div class="image-uploads">
                                                 <h4>Change Image</h4>
                                             </div>
@@ -907,7 +917,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <label>Description</label>
-                                        <textarea name="description" class="form-control" rows="3"></textarea>
+                                        <textarea name="description" class="form-control" rows="3" maxlength="60"></textarea>
                                         <p class="mt-1">Maximum 60 Characters</p>
                                     </div>
                                     <label class="form-label">Iamge</label>
@@ -985,7 +995,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <label>Description</label>
-                                        <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+                                        <textarea id="description" name="description" class="form-control" rows="3" maxlength="60"></textarea>
                                         <p class="mt-1">Maximum 60 Characters</p>
                                     </div>
                                     <label class="form-label">Image</label>
@@ -1026,7 +1036,147 @@
     </div>
     <!-- Edit Rack -->
 @endif
+@if (Route::is(['subracks']))
+    <!-- Add Sub Rack -->
+    <div class="modal fade" id="add-sub-rack">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Create Sub Rack</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body new-employee-field">
+                            <form id="subrackAddForm" method="post" action="{{ route('subrack-add') }}">
+                                @csrf
+                                <div class="modal-title-head">
+                                    <h6><span><i data-feather="info" class="feather-edit"></i></span>Sub Rack Info
+                                    </h6>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label class="form-label">Code</label>
+                                        <input type="text" name="code" class="form-control" required>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" name="name" class="form-control" required>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="form-label">Rack</label>
+                                        <select name="rack_id" id="add-rack-id" class="form-select" required>
+                                            <option value="">Select Rack</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label>Description</label>
+                                        <textarea name="description" class="form-control" rows="3" maxlength="60"></textarea>
+                                        <p class="mt-1">Maximum 60 Characters</p>
+                                    </div>
+                                    <div class="mb-0">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="status-add" name="status" class="check"
+                                                checked="">
+                                            <label for="status-add" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit"
+                                        id="submit-subrack-add-button">Create
+                                        Sub Rack</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Sub Rack -->
+
+    <!-- Edit Sub Rack -->
+    <div class="modal fade" id="edit-sub-rack">
+        <div class="modal-dialog modal-dialog-centered custom-modal-two">
+            <div class="modal-content">
+                <div class="page-wrapper-new p-0">
+                    <div class="content">
+                        <div class="modal-header border-0 custom-modal-header">
+                            <div class="page-title">
+                                <h4>Edit Sub Rack</h4>
+                            </div>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body custom-modal-body new-employee-field">
+                            <form id="subrackEditForm" method="post" action="{{ route('subrack-update') }}">
+                                @csrf
+                                <div class="mb-3 d-none">
+                                    <label for="edit-id" class="form-label">Id</label>
+                                    <input type="text" id="edit-id" name="id" class="form-control">
+                                </div>
+                                <div class="modal-title-head">
+                                    <h6><span><i data-feather="info" class="feather-edit"></i></span>Sub Rack Info
+                                    </h6>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label class="form-label">Code</label>
+                                        <input type="text" id="edit-code" name="code" class="form-control">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" id="edit-name" name="name" class="form-control">
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="form-label">Rack</label>
+                                        <select id="edit-rack-id" name="rack_id" class="form-select">
+                                            <option value="">Select Rack</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label>Description</label>
+                                        <textarea id="edit-description" name="description" class="form-control" rows="3" maxlength="60"></textarea>
+                                        <p class="mt-1">Maximum 60 Characters</p>
+                                    </div>
+                                    <div class="mb-0">
+                                        <div
+                                            class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                            <span class="status-label">Status</span>
+                                            <input type="checkbox" id="edit-status" name="status" class="check"
+                                                checked="">
+                                            <label for="edit-status" class="checktoggle"></label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer-btn">
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-submit"
+                                        id="submit-subrack-edit-button">Edit
+                                        Sub Rack</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Sub Rack -->
+@endif
 @if (Route::is(['units']))
     <!-- Add Unit -->
     <div class="modal fade" id="add-units">
@@ -1146,17 +1296,20 @@
                                 <div class="row mb-3">
                                     <div class="col-md-4">
                                         <label class="form-label">Reference No.</label>
-                                        <input type="text" class="form-control" id="stock-periode" name="periode" readonly>
+                                        <input type="text" class="form-control" id="stock-periode"
+                                            name="periode" readonly>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Warehouse</label>
-                                        <select class="form-select" id="stock-warehouse_id" name="warehouse_id" required>
+                                        <select class="form-select" id="stock-warehouse_id" name="warehouse_id"
+                                            required>
                                             <option value="" disabled selected>Select Warehouse</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Date</label>
-                                        <input type="text" class="form-control datetimepicker" id="stock-date" placeholder="Choose Date">
+                                        <input type="text" class="form-control datetimepicker" id="stock-date"
+                                            placeholder="Choose Date">
                                     </div>
                                 </div>
 
@@ -1177,7 +1330,8 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label class="form-label">Search Product</label>
-                                        <input type="text" class="form-control" id="stock-product-search" placeholder="Search by SKU/Name">
+                                        <input type="text" class="form-control" id="stock-product-search"
+                                            placeholder="Search by SKU/Name">
                                     </div>
                                     <div class="col-md-3">
                                         <label class="form-label">Product</label>
@@ -1185,11 +1339,13 @@
                                             <option value="">Select Product</option>
                                         </select>
                                         <div id="stock-product-loading" class="d-none">
-                                            <small class="text-muted"><i class="fa fa-spinner fa-spin"></i> Loading...</small>
+                                            <small class="text-muted"><i class="fa fa-spinner fa-spin"></i>
+                                                Loading...</small>
                                         </div>
                                     </div>
                                     <div class="col-md-3 d-flex align-items-end gap-2">
-                                        <button type="button" class="btn btn-outline-secondary" id="stock-show-all-btn">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            id="stock-show-all-btn">
                                             Show All
                                         </button>
                                         <button type="button" class="btn btn-primary" id="stock-add-product-btn">
@@ -1218,8 +1374,10 @@
                                 <input type="hidden" id="stock-products" name="products" value="[]">
 
                                 <div class="modal-footer-btn">
-                                    <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" id="submit-stock-button" class="btn btn-submit">Save Stock Opname</button>
+                                    <button type="button" class="btn btn-cancel me-2"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" id="submit-stock-button" class="btn btn-submit">Save
+                                        Stock Opname</button>
                                 </div>
                             </form>
                         </div>
@@ -7275,7 +7433,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label>Address</label>
-                                    <textarea name="address" class="form-control" rows="3"></textarea>
+                                    <textarea name="address" class="form-control" rows="3" maxlength="60"></textarea>
                                     <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
                                 <div class="mb-3">
@@ -7350,7 +7508,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label>Address</label>
-                                    <textarea id="address" name="address" id="address" class="form-control" rows="3"></textarea>
+                                    <textarea id="address" name="address" class="form-control" rows="3" maxlength="60"></textarea>
                                     <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
                                 <div class="mb-3">
@@ -7543,7 +7701,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label>Address</label>
-                                    <textarea name="address" class="form-control" rows="3"></textarea>
+                                    <textarea name="address" class="form-control" rows="3" maxlength="60"></textarea>
                                     <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
                                 <div class="mb-3">
@@ -7615,7 +7773,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label>Address</label>
-                                    <textarea name="address" id="address" class="form-control" rows="3"></textarea>
+                                    <textarea name="address" id="address" class="form-control" rows="3" maxlength="60"></textarea>
                                     <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
                                 <div class="mb-3">
@@ -14356,7 +14514,8 @@
                             <div class="page-title">
                                 <h4>Configure Google Adsense Code</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -14394,7 +14553,8 @@
                             <div class="page-title">
                                 <h4>Configure Google Map ID</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -14439,7 +14599,8 @@
                                 <input type="checkbox" id="user1" class="check" checked>
                                 <label for="user1" class="checktoggle"> </label>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -14488,7 +14649,8 @@
                                 <input type="checkbox" id="user4" class="check" checked>
                                 <label for="user4" class="checktoggle"> </label>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -14533,7 +14695,8 @@
                             <div class="page-title">
                                 <h4>Add User</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -14556,7 +14719,8 @@
                                     <div class="col-lg-6">
                                         <div class="input-blocks">
                                             <label>User Name</label>
-                                            <input type="text" name="username" class="form-control" required>
+                                            <input type="text" name="username" class="form-control"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -14599,8 +14763,8 @@
                                         <div class="input-blocks">
                                             <label for="confirm-password">Confirm Password</label>
                                             <div class="pass-group">
-                                                <input type="password" name="confirm_password" class="pass-input"
-                                                    required>
+                                                <input type="password" name="confirm_password"
+                                                    class="pass-input" required>
                                                 <span class="fas toggle-password fa-eye-slash"></span>
                                             </div>
                                         </div>
@@ -14618,16 +14782,17 @@
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
-                                            <input type="checkbox" id="status-add" name="status" class="check"
-                                                checked="">
+                                            <input type="checkbox" id="status-add" name="status"
+                                                class="check" checked="">
                                             <label for="status-add" class="checktoggle"></label>
                                         </div>
                                     </div>
 
                                     <div class="modal-footer-btn">
-                                        <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal"
-                                            name="cancel-button">Cancel</button>
-                                        <button type="submit" id="submit-add-button" class="btn btn-submit">Save
+                                        <button type="button" class="btn btn-cancel me-2"
+                                            data-bs-dismiss="modal" name="cancel-button">Cancel</button>
+                                        <button type="submit" id="submit-add-button"
+                                            class="btn btn-submit">Save
                                             Changes</button>
                                     </div>
                                 </div>
@@ -14650,7 +14815,8 @@
                             <div class="page-title">
                                 <h4>Edit User</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>

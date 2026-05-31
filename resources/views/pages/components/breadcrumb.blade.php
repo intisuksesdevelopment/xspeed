@@ -144,6 +144,12 @@
                         data-feather="plus-circle" class="me-2"></i> {{ $li_2 }}</a>
             </div>
         @endif
+        @if (Route::is(['subracks']))
+            <div class="page-btn">
+                <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-sub-rack"><i
+                        data-feather="plus-circle" class="me-2"></i> {{ $li_2 }}</a>
+            </div>
+        @endif
         @if (Route::is(['units']))
             <div class="page-btn">
                 <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#add-units"><i
@@ -170,8 +176,8 @@
         @endif
         @if (Route::is(['stock-list']))
             <div class="page-btn">
-                <a href="{{ route('stock-add') }}" class="btn btn-added"><i
-                        data-feather="plus-circle" class="me-2"></i> Add Stock Opname</a>
+                <a href="{{ route('stock-add') }}" class="btn btn-added"><i data-feather="plus-circle"
+                        class="me-2"></i> Add Stock Opname</a>
             </div>
 
             <div class="page-btn import">

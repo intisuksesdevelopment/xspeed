@@ -89,6 +89,26 @@ class ApiController extends Controller
         ]);
     }
 
+    public function getRacks(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => RackService::getActive($request),
+        ]);
+    }
+
+    public function getItems(Request $request)
+    {
+        // Support Select2 AJAX format with search and filters
+        if ($request->ajax() || $request->wantsJson() || $request->has('search') || $request->has('page')) {
+            return response()->json(ItemService::getForSelect($request));
+        }
+        return response()->json([
+            'success' => true,
+            'data' => ItemService::getActive($request),
+        ]);
+    }
+
     public function getStocksPaginated(Request $request)
     {
         return response()->json([

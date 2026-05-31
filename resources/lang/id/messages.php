@@ -14,5 +14,6 @@ return [
     'sb.brands' => 'Daftar Merek',
     'sb.units' => 'Daftar Satuan',
     'sb.racks' => 'Daftar Rak',
+    'sb.sub_racks' => 'Daftar Sub Rak',
     'sb.print_barcode' => 'Cetak Barcode',
 ];

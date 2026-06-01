@@ -67,6 +67,11 @@ class Stock extends Authenticatable
         return $this->belongsTo(\App\Models\User::class, 'created_by');
     }
 
+    public function stockData()
+    {
+        return $this->hasMany(\App\Models\StockData::class, 'stock_id');
+    }
+
     public function validateAttributes($attributes, $id = null)
     {
         $validator = Validator::make($attributes, [

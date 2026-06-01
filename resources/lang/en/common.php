@@ -2,12 +2,15 @@
 
 return [
     'search' => 'Search',
+    'add' => 'Add',
+    'before' => 'Before',
     'show' => 'Show',
     'enteries' => 'Entries',
-    'code'=>'Code',
-    'items'=>'Items',
+    'code' => 'Code',
+    'items' => 'Items',
     'warehouse' => 'Warehouse',
     'category' => 'Category',
+    'sub_category' => 'Sub Category',
     'brand' => 'Brand',
     'product' => 'Product',
     'rack' => 'Rack',
@@ -15,5 +18,11 @@ return [
     'new' => 'New',
     'name' => 'Name',
     'sku' => 'SKU',
-
+    'reference_no' => 'Reference No',
+    'date' => 'Date',
+    'buy_price' => 'Buy Price',
+    'diff' => 'Diff',
+    'count' => 'Count',
+    'action' => 'Action',
+    'status' => 'Status',
 ];

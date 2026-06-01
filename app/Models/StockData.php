@@ -110,4 +110,9 @@ class StockData extends Authenticatable
     {
         return $this['status'] == 0 ? 'Available' : 'Not Available';
     }
+
+    public function item()
+    {
+        return $this->belongsTo(\App\Models\Item::class, 'item_id');
+    }
 }

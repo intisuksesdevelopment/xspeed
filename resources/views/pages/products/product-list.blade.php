@@ -30,8 +30,25 @@
         }
     </style>
     <div class="page-wrapper" x-data="productTable()" x-init="init()" x-cloak>
-        <div class="content position-relative">
 
+        <div class="content position-relative">
+            @component('pages.components.breadcrumb')
+                @slot('title')
+                    Product list
+                @endslot
+                @slot('li_1')
+                    Manage your Product
+                @endslot
+                @slot('li_2')
+                    {{ route('product-add') }}
+                @endslot
+                @slot('li_3')
+                    Add New Product
+                @endslot
+                @slot('li_4')
+                    Add New Product
+                @endslot
+            @endcomponent
             <div class="table-top">
 
                 <div class="row g-3 align-items-end">
@@ -56,19 +73,23 @@
                                 </button>
 
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'Name'">{{ __('common.name') }}</a>
+                                    <li><a class="dropdown-item" href="#"
+                                            @click.prevent="filters.searchBy = 'Name'">{{ __('common.name') }}</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'SKU'">{{ __('common.sku') }}</a>
+                                    <li><a class="dropdown-item" href="#"
+                                            @click.prevent="filters.searchBy = 'SKU'">{{ __('common.sku') }}</a>
                                     </li>
                                     <li><a class="dropdown-item" href="#"
                                             @click.prevent="filters.searchBy = 'Brand'">{{ __('common.brand') }}</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'Rack'">{{ __('common.rack') }}</a>
+                                    <li><a class="dropdown-item" href="#"
+                                            @click.prevent="filters.searchBy = 'Rack'">{{ __('common.rack') }}</a>
                                     </li>
                                 </ul>
 
                                 <!-- Input -->
-                                <input type="text" class="form-control" :placeholder="`{{ __('label.searchby') }} ${filters.searchBy}...`"
+                                <input type="text" class="form-control"
+                                    :placeholder="`{{ __('label.searchby') }} ${filters.searchBy}...`"
                                     x-model="filters.search" @keyup.debounce.500ms="fetchProducts()">
                             </div>
                         </div>
@@ -240,8 +261,7 @@
                                 <div class="modal-footer-btn delete">
                                     <a href="javascript:void(0);" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</a>
-                                    <a href="javascript:void(0);" class="btn btn-submit"
-                                        @click="deleteItem()">
+                                    <a href="javascript:void(0);" class="btn btn-submit" @click="deleteItem()">
                                         <i data-feather="trash-2" class="feather-14"></i> Delete
                                     </a>
                                 </div>

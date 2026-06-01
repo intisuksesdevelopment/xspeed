@@ -139,7 +139,7 @@ class StockService
             $stockData->item_id = ItemService::getId($product['uuid']); // Assuming uuid is the item_id
             $stockData->item_stock = $product['stock'];
             $stockData->item_price = $product['basic_price'];
-            $stockData->rack = $product['rack'] ?? null; // Assuming rack might be optional
+            $stockData->rack = !empty($product['rack']) ? $product['rack'] : ''; // Default to empty string if not provided
             $stockData->qty = $product['stock'];
             $stockData->diff = $product['count'] - $product['stock'];
             $stockData->price_total = $product['basic_price'] * $product['count'];
@@ -184,12 +184,90 @@ class StockService
         }
     }
 
+    public static function updateStock(Request $request, $id)
+    {
+        try {
+            $data = $request->all();
+
+            // Validate required warehouse_id
+            if (empty($data['warehouse_id'])) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Warehouse is required. Please select a warehouse.',
+                ]);
+            }
+
+            // Find existing stock
+            $stock = Stock::where('uuid', $id)->first();
+            if (!$stock) {
+                throw new NotFoundException('uuid : ' . $id);
+            }
+
+            // Calculate totals
+            $total_item = 0;
+            $total_stock = 0;
+            $total_count = 0;
+            $total_diff = 0;
+            $total_price = 0;
+            $total_price_diff = 0;
+
+            $products = json_decode($data['products'] ?? '[]', true);
+            if (!is_array($products)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid products data.',
+                ]);
+            }
+
+            foreach ($products as $product) {
+                $total_item++;
+                $total_stock += $product['stock'];
+                $total_count += $product['count'];
+                $total_diff += $product['count'] - $product['stock'];
+                $total_price += $product['basic_price'] * $product['stock'];
+            }
+
+            // Calculate total price difference
+            foreach ($products as $product) {
+                $total_price_diff += $product['basic_price'] * $product['count'];
+            }
+            $total_price_diff -= $total_price;
+
+            // Update stock
+            $stock->periode = $data['periode'] ?? $stock->periode;
+            $stock->warehouse_id = $data['warehouse_id'];
+            $stock->total_item = $total_item;
+            $stock->stock_total = $total_stock;
+            $stock->qty_total = $total_count;
+            $stock->diff_total = $total_diff;
+            $stock->price_total = $total_price;
+            $stock->diff_price_total = $total_price_diff;
+            $stock->status = isset($data['status']) ? (int)$data['status'] : 2;
+            $stock->updated_by = auth()->user()->id ?? null;
+            $stock->save();
+
+            // Delete old stock data and create new ones
+            StockData::where('stock_id', $stock->id)->delete();
+            self::saveAllStockData($products, $stock->id);
+
+            return response()->json(['success' => true, 'message' => 'Stock updated successfully!']);
+        } catch (NotFoundException $e) {
+            Log::error($e->getMessage());
+
+            return response()->json(['success' => false, 'message' => 'Stock not found: '.$e->getMessage()], 404);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+
+            return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
+        }
+    }
+
     public static function delete($id)
     {
         try {
-            $stock = Stock::find($id);
-            if (! $stock) {
-                throw new NotFoundException('id : '.$id);
+            $stock = Stock::where('uuid', $id)->first();
+            if (!$stock) {
+                throw new NotFoundException('uuid : ' . $id);
             }
             $stock->status = 1;
             $stock->update();

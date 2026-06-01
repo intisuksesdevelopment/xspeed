@@ -19,7 +19,7 @@
                     Manage Your Stock Opname
                 @endslot
                 @slot('li_2')
-                    Add New Stock Opname
+                    <a href="{{ route('stock-add-form') }}" class="text-primary">Add New Stock Opname</a>
                 @endslot
             @endcomponent
 
@@ -117,7 +117,7 @@
                                 </tr>
 
                                 <!-- DATA -->
-                                <template x-for="item in items" :key="item.id">
+                                <template x-for="item in items" :key="item.uuid">
                                     <tr class="fade-row">
                                         <td>
                                             <label class="checkboxs">
@@ -140,8 +140,8 @@
                                         </td>
                                         <td class="action-table-data">
                                             <div class="edit-delete-action">
-                                                <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#edit-stores" @click="openEditModal(item)">
+                                                <a class="me-2 p-2" href="javascript:void(0);"
+                                                    @click="window.location.href = '{{ url('admin/stock/edit') }}/' + item.uuid">
                                                     <i data-feather="edit" class="feather-edit"></i>
                                                 </a>
                                                 <a class="p-2" href="javascript:void(0);"
@@ -361,7 +361,7 @@
                 },
 
                 openEditModal(item) {
-                    document.getElementById('id').value = item.id;
+                    document.getElementById('uuid').value = item.uuid;
                 },
 
                 confirmDelete(item) {
@@ -377,7 +377,7 @@
                     if (!this.itemToDelete) return;
 
                     const item = this.itemToDelete;
-                    const id = item.id;
+                    const id = item.uuid;
 
                     const modalEl = document.getElementById('deleteConfirmModal');
                     if (modalEl) {
@@ -385,7 +385,7 @@
                         if (modal) modal.hide();
                     }
 
-                    this.items = this.items.filter(i => i.id !== id);
+                    this.items = this.items.filter(i => i.uuid !== id);
                     this.total--;
 
                     try {

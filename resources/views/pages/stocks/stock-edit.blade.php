@@ -1,14 +1,14 @@
-<?php $page = 'stock-add'; ?>
+<?php $page = 'stock-edit'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
     <div class="page-wrapper">
         <div class="content">
             @component('pages.components.breadcrumb')
                 @slot('title')
-                    {{ __('label.header.stock_add') }}
+                    {{ __('label.header.stock_edit') }}
                 @endslot
                 @slot('li_1')
-                    {{ __('label.header.stock_create') }}
+                    {{ __('label.header.stock_update') }}
                 @endslot
                 @slot('li_2')
                     {{ url('stock') }}
@@ -17,9 +17,10 @@
                     Back to Stock
                 @endslot
             @endcomponent
-            <!-- /add -->
-            <form id="stockAddForm" method="post" action="{{ route('stock-add') }}">
+            <!-- /edit -->
+            <form id="stockEditForm" method="post" action="{{ route('stock-update', $stock->uuid ?? '') }}">
                 @csrf
+                <input type="hidden" name="stock_id" value="{{ $stock->uuid ?? '' }}">
                 <div class="card">
                     <div class="card-body add-product pb-0">
                         <!-- Stock Information Accordion -->
@@ -44,8 +45,9 @@
                                             <div class="col-lg-4 col-sm-6 col-12">
                                                 <div class="mb-3 add-product">
                                                     <label class="form-label">{{ __('common.reference_no') }}</label>
-                                                    <input type="text" class="form-control" id="periode" name="periode"
-                                                        readonly>
+                                                    <input type="hidden" name="periode" value="{{ $stock->periode ?? '' }}">
+                                                    <input type="text" class="form-control" id="periode" name="periode_display"
+                                                        value="{{ $stock->periode ?? '' }}" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-sm-6 col-12">
@@ -53,8 +55,7 @@
                                                     <label class="form-label">{{ __('common.warehouse') }}</label>
                                                     <select class="select2 form-control" id="warehouse_id"
                                                         name="warehouse_id">
-                                                        <option value="" disabled selected>
-                                                            {{ __('label.select.warehouse') }}</option>
+                                                        <option value="" disabled>{{ __('label.select.warehouse') }}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -64,8 +65,18 @@
                                                     <div class="input-groupicon calender-input">
                                                         <i data-feather="calendar" class="info-img"></i>
                                                         <input type="text" class="datetimepicker" id="date"
-                                                            placeholder="Choose">
+                                                            placeholder="Choose" value="{{ $stock->created_at ? \Carbon\Carbon::parse($stock->created_at)->format('d-m-Y H:i') : '' }}">
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6 col-12">
+                                                <div class="mb-3 add-product">
+                                                    <label class="form-label">{{ __('common.status') }}</label>
+                                                    <select class="select2 form-control" id="status" name="status">
+                                                        <option value="2" {{ ($stock->status ?? 2) == 2 ? 'selected' : '' }}>Waiting</option>
+                                                        <option value="0" {{ ($stock->status ?? 2) == 0 ? 'selected' : '' }}>Success</option>
+                                                        <option value="1" {{ ($stock->status ?? 2) == 1 ? 'selected' : '' }}>Rejected</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -209,18 +220,29 @@
                         <div class="col-lg-12">
                             <div class="btn-addproduct mb-4">
                                 <button type="button" class="btn btn-cancel me-2"
-                                    onclick="window.location.href='{{ url('stock') }}'">{{ __('label.cancel') }}</button>
-                                <button type="submit" class="btn btn-submit"
-                                    id="submit-add-button">{{ __('label.saved.stock') }}</button>
+                                    onclick="window.location.href='{{ url('admin/stock') }}'">{{ __('label.cancel') }}</button>
+                                <button type="submit" class="btn btn-submit me-2" name="submit_action" value="save"
+                                    id="submit-save-button">
+                                    <i data-feather="save" class="me-1"></i> {{ __('label.save') }}
+                                </button>
+                                <button type="submit" class="btn btn-primary" name="submit_action" value="accept"
+                                    id="submit-accept-button">
+                                    <i data-feather="check-circle" class="me-1"></i> {{ __('label.accept') }}
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
-            <!-- /add -->
+            <!-- /edit -->
         </div>
     </div>
     <script>
+        // Pre-populated products from the stock being edited
+        const initialProducts = {!! json_encode($stockProducts ?? []) !!};
+        const selectedWarehouse = {!! json_encode($stock->warehouse_id ?? null) !!};
+        const updateUrl = "{{ route('stock-update', $stock->uuid ?? '') }}";
+
         document.addEventListener('DOMContentLoaded', function() {
             let productList = [];
             let warehouses = [];
@@ -273,12 +295,12 @@
                     warehouses = extractDataList(warehouseData);
 
                     warehouseSelect.html(
-                        '<option value="" disabled selected>{{ __('label.select.warehouse') }}</option>'
+                        '<option value="" disabled>{{ __('label.select.warehouse') }}</option>'
                     );
 
                     warehouseSelect.append(
                         warehouses.map(w =>
-                            `<option value="${w.id}">${w.name}</option>`
+                            `<option value="${w.id}" ${selectedWarehouse == w.id ? 'selected' : ''}>${w.name}</option>`
                         ).join('')
                     );
 
@@ -336,6 +358,8 @@
                     console.error('Dropdown initialization error:', error);
                 }
 
+                // Load initial products after dropdowns are ready
+                loadInitialProducts();
                 initProductSelect();
             })();
 
@@ -348,6 +372,23 @@
                 if (response && Array.isArray(response.data)) return response.data;
                 if (Array.isArray(response)) return response;
                 return [];
+            }
+
+            // Load initial products from the stock being edited
+            function loadInitialProducts() {
+                if (initialProducts && initialProducts.length > 0) {
+                    productList = initialProducts.map(p => ({
+                        uuid: p.uuid,
+                        name: p.name,
+                        sku: p.sku,
+                        stock: parseFloat(p.stock) || 0,
+                        basic_price: parseFloat(p.basic_price) || 0,
+                        image_url: p.image_url || '',
+                        count: parseFloat(p.count) || 0,
+                        rack: p.rack || ''
+                    }));
+                    renderTable();
+                }
             }
 
             function initProductSelect() {
@@ -391,9 +432,7 @@
                             console.log('Select2 response:', data);
                             return {
                                 results: data.results || [],
-                                pagination: data.pagination || {
-                                    more: false
-                                }
+                                pagination: data.pagination || { more: false }
                             };
                         },
                         error: function(xhr, status, error) {
@@ -468,6 +507,7 @@
                 productList.forEach(product => {
                     const basicPrice = parseFloat(product.basic_price) || 0;
                     const stockQty = parseFloat(product.stock) || 0;
+                    const countQty = parseFloat(product.count) || 0;
                     const buyPriceTotal = basicPrice * stockQty;
 
                     const row = `
@@ -485,14 +525,14 @@
                         <td class="text-center">${clearDecimal(stockQty)}</td>
                         <td class="text-center" style="width: 120px;">
                             <input type="text" class="form-control form-control-sm text-center quantity-input"
-                                   id="input-${product.sku}" value="${clearDecimal(stockQty)}">
+                                   id="input-${product.sku}" value="${clearDecimal(countQty)}">
                         </td>
                         <td class="text-end">${formatRupiah(buyPriceTotal)}</td>
-                        <td class="text-end" id="total-${product.sku}">0,00</td>
+                        <td class="text-end" id="total-${product.sku}">${formatRupiah((countQty - stockQty) * basicPrice)}</td>
                         <td style="width: 150px;">
                             <select class="select2 form-control form-control-sm rack-select" id="rack-${product.sku}">
                                 <option value="">Select Rack</option>
-                                ${racks.map(rack => `<option value="${rack.id}">${rack.name}</option>`).join('')}
+                                ${racks.map(rack => `<option value="${rack.id}" ${product.rack == rack.id ? 'selected' : ''}>${rack.name}</option>`).join('')}
                             </select>
                         </td>
                         <td class="text-center">
@@ -532,12 +572,27 @@
 
                 if (product) {
                     // Update total difference
-                    const newTotal = (newCount * product.basic_price) - (product.stock * product
-                        .basic_price);
+                    const diff = newCount - parseFloat(product.stock);
+                    const newTotal = diff * product.basic_price;
                     product.count = newCount;
                     $(`#total-${sku}`).text(formatRupiah(newTotal));
+                    updateHiddenInput();
                 }
             });
+
+            // Rack change handler
+            $('#stock-table-body').on('change', '.rack-select', function() {
+                const sku = $(this).attr('id').split('-')[1];
+                const product = productList.find(p => p.sku === sku);
+                if (product) {
+                    product.rack = $(this).val();
+                    updateHiddenInput();
+                }
+            });
+
+            function updateHiddenInput() {
+                document.getElementById('products').value = JSON.stringify(productList);
+            }
 
             // Category change handler - filter subcategories and products
             $('#category_id').on('change', function() {
@@ -567,20 +622,6 @@
                 selectedProductData = null;
                 $('#product_id').val(null).trigger('change');
             }
-
-            // Warehouse change - generate reference number
-            $('#warehouse_id').on('change', function() {
-                const currentDate = new Date();
-                const formattedDate = formatDate(currentDate);
-                const warehouseCode = warehouses.find(war => war.id == $('#warehouse_id').val())?.code ||
-                    'common';
-                const unixTimestamp = Math.floor(currentDate.getTime() / 1000);
-                const randomNumber = generateRandomNumber();
-                const periode = `${warehouseCode}-${unixTimestamp}${randomNumber}`;
-
-                $('#date').val(formattedDate);
-                $('#periode').val(periode);
-            });
 
             // Add item button click
             $('#add-item-btn').on('click', function() {
@@ -618,17 +659,28 @@
             });
 
             // Form submit handler
-            document.getElementById('stockAddForm').addEventListener('submit', function(event) {
+            document.getElementById('stockEditForm').addEventListener('submit', function(event) {
                 event.preventDefault();
 
                 const form = this;
                 const formData = new FormData(form);
-                const submitButton = document.getElementById('submit-add-button');
+                const submitAction = formData.get('submit_action');
+                const submitButton = submitAction === 'accept' ?
+                    document.getElementById('submit-accept-button') :
+                    document.getElementById('submit-save-button');
+
                 submitButton.disabled = true;
+
+                // Set the status based on action
+                if (submitAction === 'accept') {
+                    formData.set('status', '0'); // Success/Approved
+                } else {
+                    formData.set('status', '2'); // Waiting/Pending
+                }
 
                 Swal.fire({
                     title: "Processing...",
-                    text: "Please wait.",
+                    text: submitAction === 'accept' ? "Accepting stock..." : "Saving stock...",
                     icon: "info",
                     showConfirmButton: false,
                     allowOutsideClick: false
@@ -661,7 +713,7 @@
                     return;
                 }
 
-                fetch(form.action, {
+                fetch(updateUrl, {
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value

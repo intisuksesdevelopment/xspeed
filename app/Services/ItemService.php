@@ -245,6 +245,14 @@ class ItemService
         $page = (int) $request->input('page', 1);
         $limit = 20;
 
+        Log::debug('getForSelect called', [
+            'search' => $search,
+            'categoryId' => $categoryId,
+            'subcategoryId' => $subcategoryId,
+            'brandId' => $brandId,
+            'page' => $page,
+        ]);
+
         $query = Item::select(['uuid', 'name', 'sku', 'stock', 'basic_price', 'image_url', 'category_id', 'sub_category_id', 'brand_id'])
             ->where('status', 0);
 
@@ -288,6 +296,11 @@ class ItemService
                 'brand_id' => $item->brand_id,
             ];
         });
+
+        Log::debug('getForSelect results', [
+            'count' => count($results),
+            'hasMorePages' => $items->hasMorePages(),
+        ]);
 
         return response()->json([
             'results' => $results,

@@ -102,6 +102,8 @@ Route::middleware(['auth', LocalizationMiddleware::class])->prefix('admin')->gro
         Route::get('/', [StockController::class, 'index'])->name('stock-list');
         Route::get('/add', [StockController::class, 'addForm'])->name('stock-add-form');
         Route::post('/add', [StockController::class, 'add'])->name('stock-add');
+        Route::get('/edit/{id}', [StockController::class, 'editForm'])->name('stock-edit-form');
+        Route::post('/update/{id}', [StockController::class, 'update'])->name('stock-update');
         Route::delete('/delete/{id}', [StockController::class, 'delete'])->name('stock-delete');
     });
 

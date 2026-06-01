@@ -101,7 +101,7 @@ class ApiController extends Controller
     {
         // Support Select2 AJAX format with search and filters
         if ($request->ajax() || $request->wantsJson() || $request->has('search') || $request->has('page')) {
-            return response()->json(ItemService::getForSelect($request));
+            return ItemService::getForSelect($request);
         }
         return response()->json([
             'success' => true,

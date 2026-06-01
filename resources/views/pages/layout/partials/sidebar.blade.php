@@ -29,11 +29,11 @@
                             <a href="{{ route('product-list') }}"><i
                                     data-feather="box"></i><span>{{ __('messages.sb.products') }}</span></a>
                         </li>
-                        <li
+                        {{-- <li
                             class="{{ Request::is(ltrim(parse_url(route('product-add'), PHP_URL_PATH), '/')) ? 'active' : '' }}">
                             <a href="{{ route('product-add') }}"><i
                                     data-feather="plus-square"></i><span>{{ __('messages.sb.product_create') }}</span></a>
-                        </li>
+                        </li> --}}
                         {{-- <li class="{{ Request::is('expired-products') ? 'active' : '' }}"><a
                                 href="{{ url('expired-products') }}"><i data-feather="codesandbox"></i><span>Expired
                                     Products</span></a></li>

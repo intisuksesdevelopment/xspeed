@@ -44,6 +44,37 @@ class StockController extends Controller
         return StockService::delete($id);
     }
 
+    public function editForm($id)
+    {
+        $stock = \App\Models\Stock::with(['stockData.item'])->where('uuid', $id)->firstOrFail();
+
+        // Transform stockData to include product info
+        $stockProducts = [];
+        foreach ($stock->stockData as $data) {
+            $item = $data->item;
+            $stockProducts[] = [
+                'uuid' => $item ? $item->uuid : '',
+                'name' => $item ? $item->name : '',
+                'sku' => $item ? $item->sku : '',
+                'stock' => $data->item_stock,
+                'count' => $data->qty,
+                'basic_price' => $data->item_price,
+                'image_url' => $item && $item->images && $item->images->first() ? asset('uploads/' . $item->images->first()->url) : asset('assets/img/product/noimg.png'),
+                'rack' => $data->rack
+            ];
+        }
+
+        $data['stock'] = $stock;
+        $data['stockProducts'] = $stockProducts;
+
+        return view('pages.stocks.stock-edit', $data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        return StockService::updateStock($request, $id);
+    }
+
     // API Methods for dropdowns
     public function getWarehouses(Request $request)
     {

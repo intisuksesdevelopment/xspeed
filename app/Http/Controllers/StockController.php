@@ -72,6 +72,13 @@ class StockController extends Controller
 
     public function update(Request $request, $id)
     {
+        $allData = $request->all();
+        \Log::info('Stock update called', [
+            'id' => $id,
+            'status' => $allData['status'] ?? 'NOT SET',
+            'products' => $allData['products'] ?? 'NOT SET',
+            'warehouse_id' => $allData['warehouse_id'] ?? 'NOT SET'
+        ]);
         return StockService::updateStock($request, $id);
     }
 

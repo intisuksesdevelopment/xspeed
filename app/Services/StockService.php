@@ -188,6 +188,7 @@ class StockService
     {
         try {
             $data = $request->all();
+            \Log::info('StockService updateStock', ['id' => $id, 'status' => $data['status'] ?? 'not set', 'products_count' => count(json_decode($data['products'] ?? '[]', true))]);
 
             // Validate required warehouse_id
             if (empty($data['warehouse_id'])) {
@@ -246,9 +247,17 @@ class StockService
             $stock->updated_by = auth()->user()->id ?? null;
             $stock->save();
 
+            \Log::info('Stock updated, status now', ['stock_status' => $stock->status]);
+
             // Delete old stock data and create new ones
             StockData::where('stock_id', $stock->id)->delete();
             self::saveAllStockData($products, $stock->id);
+
+            // If accepting (status = 0), update actual item stock quantities
+            if ($stock->status == 0) {
+                \Log::info('Accepting stock, applying changes');
+                self::applyStockChanges($products);
+            }
 
             return response()->json(['success' => true, 'message' => 'Stock updated successfully!']);
         } catch (NotFoundException $e) {
@@ -259,6 +268,32 @@ class StockService
             Log::error($e->getMessage());
 
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
+        }
+    }
+
+    /**
+     * Apply stock changes to items when stock opname is accepted
+     */
+    private static function applyStockChanges($products)
+    {
+        \Log::info('applyStockChanges called with', ['count' => count($products)]);
+        foreach ($products as $index => $product) {
+            \Log::info("Processing product $index", $product);
+            if (empty($product['uuid'])) {
+                \Log::info("Skipping - no uuid");
+                continue;
+            }
+
+            $item = \App\Models\Item::where('uuid', $product['uuid'])->first();
+            if ($item) {
+                \Log::info("Found item", ['uuid' => $item->uuid, 'name' => $item->name, 'current_stock' => $item->stock]);
+                // Update item stock with the counted quantity
+                $item->stock = (float) ($product['count'] ?? $item->stock);
+                $item->save();
+                \Log::info("Item stock updated", ['new_stock' => $item->stock]);
+            } else {
+                \Log::info("Item not found", ['uuid' => $product['uuid']]);
+            }
         }
     }
 

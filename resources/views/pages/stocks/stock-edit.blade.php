@@ -212,9 +212,7 @@
                         </div>
 
                         <!-- Hidden Input -->
-                        <div class="d-none">
-                            <input type="text" id="products" name="products" class="form-control">
-                        </div>
+                        <input type="hidden" id="products" name="products" class="form-control">
 
                         <!-- Action Buttons -->
                         <div class="col-lg-12">

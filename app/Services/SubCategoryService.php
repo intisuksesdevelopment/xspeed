@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Exceptions\AlreadyExistException;
 use Illuminate\Support\Facades\Log;
 use App\Exceptions\NotFoundException;
+use Illuminate\Validation\ValidationException;
 
 class SubCategoryService
 {
@@ -116,8 +117,23 @@ class SubCategoryService
     public static function save(Request $request)
     {
         try {
-            $data = $request->all();
+            $data = $request->except(['image_upload']);
             $data['status'] = $request->has('status') ? 0 : 1;
+
+            // Handle image upload
+            if ($request->hasFile('image_upload')) {
+                $file = $request->file('image_upload');
+                $filename = 'subcategory_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+                $uploadDir = public_path('subcategories');
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+
+                $file->move($uploadDir, $filename);
+                $data['image_url'] = '/subcategories/' . $filename;
+            }
+
             $subcategory = SubCategory::whereRaw('LOWER(code) LIKE ?', ['%'.strtolower($data['code']).'%'])->get();
 
             if ($subcategory->isNotEmpty()) {
@@ -135,18 +151,49 @@ class SubCategoryService
             Log::error($e->getMessage());
 
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            $firstError = collect($errors)->flatten()->first();
+            Log::error('Validation error: '.$firstError);
+
+            return response()->json(['success' => false, 'message' => $firstError ?: 'Validation failed']);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
-            return response()->json(['success' => false, 'message' => 'An error occurred. Please try again later.']);
+            return response()->json(['success' => false, 'message' => $e->getMessage() ?: 'An error occurred. Please try again later.']);
         }
     }
 
     public static function update(Request $request)
     {
         try {
-            $data = $request->all();
-            $data['status'] = $request->has('status') ? 0 : 1;
+            $data = $request->except(['image_upload']);
+            if (!isset($data['status'])) {
+                $data['status'] = $request->has('status') ? 0 : 1;
+            }
+
+            // Handle image upload
+            if ($request->hasFile('image_upload')) {
+                $file = $request->file('image_upload');
+                $filename = 'subcategory_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+                $uploadDir = public_path('subcategories');
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+
+                // Delete old image if exists
+                $subcategory = SubCategory::find($data['id']);
+                if ($subcategory && $subcategory->image_url) {
+                    $oldImagePath = public_path($subcategory->image_url);
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                }
+
+                $file->move($uploadDir, $filename);
+                $data['image_url'] = '/subcategories/' . $filename;
+            }
 
             $subcategory = SubCategory::find($data['id']);
             if (! $subcategory) {
@@ -167,6 +214,12 @@ class SubCategoryService
                 'success' => false,
                 'message' => 'SubCategory not found: '.$e->getMessage(),
             ], 404);
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            $firstError = collect($errors)->flatten()->first();
+            Log::error('Validation error: '.$firstError);
+
+            return response()->json(['success' => false, 'message' => $firstError ?: 'Validation failed']);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 

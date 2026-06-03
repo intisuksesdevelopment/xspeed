@@ -10,7 +10,8 @@
             background-color: #f8f9fa;
         }
     </style>
-    <div class="page-wrapper" x-data="subCategoryTable()" x-cloak>
+    <div class="page-wrapper" x-data="subCategoryTable()" x-cloak
+         @refresh-subcategories.window="fetchSubCategories()">
         <div class="content">
             @component('pages.components.breadcrumb')
                 @slot('title')
@@ -373,10 +374,24 @@
                     document.getElementById('edit-code').value = item.code;
                     document.getElementById('edit-name').value = item.name;
                     document.getElementById('edit-description').value = item.description || '';
-                    document.getElementById('edit-image-url').value = item.image_url || '';
                     document.getElementById('edit-category-id').value = item.category_id || '';
                     const statusCheckbox = document.getElementById('edit-status');
                     if (statusCheckbox) statusCheckbox.checked = (item.status == 0);
+
+                    // Populate image preview
+                    const editImageUrl = document.getElementById('edit-subcategory-image-url');
+                    const editPreview = document.getElementById('edit-subcategory-preview');
+                    const editPlaceholder = document.getElementById('edit-subcategory-placeholder');
+                    if (editImageUrl) editImageUrl.value = item.image_url || '';
+                    if (item.image_url) {
+                        editPreview.src = item.image_url;
+                        editPreview.style.display = 'block';
+                        if (editPlaceholder) editPlaceholder.style.display = 'none';
+                    } else {
+                        editPreview.src = '';
+                        editPreview.style.display = 'none';
+                        if (editPlaceholder) editPlaceholder.style.display = 'flex';
+                    }
                 },
 
                 confirmDelete(item) {
@@ -436,5 +451,116 @@
                 }
             }
         };
+
+        // Global function to refresh subcategory table
+        window.refreshSubCategoryTable = function() {
+            var wrapper = document.querySelector('.page-wrapper');
+            if (wrapper && wrapper.__x) {
+                wrapper.__x.$data.fetchSubCategories();
+            } else {
+                window.dispatchEvent(new CustomEvent('refresh-subcategories'));
+            }
+        };
+
+        // Form handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Override submitForm for add form
+            const subCategoryAddForm = document.getElementById('subCategoryAddForm');
+            if (subCategoryAddForm) {
+                subCategoryAddForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    handleSubCategoryFormSubmit(this, 'submit-add-button', 'status-add');
+                });
+            }
+
+            // Override submitForm for edit form
+            const subCategoryEditForm = document.getElementById('subCategoryEditForm');
+            if (subCategoryEditForm) {
+                subCategoryEditForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    handleSubCategoryFormSubmit(this, 'submit-edit-button', 'status-edit');
+                });
+            }
+        });
+
+        // Global image preview function
+        function previewImage(input, prefix) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                const preview = document.getElementById(prefix + '-preview');
+                const placeholder = document.getElementById(prefix + '-placeholder');
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    if (placeholder) placeholder.style.display = 'none';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function handleSubCategoryFormSubmit(form, submitButtonId, statusCheckboxId) {
+            let formData = new FormData(form);
+            let submitButton = document.getElementById(submitButtonId);
+            submitButton.disabled = true;
+
+            if (statusCheckboxId) {
+                const checkbox = document.getElementById(statusCheckboxId);
+                checkbox.value = checkbox.checked ? 0 : 1;
+            }
+
+            Swal.fire({
+                title: "Processing...",
+                text: "Please wait.",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+
+            fetch(form.action, {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+                },
+                body: formData,
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                Swal.close();
+                submitButton.disabled = false;
+
+                const modalId = data.success ? "success-alert-modal" : "danger-alert-modal";
+                const messageId = data.success ? "success-message" : "danger-message";
+                let modalMessage = data.success ? data.message : "Submission failed";
+
+                if (!data.success && data.message) {
+                    if (typeof data.message === "object") {
+                        modalMessage = Object.values(data.message).flat().join(", ");
+                    } else {
+                        modalMessage = data.message;
+                    }
+                }
+
+                document.getElementById(messageId).textContent = modalMessage;
+                new bootstrap.Modal(document.getElementById(modalId)).show();
+
+                if (data.success) {
+                    setTimeout(() => {
+                        // Refresh table first, then close modal
+                        window.refreshSubCategoryTable();
+                        var closeBtn = form.querySelector('[data-bs-dismiss="modal"][name="cancel-button"]');
+                        if (closeBtn) closeBtn.click();
+                    }, 1000);
+                }
+            })
+            .catch((error) => {
+                console.error("Submission failed:", error);
+                Swal.close();
+                submitButton.disabled = false;
+                document.getElementById("danger-message").textContent = error.message || "An error occurred";
+                new bootstrap.Modal(document.getElementById("danger-alert-modal")).show();
+            });
+        }
     </script>
 @endsection

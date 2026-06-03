@@ -603,7 +603,7 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="add-category-id" class="form-label">Parent Category</label>
-                                    <select id="add-category-id" name="category-id" class="select">
+                                    <select id="add-category-id" name="category_id" class="select">
                                     </select>
                                 </div>
                                 <div class="mb-3">
@@ -616,12 +616,12 @@
                                 </div>
                                 <div class="mb-3 input-blocks">
                                     <label for="description" class="form-label">Description</label>
-                                    <textarea id="description" name="description" class="form-control">Type Description</textarea>
+                                    <textarea id="description" name="description" class="form-control"></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="image-url" class="form-label">Icon</label>
+                                    <label for="image-url" class="form-label">Icon URL</label>
                                     <input id="image-url" name="image_url" type="text" class="form-control"
-                                        value="CT001">
+                                        placeholder="https://example.com/icon.png">
                                 </div>
                                 <div class="mb-0">
                                     <div
@@ -671,7 +671,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="edit-category-id" class="form-label">Parent Category</label>
-                                    <select id="edit-category-id" name="category-id" class="select">
+                                    <select id="edit-category-id" name="category_id" class="select">
                                         <!-- Options will be populated by JavaScript -->
                                     </select>
                                 </div>
@@ -685,12 +685,12 @@
                                 </div>
                                 <div class="mb-3 input-blocks">
                                     <label for="edit-description" class="form-label">Description</label>
-                                    <textarea id="edit-description" name="description" class="form-control">Type Description</textarea>
+                                    <textarea id="edit-description" name="description" class="form-control"></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="edit-image-url" class="form-label">Icon</label>
+                                    <label for="edit-image-url" class="form-label">Icon URL</label>
                                     <input id="edit-image-url" name="image_url" type="text" class="form-control"
-                                        value="CT001">
+                                        placeholder="https://example.com/icon.png">
                                 </div>
                                 <div class="mb-0">
                                     <div
@@ -1154,8 +1154,8 @@
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
-                                            <input type="checkbox" id="edit-status" name="status" class="check"
-                                                checked="">
+                                            <input type="checkbox" id="edit-status" name="status"
+                                                class="check" checked="">
                                             <label for="edit-status" class="checktoggle"></label>
                                         </div>
                                     </div>
@@ -14476,7 +14476,8 @@
                             <div class="page-title">
                                 <h4>Configure Google Analytics</h4>
                             </div>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>

@@ -30,7 +30,7 @@ class SubCategory extends Model
             'name' => 'required|string|max:255',
             'code' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image_url' => 'nullable|url',
+            'image_url' => 'nullable|string',
             'status' => 'required|integer|in:0,1',
         ]);
         if ($validator->fails()) {

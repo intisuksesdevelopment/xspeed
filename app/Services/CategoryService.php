@@ -115,13 +115,29 @@ class CategoryService
     public static function save(Request $request)
     {
         try {
-            $data = $request->all();
+            $data = $request->except(['image_upload']);
             $data['status'] = $request->has('status') ? 0 : 1;
-            $category = Category::whereRaw('LOWER(code) LIKE ?', ['%'.strtolower($data['code']).'%'])->get();
 
-            if ($category->isNotEmpty()) {
-                $firstCategory = $category->first();
-                throw new AlreadyExistException("code : {$firstCategory->code}");
+            // Handle image upload
+            if ($request->hasFile('image_upload')) {
+                $file = $request->file('image_upload');
+                $filename = 'category_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+                $uploadDir = public_path('categories');
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+
+                $file->move($uploadDir, $filename);
+                $data['image_url'] = '/categories/' . $filename;
+            }
+
+            $category = Category::whereRaw('LOWER(code) LIKE ?', ['%'.strtolower($data['code']).'%'])
+                ->where('status', 0)
+                ->first();
+
+            if ($category) {
+                throw new AlreadyExistException("code : {$category->code}");
             }
 
             $category = new Category;
@@ -134,6 +150,12 @@ class CategoryService
             Log::error($e->getMessage());
 
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $errors = $e->errors();
+            $firstError = collect($errors)->flatten()->first();
+            Log::error('Validation error: '.$firstError);
+
+            return response()->json(['success' => false, 'message' => $firstError ?: 'Validation failed']);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
@@ -141,13 +163,38 @@ class CategoryService
         }
     }
 
-    public static function update(Request $request, string $id)
+    public static function update(Request $request)
     {
         try {
-            $data = $request->all();
-            $data['status'] = $request->has('status') ? 0 : 1;
+            $data = $request->except(['image_upload']);
+            if (!isset($data['status'])) {
+                $data['status'] = $request->has('status') ? 0 : 1;
+            }
 
-            $category = Category::find($id);
+            // Handle image upload
+            if ($request->hasFile('image_upload')) {
+                $file = $request->file('image_upload');
+                $filename = 'category_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+                $uploadDir = public_path('categories');
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+
+                // Delete old image if exists
+                $category = Category::find($data['id']);
+                if ($category && $category->image_url) {
+                    $oldImagePath = public_path($category->image_url);
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                }
+
+                $file->move($uploadDir, $filename);
+                $data['image_url'] = '/categories/' . $filename;
+            }
+
+            $category = Category::find($data['id']);
             if (! $category) {
                 throw new NotFoundHttpException('code : '.$data['code']);
             }
@@ -166,6 +213,12 @@ class CategoryService
                 'success' => false,
                 'message' => 'Category not found: '.$e->getMessage(),
             ], 404);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $errors = $e->errors();
+            $firstError = collect($errors)->flatten()->first();
+            Log::error('Validation error: '.$firstError);
+
+            return response()->json(['success' => false, 'message' => $firstError ?: 'Validation failed']);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 

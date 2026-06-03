@@ -9,7 +9,8 @@
             background-color: #f8f9fa;
         }
     </style>
-    <div class="page-wrapper" x-data="categoryTable()" x-cloak>
+    <div class="page-wrapper" x-data="categoryTable()" x-cloak
+         @refresh-categories.window="fetchCategories()">
         <div class="content">
             @component('pages.components.breadcrumb')
                 @slot('title')
@@ -328,6 +329,21 @@
                     document.getElementById('status-edit').value = item.status;
                     const statusCheckbox = document.getElementById('status-edit-modal');
                     if (statusCheckbox) statusCheckbox.checked = (item.status == 0);
+
+                    // Populate image preview
+                    const editPreview = document.getElementById('edit-category-preview');
+                    const editPlaceholder = document.getElementById('edit-category-placeholder');
+                    const editImageUrl = document.getElementById('edit-category-image-url');
+                    if (editImageUrl) editImageUrl.value = item.image_url || '';
+                    if (item.image_url) {
+                        editPreview.src = item.image_url;
+                        editPreview.style.display = 'block';
+                        if (editPlaceholder) editPlaceholder.style.display = 'none';
+                    } else {
+                        editPreview.src = '';
+                        editPreview.style.display = 'none';
+                        if (editPlaceholder) editPlaceholder.style.display = 'flex';
+                    }
                 },
 
                 confirmDelete(item) {
@@ -364,30 +380,147 @@
                             }
                         });
 
-                        // Only remove if delete was successful
-                        if (res.ok) {
-                            this.items = this.items.filter(i => i.id !== id);
-                            this.total--;
+                        let data = await res.json();
+
+                        if (!res.ok || !data.success) {
+                            this.fetchCategories();
+                            document.getElementById('danger-message').textContent = data.message || 'Delete failed';
+                            new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
                         } else {
-                            await this.fetchCategories();
-                            alert('Failed to delete category');
+                            document.getElementById('success-message').textContent = data.message || 'Deleted successfully';
+                            new bootstrap.Modal(document.getElementById('success-alert-modal')).show();
+                            setTimeout(() => {
+                                window.refreshCategoryTable();
+                            }, 1000);
                         }
                     } catch (e) {
                         console.error('Delete error:', e);
-                        await this.fetchCategories();
-                        alert('Failed to delete category');
+                        this.fetchCategories();
+                        document.getElementById('danger-message').textContent = 'An error occurred while deleting';
+                        new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
                     } finally {
                         this.isDeleting = false;
                     }
 
                     this.itemToDelete = null;
                 },
+
+                refreshList() {
+                    this.fetchCategories();
+                }
             }
         }
 
+        // Global function to refresh category table — directly accesses Alpine component
+        window.refreshCategoryTable = function() {
+            var wrapper = document.querySelector('.page-wrapper');
+            if (wrapper && wrapper.__x) {
+                wrapper.__x.$data.fetchCategories();
+            } else {
+                // Fallback using custom event
+                window.dispatchEvent(new CustomEvent('refresh-categories'));
+            }
+        };
+
+        // Form handlers
         document.addEventListener('DOMContentLoaded', function() {
-            submitForm('categoryAddForm', 'submit-add-button', 'status-add', null);
-            submitForm('categoryEditForm', 'submit-edit-button', 'status-edit', null);
+            // Override submitForm for add form
+            const categoryAddForm = document.getElementById('categoryAddForm');
+            if (categoryAddForm) {
+                categoryAddForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    handleCategoryFormSubmit(this, 'submit-add-button', 'status-add');
+                });
+            }
+
+            // Override submitForm for edit form
+            const categoryEditForm = document.getElementById('categoryEditForm');
+            if (categoryEditForm) {
+                categoryEditForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    handleCategoryFormSubmit(this, 'submit-edit-button', 'status-edit');
+                });
+            }
         });
+
+        // Global image preview function for category/subcategory
+        function previewImage(input, prefix) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                const preview = document.getElementById(prefix + '-preview');
+                const placeholder = document.getElementById(prefix + '-placeholder');
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    if (placeholder) placeholder.style.display = 'none';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function handleCategoryFormSubmit(form, submitButtonId, statusCheckboxId) {
+            let formData = new FormData(form);
+            let submitButton = document.getElementById(submitButtonId);
+            submitButton.disabled = true;
+
+            if (statusCheckboxId) {
+                const checkbox = document.getElementById(statusCheckboxId);
+                checkbox.value = checkbox.checked ? 0 : 1;
+            }
+
+            Swal.fire({
+                title: "Processing...",
+                text: "Please wait.",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+
+            fetch(form.action, {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+                },
+                body: formData,
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                Swal.close();
+                submitButton.disabled = false;
+
+                const modalId = data.success ? "success-alert-modal" : "danger-alert-modal";
+                const messageId = data.success ? "success-message" : "danger-message";
+                let modalMessage = data.success ? data.message : "Submission failed";
+
+                if (!data.success && data.message) {
+                    if (typeof data.message === "object") {
+                        modalMessage = Object.values(data.message).flat().join(", ");
+                    } else {
+                        modalMessage = data.message;
+                    }
+                }
+
+                document.getElementById(messageId).textContent = modalMessage;
+                new bootstrap.Modal(document.getElementById(modalId)).show();
+
+                if (data.success) {
+                    setTimeout(() => {
+                        // Refresh table first, then close modal
+                        window.refreshCategoryTable();
+                        var closeBtn = form.querySelector('[data-bs-dismiss="modal"][name="cancel-button"]');
+                        if (closeBtn) closeBtn.click();
+                    }, 1000);
+                }
+            })
+            .catch((error) => {
+                console.error("Submission failed:", error);
+                Swal.close();
+                submitButton.disabled = false;
+                document.getElementById("danger-message").textContent = error.message || "An error occurred";
+                new bootstrap.Modal(document.getElementById("danger-alert-modal")).show();
+            });
+        }
     </script>
 @endsection

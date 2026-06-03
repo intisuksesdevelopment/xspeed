@@ -276,25 +276,29 @@ class StockService
      */
     private static function applyStockChanges($products)
     {
-        \Log::info('applyStockChanges called with', ['count' => count($products)]);
+        \Log::info('applyStockChanges START', ['count' => count($products)]);
+        $updatedCount = 0;
         foreach ($products as $index => $product) {
-            \Log::info("Processing product $index", $product);
+            \Log::info("Product $index", ['uuid' => $product['uuid'] ?? 'MISSING', 'name' => $product['name'] ?? '', 'count' => $product['count'] ?? 0]);
             if (empty($product['uuid'])) {
                 \Log::info("Skipping - no uuid");
                 continue;
             }
 
             $item = \App\Models\Item::where('uuid', $product['uuid'])->first();
+            \Log::info("Item lookup result", ['found' => $item ? 'YES' : 'NO', 'item_id' => $item ? $item->id : null, 'item_uuid' => $item ? $item->uuid : null]);
             if ($item) {
-                \Log::info("Found item", ['uuid' => $item->uuid, 'name' => $item->name, 'current_stock' => $item->stock]);
-                // Update item stock with the counted quantity
-                $item->stock = (float) ($product['count'] ?? $item->stock);
+                $oldStock = $item->stock;
+                $newStock = (float) ($product['count'] ?? $item->stock);
+                $item->stock = $newStock;
                 $item->save();
-                \Log::info("Item stock updated", ['new_stock' => $item->stock]);
+                $updatedCount++;
+                \Log::info("Item stock UPDATED", ['item' => $item->name, 'old_stock' => $oldStock, 'new_stock' => $newStock]);
             } else {
-                \Log::info("Item not found", ['uuid' => $product['uuid']]);
+                \Log::info("Item NOT FOUND for uuid: " . $product['uuid']);
             }
         }
+        \Log::info('applyStockChanges END', ['updated_count' => $updatedCount]);
     }
 
     public static function delete($id)

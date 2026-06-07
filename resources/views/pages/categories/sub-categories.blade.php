@@ -9,9 +9,56 @@
         .fade-row:hover {
             background-color: #f8f9fa;
         }
+
+        .profile-pic-upload .profile-pic {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border: 2px dashed #d1d1d1;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f8f8;
+            overflow: hidden;
+        }
+        .profile-pic-upload .profile-pic img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-pic-upload .profile-pic span {
+            color: #888;
+            font-size: 12px;
+            text-align: center;
+        }
+        .profile-pic-upload .profile-pic .plus-down-add {
+            display: block;
+            margin: 0 auto 5px;
+        }
+        .profile-pic-upload .profile-pic:hover {
+            border-color: #0d6efd;
+            background: #f0f0f0;
+        }
+        #imagePreviewModal .modal-content {
+            background: rgba(0,0,0,0.9);
+        }
+        #imagePreviewModal .modal-header,
+        #imagePreviewModal .modal-body {
+            background: transparent;
+            color: white;
+        }
+        #imagePreviewModal .btn-close {
+            filter: invert(1);
+        }
+        #imagePreviewModal .modal-header {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
     </style>
-    <div class="page-wrapper" x-data="subCategoryTable()" x-cloak
-         @refresh-subcategories.window="fetchSubCategories()">
+    <div class="page-wrapper" x-data="subCategoryTable()" x-cloak @refresh-subcategories.window="fetchSubCategories()">
         <div class="content">
             @component('pages.components.breadcrumb')
                 @slot('title')
@@ -104,15 +151,16 @@
                                         </label>
                                     </th>
                                     <th>{{ __('common.name') }}</th>
-                                    <th>{{ __('common.parentcategory') }}</th>
+                                    <th>{{ __('common.category') }}</th>
                                     <th>{{ __('common.code') }}</th>
+                                    <th>Image</th>
                                     <th class="no-sort"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- Empty state -->
                                 <tr x-show="!loading && items.length === 0">
-                                    <td colspan="5" class="text-center py-3">No data found</td>
+                                    <td colspan="6" class="text-center py-3">No data found</td>
                                 </tr>
                                 <!-- Data rows -->
                                 <template x-for="item in items" :key="item.id">
@@ -126,6 +174,9 @@
                                         <td x-text="item.name"></td>
                                         <td x-text="item.category?.name ?? '-'"></td>
                                         <td x-text="item.code"></td>
+                                        <td>
+                                            <img :src="item.image_url || '/assets/img/icons/brand-icon-01.svg'" alt="" class="img-fluid rounded" style="width: 40px; height: 40px; object-fit: cover;">
+                                        </td>
                                         <td class="action-table-data">
                                             <div class="edit-delete-action">
                                                 <a class="me-2 p-2" href="#" data-bs-toggle="modal"
@@ -195,6 +246,23 @@
                                 <i data-feather="trash-2" class="feather-14"></i> Delete
                             </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Preview Modal -->
+        <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <div class="page-title">
+                            <h4>Image Preview</h4>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img id="preview-modal-image" src="" alt="Image Preview" class="img-fluid" style="max-height: 70vh; object-fit: contain;">
                     </div>
                 </div>
             </div>
@@ -378,20 +446,8 @@
                     const statusCheckbox = document.getElementById('edit-status');
                     if (statusCheckbox) statusCheckbox.checked = (item.status == 0);
 
-                    // Populate image preview
-                    const editImageUrl = document.getElementById('edit-subcategory-image-url');
-                    const editPreview = document.getElementById('edit-subcategory-preview');
-                    const editPlaceholder = document.getElementById('edit-subcategory-placeholder');
-                    if (editImageUrl) editImageUrl.value = item.image_url || '';
-                    if (item.image_url) {
-                        editPreview.src = item.image_url;
-                        editPreview.style.display = 'block';
-                        if (editPlaceholder) editPlaceholder.style.display = 'none';
-                    } else {
-                        editPreview.src = '';
-                        editPreview.style.display = 'none';
-                        if (editPlaceholder) editPlaceholder.style.display = 'flex';
-                    }
+                    // Initialize image preview like brand pattern
+                    initEditSubCategoryImage(item.image_url);
                 },
 
                 confirmDelete(item) {
@@ -407,6 +463,7 @@
                     if (!this.itemToDelete || this.isDeleting) return;
 
                     this.isDeleting = true;
+                    this.loading = true;
                     const item = this.itemToDelete;
                     const id = item.id;
 
@@ -427,12 +484,10 @@
                             }
                         });
 
-                        // Only remove if delete was successful
-                        if (res.ok) {
-                            this.items = this.items.filter(i => i.id !== id);
-                            this.total--;
-                        } else {
-                            this.fetchSubCategories();
+                        // Always refresh from server after delete
+                        this.fetchSubCategories();
+
+                        if (!res.ok) {
                             alert('Failed to delete category');
                         }
                     } catch (e) {
@@ -462,6 +517,44 @@
             }
         };
 
+        // Initialize subcategory image preview when edit modal opens
+        function initEditSubCategoryImage(imageUrl) {
+            const preview = document.getElementById('edit-subcategory-preview');
+            const placeholder = document.getElementById('edit-subcategory-placeholder');
+            const currentImageUrl = document.getElementById('edit-subcategory-current-image-url');
+
+            if (currentImageUrl) currentImageUrl.value = imageUrl || '';
+
+            if (imageUrl && imageUrl.trim() !== '') {
+                preview.src = imageUrl;
+                preview.style.display = 'block';
+                if (placeholder) placeholder.style.display = 'none';
+            } else {
+                preview.src = '';
+                preview.style.display = 'none';
+                if (placeholder) placeholder.style.display = 'flex';
+            }
+        }
+
+        // Open larger image preview
+        function openImagePreview(prefix) {
+            const preview = document.getElementById(prefix + '-preview');
+            const currentImageUrl = document.getElementById(prefix.replace('edit-', 'edit-') + '-current-image-url');
+
+            let imageSrc = preview.src;
+
+            // If preview is hidden/not set, try current image URL
+            if (!imageSrc || imageSrc === '' || imageSrc.includes('data:,')) {
+                if (currentImageUrl) imageSrc = currentImageUrl.value;
+            }
+
+            if (imageSrc && imageSrc.trim() !== '' && !imageSrc.includes('data:,')) {
+                document.getElementById('preview-modal-image').src = imageSrc;
+                const modal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
+                modal.show();
+            }
+        }
+
         // Form handlers
         document.addEventListener('DOMContentLoaded', function() {
             // Override submitForm for add form
@@ -479,6 +572,23 @@
                 subCategoryEditForm.addEventListener('submit', function(event) {
                     event.preventDefault();
                     handleSubCategoryFormSubmit(this, 'submit-edit-button', 'status-edit');
+                });
+            }
+
+            // Reset add subcategory modal preview when opened (like brand pattern)
+            const addSubCategoryModal = document.getElementById('add-sub-category');
+            if (addSubCategoryModal) {
+                addSubCategoryModal.addEventListener('show.bs.modal', function() {
+                    const preview = document.getElementById('add-subcategory-preview');
+                    const placeholder = document.getElementById('add-subcategory-placeholder');
+                    const fileInput = document.getElementById('add-subcategory-file');
+
+                    if (preview) {
+                        preview.src = '';
+                        preview.style.display = 'none';
+                    }
+                    if (placeholder) placeholder.style.display = 'flex';
+                    if (fileInput) fileInput.value = '';
                 });
             }
         });
@@ -519,48 +629,49 @@
             });
 
             fetch(form.action, {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
-                },
-                body: formData,
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                Swal.close();
-                submitButton.disabled = false;
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+                    },
+                    body: formData,
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    Swal.close();
+                    submitButton.disabled = false;
 
-                const modalId = data.success ? "success-alert-modal" : "danger-alert-modal";
-                const messageId = data.success ? "success-message" : "danger-message";
-                let modalMessage = data.success ? data.message : "Submission failed";
+                    const modalId = data.success ? "success-alert-modal" : "danger-alert-modal";
+                    const messageId = data.success ? "success-message" : "danger-message";
+                    let modalMessage = data.success ? data.message : "Submission failed";
 
-                if (!data.success && data.message) {
-                    if (typeof data.message === "object") {
-                        modalMessage = Object.values(data.message).flat().join(", ");
-                    } else {
-                        modalMessage = data.message;
+                    if (!data.success && data.message) {
+                        if (typeof data.message === "object") {
+                            modalMessage = Object.values(data.message).flat().join(", ");
+                        } else {
+                            modalMessage = data.message;
+                        }
                     }
-                }
 
-                document.getElementById(messageId).textContent = modalMessage;
-                new bootstrap.Modal(document.getElementById(modalId)).show();
+                    document.getElementById(messageId).textContent = modalMessage;
+                    new bootstrap.Modal(document.getElementById(modalId)).show();
 
-                if (data.success) {
-                    setTimeout(() => {
-                        // Refresh table first, then close modal
-                        window.refreshSubCategoryTable();
-                        var closeBtn = form.querySelector('[data-bs-dismiss="modal"][name="cancel-button"]');
-                        if (closeBtn) closeBtn.click();
-                    }, 1000);
-                }
-            })
-            .catch((error) => {
-                console.error("Submission failed:", error);
-                Swal.close();
-                submitButton.disabled = false;
-                document.getElementById("danger-message").textContent = error.message || "An error occurred";
-                new bootstrap.Modal(document.getElementById("danger-alert-modal")).show();
-            });
+                    if (data.success) {
+                        setTimeout(() => {
+                            // Refresh table first, then close modal
+                            window.refreshSubCategoryTable();
+                            var closeBtn = form.querySelector(
+                            '[data-bs-dismiss="modal"][name="cancel-button"]');
+                            if (closeBtn) closeBtn.click();
+                        }, 1000);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Submission failed:", error);
+                    Swal.close();
+                    submitButton.disabled = false;
+                    document.getElementById("danger-message").textContent = error.message || "An error occurred";
+                    new bootstrap.Modal(document.getElementById("danger-alert-modal")).show();
+                });
         }
     </script>
 @endsection

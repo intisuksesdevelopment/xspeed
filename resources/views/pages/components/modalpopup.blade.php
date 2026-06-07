@@ -442,14 +442,14 @@
                                     <label class="form-label">Qty Alert</label>
                                     <input type="text" class="form-control" value="10">
                                 </div>
-                                <div class="mb-0">
+                                {{-- <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="user3" class="check" checked="">
                                         <label for="user3" class="checktoggle"></label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
@@ -480,8 +480,9 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body custom-modal-body">
-                            <form id="categoryAddForm" method="post" action="{{ route('category-add') }}">
+                        <div class="modal-body custom-modal-body new-employee-field">
+                            <form id="categoryAddForm" method="post" action="{{ route('category-add') }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3 d-none">
                                     <label class="form-label">Id</label>
@@ -500,15 +501,34 @@
                                     <textarea name="description" class="form-control" rows="3" maxlength="60"></textarea>
                                     <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
-                                <div class="mb-0">
-                                    <div
+                                <div class="mb-3">
+                                    <label class="form-label">Image</label>
+                                    <div class="profile-pic-upload mb-0">
+                                        <div class="profile-pic brand-pic" id="add-category-preview-container"
+                                            style="cursor: pointer;" onclick="openImagePreview('add-category')">
+                                            <span id="add-category-placeholder"><i data-feather="plus-circle"
+                                                    class="plus-down-add"></i> Add Image</span>
+                                            <img id="add-category-preview" src="" alt=""
+                                                style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                                        </div>
+                                        <div class="image-upload mb-0">
+                                            <input type="file" name="image_upload" id="add-category-file"
+                                                onchange="previewImage(this, 'add-category')">
+                                            <div class="image-uploads">
+                                                <h4>Change Image</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+{{--                                 <div class="mb-0">
+                                                                      {{-- <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="status-add" name="status" class="check"
                                             checked="">
                                         <label for="status-add" class="checktoggle"></label>
-                                    </div>
-                                </div>
+                                    </div> --}}
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal"
                                         name="cancel-button">Cancel</button>
@@ -538,8 +558,9 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body custom-modal-body">
-                            <form id="categoryEditForm" method="post" action="{{ route('category-update') }}">
+                        <div class="modal-body custom-modal-body new-employee-field">
+                            <form id="categoryEditForm" method="post" action="{{ route('category-update') }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3 d-none">
                                     <label class="form-label">Id</label>
@@ -558,7 +579,27 @@
                                     <textarea id="description" name="description" class="form-control" rows="3" maxlength="60"></textarea>
                                     <p class="mt-1">Maximum 60 Characters</p>
                                 </div>
-                                <div class="mb-0">
+                                <div class="mb-3">
+                                    <label class="form-label">Image</label>
+                                    <div class="profile-pic-upload mb-0">
+                                        <div class="profile-pic brand-pic" id="edit-category-preview-container"
+                                            style="cursor: pointer;" onclick="openImagePreview('edit-category')">
+                                            <span id="edit-category-placeholder"><i data-feather="plus-circle"
+                                                    class="plus-down-add"></i> Add Image</span>
+                                            <img id="edit-category-preview" src="" alt=""
+                                                style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                                        </div>
+                                        <input type="hidden" id="edit-category-current-image-url" value="">
+                                        <div class="image-upload mb-0">
+                                            <input type="file" name="image_upload" id="edit-category-file"
+                                                onchange="previewImage(this, 'edit-category')">
+                                            <div class="image-uploads">
+                                                <h4>Change Image</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
@@ -566,7 +607,7 @@
                                             checked="">
                                         <label for="status-edit" class="checktoggle"></label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal"
                                         id="cancel-edit-button">Cancel</button>
@@ -598,8 +639,9 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body custom-modal-body">
-                            <form id="subCategoryAddForm" method="post" action="{{ route('subcategory-add') }}">
+                        <div class="modal-body custom-modal-body new-employee-field">
+                            <form id="subCategoryAddForm" method="post" action="{{ route('subcategory-add') }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="add-category-id" class="form-label">Parent Category</label>
@@ -619,19 +661,33 @@
                                     <textarea id="description" name="description" class="form-control"></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="image-url" class="form-label">Icon URL</label>
-                                    <input id="image-url" name="image_url" type="text" class="form-control"
-                                        placeholder="https://example.com/icon.png">
+                                    <label class="form-label">Image</label>
+                                    <div class="profile-pic-upload mb-0">
+                                        <div class="profile-pic brand-pic" id="add-subcategory-preview-container"
+                                            style="cursor: pointer;" onclick="openImagePreview('add-subcategory')">
+                                            <span id="add-subcategory-placeholder"><i data-feather="plus-circle"
+                                                    class="plus-down-add"></i> Add Image</span>
+                                            <img id="add-subcategory-preview" src="" alt=""
+                                                style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                                        </div>
+                                        <div class="image-upload mb-0">
+                                            <input type="file" name="image_upload" id="add-subcategory-file"
+                                                onchange="previewImage(this, 'add-subcategory')">
+                                            <div class="image-uploads">
+                                                <h4>Change Image</h4>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="mb-0">
-                                    <div
+{{--                                 <div class="mb-0">
+                                                                      {{-- <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="status-add" name="status" class="check"
                                             checked="">
                                         <label for="status-add" class="checktoggle"></label>
-                                    </div>
-                                </div>
+                                    </div> --}}
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" id="cancel-add-button" name="cancel-button"
                                         class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
@@ -661,9 +717,10 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body custom-modal-body">
+                        <div class="modal-body custom-modal-body new-employee-field">
                             <form id="subCategoryEditForm" method="post"
-                                action="{{ route('subcategory-update') }}">
+                                action="{{ route('subcategory-update') }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3 d-none">
                                     <label for="edit-id" class="form-label">Id</label>
@@ -688,11 +745,26 @@
                                     <textarea id="edit-description" name="description" class="form-control"></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="edit-image-url" class="form-label">Icon URL</label>
-                                    <input id="edit-image-url" name="image_url" type="text" class="form-control"
-                                        placeholder="https://example.com/icon.png">
+                                    <label class="form-label">Image</label>
+                                    <div class="profile-pic-upload mb-0">
+                                        <div class="profile-pic brand-pic" id="edit-subcategory-preview-container"
+                                            style="cursor: pointer;" onclick="openImagePreview('edit-subcategory')">
+                                            <span id="edit-subcategory-placeholder"><i data-feather="plus-circle"
+                                                    class="plus-down-add"></i> Add Image</span>
+                                            <img id="edit-subcategory-preview" src="" alt=""
+                                                style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                                        </div>
+                                        <input type="hidden" id="edit-subcategory-current-image-url" value="">
+                                        <div class="image-upload mb-0">
+                                            <input type="file" name="image_upload" id="edit-subcategory-file"
+                                                onchange="previewImage(this, 'edit-subcategory')">
+                                            <div class="image-uploads">
+                                                <h4>Change Image</h4>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="mb-0">
+                                {{-- <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
@@ -700,7 +772,7 @@
                                             checked>
                                         <label for="edit-status" class="checktoggle"></label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" id="cancel-edit-button" name="cancel-button"
                                         class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
@@ -773,7 +845,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mb-0">
+                                    {{-- <div class="mb-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
@@ -781,7 +853,7 @@
                                                 checked="">
                                             <label for="status-add" class="checktoggle"></label>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="modal-footer-btn">
@@ -858,14 +930,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="mb-0">
+                                    {{-- <div class="mb-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="status-edit" class="check" checked="">
                                             <label for="status-edit" class="checktoggle"></label>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="modal-footer-btn">
@@ -900,7 +972,8 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body new-employee-field">
-                            <form id="rackAddForm" method="post" action="{{ route('rack-add') }}">
+                            <form id="rackAddForm" method="post" action="{{ route('rack-add') }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-title-head">
                                     <h6><span><i data-feather="info" class="feather-edit"></i></span>Rack Info
@@ -920,28 +993,33 @@
                                         <textarea name="description" class="form-control" rows="3" maxlength="60"></textarea>
                                         <p class="mt-1">Maximum 60 Characters</p>
                                     </div>
-                                    <label class="form-label">Iamge</label>
+                                    <label class="form-label">Image</label>
                                     <div class="profile-pic-upload mb-3">
-                                        <div class="profile-pic brand-pic">
-                                            <span><i data-feather="plus-circle" class="plus-down-add"></i> Add
-                                                Image</span>
+                                        <div class="profile-pic brand-pic" id="add-rack-preview-container"
+                                            style="cursor: pointer;" onclick="openRackImagePreview('add-rack')">
+                                            <span id="add-rack-placeholder"><i data-feather="plus-circle"
+                                                    class="plus-down-add"></i> Add Image</span>
+                                            <img id="add-rack-preview" src="" alt=""
+                                                style="display: none; width: 100%; height: 100%; object-fit: cover;">
                                         </div>
                                         <div class="image-upload mb-0">
-                                            <input type="file" name="image_url">
+                                            <input type="file" name="image_url" id="add-rack-file"
+                                                onchange="previewRackImage(this, 'add-rack')">
                                             <div class="image-uploads">
                                                 <h4>Change Image</h4>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="mb-0">
+                                    <input type="hidden" name="status" value="0">
+                                    {{-- <div class="mb-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
-                                            <input type="checkbox" id="status-add" name="status" class="check"
+                                            <input type="checkbox" id="status-add" name="status" class="check" value="0"
                                                 checked="">
                                             <label for="status-add" class="checktoggle"></label>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="modal-footer-btn">
@@ -974,7 +1052,8 @@
                             </button>
                         </div>
                         <div class="modal-body custom-modal-body new-employee-field">
-                            <form id="rackEditForm" method="post" action="{{ route('rack-update') }}">
+                            <form id="rackEditForm" method="post" action="{{ route('rack-update') }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3 d-none">
                                     <label for="edit-id" class="form-label">Id</label>
@@ -999,26 +1078,32 @@
                                         <p class="mt-1">Maximum 60 Characters</p>
                                     </div>
                                     <label class="form-label">Image</label>
-                                    <div class="profile-pic-upload mb-3" id="image_url">
-                                        <div class="profile-pic brand-pic">
-                                            <span><i data-feather="plus-circle" class="plus-down-add"></i> Add
-                                                Image</span>
+                                    <div class="profile-pic-upload mb-3">
+                                        <div class="profile-pic brand-pic" id="edit-rack-preview-container"
+                                            style="cursor: pointer;" onclick="openRackImagePreview('edit-rack')">
+                                            <span id="edit-rack-placeholder"><i data-feather="plus-circle"
+                                                    class="plus-down-add"></i> Add Image</span>
+                                            <img id="edit-rack-preview" src="" alt=""
+                                                style="display: none; width: 100%; height: 100%; object-fit: cover;">
                                         </div>
+                                        <input type="hidden" id="edit-rack-current-image-url" value="">
                                         <div class="image-upload mb-0">
-                                            <input type="file" name="image_url">
+                                            <input type="file" name="image_url" id="edit-rack-file"
+                                                onchange="previewRackImage(this, 'edit-rack')">
                                             <div class="image-uploads">
                                                 <h4>Change Image</h4>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="mb-0">
+                                    <input type="hidden" name="status" value="0">
+                                    {{-- <div class="mb-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
-                                            <input type="checkbox" id="status-edit" class="check" checked="">
+                                            <input type="checkbox" id="status-edit" class="check" value="0" checked="">
                                             <label for="status-edit" class="checktoggle"></label>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="modal-footer-btn">
@@ -1073,12 +1158,12 @@
                                             <option value="">Select Rack</option>
                                         </select>
                                     </div>
-                                    <div class="col-lg-12">
+{{--                                     <div class="col-lg-12">
                                         <label>Description</label>
                                         <textarea name="description" class="form-control" rows="3" maxlength="60"></textarea>
                                         <p class="mt-1">Maximum 60 Characters</p>
-                                    </div>
-                                    <div class="mb-0">
+                                    </div> --}}
+                                    {{-- <div class="mb-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
@@ -1086,7 +1171,7 @@
                                                 checked="">
                                             <label for="status-add" class="checktoggle"></label>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="modal-footer-btn">
@@ -1145,12 +1230,12 @@
                                             <option value="">Select Rack</option>
                                         </select>
                                     </div>
-                                    <div class="col-lg-12">
+{{--                                     <div class="col-lg-12">
                                         <label>Description</label>
                                         <textarea id="edit-description" name="description" class="form-control" rows="3" maxlength="60"></textarea>
                                         <p class="mt-1">Maximum 60 Characters</p>
-                                    </div>
-                                    <div class="mb-0">
+                                    </div> --}}
+                                    {{-- <div class="mb-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
@@ -1158,7 +1243,7 @@
                                                 class="check" checked="">
                                             <label for="edit-status" class="checktoggle"></label>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="modal-footer-btn">
@@ -1203,15 +1288,15 @@
                                     <label class="form-label">Name</label>
                                     <input type="text" name="name" class="form-control">
                                 </div>
-                                <div class="mb-0">
-                                    <div
+{{--                                 <div class="mb-0">
+                                                                      {{-- <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="status-add" name="status" class="check"
                                             checked="">
                                         <label for="status-add" class="checktoggle"></label>
-                                    </div>
-                                </div>
+                                    </div> --}}
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal"
                                         name="cancel-button">Cancel</button>
@@ -1244,23 +1329,27 @@
                         <div class="modal-body custom-modal-body">
                             <form id="unitEditForm" method="post" action="{{ route('unit-update') }}">
                                 @csrf
+                                <div class="mb-3 d-none">
+                                    <label class="form-label">Id</label>
+                                    <input type="text" id="id" name="id" class="form-control">
+                                </div>
                                 <div class="mb-3">
                                     <label class="form-label">Unit</label>
-                                    <input type="text" name="unit" class="form-control">
+                                    <input type="text" id="unit" name="unit" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Name</label>
-                                    <input type="text" name="name" class="form-control">
+                                    <input type="text" id="name" name="name" class="form-control">
                                 </div>
-                                <div class="mb-0">
+                                {{-- <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="status-edit" name="status" class="check"
                                             checked="">
-                                        <label for="status-add" class="checktoggle"></label>
+                                        <label for="status-edit" class="checktoggle"></label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal"
                                         name="cancel-button">Cancel</button>
@@ -1416,14 +1505,14 @@
                                         value="S,M,XL">
                                     <span class="tag-text">Enter value separated by comma</span>
                                 </div>
-                                <div class="mb-0">
+                                {{-- <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="user2" class="check" checked="">
                                         <label for="user2" class="checktoggle"></label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
@@ -1464,14 +1553,14 @@
                                         name="specialist" value="S,M,XL">
                                     <span class="tag-text">Enter value separated by comma</span>
                                 </div>
-                                <div class="mb-0">
+                                {{-- <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="user3" class="check" checked="">
                                         <label for="user3" class="checktoggle"></label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
@@ -1533,14 +1622,14 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-0">
+                                {{-- <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="user2" class="check">
                                         <label for="user2" class="checktoggle"></label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
@@ -1598,14 +1687,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-0">
+                                {{-- <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="user3" class="check">
                                         <label for="user3" class="checktoggle"></label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
@@ -7058,13 +7147,13 @@
                                         </select>
                                     </div>
 
-                                    <div class="input-blocks m-0">
+{{--                                     <div class="input-blocks m-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user3" class="check" checked>
                                             <label for="user3" class="checktoggle"> </label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
 
@@ -7171,13 +7260,13 @@
                                         </select>
                                     </div>
 
-                                    <div class="input-blocks m-0">
+{{--                                     <div class="input-blocks m-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user6" class="check" checked>
                                             <label for="user6" class="checktoggle"> </label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -7265,15 +7354,15 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-0">
-                                    <div
+{{--                                 <div class="mb-0">
+                                                                      {{-- <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="status-add" name="status" class="check"
                                             checked="">
                                         <label for="status-add" class="checktoggle"></label>
-                                    </div>
-                                </div>
+                                    </div> --}}
+                                </div> --}}
 
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
@@ -7370,7 +7459,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-0">
+{{--                                 <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
@@ -7378,7 +7467,7 @@
                                             checked="">
                                         <label for="status-edit" class="checktoggle"></label>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
@@ -7444,15 +7533,15 @@
                                     <label class="form-label">Discount</label>
                                     <input type="number" name="discount" class="form-control">
                                 </div>
-                                <div class="mb-0">
-                                    <div
+{{--                                 <div class="mb-0">
+                                                                      {{-- <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="status-add" name="status" class="check"
                                             checked="">
                                         <label for="status-add" class="checktoggle"></label>
-                                    </div>
-                                </div>
+                                    </div> --}}
+                                </div> --}}
 
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
@@ -7519,7 +7608,7 @@
                                     <label class="form-label">Discount</label>
                                     <input type="number" id="discount" name="discount" class="form-control">
                                 </div>
-                                <div class="mb-0">
+{{--                                 <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
@@ -7527,7 +7616,7 @@
                                             checked="">
                                         <label for="status-edit" class="checktoggle"></label>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
@@ -7585,14 +7674,14 @@
                                     <label class="form-label">Email</label>
                                     <input type="email" class="form-control">
                                 </div>
-                                <div class="mb-0">
+{{--                                 <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="user2" class="check" checked="">
                                         <label for="user2" class="checktoggle"></label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
@@ -7646,14 +7735,14 @@
                                     <label class="form-label">Email</label>
                                     <input type="email" class="form-control" value="john@example.com">
                                 </div>
-                                <div class="mb-0">
+{{--                                 <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="user3" class="check" checked="">
                                         <label for="user3" class="checktoggle"></label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
                                         data-bs-dismiss="modal">Cancel</button>
@@ -7712,15 +7801,15 @@
                                     <label class="form-label">Image</label>
                                     <input type="text" name="image_url" class="form-control">
                                 </div>
-                                <div class="mb-0">
-                                    <div
+{{--                                 <div class="mb-0">
+                                                                      {{-- <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
                                         <input type="checkbox" id="status-add" name="status" class="check"
                                             checked="">
                                         <label for="status-add" class="checktoggle"></label>
-                                    </div>
-                                </div>
+                                    </div> --}}
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal"
                                         name="cancel-button">Cancel</button>
@@ -7784,7 +7873,7 @@
                                     <label class="form-label">Image</label>
                                     <input type="text" id="image_url" name="image_url" class="form-control">
                                 </div>
-                                <div class="mb-0">
+{{--                                 <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                         <span class="status-label">Status</span>
@@ -7792,7 +7881,7 @@
                                             checked="">
                                         <label for="status-edit" class="checktoggle"></label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal"
                                         name="cancel-button">Cancel</button>
@@ -8119,13 +8208,13 @@
                                             <textarea rows="4" placeholder="Type your message" class="form-control"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+{{--                                     <div class="col-lg-12">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user5" class="check" checked="">
                                             <label for="user5" class="checktoggle"></label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -8172,13 +8261,13 @@
                                                 placeholder="Temporarily block to protect user accounts from internet fraudsters."></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+{{--                                     <div class="col-lg-12">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user4" class="check" checked="">
                                             <label for="user4" class="checktoggle"></label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -8249,13 +8338,13 @@
                                             <input type="text" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+{{--                                     <div class="col-lg-12">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center mb-3">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user2" class="check" checked="">
                                             <label for="user2" class="checktoggle"></label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="col-lg-12">
                                         <div
@@ -8332,13 +8421,13 @@
                                             <input type="text" class="form-control" value="124547">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+{{--                                     <div class="col-lg-12">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center mb-3">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user5" class="check" checked="">
                                             <label for="user5" class="checktoggle"></label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="col-lg-12">
                                         <div
@@ -8417,13 +8506,13 @@
                                             <input type="text" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+{{--                                     <div class="col-lg-12">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center mb-3">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user2" class="check" checked="">
                                             <label for="user2" class="checktoggle"></label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="col-lg-12">
                                         <div
@@ -8500,13 +8589,13 @@
                                             <input type="text" class="form-control" value="124547">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+{{--                                     <div class="col-lg-12">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center mb-3">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user5" class="check" checked="">
                                             <label for="user5" class="checktoggle"></label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="col-lg-12">
                                         <div
@@ -8795,13 +8884,13 @@
                                             <input type="text" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+{{--                                     <div class="col-lg-12">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user6" class="check" checked="">
                                             <label for="user6" class="checktoggle"></label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -8859,13 +8948,13 @@
                                             <input type="text" class="form-control" value="Default">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+{{--                                     <div class="col-lg-12">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user5" class="check" checked="">
                                             <label for="user5" class="checktoggle"></label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -8950,13 +9039,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+{{--                                     <div class="col-lg-12">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user2" class="check" checked="">
                                             <label for="user2" class="checktoggle"></label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -9037,13 +9126,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+{{--                                     <div class="col-lg-12">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user3" class="check" checked="">
                                             <label for="user3" class="checktoggle"></label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -9101,13 +9190,13 @@
                                             <div id="summernote"></div>
                                         </div>
                                     </div>
-                                    <div class="input-blocks m-0">
+{{--                                     <div class="input-blocks m-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user5" class="check" checked>
                                             <label for="user5" class="checktoggle"> </label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -9162,13 +9251,13 @@
                                             <div id="summernote2"></div>
                                         </div>
                                     </div>
-                                    <div class="input-blocks m-0">
+{{--                                     <div class="input-blocks m-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user3" class="check" checked>
                                             <label for="user3" class="checktoggle"> </label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -9210,13 +9299,13 @@
                                             <input type="text" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="input-blocks m-0">
+{{--                                     <div class="input-blocks m-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user5" class="check" checked>
                                             <label for="user5" class="checktoggle"> </label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -9256,13 +9345,13 @@
                                             <input type="text" class="form-control" value="Designer">
                                         </div>
                                     </div>
-                                    <div class="input-blocks m-0">
+{{--                                     <div class="input-blocks m-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user3" class="check" checked>
                                             <label for="user3" class="checktoggle"> </label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -10219,13 +10308,13 @@
                                             <input type="text" class="form-control" placeholder="01">
                                         </div>
                                     </div>
-                                    <div class="input-blocks m-0">
+{{--                                     <div class="input-blocks m-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user5" class="check" checked>
                                             <label for="user5" class="checktoggle"> </label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -10285,14 +10374,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="mb-0">
+{{--                                     <div class="mb-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user3" class="check" checked>
                                             <label for="user3" class="checktoggle"> </label>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="modal-footer-btn">
                                     <button type="button" class="btn btn-cancel me-2"
@@ -10339,13 +10428,13 @@
                                             <input type="text" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="input-blocks m-0">
+{{--                                     <div class="input-blocks m-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user3" class="check" checked>
                                             <label for="user3" class="checktoggle"> </label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer-btn">
@@ -10391,13 +10480,13 @@
                                             <input type="text" value="05">
                                         </div>
                                     </div>
-                                    <div class="input-blocks m-0">
+{{--                                     <div class="input-blocks m-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
                                             <input type="checkbox" id="user4" class="check" checked>
                                             <label for="user4" class="checktoggle"> </label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
 
@@ -12432,14 +12521,14 @@
                                                         </label>
                                                     </div>
 
-                                                    <div class="input-blocks m-0">
+{{--                                                     <div class="input-blocks m-0">
                                                         <div
                                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                                             <span class="status-label">Status</span>
                                                             <input type="checkbox" id="user6" class="check"
                                                                 checked>
                                                             <label for="user6" class="checktoggle mb-0"></label>
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -13021,14 +13110,14 @@
                                                         </label>
                                                     </div>
 
-                                                    <div class="input-blocks m-0">
+{{--                                                     <div class="input-blocks m-0">
                                                         <div
                                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                                             <span class="status-label">Status</span>
                                                             <input type="checkbox" id="users6" class="check"
                                                                 checked>
                                                             <label for="users6" class="checktoggle mb-0"></label>
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -14779,7 +14868,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mb-0">
+{{--                                     <div class="mb-0">
                                         <div
                                             class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                             <span class="status-label">Status</span>
@@ -14787,7 +14876,7 @@
                                                 class="check" checked="">
                                             <label for="status-add" class="checktoggle"></label>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="modal-footer-btn">
                                         <button type="button" class="btn btn-cancel me-2"
@@ -14879,7 +14968,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="mb-0">
+{{--                                         <div class="mb-0">
                                             <div
                                                 class="status-toggle modal-status d-flex justify-content-between align-items-center">
                                                 <span class="status-label">Status</span>
@@ -14887,7 +14976,7 @@
                                                     class="check" checked="">
                                                 <label for="status-edit" class="checktoggle"></label>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="modal-footer-btn">
                                         <button type="button" class="btn btn-cancel me-2"

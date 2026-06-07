@@ -8,6 +8,53 @@
         .fade-row:hover {
             background-color: #f8f9fa;
         }
+        .profile-pic-upload .profile-pic {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border: 2px dashed #d1d1d1;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f8f8;
+            overflow: hidden;
+        }
+        .profile-pic-upload .profile-pic img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-pic-upload .profile-pic span {
+            color: #888;
+            font-size: 12px;
+            text-align: center;
+        }
+        .profile-pic-upload .profile-pic .plus-down-add {
+            display: block;
+            margin: 0 auto 5px;
+        }
+        .profile-pic-upload .profile-pic:hover {
+            border-color: #0d6efd;
+            background: #f0f0f0;
+        }
+        #rackImagePreviewModal .modal-content {
+            background: rgba(0,0,0,0.9);
+        }
+        #rackImagePreviewModal .modal-header,
+        #rackImagePreviewModal .modal-body {
+            background: transparent;
+            color: white;
+        }
+        #rackImagePreviewModal .btn-close {
+            filter: invert(1);
+        }
+        #rackImagePreviewModal .modal-header {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
     </style>
     <div class="page-wrapper" x-data="rackTable()" x-init="init()" x-cloak
          @refresh-racks.window="fetchRacks()">
@@ -122,7 +169,7 @@
                                         </td>
                                         <td x-text="item.code"></td>
                                         <td>
-                                            <img :src="item.image_url" alt="" class="img-fluid rounded" style="width: 40px; height: 40px;" onerror="this.style.display='none'">
+                                            <img :src="item.image_url || '/assets/img/icons/brand-icon-01.svg'" alt="" class="img-fluid rounded" style="width: 40px; height: 40px; object-fit: cover;">
                                         </td>
                                         <td x-text="item.name"></td>
                                         <td class="text-truncate" style="max-width: 200px;" x-text="item.description || '-'"></td>
@@ -201,9 +248,79 @@
                 </div>
             </div>
         </div>
+        <!-- Image Preview Modal -->
+        <div class="modal fade" id="rackImagePreviewModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <div class="page-title">
+                            <h4>Image Preview</h4>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img id="rack-preview-modal-image" src="" alt="Rack Image" class="img-fluid" style="max-height: 70vh; object-fit: contain;">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
+        // Image preview function for rack modals
+        function previewRackImage(input, prefix) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                const preview = document.getElementById(`${prefix}-preview`);
+                const placeholder = document.getElementById(`${prefix}-placeholder`);
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    if (placeholder) placeholder.style.display = 'none';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Initialize rack image preview when edit modal opens
+        function initEditRackImage(imageUrl) {
+            const preview = document.getElementById('edit-rack-preview');
+            const placeholder = document.getElementById('edit-rack-placeholder');
+            const currentImageUrl = document.getElementById('edit-rack-current-image-url');
+
+            if (currentImageUrl) currentImageUrl.value = imageUrl || '';
+
+            if (imageUrl && imageUrl.trim() !== '') {
+                preview.src = imageUrl;
+                preview.style.display = 'block';
+                if (placeholder) placeholder.style.display = 'none';
+            } else {
+                preview.src = '';
+                preview.style.display = 'none';
+                if (placeholder) placeholder.style.display = 'flex';
+            }
+        }
+
+        // Open larger image preview
+        function openRackImagePreview(prefix) {
+            const preview = document.getElementById(`${prefix}-preview`);
+            const currentImageUrl = document.getElementById(`${prefix}-current-image-url`);
+
+            let imageSrc = preview ? preview.src : '';
+
+            // If preview is hidden/not set, try current image URL (for edit modal)
+            if (!imageSrc || imageSrc === '' || imageSrc.includes('data:,')) {
+                imageSrc = currentImageUrl ? currentImageUrl.value : '';
+            }
+
+            if (imageSrc && imageSrc.trim() !== '' && !imageSrc.includes('data:,')) {
+                document.getElementById('rack-preview-modal-image').src = imageSrc;
+                const modal = new bootstrap.Modal(document.getElementById('rackImagePreviewModal'));
+                modal.show();
+            }
+        }
         const API_RACK_URL = "{{ route('api-rack-paged') }}";
 
         window.rackTable = function() {
@@ -325,6 +442,9 @@
                     document.getElementById('description').value = item.description || '';
                     const statusCheckbox = document.getElementById('status-edit');
                     if (statusCheckbox) statusCheckbox.checked = (item.status == 0);
+
+                    // Initialize image preview
+                    initEditRackImage(item.image_url);
                 },
 
                 confirmDelete(item) {
@@ -418,14 +538,17 @@
         });
 
         function handleRackFormSubmit(form, submitButtonId, statusCheckboxId) {
+            // Update checkbox value BEFORE creating FormData (if the checkbox still exists in DOM)
+            if (statusCheckboxId) {
+                const checkbox = document.getElementById(statusCheckboxId);
+                if (checkbox) {
+                    checkbox.value = checkbox.checked ? 0 : 1;
+                }
+            }
+
             let formData = new FormData(form);
             let submitButton = document.getElementById(submitButtonId);
             submitButton.disabled = true;
-
-            if (statusCheckboxId) {
-                const checkbox = document.getElementById(statusCheckboxId);
-                checkbox.value = checkbox.checked ? 0 : 1;
-            }
 
             Swal.fire({
                 title: "Processing...",
@@ -464,9 +587,12 @@
 
                 if (data.success) {
                     setTimeout(() => {
-                        // Close modal
-                        const closeBtn = document.querySelector('#add-rack [data-bs-dismiss="modal"], #edit-rack [data-bs-dismiss="modal"]');
-                        if (closeBtn) closeBtn.click();
+                        // Close the modal containing this form
+                        const modal = form.closest('.modal');
+                        if (modal) {
+                            const bsModal = bootstrap.Modal.getInstance(modal);
+                            if (bsModal) bsModal.hide();
+                        }
                         // Refresh table only (not page reload)
                         window.refreshRackTable();
                     }, 1000);

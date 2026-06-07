@@ -21,6 +21,7 @@ class SubCategoryService
         // Optimized query - select only needed columns
         $query = SubCategory::query()
             ->select('id', 'category_id', 'name', 'code', 'description', 'image_url', 'status', 'created_at')
+            ->where('status', 0)
             ->with('category:id,name,code');
 
         // Search functionality

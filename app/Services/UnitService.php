@@ -63,18 +63,30 @@ class UnitService
         try {
             $data = $request->all();
             $data['status'] = $request->has('status') ? 0 : 1;
-            $unit = Unit::whereRaw('LOWER(unit) = ?', [strtolower($data['unit'])])->first();
 
-            if ($unit) {
-                throw new AlreadyExistException("unit : {$unit->unit}");
-            } else {
-                $unit = new Unit;
-                // $supplier->validateAttributes($data);
-                $unit->fill($data);
-                $unit->save();
+            // Check for duplicate unit (code) among active records only
+            $existingUnit = Unit::whereRaw('LOWER(unit) = ?', [strtolower($data['unit'])])
+                ->where('status', 0)
+                ->first();
 
-                return response()->json(['success' => true, 'message' => 'Add successfully!']);
+            if ($existingUnit) {
+                throw new AlreadyExistException("unit : {$existingUnit->unit}");
             }
+
+            // Check for duplicate name among active records only
+            $existingName = Unit::whereRaw('LOWER(name) = ?', [strtolower($data['name'])])
+                ->where('status', 0)
+                ->first();
+
+            if ($existingName) {
+                throw new AlreadyExistException("name : {$existingName->name}");
+            }
+
+            $unit = new Unit;
+            $unit->fill($data);
+            $unit->save();
+
+            return response()->json(['success' => true, 'message' => 'Add successfully!']);
         } catch (AlreadyExistException $e) {
             Log::error($e->getMessage());
 
@@ -90,19 +102,46 @@ class UnitService
     {
         try {
             $data = $request->all();
-            $data['status'] = $request->has('status') ? $request->input('status') : 0;
+            $data['status'] = $request->has('status') ? 0 : 1;
 
             $unit = Unit::find($data['id']);
             if (! $unit) {
                 throw new NotFoundException('code : '.$data['code']);
             }
-            // $category->validateAttributes($data);
+
+            // Check for duplicate unit (code) among other active records
+            $existingUnit = Unit::whereRaw('LOWER(unit) = ?', [strtolower($data['unit'])])
+                ->where('status', 0)
+                ->where('id', '!=', $data['id'])
+                ->first();
+
+            if ($existingUnit) {
+                throw new AlreadyExistException("unit : {$existingUnit->unit}");
+            }
+
+            // Check for duplicate name among other active records
+            $existingName = Unit::whereRaw('LOWER(name) = ?', [strtolower($data['name'])])
+                ->where('status', 0)
+                ->where('id', '!=', $data['id'])
+                ->first();
+
+            if ($existingName) {
+                throw new AlreadyExistException("name : {$existingName->name}");
+            }
+
             $unit->fill($data);
             $unit->update();
 
             return response()->json([
                 'success' => true,
                 'message' => 'Update successfully!',
+            ]);
+        } catch (AlreadyExistException $e) {
+            Log::error($e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
             ]);
         } catch (NotFoundException $e) {
             Log::error($e->getMessage());

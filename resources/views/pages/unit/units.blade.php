@@ -123,7 +123,7 @@
                                         <td class="action-table-data">
                                             <div class="edit-delete-action">
                                                 <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#edit-unit" @click="openEditModal(item)">
+                                                    data-bs-target="#edit-units" @click="openEditModal(item)">
                                                     <i data-feather="edit" class="feather-edit"></i>
                                                 </a>
                                                 <a class="p-2" href="javascript:void(0);"
@@ -437,14 +437,15 @@
         });
 
         function handleUnitFormSubmit(form, submitButtonId, statusCheckboxId) {
-            let formData = new FormData(form);
-            let submitButton = document.getElementById(submitButtonId);
-            submitButton.disabled = true;
-
+            // Update checkbox value BEFORE creating FormData
             if (statusCheckboxId) {
                 const checkbox = document.getElementById(statusCheckboxId);
                 checkbox.value = checkbox.checked ? 0 : 1;
             }
+
+            let formData = new FormData(form);
+            let submitButton = document.getElementById(submitButtonId);
+            submitButton.disabled = true;
 
             Swal.fire({
                 title: "Processing...",
@@ -483,9 +484,12 @@
 
                 if (data.success) {
                     setTimeout(() => {
-                        // Close modal
-                        const closeBtn = document.querySelector('#add-unit [data-bs-dismiss="modal"], #edit-unit [data-bs-dismiss="modal"]');
-                        if (closeBtn) closeBtn.click();
+                        // Close the modal containing this form
+                        const modal = form.closest('.modal');
+                        if (modal) {
+                            const bsModal = bootstrap.Modal.getInstance(modal);
+                            if (bsModal) bsModal.hide();
+                        }
                         // Refresh table only (not page reload)
                         window.refreshUnitTable();
                     }, 1000);

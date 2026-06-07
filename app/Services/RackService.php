@@ -61,17 +61,35 @@ class RackService
     public static function save(Request $request)
     {
         try {
-            $data = $request->all();
-            $data['status'] = $request->has('status') ? 0 : 1;
-            $rack = Rack::whereRaw('LOWER(code) LIKE ?', ['%'.strtolower($data['code']).'%'])->get();
+            $data = $request->except(['image_url']);
+            // Use checkbox value: checked = 0 (active), unchecked via hidden input = 1 (inactive)
+            $data['status'] = $request->input('status', 1);
 
-            if ($rack->isNotEmpty()) {
-                $firstRack = $rack->first();
-                throw new AlreadyExistException("code : {$firstRack->code}");
+            // Handle image upload - save to public/racks folder
+            if ($request->hasFile('image_url')) {
+                $file = $request->file('image_url');
+                $filename = 'rack_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+                // Ensure racks directory exists
+                $racksDir = public_path('racks');
+                if (!file_exists($racksDir)) {
+                    mkdir($racksDir, 0755, true);
+                }
+
+                $file->move($racksDir, $filename);
+                $data['image_url'] = '/racks/' . $filename;
+            }
+
+            // Check for duplicate code among active records only
+            $rack = Rack::whereRaw('LOWER(code) = ?', [strtolower($data['code'])])
+                ->where('status', 0)
+                ->first();
+
+            if ($rack) {
+                throw new AlreadyExistException("code : {$rack->code}");
             }
 
             $rack = new Rack;
-            // $supplier->validateAttributes($data);
             $rack->fill($data);
             $rack->save();
 
@@ -90,14 +108,36 @@ class RackService
     public static function update(Request $request)
     {
         try {
-            $data = $request->all();
-            $data['status'] = $request->has('status') ? $request->input('status') : 0;
+            $data = $request->except(['image_url']);
+            // Use checkbox value: checked = 0 (active), unchecked via hidden input = 1 (inactive)
+            $data['status'] = $request->input('status', 1);
 
             $rack = Rack::find($data['id']);
             if (! $rack) {
                 throw new NotFoundException('code : '.$data['code']);
             }
-            // $category->validateAttributes($data);
+
+            // Handle image upload - save to public/racks folder
+            if ($request->hasFile('image_url')) {
+                // Delete old image if exists
+                $oldImagePath = public_path($rack->image_url);
+                if ($rack->image_url && file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+
+                $file = $request->file('image_url');
+                $filename = 'rack_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+                // Ensure racks directory exists
+                $racksDir = public_path('racks');
+                if (!file_exists($racksDir)) {
+                    mkdir($racksDir, 0755, true);
+                }
+
+                $file->move($racksDir, $filename);
+                $data['image_url'] = '/racks/' . $filename;
+            }
+
             $rack->fill($data);
             $rack->update();
 
@@ -110,7 +150,7 @@ class RackService
 
             return response()->json([
                 'success' => false,
-                'message' => 'Category not found: '.$e->getMessage(),
+                'message' => 'Rack not found: '.$e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             Log::error($e->getMessage());

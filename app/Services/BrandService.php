@@ -82,11 +82,10 @@ class BrandService
                 $data['image_url'] = '/brands/' . $filename;
             }
 
-            $brand = Brand::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
+            $brand = Brand::whereRaw('LOWER(code) = ?', [strtolower($data['code'])])->where('status', 0)->first();
 
-            if ($brand->isNotEmpty()) {
-                $firstBrand = $brand->first();
-                throw new AlreadyExistException("code : {$firstBrand->code}");
+            if ($brand) {
+                throw new AlreadyExistException("code : {$brand->code}");
             }
 
             $brand = new Brand;

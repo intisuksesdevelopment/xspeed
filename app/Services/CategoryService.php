@@ -116,7 +116,7 @@ class CategoryService
     {
         try {
             $data = $request->except(['image_upload']);
-            $data['status'] = $request->has('status') ? 0 : 1;
+            $data['status'] = 0;
 
             // Handle image upload
             if ($request->hasFile('image_upload')) {

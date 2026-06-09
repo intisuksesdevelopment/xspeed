@@ -119,7 +119,7 @@ class SubCategoryService
     {
         try {
             $data = $request->except(['image_upload']);
-            $data['status'] = $request->has('status') ? 0 : 1;
+            $data['status'] = 0;
 
             // Handle image upload
             if ($request->hasFile('image_upload')) {
@@ -169,9 +169,7 @@ class SubCategoryService
     {
         try {
             $data = $request->except(['image_upload']);
-            if (!isset($data['status'])) {
-                $data['status'] = $request->has('status') ? 0 : 1;
-            }
+            $data['status'] = $data['status'] ?? 0;
 
             // Handle image upload
             if ($request->hasFile('image_upload')) {

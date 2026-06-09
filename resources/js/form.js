@@ -109,13 +109,13 @@ function submitForm(
             let submitButton = document.getElementById(submitButtonId);
             submitButton.disabled = true;
 
-            if (statusCheckboxId) {
-                const checkbox = document.getElementById(statusCheckboxId);
-                checkbox.value = checkbox.checked ? 0 : 1;
-                checkbox.addEventListener("change", function () {
-                    checkbox.value = this.checked ? 0 : 1;
-                });
-            }
+            // if (statusCheckboxId) {
+            //     const checkbox = document.getElementById(statusCheckboxId);
+            //     checkbox.value = checkbox.checked ? 0 : 1;
+            //     checkbox.addEventListener("change", function () {
+            //         checkbox.value = this.checked ? 0 : 1;
+            //     });
+            // }
 
             Swal.fire({
                 title: "Processing...",

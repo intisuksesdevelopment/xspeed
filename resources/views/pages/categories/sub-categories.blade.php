@@ -1,677 +1,677 @@
 <?php $page = 'subcategory'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
-    <style>
-        .fade-row {
-            transition: all 0.2s ease;
-        }
+<style>
+    .fade-row {
+        transition: all 0.2s ease;
+    }
 
-        .fade-row:hover {
-            background-color: #f8f9fa;
-        }
+    .fade-row:hover {
+        background-color: #f8f9fa;
+    }
 
-        .profile-pic-upload .profile-pic {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            border: 2px dashed #d1d1d1;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f8f8f8;
-            overflow: hidden;
-        }
-        .profile-pic-upload .profile-pic img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .profile-pic-upload .profile-pic span {
-            color: #888;
-            font-size: 12px;
-            text-align: center;
-        }
-        .profile-pic-upload .profile-pic .plus-down-add {
-            display: block;
-            margin: 0 auto 5px;
-        }
-        .profile-pic-upload .profile-pic:hover {
-            border-color: #0d6efd;
-            background: #f0f0f0;
-        }
-        #imagePreviewModal .modal-content {
-            background: rgba(0,0,0,0.9);
-        }
-        #imagePreviewModal .modal-header,
-        #imagePreviewModal .modal-body {
-            background: transparent;
-            color: white;
-        }
-        #imagePreviewModal .btn-close {
-            filter: invert(1);
-        }
-        #imagePreviewModal .modal-header {
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-    </style>
-    <div class="page-wrapper" x-data="subCategoryTable()" x-cloak @refresh-subcategories.window="fetchSubCategories()">
-        <div class="content">
-            @component('pages.components.breadcrumb')
-                @slot('title')
-                    Sub Category list
-                @endslot
-                @slot('li_1')
-                    Manage your subcategories
-                @endslot
-                @slot('li_2')
-                    Add Sub Category
-                @endslot
-            @endcomponent
+    .profile-pic-upload .profile-pic {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border: 2px dashed #d1d1d1;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8f8f8;
+        overflow: hidden;
+    }
 
-            <!-- /product list -->
-            <div class="card table-list-card">
-                <div class="card-body">
-                    <div class="table-top">
+    .profile-pic-upload .profile-pic img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-                        <div class="row g-3 align-items-end">
+    .profile-pic-upload .profile-pic span {
+        color: #888;
+        font-size: 12px;
+        text-align: center;
+    }
 
-                            <!-- SEARCH -->
-                            <div class="col-md-5">
-                                <div>
-                                    <div class="mb-1">
-                                        <small class="text-muted">
-                                            {{ __('label.searchby') }}:
-                                            <strong x-text="filters.searchBy"></strong>
-                                        </small>
-                                    </div>
+    .profile-pic-upload .profile-pic .plus-down-add {
+        display: block;
+        margin: 0 auto 5px;
+    }
 
-                                    <div class="input-group">
-                                        <!-- Dropdown -->
-                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa fa-search"></i>
-                                        </button>
+    .profile-pic-upload .profile-pic:hover {
+        border-color: #0d6efd;
+        background: #f0f0f0;
+    }
 
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#"
-                                                    @click.prevent="filters.searchBy = 'Name'">{{ __('common.name') }}</a>
-                                            </li>
-                                            <li><a class="dropdown-item" href="#"
-                                                    @click.prevent="filters.searchBy = 'Code'">{{ __('common.code') }}</a>
-                                            </li>
-                                        </ul>
+    #imagePreviewModal .modal-content {
+        background: rgba(0, 0, 0, 0.9);
+    }
 
-                                        <!-- Input -->
-                                        <input type="text" class="form-control"
-                                            :placeholder="`{{ __('label.searchby') }} ${filters.searchBy}...`"
-                                            x-model="filters.search" @keyup.debounce.500ms="fetchSubCategories()">
-                                    </div>
+    #imagePreviewModal .modal-header,
+    #imagePreviewModal .modal-body {
+        background: transparent;
+        color: white;
+    }
+
+    #imagePreviewModal .btn-close {
+        filter: invert(1);
+    }
+
+    #imagePreviewModal .modal-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+</style>
+<div class="page-wrapper" x-data="subCategoryTable()" x-cloak @refresh-subcategories.window="fetchSubCategories()">
+    <div class="content">
+        @component('pages.components.breadcrumb')
+        @slot('title')
+        Sub Category list
+        @endslot
+        @slot('li_1')
+        Manage your subcategories
+        @endslot
+        @slot('li_2')
+        Add Sub Category
+        @endslot
+        @endcomponent
+
+        <!-- /product list -->
+        <div class="card table-list-card">
+            <div class="card-body">
+                <div class="table-top">
+
+                    <div class="row g-3 align-items-end">
+
+                        <!-- SEARCH -->
+                        <div class="col-md-5">
+                            <div>
+                                <div class="mb-1">
+                                    <small class="text-muted">
+                                        {{ __('label.searchby') }}:
+                                        <strong x-text="filters.searchBy"></strong>
+                                    </small>
                                 </div>
-                            </div>
 
-                            <!-- SORT -->
-                            <div class="col-md-3">
-                                <select class="form-select" x-model="filters.sort" @change="fetchSubCategories()">
-                                    <option value="desc">{{ __('common.new') }}</option>
-                                    <option value="asc">{{ __('common.old') }}</option>
-                                </select>
-                            </div>
+                                <div class="input-group">
+                                    <!-- Dropdown -->
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-search"></i>
+                                    </button>
 
-                            <!-- PER PAGE -->
-                            <div class="col-md-4 text-md-end">
-                                <div class="d-inline-flex align-items-center gap-2">
-                                    <span class="text-muted">{{ __('common.show') }}</span>
-                                    <select class="form-select form-select-sm w-auto" x-model="perPage"
-                                        @change="changePerPage(perPage)">
-                                        <option value="5">5</option>
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                    <span class="text-muted">{{ __('common.enteries') }}</span>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'Name'">{{ __('common.name') }}</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'Code'">{{ __('common.code') }}</a>
+                                        </li>
+                                    </ul>
+
+                                    <!-- Input -->
+                                    <input type="text" class="form-control" :placeholder="`{{ __('label.searchby') }} ${filters.searchBy}...`" x-model="filters.search" @keyup.debounce.500ms="fetchSubCategories()">
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- /Filter -->
-                    <div class="table-responsive position-relative">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="no-sort">
+                        <!-- SORT -->
+                        <div class="col-md-3">
+                            <select class="form-select" x-model="filters.sort" @change="fetchSubCategories()">
+                                <option value="desc">{{ __('common.new') }}</option>
+                                <option value="asc">{{ __('common.old') }}</option>
+                            </select>
+                        </div>
+
+                        <!-- PER PAGE -->
+                        <div class="col-md-4 text-md-end">
+                            <div class="d-inline-flex align-items-center gap-2">
+                                <span class="text-muted">{{ __('common.show') }}</span>
+                                <select class="form-select form-select-sm w-auto" x-model="perPage" @change="changePerPage(perPage)">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <span class="text-muted">{{ __('common.enteries') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /Filter -->
+                <div class="table-responsive position-relative">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="no-sort">
+                                    <label class="checkboxs">
+                                        <input type="checkbox" id="select-all">
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </th>
+                                <th>{{ __('common.name') }}</th>
+                                <th>{{ __('common.category') }}</th>
+                                <th>{{ __('common.code') }}</th>
+                                <th>Image</th>
+                                <th class="no-sort"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Empty state -->
+                            <tr x-show="!loading && items.length === 0">
+                                <td colspan="6" class="text-center py-3">No data found</td>
+                            </tr>
+                            <!-- Data rows -->
+                            <template x-for="item in items" :key="item.id">
+                                <tr class="fade-row">
+                                    <td>
                                         <label class="checkboxs">
-                                            <input type="checkbox" id="select-all">
+                                            <input type="checkbox">
                                             <span class="checkmarks"></span>
                                         </label>
-                                    </th>
-                                    <th>{{ __('common.name') }}</th>
-                                    <th>{{ __('common.category') }}</th>
-                                    <th>{{ __('common.code') }}</th>
-                                    <th>Image</th>
-                                    <th class="no-sort"></th>
+                                    </td>
+                                    <td x-text="item.name"></td>
+                                    <td x-text="item.category?.name ?? '-'"></td>
+                                    <td x-text="item.code"></td>
+                                    <td>
+                                        <img :src="item.image_url || '/assets/img/icons/brand-icon-01.svg'" alt="" class="img-fluid rounded" style="width: 40px; height: 40px; object-fit: cover;">
+                                    </td>
+                                    <td class="action-table-data">
+                                        <div class="edit-delete-action">
+                                            <a class="me-2 p-2" href="#" data-bs-toggle="modal" data-bs-target="#edit-sub-category" @click="openEditModal(item)">
+                                                <i data-feather="edit" class="feather-edit"></i>
+                                            </a>
+                                            <a class="p-2" href="javascript:void(0);" @click="confirmDelete(item)">
+                                                <i data-feather="trash-2" class="feather-trash-2"></i>
+                                            </a>
+                                        </div>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Empty state -->
-                                <tr x-show="!loading && items.length === 0">
-                                    <td colspan="6" class="text-center py-3">No data found</td>
-                                </tr>
-                                <!-- Data rows -->
-                                <template x-for="item in items" :key="item.id">
-                                    <tr class="fade-row">
-                                        <td>
-                                            <label class="checkboxs">
-                                                <input type="checkbox">
-                                                <span class="checkmarks"></span>
-                                            </label>
-                                        </td>
-                                        <td x-text="item.name"></td>
-                                        <td x-text="item.category?.name ?? '-'"></td>
-                                        <td x-text="item.code"></td>
-                                        <td>
-                                            <img :src="item.image_url || '/assets/img/icons/brand-icon-01.svg'" alt="" class="img-fluid rounded" style="width: 40px; height: 40px; object-fit: cover;">
-                                        </td>
-                                        <td class="action-table-data">
-                                            <div class="edit-delete-action">
-                                                <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#edit-sub-category" @click="openEditModal(item)">
-                                                    <i data-feather="edit" class="feather-edit"></i>
-                                                </a>
-                                                <a class="p-2" href="javascript:void(0);" @click="confirmDelete(item)">
-                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </template>
-                            </tbody>
-                        </table>
-
-                        <!-- Loading Overlay -->
-                        <template x-if="loading">
-                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
-                                style="background: rgba(255,255,255,0.7); z-index: 10; min-height: 200px;">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-
-                    <!-- PAGINATION -->
-                    <div class="d-flex justify-content-between align-items-center mt-3" x-show="!loading && total > 0">
-                        <div>
-                            <span class="text-muted">Showing <span x-text="from"></span> to <span x-text="to"></span> of
-                                <span x-text="total"></span> entries</span>
-                        </div>
-                        <div class="d-flex gap-1">
-                            <button class="btn btn-sm btn-outline-secondary" @click="prevPage()" :disabled="page <= 1">
-                                <i class="fa fa-chevron-left"></i>
-                            </button>
-                            <template x-for="p in visiblePages" :key="p">
-                                <button class="btn btn-sm" :class="p === page ? 'btn-primary' : 'btn-outline-secondary'"
-                                    @click="goToPage(p)" x-text="p"></button>
                             </template>
-                            <button class="btn btn-sm btn-outline-secondary" @click="nextPage()"
-                                :disabled="page >= lastPage">
-                                <i class="fa fa-chevron-right"></i>
-                            </button>
+                        </tbody>
+                    </table>
+
+                    <!-- Loading Overlay -->
+                    <template x-if="loading">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(255,255,255,0.7); z-index: 10; min-height: 200px;">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </div>
+                    </template>
+                </div>
+
+                <!-- PAGINATION -->
+                <div class="d-flex justify-content-between align-items-center mt-3" x-show="!loading && total > 0">
+                    <div>
+                        <span class="text-muted">Showing <span x-text="from"></span> to <span x-text="to"></span> of
+                            <span x-text="total"></span> entries</span>
+                    </div>
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-sm btn-outline-secondary" @click="prevPage()" :disabled="page <= 1">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <template x-for="p in visiblePages" :key="p">
+                            <button class="btn btn-sm" :class="p === page ? 'btn-primary' : 'btn-outline-secondary'" @click="goToPage(p)" x-text="p"></button>
+                        </template>
+                        <button class="btn btn-sm btn-outline-secondary" @click="nextPage()" :disabled="page >= lastPage">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-            <!-- /product list -->
         </div>
+        <!-- /product list -->
+    </div>
 
-        <!-- Delete Confirmation Modal -->
-        <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Confirm Delete</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete <strong x-text="itemToDelete?.name"></strong>?</p>
-                        <p class="text-muted">This action cannot be undone.</p>
-                        <div class="modal-footer-btn delete">
-                            <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-submit" @click="deleteItem()">
-                                <i data-feather="trash-2" class="feather-14"></i> Delete
-                            </button>
-                        </div>
-                    </div>
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-        </div>
-
-        <!-- Image Preview Modal -->
-        <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header border-0">
-                        <div class="page-title">
-                            <h4>Image Preview</h4>
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <img id="preview-modal-image" src="" alt="Image Preview" class="img-fluid" style="max-height: 70vh; object-fit: contain;">
+                <div class="modal-body">
+                    <p>Are you sure you want to delete <strong x-text="itemToDelete?.name"></strong>?</p>
+                    <p class="text-muted">This action cannot be undone.</p>
+                    <div class="modal-footer-btn delete">
+                        <button type="button" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-submit" @click="deleteItem()">
+                            <i data-feather="trash-2" class="feather-14"></i> Delete
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        const API_SUBCATEGORY_URL = "{{ route('api-subcategory-paged') }}";
-        const API_CATEGORY_URL = "{{ route('api-category-all') }}";
 
-        // Store reference globally BEFORE Alpine initializes
-        window.subCategoryTable = function() {
-            return {
-                items: [],
-                categories: [],
-                loading: true,
-                page: 1,
-                perPage: 10,
-                lastPage: 1,
-                total: 0,
-                from: 0,
-                to: 0,
+    <!-- Image Preview Modal -->
+    <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <div class="page-title">
+                        <h4>Image Preview</h4>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="preview-modal-image" src="" alt="Image Preview" class="img-fluid" style="max-height: 70vh; object-fit: contain;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const API_SUBCATEGORY_URL = "{{ route('api-subcategory-paged') }}";
+    const API_CATEGORY_URL = "{{ route('api-category-all') }}";
 
-                filters: {
-                    search: '',
-                    searchBy: 'Name',
-                    categoryId: '',
-                    sort: 'desc'
-                },
+    // Store reference globally BEFORE Alpine initializes
+    window.subCategoryTable = function() {
+        return {
+            items: []
+            , categories: []
+            , loading: true
+            , page: 1
+            , perPage: 10
+            , lastPage: 1
+            , total: 0
+            , from: 0
+            , to: 0,
 
-                itemToDelete: null,
-                isDeleting: false,
+            filters: {
+                search: ''
+                , searchBy: 'Name'
+                , categoryId: ''
+                , sort: 'desc'
+            },
 
-                init() {
-                    this.fetchCategories().then(() => {
-                        this.populateModalDropdowns();
+            itemToDelete: null
+            , isDeleting: false,
+
+            init() {
+                this.fetchCategories().then(() => {
+                    this.populateModalDropdowns();
+                });
+                this.fetchSubCategories();
+            },
+
+            populateModalDropdowns() {
+                const addSelect = document.getElementById('add-category-id');
+                if (addSelect) {
+                    addSelect.innerHTML = '';
+                    this.categories.forEach(cat => {
+                        const option = document.createElement('option');
+                        option.value = cat.id;
+                        option.text = cat.name;
+                        addSelect.appendChild(option);
                     });
-                    this.fetchSubCategories();
-                },
+                }
+                const editSelect = document.getElementById('edit-category-id');
+                if (editSelect) {
+                    editSelect.innerHTML = '';
+                    this.categories.forEach(cat => {
+                        const option = document.createElement('option');
+                        option.value = cat.id;
+                        option.text = cat.name;
+                        editSelect.appendChild(option);
+                    });
+                }
+            },
 
-                populateModalDropdowns() {
-                    const addSelect = document.getElementById('add-category-id');
-                    if (addSelect) {
-                        addSelect.innerHTML = '';
-                        this.categories.forEach(cat => {
-                            const option = document.createElement('option');
-                            option.value = cat.id;
-                            option.text = cat.name;
-                            addSelect.appendChild(option);
-                        });
+            async fetchCategories() {
+                try {
+                    let res = await fetch(API_CATEGORY_URL);
+                    let result = await res.json();
+                    if (result.success) {
+                        this.categories = result.data || [];
                     }
-                    const editSelect = document.getElementById('edit-category-id');
-                    if (editSelect) {
-                        editSelect.innerHTML = '';
-                        this.categories.forEach(cat => {
-                            const option = document.createElement('option');
-                            option.value = cat.id;
-                            option.text = cat.name;
-                            editSelect.appendChild(option);
-                        });
-                    }
-                },
+                } catch (e) {
+                    console.error('Error fetching categories:', e);
+                }
+            },
 
-                async fetchCategories() {
-                    try {
-                        let res = await fetch(API_CATEGORY_URL);
-                        let result = await res.json();
-                        if (result.success) {
-                            this.categories = result.data || [];
+            async fetchSubCategories() {
+                this.loading = true;
+
+                try {
+                    let params = new URLSearchParams({
+                        search: this.filters.search
+                        , search_by: this.filters.searchBy
+                        , category_id: this.filters.categoryId
+                        , sortBy: 'created_at'
+                        , sortDirection: this.filters.sort
+                        , page: this.page
+                        , per_page: this.perPage
+                    });
+
+                    let res = await fetch(`${API_SUBCATEGORY_URL}?${params}`);
+                    let result = await res.json();
+
+                    if (result.success) {
+                        let data = result.data;
+                        if (data.data && data.total !== undefined) {
+                            this.items = data.data;
+                            this.total = data.total;
+                            this.lastPage = data.last_page || 1;
+                            this.page = data.current_page || 1;
+                        } else if (Array.isArray(data)) {
+                            this.items = data;
+                            this.total = data.length;
+                            this.lastPage = 1;
+                        } else {
+                            this.items = [];
+                            this.total = 0;
+                            this.lastPage = 1;
                         }
-                    } catch (e) {
-                        console.error('Error fetching categories:', e);
+                        this.updatePagination();
                     }
-                },
-
-                async fetchSubCategories() {
-                    this.loading = true;
-
-                    try {
-                        let params = new URLSearchParams({
-                            search: this.filters.search,
-                            search_by: this.filters.searchBy,
-                            category_id: this.filters.categoryId,
-                            sortBy: 'created_at',
-                            sortDirection: this.filters.sort,
-                            page: this.page,
-                            per_page: this.perPage
-                        });
-
-                        let res = await fetch(`${API_SUBCATEGORY_URL}?${params}`);
-                        let result = await res.json();
-
-                        if (result.success) {
-                            let data = result.data;
-                            if (data.data && data.total !== undefined) {
-                                this.items = data.data;
-                                this.total = data.total;
-                                this.lastPage = data.last_page || 1;
-                                this.page = data.current_page || 1;
-                            } else if (Array.isArray(data)) {
-                                this.items = data;
-                                this.total = data.length;
-                                this.lastPage = 1;
-                            } else {
-                                this.items = [];
-                                this.total = 0;
-                                this.lastPage = 1;
-                            }
-                            this.updatePagination();
+                } catch (e) {
+                    console.error('Error fetching subcategories:', e);
+                } finally {
+                    this.loading = false;
+                    this.$nextTick(() => {
+                        if (typeof feather !== 'undefined') {
+                            feather.replace();
                         }
-                    } catch (e) {
-                        console.error('Error fetching subcategories:', e);
-                    } finally {
-                        this.loading = false;
-                        this.$nextTick(() => {
-                            if (typeof feather !== 'undefined') {
-                                feather.replace();
-                            }
-                        });
-                    }
-                },
+                    });
+                }
+            },
 
-                updatePagination() {
-                    this.from = (this.page - 1) * this.perPage + 1;
-                    this.to = Math.min(this.page * this.perPage, this.total);
-                },
+            updatePagination() {
+                this.from = (this.page - 1) * this.perPage + 1;
+                this.to = Math.min(this.page * this.perPage, this.total);
+            },
 
-                get visiblePages() {
-                    let pages = [];
-                    let start = Math.max(1, this.page - 2);
-                    let end = Math.min(this.lastPage, start + 4);
-                    if (end - start < 4) {
-                        start = Math.max(1, end - 4);
-                    }
-                    for (let i = start; i <= end; i++) {
-                        pages.push(i);
-                    }
-                    return pages;
-                },
+            get visiblePages() {
+                let pages = [];
+                let start = Math.max(1, this.page - 2);
+                let end = Math.min(this.lastPage, start + 4);
+                if (end - start < 4) {
+                    start = Math.max(1, end - 4);
+                }
+                for (let i = start; i <= end; i++) {
+                    pages.push(i);
+                }
+                return pages;
+            },
 
-                goToPage(p) {
-                    this.page = p;
-                    this.fetchSubCategories();
-                },
+            goToPage(p) {
+                this.page = p;
+                this.fetchSubCategories();
+            },
 
-                nextPage() {
-                    if (this.page < this.lastPage) {
-                        this.page++;
-                        this.fetchSubCategories();
-                    }
-                },
-
-                prevPage() {
-                    if (this.page > 1) {
-                        this.page--;
-                        this.fetchSubCategories();
-                    }
-                },
-
-                changePerPage(val) {
-                    this.perPage = val;
-                    this.page = 1;
-                    this.fetchSubCategories();
-                },
-
-                formatDate(datetime) {
-                    if (!datetime) return '-';
-                    const date = new Date(datetime);
-                    return new Intl.DateTimeFormat('id-ID', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: '2-digit'
-                    }).format(date);
-                },
-
-                openEditModal(item) {
-                    document.getElementById('edit-id').value = item.id;
-                    document.getElementById('edit-code').value = item.code;
-                    document.getElementById('edit-name').value = item.name;
-                    document.getElementById('edit-description').value = item.description || '';
-                    document.getElementById('edit-category-id').value = item.category_id || '';
-                    const statusCheckbox = document.getElementById('edit-status');
-                    if (statusCheckbox) statusCheckbox.checked = (item.status == 0);
-
-                    // Initialize image preview like brand pattern
-                    initEditSubCategoryImage(item.image_url);
-                },
-
-                confirmDelete(item) {
-                    this.itemToDelete = item;
-                    const modalEl = document.getElementById('deleteConfirmModal');
-                    if (modalEl) {
-                        const modal = new bootstrap.Modal(modalEl);
-                        modal.show();
-                    }
-                },
-
-                async deleteItem() {
-                    if (!this.itemToDelete || this.isDeleting) return;
-
-                    this.isDeleting = true;
-                    this.loading = true;
-                    const item = this.itemToDelete;
-                    const id = item.id;
-
-                    const modalEl = document.getElementById('deleteConfirmModal');
-                    if (modalEl) {
-                        const modal = bootstrap.Modal.getInstance(modalEl);
-                        if (modal) modal.hide();
-                    }
-
-                    try {
-                        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
-                        let res = await fetch(`{{ route('subcategory-delete', ':id') }}`.replace(':id', id), {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': csrfToken,
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json'
-                            }
-                        });
-
-                        // Always refresh from server after delete
-                        this.fetchSubCategories();
-
-                        if (!res.ok) {
-                            alert('Failed to delete category');
-                        }
-                    } catch (e) {
-                        console.error('Delete error:', e);
-                        this.fetchSubCategories();
-                        alert('Failed to delete category');
-                    } finally {
-                        this.isDeleting = false;
-                    }
-
-                    this.itemToDelete = null;
-                },
-
-                refreshList() {
+            nextPage() {
+                if (this.page < this.lastPage) {
+                    this.page++;
                     this.fetchSubCategories();
                 }
+            },
+
+            prevPage() {
+                if (this.page > 1) {
+                    this.page--;
+                    this.fetchSubCategories();
+                }
+            },
+
+            changePerPage(val) {
+                this.perPage = val;
+                this.page = 1;
+                this.fetchSubCategories();
+            },
+
+            formatDate(datetime) {
+                if (!datetime) return '-';
+                const date = new Date(datetime);
+                return new Intl.DateTimeFormat('id-ID', {
+                    year: 'numeric'
+                    , month: 'short'
+                    , day: '2-digit'
+                }).format(date);
+            },
+
+            openEditModal(item) {
+                document.getElementById('edit-id').value = item.id;
+                document.getElementById('edit-code').value = item.code;
+                document.getElementById('edit-name').value = item.name;
+                document.getElementById('edit-description').value = item.description || '';
+                document.getElementById('edit-category-id').value = item.category_id || '';
+                const statusCheckbox = document.getElementById('edit-status');
+                if (statusCheckbox) statusCheckbox.checked = (item.status == 0);
+
+                // Initialize image preview like brand pattern
+                initEditSubCategoryImage(item.image_url);
+            },
+
+            confirmDelete(item) {
+                this.itemToDelete = item;
+                const modalEl = document.getElementById('deleteConfirmModal');
+                if (modalEl) {
+                    const modal = new bootstrap.Modal(modalEl);
+                    modal.show();
+                }
+            },
+
+            async deleteItem() {
+                if (!this.itemToDelete || this.isDeleting) return;
+
+                this.isDeleting = true;
+                this.loading = true;
+                const item = this.itemToDelete;
+                const id = item.id;
+
+                const modalEl = document.getElementById('deleteConfirmModal');
+                if (modalEl) {
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    if (modal) modal.hide();
+                }
+
+                try {
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+                    let res = await fetch(`{{ route('subcategory-delete', ':id') }}`.replace(':id', id), {
+                        method: 'DELETE'
+                        , headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                            , 'Content-Type': 'application/json'
+                            , 'Accept': 'application/json'
+                        }
+                    });
+
+                    // Always refresh from server after delete
+                    this.fetchSubCategories();
+
+                    if (!res.ok) {
+                        alert('Failed to delete category');
+                    }
+                } catch (e) {
+                    console.error('Delete error:', e);
+                    this.fetchSubCategories();
+                    alert('Failed to delete category');
+                } finally {
+                    this.isDeleting = false;
+                }
+
+                this.itemToDelete = null;
+            },
+
+            refreshList() {
+                this.fetchSubCategories();
             }
-        };
+        }
+    };
 
-        // Global function to refresh subcategory table
-        window.refreshSubCategoryTable = function() {
-            var wrapper = document.querySelector('.page-wrapper');
-            if (wrapper && wrapper.__x) {
-                wrapper.__x.$data.fetchSubCategories();
-            } else {
-                window.dispatchEvent(new CustomEvent('refresh-subcategories'));
-            }
-        };
+    // Global function to refresh subcategory table
+    window.refreshSubCategoryTable = function() {
+        var wrapper = document.querySelector('.page-wrapper');
+        if (wrapper && wrapper.__x) {
+            wrapper.__x.$data.fetchSubCategories();
+        } else {
+            window.dispatchEvent(new CustomEvent('refresh-subcategories'));
+        }
+    };
 
-        // Initialize subcategory image preview when edit modal opens
-        function initEditSubCategoryImage(imageUrl) {
-            const preview = document.getElementById('edit-subcategory-preview');
-            const placeholder = document.getElementById('edit-subcategory-placeholder');
-            const currentImageUrl = document.getElementById('edit-subcategory-current-image-url');
+    // Initialize subcategory image preview when edit modal opens
+    function initEditSubCategoryImage(imageUrl) {
+        const preview = document.getElementById('edit-subcategory-preview');
+        const placeholder = document.getElementById('edit-subcategory-placeholder');
+        const currentImageUrl = document.getElementById('edit-subcategory-current-image-url');
 
-            if (currentImageUrl) currentImageUrl.value = imageUrl || '';
+        if (currentImageUrl) currentImageUrl.value = imageUrl || '';
 
-            if (imageUrl && imageUrl.trim() !== '') {
-                preview.src = imageUrl;
+        if (imageUrl && imageUrl.trim() !== '') {
+            preview.src = imageUrl;
+            preview.style.display = 'block';
+            if (placeholder) placeholder.style.display = 'none';
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
+            if (placeholder) placeholder.style.display = 'flex';
+        }
+    }
+
+    // Open larger image preview
+    function openImagePreview(prefix) {
+        const preview = document.getElementById(prefix + '-preview');
+        const currentImageUrl = document.getElementById(prefix.replace('edit-', 'edit-') + '-current-image-url');
+
+        let imageSrc = preview.src;
+
+        // If preview is hidden/not set, try current image URL
+        if (!imageSrc || imageSrc === '' || imageSrc.includes('data:,')) {
+            if (currentImageUrl) imageSrc = currentImageUrl.value;
+        }
+
+        if (imageSrc && imageSrc.trim() !== '' && !imageSrc.includes('data:,')) {
+            document.getElementById('preview-modal-image').src = imageSrc;
+            const modal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
+            modal.show();
+        }
+    }
+
+    // Form handlers
+    document.addEventListener('DOMContentLoaded', function() {
+        // Override submitForm for add form
+        const subCategoryAddForm = document.getElementById('subCategoryAddForm');
+        if (subCategoryAddForm) {
+            subCategoryAddForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                handleSubCategoryFormSubmit(this, 'submit-add-button', 'status-add');
+            });
+        }
+
+        // Override submitForm for edit form
+        const subCategoryEditForm = document.getElementById('subCategoryEditForm');
+        if (subCategoryEditForm) {
+            subCategoryEditForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                handleSubCategoryFormSubmit(this, 'submit-edit-button', 'status-edit');
+            });
+        }
+
+        // Reset add subcategory modal preview when opened (like brand pattern)
+        const addSubCategoryModal = document.getElementById('add-sub-category');
+        if (addSubCategoryModal) {
+            addSubCategoryModal.addEventListener('show.bs.modal', function() {
+                const preview = document.getElementById('add-subcategory-preview');
+                const placeholder = document.getElementById('add-subcategory-placeholder');
+                const fileInput = document.getElementById('add-subcategory-file');
+
+                if (preview) {
+                    preview.src = '';
+                    preview.style.display = 'none';
+                }
+                if (placeholder) placeholder.style.display = 'flex';
+                if (fileInput) fileInput.value = '';
+            });
+        }
+    });
+
+    // Global image preview function
+    function previewImage(input, prefix) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            const preview = document.getElementById(prefix + '-preview');
+            const placeholder = document.getElementById(prefix + '-placeholder');
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
                 preview.style.display = 'block';
                 if (placeholder) placeholder.style.display = 'none';
-            } else {
-                preview.src = '';
-                preview.style.display = 'none';
-                if (placeholder) placeholder.style.display = 'flex';
-            }
+            };
+
+            reader.readAsDataURL(input.files[0]);
         }
+    }
 
-        // Open larger image preview
-        function openImagePreview(prefix) {
-            const preview = document.getElementById(prefix + '-preview');
-            const currentImageUrl = document.getElementById(prefix.replace('edit-', 'edit-') + '-current-image-url');
+    function handleSubCategoryFormSubmit(form, submitButtonId, statusCheckboxId) {
+        let formData = new FormData(form);
+        let submitButton = document.getElementById(submitButtonId);
+        submitButton.disabled = true;
 
-            let imageSrc = preview.src;
+        // if (statusCheckboxId) {
+        //     const checkbox = document.getElementById(statusCheckboxId);
+        //     checkbox.value = checkbox.checked ? 0 : 1;
+        // }
 
-            // If preview is hidden/not set, try current image URL
-            if (!imageSrc || imageSrc === '' || imageSrc.includes('data:,')) {
-                if (currentImageUrl) imageSrc = currentImageUrl.value;
-            }
+        Swal.fire({
+            title: "Processing..."
+            , text: "Please wait."
+            , icon: "info"
+            , showConfirmButton: false
+            , allowOutsideClick: false
+        , });
 
-            if (imageSrc && imageSrc.trim() !== '' && !imageSrc.includes('data:,')) {
-                document.getElementById('preview-modal-image').src = imageSrc;
-                const modal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
-                modal.show();
-            }
-        }
+        fetch(form.action, {
+                method: "POST"
+                , headers: {
+                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
+                , }
+                , body: formData
+            , })
+            .then((response) => response.json())
+            .then((data) => {
+                Swal.close();
+                submitButton.disabled = false;
 
-        // Form handlers
-        document.addEventListener('DOMContentLoaded', function() {
-            // Override submitForm for add form
-            const subCategoryAddForm = document.getElementById('subCategoryAddForm');
-            if (subCategoryAddForm) {
-                subCategoryAddForm.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    handleSubCategoryFormSubmit(this, 'submit-add-button', 'status-add');
-                });
-            }
+                const modalId = data.success ? "success-alert-modal" : "danger-alert-modal";
+                const messageId = data.success ? "success-message" : "danger-message";
+                let modalMessage = data.success ? data.message : "Submission failed";
 
-            // Override submitForm for edit form
-            const subCategoryEditForm = document.getElementById('subCategoryEditForm');
-            if (subCategoryEditForm) {
-                subCategoryEditForm.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    handleSubCategoryFormSubmit(this, 'submit-edit-button', 'status-edit');
-                });
-            }
-
-            // Reset add subcategory modal preview when opened (like brand pattern)
-            const addSubCategoryModal = document.getElementById('add-sub-category');
-            if (addSubCategoryModal) {
-                addSubCategoryModal.addEventListener('show.bs.modal', function() {
-                    const preview = document.getElementById('add-subcategory-preview');
-                    const placeholder = document.getElementById('add-subcategory-placeholder');
-                    const fileInput = document.getElementById('add-subcategory-file');
-
-                    if (preview) {
-                        preview.src = '';
-                        preview.style.display = 'none';
+                if (!data.success && data.message) {
+                    if (typeof data.message === "object") {
+                        modalMessage = Object.values(data.message).flat().join(", ");
+                    } else {
+                        modalMessage = data.message;
                     }
-                    if (placeholder) placeholder.style.display = 'flex';
-                    if (fileInput) fileInput.value = '';
-                });
-            }
-        });
+                }
 
-        // Global image preview function
-        function previewImage(input, prefix) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                const preview = document.getElementById(prefix + '-preview');
-                const placeholder = document.getElementById(prefix + '-placeholder');
+                document.getElementById(messageId).textContent = modalMessage;
+                new bootstrap.Modal(document.getElementById(modalId)).show();
 
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                    if (placeholder) placeholder.style.display = 'none';
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        function handleSubCategoryFormSubmit(form, submitButtonId, statusCheckboxId) {
-            let formData = new FormData(form);
-            let submitButton = document.getElementById(submitButtonId);
-            submitButton.disabled = true;
-
-            if (statusCheckboxId) {
-                const checkbox = document.getElementById(statusCheckboxId);
-                checkbox.value = checkbox.checked ? 0 : 1;
-            }
-
-            Swal.fire({
-                title: "Processing...",
-                text: "Please wait.",
-                icon: "info",
-                showConfirmButton: false,
-                allowOutsideClick: false,
-            });
-
-            fetch(form.action, {
-                    method: "POST",
-                    headers: {
-                        "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
-                    },
-                    body: formData,
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                    Swal.close();
-                    submitButton.disabled = false;
-
-                    const modalId = data.success ? "success-alert-modal" : "danger-alert-modal";
-                    const messageId = data.success ? "success-message" : "danger-message";
-                    let modalMessage = data.success ? data.message : "Submission failed";
-
-                    if (!data.success && data.message) {
-                        if (typeof data.message === "object") {
-                            modalMessage = Object.values(data.message).flat().join(", ");
-                        } else {
-                            modalMessage = data.message;
-                        }
-                    }
-
-                    document.getElementById(messageId).textContent = modalMessage;
-                    new bootstrap.Modal(document.getElementById(modalId)).show();
-
-                    if (data.success) {
-                        setTimeout(() => {
-                            // Refresh table first, then close modal
-                            window.refreshSubCategoryTable();
-                            var closeBtn = form.querySelector(
+                if (data.success) {
+                    setTimeout(() => {
+                        // Refresh table first, then close modal
+                        window.refreshSubCategoryTable();
+                        var closeBtn = form.querySelector(
                             '[data-bs-dismiss="modal"][name="cancel-button"]');
-                            if (closeBtn) closeBtn.click();
-                        }, 1000);
-                    }
-                })
-                .catch((error) => {
-                    console.error("Submission failed:", error);
-                    Swal.close();
-                    submitButton.disabled = false;
-                    document.getElementById("danger-message").textContent = error.message || "An error occurred";
-                    new bootstrap.Modal(document.getElementById("danger-alert-modal")).show();
-                });
-        }
-    </script>
+                        if (closeBtn) closeBtn.click();
+                    }, 1000);
+                }
+            })
+            .catch((error) => {
+                console.error("Submission failed:", error);
+                Swal.close();
+                submitButton.disabled = false;
+                document.getElementById("danger-message").textContent = error.message || "An error occurred";
+                new bootstrap.Modal(document.getElementById("danger-alert-modal")).show();
+            });
+    }
+
+</script>
 @endsection

@@ -62,7 +62,7 @@ class UnitService
     {
         try {
             $data = $request->all();
-            $data['status'] = $request->has('status') ? 0 : 1;
+            $data['status'] = 0;
 
             // Check for duplicate unit (code) among active records only
             $existingUnit = Unit::whereRaw('LOWER(unit) = ?', [strtolower($data['unit'])])
@@ -102,7 +102,7 @@ class UnitService
     {
         try {
             $data = $request->all();
-            $data['status'] = $request->has('status') ? 0 : 1;
+            $data['status'] = $data['status'] ?? 0;
 
             $unit = Unit::find($data['id']);
             if (! $unit) {

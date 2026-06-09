@@ -1,588 +1,591 @@
 <?php $page = 'brands'; ?>
 @extends('pages.layout.mainlayout')
 @section('content')
-    <style>
-        .fade-row {
-            transition: all 0.2s ease;
-        }
-        .fade-row:hover {
-            background-color: #f8f9fa;
-        }
-        .profile-pic-upload .profile-pic {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            border: 2px dashed #d1d1d1;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f8f8f8;
-            overflow: hidden;
-        }
-        .profile-pic-upload .profile-pic img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .profile-pic-upload .profile-pic span {
-            color: #888;
-            font-size: 12px;
-            text-align: center;
-        }
-        .profile-pic-upload .profile-pic .plus-down-add {
-            display: block;
-            margin: 0 auto 5px;
-        }
-        .profile-pic-upload .profile-pic:hover {
-            border-color: #0d6efd;
-            background: #f0f0f0;
-        }
-        #imagePreviewModal .modal-content {
-            background: rgba(0,0,0,0.9);
-        }
-        #imagePreviewModal .modal-header,
-        #imagePreviewModal .modal-body {
-            background: transparent;
-            color: white;
-        }
-        #imagePreviewModal .btn-close {
-            filter: invert(1);
-        }
-        #imagePreviewModal .modal-header {
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-    </style>
-    <div class="page-wrapper" x-data="brandTable()" x-init="init()" x-cloak
-         @refresh-brands.window="fetchBrands()">
-        <div class="content">
-            @component('pages.components.breadcrumb')
-                @slot('title')
-                    Brand
-                @endslot
-                @slot('li_1')
-                    Manage your brands
-                @endslot
-                @slot('li_2')
-                    Add New Brand
-                @endslot
-            @endcomponent
+<style>
+    .fade-row {
+        transition: all 0.2s ease;
+    }
 
-            <!-- /product list -->
-            <div class="card table-list-card">
-                <div class="card-body">
-                    <div class="table-top">
+    .fade-row:hover {
+        background-color: #f8f9fa;
+    }
 
-                        <div class="row g-3 align-items-end">
+    .profile-pic-upload .profile-pic {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border: 2px dashed #d1d1d1;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8f8f8;
+        overflow: hidden;
+    }
 
-                            <!-- SEARCH -->
-                            <div class="col-md-5">
-                                <div>
-                                    <div class="mb-1">
-                                        <small class="text-muted">
-                                            {{ __('label.searchby') }}:
-                                            <strong x-text="filters.searchBy"></strong>
-                                        </small>
-                                    </div>
+    .profile-pic-upload .profile-pic img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-                                    <div class="input-group">
+    .profile-pic-upload .profile-pic span {
+        color: #888;
+        font-size: 12px;
+        text-align: center;
+    }
 
-                                        <!-- Dropdown -->
-                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa fa-search"></i>
-                                        </button>
+    .profile-pic-upload .profile-pic .plus-down-add {
+        display: block;
+        margin: 0 auto 5px;
+    }
 
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'Name'">{{ __('common.name') }}</a></li>
-                                            <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'Code'">{{ __('common.code') }}</a></li>
-                                        </ul>
+    .profile-pic-upload .profile-pic:hover {
+        border-color: #0d6efd;
+        background: #f0f0f0;
+    }
 
-                                        <!-- Input -->
-                                        <input type="text" class="form-control" :placeholder="`{{ __('label.searchby') }} ${filters.searchBy}...`"
-                                            x-model="filters.search" @keyup.debounce.500ms="fetchBrands()">
-                                    </div>
+    #imagePreviewModal .modal-content {
+        background: rgba(0, 0, 0, 0.9);
+    }
+
+    #imagePreviewModal .modal-header,
+    #imagePreviewModal .modal-body {
+        background: transparent;
+        color: white;
+    }
+
+    #imagePreviewModal .btn-close {
+        filter: invert(1);
+    }
+
+    #imagePreviewModal .modal-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+</style>
+<div class="page-wrapper" x-data="brandTable()" x-init="init()" x-cloak @refresh-brands.window="fetchBrands()">
+    <div class="content">
+        @component('pages.components.breadcrumb')
+        @slot('title')
+        Brand
+        @endslot
+        @slot('li_1')
+        Manage your brands
+        @endslot
+        @slot('li_2')
+        Add New Brand
+        @endslot
+        @endcomponent
+
+        <!-- /product list -->
+        <div class="card table-list-card">
+            <div class="card-body">
+                <div class="table-top">
+
+                    <div class="row g-3 align-items-end">
+
+                        <!-- SEARCH -->
+                        <div class="col-md-5">
+                            <div>
+                                <div class="mb-1">
+                                    <small class="text-muted">
+                                        {{ __('label.searchby') }}:
+                                        <strong x-text="filters.searchBy"></strong>
+                                    </small>
                                 </div>
-                            </div>
 
-                            <!-- SORT -->
-                            <div class="col-md-3">
-                                <select class="form-select" x-model="filters.sort" @change="fetchBrands()">
-                                    <option value="desc">{{ __('common.new') }}</option>
-                                    <option value="asc">{{ __('common.old') }}</option>
-                                </select>
-                            </div>
+                                <div class="input-group">
 
-                            <!-- PER PAGE -->
-                            <div class="col-md-4 text-md-end">
-                                <div class="d-inline-flex align-items-center gap-2">
-                                    <span class="text-muted">{{ __('common.show') }}</span>
-                                    <select class="form-select form-select-sm w-auto" x-model="perPage"
-                                        @change="changePerPage(perPage)">
-                                        <option value="5">5</option>
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                    <span class="text-muted">{{ __('common.enteries') }}</span>
+                                    <!-- Dropdown -->
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'Name'">{{ __('common.name') }}</a></li>
+                                        <li><a class="dropdown-item" href="#" @click.prevent="filters.searchBy = 'Code'">{{ __('common.code') }}</a></li>
+                                    </ul>
+
+                                    <!-- Input -->
+                                    <input type="text" class="form-control" :placeholder="`{{ __('label.searchby') }} ${filters.searchBy}...`" x-model="filters.search" @keyup.debounce.500ms="fetchBrands()">
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- /Filter -->
-                    <div class="table-responsive position-relative">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="no-sort">
+                        <!-- SORT -->
+                        <div class="col-md-3">
+                            <select class="form-select" x-model="filters.sort" @change="fetchBrands()">
+                                <option value="desc">{{ __('common.new') }}</option>
+                                <option value="asc">{{ __('common.old') }}</option>
+                            </select>
+                        </div>
+
+                        <!-- PER PAGE -->
+                        <div class="col-md-4 text-md-end">
+                            <div class="d-inline-flex align-items-center gap-2">
+                                <span class="text-muted">{{ __('common.show') }}</span>
+                                <select class="form-select form-select-sm w-auto" x-model="perPage" @change="changePerPage(perPage)">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <span class="text-muted">{{ __('common.enteries') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /Filter -->
+                <div class="table-responsive position-relative">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="no-sort">
+                                    <label class="checkboxs">
+                                        <input type="checkbox" id="select-all">
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </th>
+                                <th>{{ __('common.code') }}</th>
+                                <th>Logo</th>
+                                <th>{{ __('common.name') }}</th>
+                                <th>{{ __('common.description') }}</th>
+                                <th class="no-sort"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- EMPTY -->
+                            <tr x-show="!loading && items.length === 0" x-cloak>
+                                <td colspan="6" class="text-center py-3">No data found</td>
+                            </tr>
+
+                            <!-- DATA -->
+                            <template x-for="item in items" :key="item.id">
+                                <tr class="fade-row">
+                                    <td>
                                         <label class="checkboxs">
-                                            <input type="checkbox" id="select-all">
+                                            <input type="checkbox">
                                             <span class="checkmarks"></span>
                                         </label>
-                                    </th>
-                                    <th>{{ __('common.code') }}</th>
-                                    <th>Logo</th>
-                                    <th>{{ __('common.name') }}</th>
-                                    <th>{{ __('common.description') }}</th>
-                                    <th class="no-sort"></th>
+                                    </td>
+                                    <td x-text="item.code"></td>
+                                    <td>
+                                        <img :src="item.image_url || '/assets/img/icons/brand-icon-01.svg'" alt="" class="img-fluid rounded" style="width: 40px; height: 40px; object-fit: cover;">
+                                    </td>
+                                    <td x-text="item.name"></td>
+                                    <td class="text-truncate" style="max-width: 200px;" x-text="item.description || '-'"></td>
+                                    <td class="action-table-data">
+                                        <div class="edit-delete-action">
+                                            <a class="me-2 p-2" href="#" data-bs-toggle="modal" data-bs-target="#edit-brand" @click="openEditModal(item)">
+                                                <i data-feather="edit" class="feather-edit"></i>
+                                            </a>
+                                            <a class="p-2" href="javascript:void(0);" @click="confirmDelete(item)">
+                                                <i data-feather="trash-2" class="feather-trash-2"></i>
+                                            </a>
+                                        </div>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <!-- EMPTY -->
-                                <tr x-show="!loading && items.length === 0" x-cloak>
-                                    <td colspan="6" class="text-center py-3">No data found</td>
-                                </tr>
-
-                                <!-- DATA -->
-                                <template x-for="item in items" :key="item.id">
-                                    <tr class="fade-row">
-                                        <td>
-                                            <label class="checkboxs">
-                                                <input type="checkbox">
-                                                <span class="checkmarks"></span>
-                                            </label>
-                                        </td>
-                                        <td x-text="item.code"></td>
-                                        <td>
-                                            <img :src="item.image_url || '/assets/img/icons/brand-icon-01.svg'" alt="" class="img-fluid rounded" style="width: 40px; height: 40px; object-fit: cover;">
-                                        </td>
-                                        <td x-text="item.name"></td>
-                                        <td class="text-truncate" style="max-width: 200px;" x-text="item.description || '-'"></td>
-                                        <td class="action-table-data">
-                                            <div class="edit-delete-action">
-                                                <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#edit-brand" @click="openEditModal(item)">
-                                                    <i data-feather="edit" class="feather-edit"></i>
-                                                </a>
-                                                <a class="p-2" href="javascript:void(0);"
-                                                    @click="confirmDelete(item)">
-                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </template>
-                            </tbody>
-                        </table>
-
-                        <!-- Loading Overlay -->
-                        <template x-if="loading">
-                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
-                                style="background: rgba(255,255,255,0.7); z-index: 10; min-height: 200px;">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-
-                    <!-- PAGINATION -->
-                    <div class="d-flex justify-content-between align-items-center mt-3" x-show="!loading && total > 0">
-                        <div>
-                            <span class="text-muted">Showing <span x-text="from"></span> to <span x-text="to"></span> of <span x-text="total"></span> entries</span>
-                        </div>
-                        <div class="d-flex gap-1">
-                            <button class="btn btn-sm btn-outline-secondary" @click="prevPage()" :disabled="page <= 1">
-                                <i class="fa fa-chevron-left"></i>
-                            </button>
-                            <template x-for="p in visiblePages" :key="p">
-                                <button class="btn btn-sm" :class="p === page ? 'btn-primary' : 'btn-outline-secondary'"
-                                    @click="goToPage(p)" x-text="p"></button>
                             </template>
-                            <button class="btn btn-sm btn-outline-secondary" @click="nextPage()" :disabled="page >= lastPage">
-                                <i class="fa fa-chevron-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /product list -->
-        </div>
+                        </tbody>
+                    </table>
 
-        <!-- Delete Confirmation Modal -->
-        <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header border-0 custom-modal-header">
-                        <div class="page-title">
-                            <h4>Confirm Delete</h4>
+                    <!-- Loading Overlay -->
+                    <template x-if="loading">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(255,255,255,0.7); z-index: 10; min-height: 200px;">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </div>
+                    </template>
+                </div>
+
+                <!-- PAGINATION -->
+                <div class="d-flex justify-content-between align-items-center mt-3" x-show="!loading && total > 0">
+                    <div>
+                        <span class="text-muted">Showing <span x-text="from"></span> to <span x-text="to"></span> of <span x-text="total"></span> entries</span>
                     </div>
-                    <div class="modal-deletecontent custom-modal-body text-center">
-                        <i data-feather="x-circle" class="feather-24 text-danger mx-auto d-block"></i>
-                        <h4 class="pt-2 text-muted">Delete Brand</h4>
-                        <p>Are you sure you want to delete <strong x-text="itemToDelete?.name"></strong>?</p>
-                        <p class="text-muted">This action cannot be undone.</p>
-                        <div class="modal-footer-btn delete">
-                            <a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
-                            <a href="javascript:void(0);" class="btn btn-submit" @click="deleteItem()">
-                                <i data-feather="trash-2" class="feather-14"></i> Delete
-                            </a>
-                        </div>
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-sm btn-outline-secondary" @click="prevPage()" :disabled="page <= 1">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <template x-for="p in visiblePages" :key="p">
+                            <button class="btn btn-sm" :class="p === page ? 'btn-primary' : 'btn-outline-secondary'" @click="goToPage(p)" x-text="p"></button>
+                        </template>
+                        <button class="btn btn-sm btn-outline-secondary" @click="nextPage()" :disabled="page >= lastPage">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- /product list -->
+    </div>
 
-        <!-- Image Preview Modal -->
-        <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header border-0">
-                        <div class="page-title">
-                            <h4>Image Preview</h4>
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 custom-modal-header">
+                    <div class="page-title">
+                        <h4>Confirm Delete</h4>
                     </div>
-                    <div class="modal-body text-center">
-                        <img id="preview-modal-image" src="" alt="Brand Image" class="img-fluid" style="max-height: 70vh; object-fit: contain;">
+                </div>
+                <div class="modal-deletecontent custom-modal-body text-center">
+                    <i data-feather="x-circle" class="feather-24 text-danger mx-auto d-block"></i>
+                    <h4 class="pt-2 text-muted">Delete Brand</h4>
+                    <p>Are you sure you want to delete <strong x-text="itemToDelete?.name"></strong>?</p>
+                    <p class="text-muted">This action cannot be undone.</p>
+                    <div class="modal-footer-btn delete">
+                        <a href="javascript:void(0);" class="btn btn-cancel me-2" data-bs-dismiss="modal">Cancel</a>
+                        <a href="javascript:void(0);" class="btn btn-submit" @click="deleteItem()">
+                            <i data-feather="trash-2" class="feather-14"></i> Delete
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        const API_BRAND_URL = "{{ route('api-brand-paged') }}";
+    <!-- Image Preview Modal -->
+    <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <div class="page-title">
+                        <h4>Image Preview</h4>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="preview-modal-image" src="" alt="Brand Image" class="img-fluid" style="max-height: 70vh; object-fit: contain;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        // Image preview function for brand modals
-        function previewBrandImage(input, type) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                const preview = document.getElementById(`${type}-brand-preview`);
-                const placeholder = document.getElementById(`${type}-brand-placeholder`);
+<script>
+    const API_BRAND_URL = "{{ route('api-brand-paged') }}";
 
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                    if (placeholder) placeholder.style.display = 'none';
-                };
+    // Image preview function for brand modals
+    function previewBrandImage(input, type) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            const preview = document.getElementById(`${type}-brand-preview`);
+            const placeholder = document.getElementById(`${type}-brand-placeholder`);
 
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        // Initialize brand image preview when edit modal opens
-        function initEditBrandImage(imageUrl) {
-            const preview = document.getElementById('edit-brand-preview');
-            const placeholder = document.getElementById('edit-brand-placeholder');
-            const currentImageUrl = document.getElementById('current-image-url');
-
-            currentImageUrl.value = imageUrl || '';
-
-            if (imageUrl && imageUrl.trim() !== '') {
-                preview.src = imageUrl;
+            reader.onload = function(e) {
+                preview.src = e.target.result;
                 preview.style.display = 'block';
                 if (placeholder) placeholder.style.display = 'none';
-            } else {
-                preview.src = '';
-                preview.style.display = 'none';
-                if (placeholder) placeholder.style.display = 'flex';
-            }
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // Initialize brand image preview when edit modal opens
+    function initEditBrandImage(imageUrl) {
+        const preview = document.getElementById('edit-brand-preview');
+        const placeholder = document.getElementById('edit-brand-placeholder');
+        const currentImageUrl = document.getElementById('current-image-url');
+
+        currentImageUrl.value = imageUrl || '';
+
+        if (imageUrl && imageUrl.trim() !== '') {
+            preview.src = imageUrl;
+            preview.style.display = 'block';
+            if (placeholder) placeholder.style.display = 'none';
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
+            if (placeholder) placeholder.style.display = 'flex';
+        }
+    }
+
+    // Open larger image preview
+    function openImagePreview(type) {
+        const preview = document.getElementById(`${type}-brand-preview`);
+        const currentImageUrl = document.getElementById('current-image-url');
+
+        let imageSrc = preview.src;
+
+        // If preview is hidden/not set, try current image URL (for edit modal)
+        if (!imageSrc || imageSrc === '' || imageSrc.includes('data:,')) {
+            imageSrc = currentImageUrl.value;
         }
 
-        // Open larger image preview
-        function openImagePreview(type) {
-            const preview = document.getElementById(`${type}-brand-preview`);
-            const currentImageUrl = document.getElementById('current-image-url');
-
-            let imageSrc = preview.src;
-
-            // If preview is hidden/not set, try current image URL (for edit modal)
-            if (!imageSrc || imageSrc === '' || imageSrc.includes('data:,')) {
-                imageSrc = currentImageUrl.value;
-            }
-
-            if (imageSrc && imageSrc.trim() !== '' && !imageSrc.includes('data:,')) {
-                document.getElementById('preview-modal-image').src = imageSrc;
-                const modal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
-                modal.show();
-            }
+        if (imageSrc && imageSrc.trim() !== '' && !imageSrc.includes('data:,')) {
+            document.getElementById('preview-modal-image').src = imageSrc;
+            const modal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
+            modal.show();
         }
+    }
 
-        window.brandTable = function() {
-            return {
-                items: [],
-                loading: true,
-                page: 1,
-                perPage: 10,
-                lastPage: 1,
-                total: 0,
-                from: 0,
-                to: 0,
+    window.brandTable = function() {
+        return {
+            items: []
+            , loading: true
+            , page: 1
+            , perPage: 10
+            , lastPage: 1
+            , total: 0
+            , from: 0
+            , to: 0,
 
-                filters: {
-                    search: '',
-                    searchBy: 'Name',
-                    sort: 'desc'
-                },
+            filters: {
+                search: ''
+                , searchBy: 'Name'
+                , sort: 'desc'
+            },
 
-                itemToDelete: null,
+            itemToDelete: null,
 
-                init() {
-                    this.fetchBrands();
-                },
+            init() {
+                this.fetchBrands();
+            },
 
-                async fetchBrands() {
-                    this.loading = true;
+            async fetchBrands() {
+                this.loading = true;
 
-                    try {
-                        let params = new URLSearchParams({
-                            search: this.filters.search,
-                            search_by: this.filters.searchBy,
-                            sortBy: 'created_at',
-                            sortDirection: this.filters.sort,
-                            page: this.page,
-                            per_page: this.perPage
-                        });
+                try {
+                    let params = new URLSearchParams({
+                        search: this.filters.search
+                        , search_by: this.filters.searchBy
+                        , sortBy: 'created_at'
+                        , sortDirection: this.filters.sort
+                        , page: this.page
+                        , per_page: this.perPage
+                    });
 
-                        let res = await fetch(`${API_BRAND_URL}?${params}`);
-                        let result = await res.json();
+                    let res = await fetch(`${API_BRAND_URL}?${params}`);
+                    let result = await res.json();
 
-                        if (result.success) {
-                            let data = result.data;
-                            if (data.data && data.total !== undefined) {
-                                this.items = data.data;
-                                this.total = data.total;
-                                this.lastPage = data.last_page || 1;
-                                this.page = data.current_page || 1;
-                            } else if (Array.isArray(data)) {
-                                this.items = data;
-                                this.total = data.length;
-                                this.lastPage = 1;
-                            } else {
-                                this.items = [];
-                                this.total = 0;
-                                this.lastPage = 1;
-                            }
-                            this.updatePagination();
-                        }
-                    } catch (e) {
-                        console.error('Error fetching brands:', e);
-                    } finally {
-                        this.loading = false;
-                        this.$nextTick(() => {
-                            if (typeof feather !== 'undefined') {
-                                feather.replace();
-                            }
-                        });
-                    }
-                },
-
-                updatePagination() {
-                    this.from = (this.page - 1) * this.perPage + 1;
-                    this.to = Math.min(this.page * this.perPage, this.total);
-                },
-
-                get visiblePages() {
-                    let pages = [];
-                    let start = Math.max(1, this.page - 2);
-                    let end = Math.min(this.lastPage, start + 4);
-                    if (end - start < 4) {
-                        start = Math.max(1, end - 4);
-                    }
-                    for (let i = start; i <= end; i++) {
-                        pages.push(i);
-                    }
-                    return pages;
-                },
-
-                goToPage(p) {
-                    this.page = p;
-                    this.fetchBrands();
-                },
-
-                nextPage() {
-                    if (this.page < this.lastPage) {
-                        this.page++;
-                        this.fetchBrands();
-                    }
-                },
-
-                prevPage() {
-                    if (this.page > 1) {
-                        this.page--;
-                        this.fetchBrands();
-                    }
-                },
-
-                changePerPage(val) {
-                    this.perPage = val;
-                    this.page = 1;
-                    this.fetchBrands();
-                },
-
-                openEditModal(item) {
-                    document.getElementById('id').value = item.id;
-                    document.getElementById('code').value = item.code;
-                    document.getElementById('name').value = item.name;
-                    document.getElementById('description').value = item.description || '';
-                    document.getElementById('current-image-url').value = item.image_url || '';
-                    const statusCheckbox = document.getElementById('status-edit');
-                    if (statusCheckbox) statusCheckbox.checked = (item.status == 0);
-
-                    // Initialize image preview
-                    initEditBrandImage(item.image_url);
-                },
-
-                confirmDelete(item) {
-                    this.itemToDelete = item;
-                    const modalEl = document.getElementById('deleteConfirmModal');
-                    if (modalEl) {
-                        const modal = new bootstrap.Modal(modalEl);
-                        modal.show();
-                    }
-                },
-
-                async deleteItem() {
-                    if (!this.itemToDelete) return;
-
-                    const item = this.itemToDelete;
-                    const id = item.id;
-
-                    const modalEl = document.getElementById('deleteConfirmModal');
-                    if (modalEl) {
-                        const modal = bootstrap.Modal.getInstance(modalEl);
-                        if (modal) modal.hide();
-                    }
-
-                    this.items = this.items.filter(i => i.id !== id);
-                    this.total--;
-
-                    try {
-                        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
-                        let res = await fetch(`{{ route('brand-delete', ':id') }}`.replace(':id', id), {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': csrfToken,
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json'
-                            }
-                        });
-
-                        let data = await res.json();
-
-                        if (!res.ok || !data.success) {
-                            this.fetchBrands();
-                            document.getElementById('danger-message').textContent = data.message || 'Delete failed';
-                            new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                    if (result.success) {
+                        let data = result.data;
+                        if (data.data && data.total !== undefined) {
+                            this.items = data.data;
+                            this.total = data.total;
+                            this.lastPage = data.last_page || 1;
+                            this.page = data.current_page || 1;
+                        } else if (Array.isArray(data)) {
+                            this.items = data;
+                            this.total = data.length;
+                            this.lastPage = 1;
                         } else {
-                            document.getElementById('success-message').textContent = data.message || 'Deleted successfully';
-                            new bootstrap.Modal(document.getElementById('success-alert-modal')).show();
-                            // Refresh table via event (not page reload)
-                            setTimeout(() => {
-                                window.refreshBrandTable();
-                            }, 1000);
+                            this.items = [];
+                            this.total = 0;
+                            this.lastPage = 1;
                         }
-                    } catch (e) {
-                        console.error('Delete error:', e);
-                        this.fetchBrands();
-                        document.getElementById('danger-message').textContent = 'An error occurred while deleting';
-                        new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                        this.updatePagination();
                     }
+                } catch (e) {
+                    console.error('Error fetching brands:', e);
+                } finally {
+                    this.loading = false;
+                    this.$nextTick(() => {
+                        if (typeof feather !== 'undefined') {
+                            feather.replace();
+                        }
+                    });
+                }
+            },
 
-                    this.itemToDelete = null;
-                },
+            updatePagination() {
+                this.from = (this.page - 1) * this.perPage + 1;
+                this.to = Math.min(this.page * this.perPage, this.total);
+            },
 
-                refreshList() {
+            get visiblePages() {
+                let pages = [];
+                let start = Math.max(1, this.page - 2);
+                let end = Math.min(this.lastPage, start + 4);
+                if (end - start < 4) {
+                    start = Math.max(1, end - 4);
+                }
+                for (let i = start; i <= end; i++) {
+                    pages.push(i);
+                }
+                return pages;
+            },
+
+            goToPage(p) {
+                this.page = p;
+                this.fetchBrands();
+            },
+
+            nextPage() {
+                if (this.page < this.lastPage) {
+                    this.page++;
                     this.fetchBrands();
                 }
-            }
-        };
+            },
 
-        // Global function to refresh brand table
-        window.refreshBrandTable = function() {
-            window.dispatchEvent(new CustomEvent('refresh-brands'));
-        };
+            prevPage() {
+                if (this.page > 1) {
+                    this.page--;
+                    this.fetchBrands();
+                }
+            },
 
-        // Form handlers
-        document.addEventListener('DOMContentLoaded', function() {
-            // Override submitForm for add form
-            const brandAddForm = document.getElementById('brandAddForm');
-            if (brandAddForm) {
-                brandAddForm.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    handleBrandFormSubmit(this, 'submit-add-button', 'status-add');
-                });
-            }
+            changePerPage(val) {
+                this.perPage = val;
+                this.page = 1;
+                this.fetchBrands();
+            },
 
-            // Override submitForm for edit form
-            const brandEditForm = document.getElementById('brandEditForm');
-            if (brandEditForm) {
-                brandEditForm.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    handleBrandFormSubmit(this, 'submit-edit-button', 'status-edit');
-                });
-            }
+            openEditModal(item) {
+                document.getElementById('id').value = item.id;
+                document.getElementById('code').value = item.code;
+                document.getElementById('name').value = item.name;
+                document.getElementById('description').value = item.description || '';
+                document.getElementById('current-image-url').value = item.image_url || '';
+                const statusCheckbox = document.getElementById('status-edit');
+                if (statusCheckbox) statusCheckbox.checked = (item.status == 0);
 
-            // Reset add brand modal preview when opened
-            const addBrandModal = document.getElementById('add-brand');
-            if (addBrandModal) {
-                addBrandModal.addEventListener('show.bs.modal', function() {
-                    const preview = document.getElementById('add-brand-preview');
-                    const placeholder = document.getElementById('add-brand-placeholder');
-                    const fileInput = document.getElementById('add-brand-file');
+                // Initialize image preview
+                initEditBrandImage(item.image_url);
+            },
 
-                    if (preview) {
-                        preview.src = '';
-                        preview.style.display = 'none';
+            confirmDelete(item) {
+                this.itemToDelete = item;
+                const modalEl = document.getElementById('deleteConfirmModal');
+                if (modalEl) {
+                    const modal = new bootstrap.Modal(modalEl);
+                    modal.show();
+                }
+            },
+
+            async deleteItem() {
+                if (!this.itemToDelete) return;
+
+                const item = this.itemToDelete;
+                const id = item.id;
+
+                const modalEl = document.getElementById('deleteConfirmModal');
+                if (modalEl) {
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    if (modal) modal.hide();
+                }
+
+                this.items = this.items.filter(i => i.id !== id);
+                this.total--;
+
+                try {
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]') ? .content || '';
+                    let res = await fetch(`{{ route('brand-delete', ':id') }}`.replace(':id', id), {
+                        method: 'DELETE'
+                        , headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                            , 'Content-Type': 'application/json'
+                            , 'Accept': 'application/json'
+                        }
+                    });
+
+                    let data = await res.json();
+
+                    if (!res.ok || !data.success) {
+                        this.fetchBrands();
+                        document.getElementById('danger-message').textContent = data.message || 'Delete failed';
+                        new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                    } else {
+                        document.getElementById('success-message').textContent = data.message || 'Deleted successfully';
+                        new bootstrap.Modal(document.getElementById('success-alert-modal')).show();
+                        // Refresh table via event (not page reload)
+                        setTimeout(() => {
+                            window.refreshBrandTable();
+                        }, 1000);
                     }
-                    if (placeholder) placeholder.style.display = 'flex';
-                    if (fileInput) fileInput.value = '';
-                });
+                } catch (e) {
+                    console.error('Delete error:', e);
+                    this.fetchBrands();
+                    document.getElementById('danger-message').textContent = 'An error occurred while deleting';
+                    new bootstrap.Modal(document.getElementById('danger-alert-modal')).show();
+                }
+
+                this.itemToDelete = null;
+            },
+
+            refreshList() {
+                this.fetchBrands();
             }
-        });
+        }
+    };
 
-        function handleBrandFormSubmit(form, submitButtonId, statusCheckboxId) {
-            let formData = new FormData(form);
-            let submitButton = document.getElementById(submitButtonId);
-            submitButton.disabled = true;
+    // Global function to refresh brand table
+    window.refreshBrandTable = function() {
+        window.dispatchEvent(new CustomEvent('refresh-brands'));
+    };
 
-            if (statusCheckboxId) {
-                const checkbox = document.getElementById(statusCheckboxId);
-                checkbox.value = checkbox.checked ? 0 : 1;
-            }
-
-            Swal.fire({
-                title: "Processing...",
-                text: "Please wait.",
-                icon: "info",
-                showConfirmButton: false,
-                allowOutsideClick: false,
+    // Form handlers
+    document.addEventListener('DOMContentLoaded', function() {
+        // Override submitForm for add form
+        const brandAddForm = document.getElementById('brandAddForm');
+        if (brandAddForm) {
+            brandAddForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                handleBrandFormSubmit(this, 'submit-add-button', 'status-add');
             });
+        }
 
-            fetch(form.action, {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
-                },
-                body: formData,
-            })
+        // Override submitForm for edit form
+        const brandEditForm = document.getElementById('brandEditForm');
+        if (brandEditForm) {
+            brandEditForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                handleBrandFormSubmit(this, 'submit-edit-button', 'status-edit');
+            });
+        }
+
+        // Reset add brand modal preview when opened
+        const addBrandModal = document.getElementById('add-brand');
+        if (addBrandModal) {
+            addBrandModal.addEventListener('show.bs.modal', function() {
+                const preview = document.getElementById('add-brand-preview');
+                const placeholder = document.getElementById('add-brand-placeholder');
+                const fileInput = document.getElementById('add-brand-file');
+
+                if (preview) {
+                    preview.src = '';
+                    preview.style.display = 'none';
+                }
+                if (placeholder) placeholder.style.display = 'flex';
+                if (fileInput) fileInput.value = '';
+            });
+        }
+    });
+
+    function handleBrandFormSubmit(form, submitButtonId, statusCheckboxId) {
+        let formData = new FormData(form);
+        let submitButton = document.getElementById(submitButtonId);
+        submitButton.disabled = true;
+
+        // if (statusCheckboxId) {
+        //     const checkbox = document.getElementById(statusCheckboxId);
+        //     checkbox.value = checkbox.checked ? 0 : 1;
+        // }
+
+        Swal.fire({
+            title: "Processing..."
+            , text: "Please wait."
+            , icon: "info"
+            , showConfirmButton: false
+            , allowOutsideClick: false
+        , });
+
+        fetch(form.action, {
+                method: "POST"
+                , headers: {
+                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
+                , }
+                , body: formData
+            , })
             .then((response) => response.json())
             .then((data) => {
                 Swal.close();
@@ -620,6 +623,7 @@
                 document.getElementById("danger-message").textContent = error.message || "An error occurred";
                 new bootstrap.Modal(document.getElementById("danger-alert-modal")).show();
             });
-        }
-    </script>
+    }
+
+</script>
 @endsection

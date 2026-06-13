@@ -71,13 +71,13 @@ class RackService
                 $filename = 'rack_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
                 // Ensure racks directory exists
-                $racksDir = public_path('racks');
-                if (!file_exists($racksDir)) {
-                    mkdir($racksDir, 0755, true);
+                $uploadDir = public_path('upload');
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
                 }
 
-                $file->move($racksDir, $filename);
-                $data['image_url'] = '/racks/' . $filename;
+                $file->move($uploadDir, $filename);
+                $data['image_url'] = '/upload/' . $filename;
             }
 
             // Check for duplicate code among active records only
@@ -129,13 +129,13 @@ class RackService
                 $filename = 'rack_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
                 // Ensure racks directory exists
-                $racksDir = public_path('racks');
-                if (!file_exists($racksDir)) {
-                    mkdir($racksDir, 0755, true);
+                $uploadDir = public_path('upload');
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
                 }
 
-                $file->move($racksDir, $filename);
-                $data['image_url'] = '/racks/' . $filename;
+                $file->move($uploadDir, $filename);
+                $data['image_url'] = '/upload/' . $filename;
             }
 
             $rack->fill($data);

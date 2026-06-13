@@ -478,7 +478,7 @@
                 this.total--;
 
                 try {
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]') ? .content || '';
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
                     let res = await fetch(`{{ route('brand-delete', ':id') }}`.replace(':id', id), {
                         method: 'DELETE'
                         , headers: {
@@ -523,27 +523,8 @@
         window.dispatchEvent(new CustomEvent('refresh-brands'));
     };
 
-    // Form handlers
+    // Reset add brand modal preview when opened
     document.addEventListener('DOMContentLoaded', function() {
-        // Override submitForm for add form
-        const brandAddForm = document.getElementById('brandAddForm');
-        if (brandAddForm) {
-            brandAddForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                handleBrandFormSubmit(this, 'submit-add-button', 'status-add');
-            });
-        }
-
-        // Override submitForm for edit form
-        const brandEditForm = document.getElementById('brandEditForm');
-        if (brandEditForm) {
-            brandEditForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                handleBrandFormSubmit(this, 'submit-edit-button', 'status-edit');
-            });
-        }
-
-        // Reset add brand modal preview when opened
         const addBrandModal = document.getElementById('add-brand');
         if (addBrandModal) {
             addBrandModal.addEventListener('show.bs.modal', function() {

@@ -475,7 +475,7 @@
                 this.total--;
 
                 try {
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]') ? .content || '';
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
                     let res = await fetch(`{{ route('rack-delete', ':id') }}`.replace(':id', id), {
                         method: 'DELETE'
                         , headers: {
@@ -519,26 +519,7 @@
         window.dispatchEvent(new CustomEvent('refresh-racks'));
     };
 
-    // Form handlers
-    document.addEventListener('DOMContentLoaded', function() {
-        // Override submitForm for add form
-        const rackAddForm = document.getElementById('rackAddForm');
-        if (rackAddForm) {
-            rackAddForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                handleRackFormSubmit(this, 'submit-add-button', 'status-add');
-            });
-        }
-
-        // Override submitForm for edit form
-        const rackEditForm = document.getElementById('rackEditForm');
-        if (rackEditForm) {
-            rackEditForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                handleRackFormSubmit(this, 'submit-edit-button', 'status-edit');
-            });
-        }
-    });
+    // Form handlers are defined via onsubmit attribute on form tags
 
     function handleRackFormSubmit(form, submitButtonId, statusCheckboxId) {
         // Update checkbox value BEFORE creating FormData (if the checkbox still exists in DOM)

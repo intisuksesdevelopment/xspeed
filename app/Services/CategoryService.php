@@ -123,13 +123,13 @@ class CategoryService
                 $file = $request->file('image_upload');
                 $filename = 'category_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-                $uploadDir = public_path('categories');
+                $uploadDir = public_path('upload');
                 if (!file_exists($uploadDir)) {
                     mkdir($uploadDir, 0755, true);
                 }
 
                 $file->move($uploadDir, $filename);
-                $data['image_url'] = '/categories/' . $filename;
+                $data['image_url'] = '/upload/' . $filename;
             }
 
             $category = Category::whereRaw('LOWER(code) LIKE ?', ['%'.strtolower($data['code']).'%'])
@@ -176,7 +176,7 @@ class CategoryService
                 $file = $request->file('image_upload');
                 $filename = 'category_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-                $uploadDir = public_path('categories');
+                $uploadDir = public_path('upload');
                 if (!file_exists($uploadDir)) {
                     mkdir($uploadDir, 0755, true);
                 }
@@ -191,7 +191,7 @@ class CategoryService
                 }
 
                 $file->move($uploadDir, $filename);
-                $data['image_url'] = '/categories/' . $filename;
+                $data['image_url'] = '/upload/' . $filename;
             }
 
             $category = Category::find($data['id']);

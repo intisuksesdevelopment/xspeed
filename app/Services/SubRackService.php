@@ -85,7 +85,7 @@ class SubRackService
     {
         try {
             $data = $request->all();
-            $data['status'] = $request->has('status') ? 0 : 1;
+            $data['status'] = 0;
 
             $subrack = SubRack::whereRaw('LOWER(code) LIKE ?', ['%' . strtolower($data['code']) . '%'])->get();
 
@@ -115,7 +115,7 @@ class SubRackService
     {
         try {
             $data = $request->all();
-            $data['status'] = $request->has('status') ? 0 : 1;
+            $data['status'] = $data['status'] ?? 0;
 
             $subrack = SubRack::find($data['id']);
             if (!$subrack) {

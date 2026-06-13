@@ -183,7 +183,7 @@
                                     <td x-text="item.items_count || 0"></td>
                                     <td class="action-table-data">
                                         <div class="edit-delete-action">
-                                            <a class="me-2 p-2" href="#" data-bs-toggle="modal" data-bs-target="#edit-category" @click="openEditModal(item)">
+                                            <a class="me-2 p-2" href="#" data-bs-toggle="modal" data-bs-target="#edit-category" :data-image-url="item.image_url || ''" @click="openEditModal(item)">
                                                 <i data-feather="edit" class="feather-edit"></i>
                                             </a>
                                             <a class="p-2" href="javascript:void(0);" @click="confirmDelete(item)">
@@ -396,10 +396,11 @@
                 document.getElementById('code').value = item.code;
                 document.getElementById('name').value = item.name;
                 document.getElementById('description').value = item.description || '';
-                document.getElementById('status-edit').value = item.status;
+                const statusCheckbox = document.getElementById('status-edit');
+                if (statusCheckbox) statusCheckbox.checked = (item.status == 0);
 
-                // Initialize image preview like brand pattern
-                initEditCategoryImage(item.image_url);
+                // Initialize image preview directly
+                setEditCategoryImage(item.image_url);
             },
 
             confirmDelete(item) {
@@ -427,7 +428,7 @@
                 }
 
                 try {
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]') ? .content || '';
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
                     let res = await fetch(`{{ route('category-delete', ':id') }}`.replace(':id', id), {
                         method: 'DELETE'
                         , headers: {
@@ -477,19 +478,19 @@
         }
     };
 
-    // Initialize category image preview when edit modal opens
-    function initEditCategoryImage(imageUrl) {
+    // Set edit category image preview
+    function setEditCategoryImage(imageUrl) {
         const preview = document.getElementById('edit-category-preview');
         const placeholder = document.getElementById('edit-category-placeholder');
         const currentImageUrl = document.getElementById('edit-category-current-image-url');
 
         if (currentImageUrl) currentImageUrl.value = imageUrl || '';
 
-        if (imageUrl && imageUrl.trim() !== '') {
+        if (preview && imageUrl && imageUrl.trim() !== '') {
             preview.src = imageUrl;
             preview.style.display = 'block';
             if (placeholder) placeholder.style.display = 'none';
-        } else {
+        } else if (preview) {
             preview.src = '';
             preview.style.display = 'none';
             if (placeholder) placeholder.style.display = 'flex';
@@ -534,6 +535,23 @@
                 }
                 if (placeholder) placeholder.style.display = 'flex';
                 if (fileInput) fileInput.value = '';
+            });
+        }
+
+        // Initialize image on edit-category modal BEFORE it opens (show.bs.modal)
+        // Reads image_url directly from the trigger element's data-image-url attribute
+        const editCategoryModal = document.getElementById('edit-category');
+        if (editCategoryModal) {
+            editCategoryModal.addEventListener('show.bs.modal', function(e) {
+                const trigger = e.relatedTarget;
+                if (trigger) {
+                    const imageUrl = trigger.getAttribute('data-image-url');
+                    if (imageUrl) {
+                        setEditCategoryImage(imageUrl);
+                    } else {
+                        setEditCategoryImage('');
+                    }
+                }
             });
         }
     })();

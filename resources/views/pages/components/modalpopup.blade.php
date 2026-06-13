@@ -464,7 +464,7 @@ Route::is(['edit-product']))
                         </button>
                     </div>
                     <div class="modal-body custom-modal-body new-employee-field">
-                        <form id="categoryAddForm" method="post" action="{{ route('category-add') }}" enctype="multipart/form-data">
+                        <form id="categoryAddForm" method="post" action="{{ route('category-add') }}" enctype="multipart/form-data" onsubmit="event.preventDefault(); handleCategoryFormSubmit(this, 'submit-add-button');">
                             @csrf
                             <div class="mb-3 d-none">
                                 <label class="form-label">Id</label>
@@ -535,7 +535,7 @@ Route::is(['edit-product']))
                         </button>
                     </div>
                     <div class="modal-body custom-modal-body new-employee-field">
-                        <form id="categoryEditForm" method="post" action="{{ route('category-update') }}" enctype="multipart/form-data">
+                        <form id="categoryEditForm" method="post" action="{{ route('category-update') }}" enctype="multipart/form-data" onsubmit="event.preventDefault(); handleCategoryFormSubmit(this, 'submit-edit-button');">
                             @csrf
                             <div class="mb-3 d-none">
                                 <label class="form-label">Id</label>
@@ -570,6 +570,7 @@ Route::is(['edit-product']))
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" name="status" value="0">
                             {{-- <div class="mb-0">
                                     <div
                                         class="status-toggle modal-status d-flex justify-content-between align-items-center">
@@ -610,7 +611,7 @@ Route::is(['edit-product']))
                         </button>
                     </div>
                     <div class="modal-body custom-modal-body new-employee-field">
-                        <form id="subCategoryAddForm" method="post" action="{{ route('subcategory-add') }}" enctype="multipart/form-data">
+                        <form id="subCategoryAddForm" method="post" action="{{ route('subcategory-add') }}" enctype="multipart/form-data" onsubmit="event.preventDefault(); handleSubCategoryFormSubmit(this, 'submit-add-button', 'status-add');">
                             @csrf
                             <div class="mb-3">
                                 <label for="add-category-id" class="form-label">Parent Category</label>
@@ -681,7 +682,7 @@ Route::is(['edit-product']))
                         </button>
                     </div>
                     <div class="modal-body custom-modal-body new-employee-field">
-                        <form id="subCategoryEditForm" method="post" action="{{ route('subcategory-update') }}" enctype="multipart/form-data">
+                        <form id="subCategoryEditForm" method="post" action="{{ route('subcategory-update') }}" enctype="multipart/form-data" onsubmit="event.preventDefault(); handleSubCategoryFormSubmit(this, 'submit-edit-button', 'status-edit');">
                             @csrf
                             <div class="mb-3 d-none">
                                 <label for="edit-id" class="form-label">Id</label>
@@ -762,7 +763,7 @@ Route::is(['edit-product']))
                         </button>
                     </div>
                     <div class="modal-body custom-modal-body new-employee-field">
-                        <form id="brandAddForm" method="post" action="{{ route('brand-add') }}" enctype="multipart/form-data">
+                        <form id="brandAddForm" method="post" action="{{ route('brand-add') }}" enctype="multipart/form-data" onsubmit="event.preventDefault(); handleBrandFormSubmit(this, 'submit-add-button', 'status-add');">
                             @csrf
                             <div class="modal-title-head">
                                 <h6><span><i data-feather="info" class="feather-edit"></i></span>Brand Info
@@ -836,7 +837,7 @@ Route::is(['edit-product']))
                         </button>
                     </div>
                     <div class="modal-body custom-modal-body new-employee-field">
-                        <form id="brandEditForm" method="post" action="{{ route('brand-update') }}" enctype="multipart/form-data">
+                        <form id="brandEditForm" method="post" action="{{ route('brand-update') }}" enctype="multipart/form-data" onsubmit="event.preventDefault(); handleBrandFormSubmit(this, 'submit-edit-button', 'status-edit');">
                             @csrf
                             @method('PUT')
                             <div class="mb-3 d-none">
@@ -916,7 +917,7 @@ Route::is(['edit-product']))
                         </button>
                     </div>
                     <div class="modal-body custom-modal-body new-employee-field">
-                        <form id="rackAddForm" method="post" action="{{ route('rack-add') }}" enctype="multipart/form-data">
+                        <form id="rackAddForm" method="post" action="{{ route('rack-add') }}" enctype="multipart/form-data" onsubmit="event.preventDefault(); handleRackFormSubmit(this, 'submit-add-button', 'status-add');">
                             @csrf
                             <div class="modal-title-head">
                                 <h6><span><i data-feather="info" class="feather-edit"></i></span>Rack Info
@@ -990,7 +991,7 @@ Route::is(['edit-product']))
                         </button>
                     </div>
                     <div class="modal-body custom-modal-body new-employee-field">
-                        <form id="rackEditForm" method="post" action="{{ route('rack-update') }}" enctype="multipart/form-data">
+                        <form id="rackEditForm" method="post" action="{{ route('rack-update') }}" enctype="multipart/form-data" onsubmit="event.preventDefault(); handleRackFormSubmit(this, 'submit-edit-button', 'status-edit');">
                             @csrf
                             <div class="mb-3 d-none">
                                 <label for="edit-id" class="form-label">Id</label>
@@ -1069,7 +1070,7 @@ Route::is(['edit-product']))
                         </button>
                     </div>
                     <div class="modal-body custom-modal-body new-employee-field">
-                        <form id="subrackAddForm" method="post" action="{{ route('subrack-add') }}">
+                        <form id="subrackAddForm" method="post" action="{{ route('subrack-add') }}" onsubmit="event.preventDefault(); handleSubRackFormSubmit(this, 'submit-subrack-add-button', 'status-add');">
                             @csrf
                             <div class="modal-title-head">
                                 <h6><span><i data-feather="info" class="feather-edit"></i></span>Sub Rack Info
@@ -1135,7 +1136,7 @@ Route::is(['edit-product']))
                         </button>
                     </div>
                     <div class="modal-body custom-modal-body new-employee-field">
-                        <form id="subrackEditForm" method="post" action="{{ route('subrack-update') }}">
+                        <form id="subrackEditForm" method="post" action="{{ route('subrack-update') }}" onsubmit="event.preventDefault(); handleSubRackFormSubmit(this, 'submit-subrack-edit-button', 'edit-status');">
                             @csrf
                             <div class="mb-3 d-none">
                                 <label for="edit-id" class="form-label">Id</label>

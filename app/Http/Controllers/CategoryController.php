@@ -33,6 +33,7 @@ class CategoryController extends Controller
         return CategoryService::update($request);
     }
 
+
     public function delete($id)
     {
         return CategoryService::delete($id);

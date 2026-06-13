@@ -65,7 +65,7 @@ class BrandService
             }
 
             $data = $request->except(['image_url']);
-            $data['status'] = $request->has('status') ? 0 : 1;
+            $data['status'] = 0;
 
             // Handle image upload - save to public/brands folder
             if ($request->hasFile('image_url')) {
@@ -73,13 +73,13 @@ class BrandService
                 $filename = 'brand_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
                 // Ensure brands directory exists
-                $brandsDir = public_path('brands');
-                if (!file_exists($brandsDir)) {
-                    mkdir($brandsDir, 0755, true);
+                $uploadDir = public_path('upload');
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
                 }
 
-                $file->move($brandsDir, $filename);
-                $data['image_url'] = '/brands/' . $filename;
+                $file->move($uploadDir, $filename);
+                $data['image_url'] = '/upload/' . $filename;
             }
 
             $brand = Brand::whereRaw('LOWER(code) = ?', [strtolower($data['code'])])->where('status', 0)->first();
@@ -125,8 +125,8 @@ class BrandService
 
                 $file = $request->file('image_url');
                 $filename = 'brand_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('brands'), $filename);
-                $data['image_url'] = '/brands/' . $filename;
+                $file->move(public_path('upload'), $filename);
+                $data['image_url'] = '/upload/' . $filename;
             }
 
             $brand->fill($data);

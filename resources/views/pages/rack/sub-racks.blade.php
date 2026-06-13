@@ -262,7 +262,7 @@
                     let res = await fetch(API_RACK_URL);
                     let result = await res.json();
                     if (result.success) {
-                        this.racks = result.data ? .data || result.data || [];
+                        this.racks = result.data?.data || result.data || [];
                     }
                 } catch (e) {
                     console.error('Error fetching racks:', e);
@@ -392,7 +392,7 @@
                 }
 
                 try {
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]') ? .content || '';
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
                     let res = await fetch(`{{ route('subrack-delete', ':id') }}`.replace(':id', id), {
                         method: 'DELETE'
                         , headers: {
@@ -436,26 +436,7 @@
         window.dispatchEvent(new CustomEvent('refresh-subracks'));
     };
 
-    // Form handlers for subrack modals
-    document.addEventListener('DOMContentLoaded', function() {
-        // Add Sub Rack form handler
-        const subrackAddForm = document.getElementById('subrackAddForm');
-        if (subrackAddForm) {
-            subrackAddForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                handleSubRackFormSubmit(this, 'submit-subrack-add-button', 'status-add');
-            });
-        }
-
-        // Edit Sub Rack form handler
-        const subrackEditForm = document.getElementById('subrackEditForm');
-        if (subrackEditForm) {
-            subrackEditForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                handleSubRackFormSubmit(this, 'submit-subrack-edit-button', 'edit-status');
-            });
-        }
-    });
+    // Form handlers are defined via onsubmit attribute on form tags
 
     function handleSubRackFormSubmit(form, submitButtonId, statusCheckboxId) {
         let formData = new FormData(form);

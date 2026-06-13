@@ -349,7 +349,7 @@
                 this.total--;
 
                 try {
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]') ? .content || '';
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
                     let res = await fetch(`{{ route('unit-delete', ':id') }}`.replace(':id', id), {
                         method: 'DELETE'
                         , headers: {

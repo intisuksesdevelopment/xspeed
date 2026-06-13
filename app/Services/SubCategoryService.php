@@ -126,13 +126,13 @@ class SubCategoryService
                 $file = $request->file('image_upload');
                 $filename = 'subcategory_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-                $uploadDir = public_path('subcategories');
+                $uploadDir = public_path('upload');
                 if (!file_exists($uploadDir)) {
                     mkdir($uploadDir, 0755, true);
                 }
 
                 $file->move($uploadDir, $filename);
-                $data['image_url'] = '/subcategories/' . $filename;
+                $data['image_url'] = '/upload/' . $filename;
             }
 
             $subcategory = SubCategory::whereRaw('LOWER(code) LIKE ?', ['%'.strtolower($data['code']).'%'])->get();
@@ -176,7 +176,7 @@ class SubCategoryService
                 $file = $request->file('image_upload');
                 $filename = 'subcategory_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-                $uploadDir = public_path('subcategories');
+                $uploadDir = public_path('upload');
                 if (!file_exists($uploadDir)) {
                     mkdir($uploadDir, 0755, true);
                 }
@@ -191,7 +191,7 @@ class SubCategoryService
                 }
 
                 $file->move($uploadDir, $filename);
-                $data['image_url'] = '/subcategories/' . $filename;
+                $data['image_url'] = '/upload/' . $filename;
             }
 
             $subcategory = SubCategory::find($data['id']);

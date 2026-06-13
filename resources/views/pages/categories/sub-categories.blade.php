@@ -554,27 +554,8 @@
         }
     }
 
-    // Form handlers
+    // Reset add subcategory modal preview when opened (like brand pattern)
     document.addEventListener('DOMContentLoaded', function() {
-        // Override submitForm for add form
-        const subCategoryAddForm = document.getElementById('subCategoryAddForm');
-        if (subCategoryAddForm) {
-            subCategoryAddForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                handleSubCategoryFormSubmit(this, 'submit-add-button', 'status-add');
-            });
-        }
-
-        // Override submitForm for edit form
-        const subCategoryEditForm = document.getElementById('subCategoryEditForm');
-        if (subCategoryEditForm) {
-            subCategoryEditForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                handleSubCategoryFormSubmit(this, 'submit-edit-button', 'status-edit');
-            });
-        }
-
-        // Reset add subcategory modal preview when opened (like brand pattern)
         const addSubCategoryModal = document.getElementById('add-sub-category');
         if (addSubCategoryModal) {
             addSubCategoryModal.addEventListener('show.bs.modal', function() {

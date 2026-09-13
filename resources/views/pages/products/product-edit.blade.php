@@ -209,6 +209,56 @@
                                                             value="{{ $item['color'] }}">
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-8 col-sm-6 col-12">
+                                                    <div class="mb-3 add-product">
+                                                        <label class="form-label">Ecommerce Links</label>
+                                                        <div id="ecommerce-links-container">
+                                                            @if(!empty($item['link_url']) && is_array($item['link_url']))
+                                                                @foreach($item['link_url'] as $index => $link)
+                                                                    @if(!empty($link['platform']) && !empty($link['url']))
+                                                                        <div class="ecommerce-link-row d-flex gap-2 mb-2">
+                                                                            <select class="form-select platform-select">
+                                                                                <option value="Tokopedia" {{ $link['platform'] == 'Tokopedia' ? 'selected' : '' }}>Tokopedia</option>
+                                                                                <option value="Shopee" {{ $link['platform'] == 'Shopee' ? 'selected' : '' }}>Shopee</option>
+                                                                                <option value="Lazada" {{ $link['platform'] == 'Lazada' ? 'selected' : '' }}>Lazada</option>
+                                                                                <option value="Blibli" {{ $link['platform'] == 'Blibli' ? 'selected' : '' }}>Blibli</option>
+                                                                                <option value="Bukalapak" {{ $link['platform'] == 'Bukalapak' ? 'selected' : '' }}>Bukalapak</option>
+                                                                                <option value="TikTok Shop" {{ $link['platform'] == 'TikTok Shop' ? 'selected' : '' }}>TikTok Shop</option>
+                                                                            </select>
+                                                                            <input type="url" class="form-control url-input" name="link_url[{{ $index }}][url]"
+                                                                                value="{{ $link['url'] }}"
+                                                                                placeholder="https://...">
+                                                                            <input type="hidden" name="link_url[{{ $index }}][platform]" value="{{ $link['platform'] }}">
+                                                                            <button type="button" class="btn btn-danger btn-sm remove-link-btn" title="Hapus">
+                                                                                <i data-feather="x" class="feather-12"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    @endif
+                                                                @endforeach
+                                                            @else
+                                                                <div class="ecommerce-link-row d-flex gap-2 mb-2">
+                                                                    <select class="form-select platform-select">
+                                                                        <option value="Tokopedia">Tokopedia</option>
+                                                                        <option value="Shopee">Shopee</option>
+                                                                        <option value="Lazada">Lazada</option>
+                                                                        <option value="Blibli">Blibli</option>
+                                                                        <option value="Bukalapak">Bukalapak</option>
+                                                                        <option value="TikTok Shop">TikTok Shop</option>
+                                                                    </select>
+                                                                    <input type="url" class="form-control url-input" name="link_url[0][url]" placeholder="https://tokopedia.com/...">
+                                                                    <input type="hidden" name="link_url[0][platform]" value="Tokopedia">
+                                                                    <button type="button" class="btn btn-danger btn-sm remove-link-btn" title="Hapus">
+                                                                        <i data-feather="x" class="feather-12"></i>
+                                                                    </button>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                        <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="add-ecommerce-link-btn">
+                                                            <i data-feather="plus" class="feather-12"></i> Add Another Link
+                                                        </button>
+                                                        <small class="text-muted d-block mt-1">Tambahkan link untuk setiap marketplace (Tokopedia, Shopee, Lazada, Blibli, Bukalapak, TikTok Shop)</small>
+                                                    </div>
+                                                </div>
 
                                             </div>
                                         </div>
@@ -447,6 +497,44 @@
 
             // Trigger change event on page load to filter subcategories for the selected category
             $('#category_id').trigger('change');
+
+            // Ecommerce links dynamic management
+            document.getElementById('add-ecommerce-link-btn').addEventListener('click', function() {
+                const container = document.getElementById('ecommerce-links-container');
+                const linkCount = container.querySelectorAll('.ecommerce-link-row').length;
+                const newRow = document.createElement('div');
+                newRow.className = 'ecommerce-link-row d-flex gap-2 mb-2';
+                newRow.innerHTML = `
+                    <select class="form-select platform-select">
+                        <option value="Tokopedia">Tokopedia</option>
+                        <option value="Shopee">Shopee</option>
+                        <option value="Lazada">Lazada</option>
+                        <option value="Blibli">Blibli</option>
+                        <option value="Bukalapak">Bukalapak</option>
+                        <option value="TikTok Shop">TikTok Shop</option>
+                    </select>
+                    <input type="url" class="form-control url-input" name="link_url[${linkCount}][url]" placeholder="https://...">
+                    <input type="hidden" name="link_url[${linkCount}][platform]" value="Tokopedia">
+                    <button type="button" class="btn btn-danger btn-sm remove-link-btn" title="Hapus">
+                        <i data-feather="x" class="feather-12"></i>
+                    </button>
+                `;
+                container.appendChild(newRow);
+                feather.replace();
+            });
+
+            // Remove link handler (event delegation)
+            document.getElementById('ecommerce-links-container').addEventListener('click', function(e) {
+                if (e.target.closest('.remove-link-btn')) {
+                    const row = e.target.closest('.ecommerce-link-row');
+                    if (document.querySelectorAll('.ecommerce-link-row').length > 1) {
+                        row.remove();
+                    } else {
+                        alert('Minimal satu link harus ada');
+                    }
+                }
+            });
+
             submitForm('productEditForm', 'submit-edit-button', null, '{{ route('product-list') }}');
         });
     </script>

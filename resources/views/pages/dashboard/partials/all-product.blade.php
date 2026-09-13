@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ url('build/css/dashboard-all-product.css') }}">
+<link rel="stylesheet" href="{{ url('build/css/all-product.css') }}">
 
 <div class="product-list-page" x-data="productListApp()" x-init="init()">
 
@@ -31,13 +31,13 @@
                         <div class="category-group">
 
                             <!-- MAIN CATEGORY -->
-                            <div class="category-item" :class="{ active: selectedCategory === cat.code }"
-                                @click="toggleCategory(cat.code)">
+                            <div class="category-item" :class="{ active: selectedCategory === cat.id }"
+                                @click="toggleCategory(cat)">
 
                                 <span x-text="cat.name"></span>
 
                                 <!-- arrow -->
-                                <span x-show="cat.subcategories.length">
+                                <span x-show="(cat.subcategories || []).length">
                                     <span x-text="isOpen(cat.code) ? '▲' : '▼'"></span>
                                 </span>
 
@@ -46,10 +46,10 @@
                             <!-- SUB CATEGORY (COLLAPSE) -->
                             <div class="subcategory-list" x-show="isOpen(cat.code)" x-transition>
 
-                                <template x-for="sub in cat.subcategories" :key="sub.code">
+                                <template x-for="sub in (cat.subcategories || [])" :key="sub.code">
 
-                                    <div class="subcategory-item" :class="{ active: selectedSubCategory === sub.code }"
-                                        @click.stop="selectSubCategory(sub.code)">
+                                    <div class="subcategory-item" :class="{ active: selectedSubCategory === sub.id }"
+                                        @click.stop="selectSubCategory(sub)">
 
                                         <span x-text="sub.name"></span>
                                     </div>
@@ -122,10 +122,10 @@
                     <template x-for="product in products" :key="product.uuid">
                         <div class="col-6 col-md-4 col-lg-3">
 
-                            <a :href="'/product/' + product.uuid" class="product-card">
+                            <a :href="'{{ route('single-product') }}?uuid=' + product.uuid" class="product-card">
 
                                 <div class="product-image">
-                                    <img :src="product.image_url">
+                                    <img :src="product.image_url || '{{ asset('/build/img/image-not-found.jpg') }}'">
                                 </div>
 
                                 <div class="product-info">
@@ -150,6 +150,7 @@
 <script>
     const API_PRODUCT_URL = "{{ route('api-product-paged') }}";
     const API_CATEGORY_URL = "{{ route('api-category-all') }}";
+    const API_SUBCATEGORY_URL = "{{ route('api-subcategory-all') }}";
 
     function productListApp() {
         return {
@@ -162,14 +163,8 @@
             sort: 'latest',
             sortDirection: 'desc',
 
-            selectedCategory: null,
-            selectedSubCategory: null,
-
-            loadingProduct: false,
-
-
-            selectedCategory: null,
-            selectedSubCategory: null,
+            selectedCategory: null, // category id
+            selectedSubCategory: null, // subcategory id
             selectedCategoryName: null,
 
             openCategories: [], // 🔥 collapse state
@@ -187,15 +182,14 @@
                 await this.loadProducts();
             },
 
-            toggleCategory(code) {
+            toggleCategory(cat) {
                 // select category
-                this.selectedCategory = code;
+                this.selectedCategory = cat.id;
                 this.selectedSubCategory = null;
-
-                const cat = this.categories.find(c => c.code === code);
-                this.selectedCategoryName = cat?.name || 'Products';
+                this.selectedCategoryName = cat.name || 'Products';
 
                 // toggle collapse
+                const code = cat.code;
                 if (this.openCategories.includes(code)) {
                     this.openCategories = this.openCategories.filter(c => c !== code);
                 } else {
@@ -209,8 +203,11 @@
                 return this.openCategories.includes(code);
             },
 
-            async selectSubCategory(code) {
-                this.selectedSubCategory = code;
+            async selectSubCategory(sub) {
+                this.selectedSubCategory = sub.id;
+                this.selectedCategory = sub.category_id;
+                this.selectedCategoryName = sub.category?.name || sub.name || 'Products';
+
                 await this.loadProducts();
             },
 
@@ -218,10 +215,19 @@
                 this.loadingCategory = true;
 
                 try {
-                    const res = await fetch("{{ route('api-category-all') }}");
-                    const json = await res.json();
+                    const [catRes, subRes] = await Promise.all([
+                        fetch(API_CATEGORY_URL),
+                        fetch(API_SUBCATEGORY_URL),
+                    ]);
 
-                    this.categories = json.data || [];
+                    const [catJson, subJson] = await Promise.all([catRes.json(), subRes.json()]);
+
+                    const subcategories = subJson.data || [];
+
+                    this.categories = (catJson.data || []).map(cat => ({
+                        ...cat,
+                        subcategories: subcategories.filter(sub => sub.category_id === cat.id),
+                    }));
 
                 } finally {
                     this.loadingCategory = false;

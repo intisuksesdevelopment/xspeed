@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="{{ url('build/css/product-list.css') }}">
+<link rel="stylesheet" href="{{ url('build/css/all-product.css') }}">
 
-<div class="product-page" x-data="productList()" x-init="init()">
+<div class="product-page" x-data="productListApp()" x-init="init()">
 
     <div class="container product-layout">
 
@@ -63,7 +63,7 @@
                     <a :href="'/dashboard/single-product?uuid=' + product.uuid" class="product-card">
 
                         <div class="product-image">
-                            <img :src="product.image_url">
+                            <img :src="product.image_url || '{{ asset('/build/img/image-not-found.jpg') }}'">
                         </div>
 
                         <div class="product-info">

@@ -163,18 +163,41 @@
                                                 </div>
                                             </div>
 
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-4 col-sm-6 col-12">
-                                                <div class="mb-3 add-product">
-                                                    <label class="form-label">Color</label>
-                                                    <input type="text" class="form-control" name="color">
+                                        </div>                                            <div class="row">
+                                                <div class="col-lg-4 col-sm-6 col-12">
+                                                    <div class="mb-3 add-product">
+                                                        <label class="form-label">Color</label>
+                                                        <input type="text" class="form-control" name="color">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8 col-sm-6 col-12">
+                                                    <div class="mb-3 add-product">
+                                                        <label class="form-label">Ecommerce Links</label>
+                                                        <div id="ecommerce-links-container">
+                                                            <div class="ecommerce-link-row d-flex gap-2 mb-2">
+                                                                <select class="form-select platform-select">
+                                                                    <option value="Tokopedia">Tokopedia</option>
+                                                                    <option value="Shopee">Shopee</option>
+                                                                    <option value="Lazada">Lazada</option>
+                                                                    <option value="Blibli">Blibli</option>
+                                                                    <option value="Bukalapak">Bukalapak</option>
+                                                                    <option value="TikTok Shop">TikTok Shop</option>
+                                                                </select>
+                                                                <input type="url" class="form-control url-input" name="link_url[]" placeholder="https://tokopedia.com/...">
+                                                                <button type="button" class="btn btn-danger btn-sm remove-link-btn" title="Hapus">
+                                                                    <i data-feather="x" class="feather-12"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="add-ecommerce-link-btn">
+                                                            <i data-feather="plus" class="feather-12"></i> Add Another Link
+                                                        </button>
+                                                        <small class="text-muted d-block mt-1">Tambahkan link untuk setiap marketplace (Tokopedia, Shopee, Lazada, Blibli, Bukalapak, TikTok Shop)</small>
+                                                    </div>
                                                 </div>
                                             </div>
-
                                         </div>
-                                    </div>
-                                    <!-- Editor -->
+                                        <!-- Editor -->
                                     <div class="col-lg-12">
                                         <div class="input-blocks summer-description-box transfer mb-3">
                                             <label>Description</label>
@@ -393,6 +416,41 @@
         event.preventDefault();
         var timestampValue = Math.floor(Date.now() / 1000); 
         document.getElementById('barcode-input').value = timestampValue;
+    });
+
+    // Ecommerce links dynamic management
+    document.getElementById('add-ecommerce-link-btn').addEventListener('click', function() {
+        const container = document.getElementById('ecommerce-links-container');
+        const newRow = document.createElement('div');
+        newRow.className = 'ecommerce-link-row d-flex gap-2 mb-2';
+        newRow.innerHTML = `
+            <select class="form-select platform-select">
+                <option value="Tokopedia">Tokopedia</option>
+                <option value="Shopee">Shopee</option>
+                <option value="Lazada">Lazada</option>
+                <option value="Blibli">Blibli</option>
+                <option value="Bukalapak">Bukalapak</option>
+                <option value="TikTok Shop">TikTok Shop</option>
+            </select>
+            <input type="url" class="form-control url-input" name="link_url[]" placeholder="https://...">
+            <button type="button" class="btn btn-danger btn-sm remove-link-btn" title="Hapus">
+                <i data-feather="x" class="feather-12"></i>
+            </button>
+        `;
+        container.appendChild(newRow);
+        feather.replace();
+    });
+
+    // Remove link handler (event delegation)
+    document.getElementById('ecommerce-links-container').addEventListener('click', function(e) {
+        if (e.target.closest('.remove-link-btn')) {
+            const row = e.target.closest('.ecommerce-link-row');
+            if (document.querySelectorAll('.ecommerce-link-row').length > 1) {
+                row.remove();
+            } else {
+                alert('Minimal satu link harus ada');
+            }
+        }
     });
 
     $('#category_id').trigger('change');

@@ -33,6 +33,7 @@ class ItemService
                 'i.stock',
                 'i.unit',
                 'i.image_url',
+                'i.link_url',
                 'i.category_id',
                 'i.brand_id',
                 'i.status',
@@ -51,6 +52,10 @@ class ItemService
         // 🔥 FILTER
         if ($request->category) {
             $query->where('i.category_id', $request->category);
+        }
+
+        if ($request->subcategory) {
+            $query->where('i.subcategory_id', $request->subcategory);
         }
 
         if ($request->brand) {
@@ -101,11 +106,16 @@ class ItemService
         $total = $countQuery->count();
 
         // 🔥 SORTING
-        $sortDirection = $request->sort === 'asc' ? 'asc' : 'desc';
+        $sortableColumns = ['i.id', 'i.name', 'i.sell_price', 'i.created_at'];
+        $sortBy = $request->sortBy ? 'i.' . $request->sortBy : 'i.created_at';
+        if (!in_array($sortBy, $sortableColumns)) {
+            $sortBy = 'i.created_at';
+        }
+        $sortDirection = strtolower((string) $request->input('sortDirection', $request->input('sort', 'desc'))) === 'asc' ? 'asc' : 'desc';
 
         // 🔥 DATA
         $items = $query
-            ->orderBy('i.created_at', $sortDirection)
+            ->orderBy($sortBy, $sortDirection)
             ->limit($perPage)
             ->offset($offset)
             ->get();
@@ -148,6 +158,7 @@ class ItemService
                 'stock',
                 'unit',
                 'image_url',
+                'link_url',
                 'category_id',
                 'brand_id',
                 'rack_id',
@@ -291,6 +302,7 @@ class ItemService
                 'stock' => $item->stock,
                 'basic_price' => $item->basic_price,
                 'image_url' => $item->image_url,
+                'link_url' => $item->link_url,
                 'category_id' => $item->category_id,
                 'subcategory_id' => $item->sub_category_id,
                 'brand_id' => $item->brand_id,
@@ -381,6 +393,7 @@ class ItemService
         $item->warehouse_name = $item->warehouse?->name;
         $item->rack_code = $item->rack?->code;
         $item->rack_name = $item->rack?->name;
+        $item->link_url = $item->link_url;
 
         // Transform images to array
         $item->setRelation('images', $item->images->map(fn($img) => (object)[

@@ -26,7 +26,11 @@ class DashboardController extends Controller
 
         $data['categories'] = CategoryService::getActive($request, false);
         if ($categoryCode) {
-            $request->categoryCode = $data['categories']->firstWhere('code', $categoryCode)->id;
+            $category = $data['categories']->firstWhere('code', $categoryCode);
+            if (!$category) {
+                return redirect()->route('all-product');
+            }
+            $request->categoryCode = $category->id;
         }
         $data['products'] = ItemService::getItemsByCategory($request->categoryCode, true, 10);
 

@@ -43,6 +43,7 @@ class Item extends Model
         'sell_price' => 'float',
         'basic_price' => 'float',
         'stock' => 'float',
+        'link_url' => 'array',
     ];
 
     protected $hidden = [
@@ -67,7 +68,7 @@ class Item extends Model
             'sku' => 'nullable|string|max:50',
             'barcode' => 'nullable|string|max:50',
             'description' => 'nullable|string',
-            'link_url' => 'nullable|string',
+            'link_url' => 'nullable|array',
             'image_url' => 'nullable|string|max:255',
             'status' => 'required|string|max:50',
             'created_by' => 'nullable|integer',

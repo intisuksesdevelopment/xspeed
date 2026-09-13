@@ -374,18 +374,21 @@ app/
 ### Colors
 | Token | Hex | Usage |
 |-------|-----|-------|
-| Primary | `#FF9F43` | Primary buttons, highlights |
-| Orange Hover | `#ff8510` | Button hover states |
+| Primary | `#FFCC00` | Primary buttons, highlights (updated from #FF9F43) |
+| Yellow Hover | `#FFB300` | Button hover states |
 | Danger | `#FF0000` | Delete actions, alerts |
 | Dark Blue | `#092C4C` | Headers, titles |
 | Gray | `#67748E` | Cancel buttons, secondary text |
 | Light Gray | `#FAFBFE` | Modal headers, backgrounds |
 | Subtitle | `#B8BCC9` | Secondary text |
+| Hero Background | `#0a0f1a` | Dark premium background |
+| Hero Accent | `#FFCC00` | Kawasaki H2-style hero accent |
 
 ### Typography
 - Font: System fonts (San Francisco, Segoe UI, Roboto)
 - Headings: 700 weight, 18-20px
 - Body: 14-15px, 400-500 weight
+- Hero: Orbitron (headlines), Rajdhani (labels), Poppins (body) — dark premium motorcycle aesthetic
 
 ### Spacing
 - Base unit: 5px
@@ -425,5 +428,5 @@ function productTable() {
 
 ---
 
-*Document Version: 1.0*
-*Last Updated: 2026-05-25*
+*Document Version: 1.1*
+*Last Updated: 2026-09-13*

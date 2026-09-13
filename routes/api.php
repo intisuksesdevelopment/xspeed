@@ -84,4 +84,5 @@ Route::prefix('/order')->group(function () {
 Route::prefix('/sales')->group(function () {
     Route::post('/add', [ApiController::class, 'addSales'])->name('api-sales-add');
 });
+Route::get('/ads', [ApiController::class, 'getAds'])->name('api-ads');
 // });

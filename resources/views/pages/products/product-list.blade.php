@@ -29,6 +29,69 @@
             vertical-align: middle;
         }
     </style>
+    <style>
+        /* E-commerce Platform Button Colors */
+        .btn-tokopedia {
+            background-color: #FF6B35;
+            border-color: #FF6B35;
+            color: white;
+        }
+        .btn-tokopedia:hover {
+            background-color: #e55a25;
+            border-color: #e55a25;
+            color: white;
+        }
+        .btn-shopee {
+            background-color: #FA5340;
+            border-color: #FA5340;
+            color: white;
+        }
+        .btn-shopee:hover {
+            background-color: #e54433;
+            border-color: #e54433;
+            color: white;
+        }
+        .btn-lazada {
+            background-color: #CC0066;
+            border-color: #CC0066;
+            color: white;
+        }
+        .btn-lazada:hover {
+            background-color: #a30052;
+            border-color: #a30052;
+            color: white;
+        }
+        .btn-blibli {
+            background-color: #0088CC;
+            border-color: #0088CC;
+            color: white;
+        }
+        .btn-blibli:hover {
+            background-color: #0075b3;
+            border-color: #0075b3;
+            color: white;
+        }
+        .btn-bukalapak {
+            background-color: #00B361;
+            border-color: #00B361;
+            color: white;
+        }
+        .btn-bukalapak:hover {
+            background-color: #009952;
+            border-color: #009952;
+            color: white;
+        }
+        .btn-tiktok {
+            background-color: #000000;
+            border-color: #000000;
+            color: white;
+        }
+        .btn-tiktok:hover {
+            background-color: #333333;
+            border-color: #333333;
+            color: white;
+        }
+    </style>
     <div class="page-wrapper" x-data="productTable()" x-init="init()" x-cloak>
 
         <div class="content position-relative">
@@ -154,6 +217,7 @@
                         <th>Merk</th>
                         <th>Harga Pokok</th>
                         <th>Harga Jual</th>
+                        <th>Link</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -189,6 +253,21 @@
                             </td>
                             <td x-text="formatRupiah(item.basic_price ?? 0)"></td>
                             <td x-text="formatRupiah(item.sell_price?? 0)"></td>
+                            <td>
+                                <div class="d-flex flex-wrap gap-1" x-show="item.link_url && item.link_url.length > 0">
+                                    <template x-for="link in item.link_url" :key="link.platform">
+                                        <a x-bind:href="link.url"
+                                           target="_blank" rel="noopener noreferrer"
+                                           class="btn btn-sm"
+                                           :title="'Buka di ' + link.platform"
+                                           :class="getPlatformColor(link.platform)"
+                                           style="text-transform: uppercase; letter-spacing: 0.5px; font-size: 10px;">
+                                            <span x-text="getPlatformShort(link.platform)"></span>
+                                        </a>
+                                    </template>
+                                </div>
+                                <span x-show="!item.link_url || item.link_url.length === 0" class="text-muted">-</span>
+                            </td>
                             <td>
                                 <div class="d-flex gap-1">
                                     <a class="btn btn-sm btn-info" :href="ROUTES.productDetail(item.uuid)" title="Detail">
@@ -491,6 +570,30 @@
                         hour: '2-digit',
                         minute: '2-digit'
                     }).format(date);
+                },
+
+                getPlatformColor(platform) {
+                    const colors = {
+                        'Tokopedia': 'btn-tokopedia',
+                        'Shopee': 'btn-shopee',
+                        'Lazada': 'btn-lazada',
+                        'Blibli': 'btn-blibli',
+                        'Bukalapak': 'btn-bukalapak',
+                        'TikTok Shop': 'btn-tiktok'
+                    };
+                    return colors[platform] || 'btn-outline-primary';
+                },
+
+                getPlatformShort(platform) {
+                    const shorts = {
+                        'Tokopedia': 'Toko',
+                        'Shopee': 'Shpee',
+                        'Lazada': 'Lzda',
+                        'Blibli': 'Blib',
+                        'Bukalapak': 'Buka',
+                        'TikTok Shop': 'TikTok'
+                    };
+                    return shorts[platform] || platform;
                 },
 
                 confirmDelete(item) {

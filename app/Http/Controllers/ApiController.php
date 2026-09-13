@@ -339,4 +339,20 @@ class ApiController extends Controller
             ], 500);
         }
     }
+
+    public function getAds(Request $request)
+    {
+        $position = $request->get('position');
+
+        $ads = \DB::table('ads')
+            ->when($position, fn($q) => $q->where('position', $position))
+            ->where('is_active', true)
+            ->orderBy('sort_order')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $ads,
+        ]);
+    }
 }

@@ -6,21 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-        content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+        content="XSPEED MOTOSHOP - Toko spare part & aksesoris motor: oli, ban, aki, lampu, busi, kampas rem dan lainnya dengan harga terbaik.">
 
     <!-- title -->
-    <title>ExpeedShop</title>
+    <title>XSPEED MOTOSHOP - Spare Part & Aksesoris Motor</title>
 
     <!-- favicon -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('/build/img/logo-header.png') }}">
-    <!-- google font -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- google font (satu request saja; Orbitron untuk heading, Poppins body, Rajdhani/Inter pendukung) -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <!-- fontawesome -->
 
@@ -42,6 +37,16 @@
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> --}}
     <link rel="stylesheet" href="{{ asset('/build/css/dashboard.css') }}">
 
+    <style>[x-cloak] { display: none !important; }</style>
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    @if (Route::is(['main']))
+        <!-- swiper css - dipakai section home saja -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    @endif
+
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
    
 </head>
@@ -50,9 +55,10 @@
     <nav class="navbar navbar-expand-lg fixed-top custom-navbar px-3 px-md-4">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <div>
-                <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-                    ⚡ <span class="fw-bold text-white font-rajdhani">XSPEED <span
-                            class="text-accent-color">MOTOSHOP</span></span>
+                <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('main') }}">
+                    <img src="{{ asset('/build/img/logo-exspeed3.png') }}" alt="" class="hero-moto-img" loading="eager" decoding="async">
+                    {{-- <span class="fw-bold text-white font-rajdhani">XSPEED <span
+                            class="text-accent-color">MOTOPARTS</span></span> --}}
                 </a>
 
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
@@ -65,13 +71,20 @@
 
 
             <div class="collapse navbar-collapse" id="navbarNav">
+                @php
+                    $isHome = Route::is('main');
+                    $homeUrl = route('main');
+                    $anchor = function (string $suffix) use ($isHome, $homeUrl) {
+                        return $isHome ? '#' . $suffix : $homeUrl . '#' . $suffix;
+                    };
+                @endphp
                 <ul class="navbar-nav align-items-lg-center gap-lg-4 mt-3 mt-lg-0 ms-auto">
-                    <li><a class="nav-link" href="#home">Home</a></li>
-                    <li><a class="nav-link" href="#products">Products</a></li>
-                    <li><a class="nav-link" href="#gallery">Gallery</a></li>
-                    <li><a class="nav-link" href="#testimonials">Testimonials</a></li>
-                    <li><a class="nav-link" href="#about">About</a></li>
-                    <li><a class="nav-link" href="#contact">Contact</a></li>
+                    <li><a class="nav-link" href="{{ $anchor('home') }}">Home</a></li>
+                    <li><a class="nav-link" href="{{ $anchor('products') }}">Products</a></li>
+                    <li><a class="nav-link" href="{{ $anchor('gallery') }}">Gallery</a></li>
+                    <li><a class="nav-link" href="{{ $anchor('testimonials') }}">Testimonials</a></li>
+                    <li><a class="nav-link" href="{{ $anchor('about') }}">About</a></li>
+                    <li><a class="nav-link" href="{{ $anchor('contact') }}">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -135,19 +148,19 @@
                         <div class="social-icons">
                             <ul class="list-inline mb-0 text-accent-color">
                                 <li class="list-inline-item me-2">
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
                                 </li>
                                 <li class="list-inline-item me-2">
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
                                 </li>
                                 <li class="list-inline-item me-2">
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
                                 </li>
                                 <li class="list-inline-item me-2">
-                                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                    <a href="#" aria-label="Dribbble"><i class="fab fa-dribbble" aria-hidden="true"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -158,29 +171,7 @@
         </div>
     </section>
 
-    <script src="{{ asset('/build/js/jquery-3.7.1.min.js') }}">
-        function formatRupiah(number) {
-            let formattedNumber = number;
-
-            // Ensure the input is a number or a valid string representation of a number
-            if (typeof number === 'number' || !isNaN(number)) {
-                formattedNumber = parseFloat(number).toFixed(2); // Parse and ensure two decimal places
-            }
-
-            // Replace the decimal point with a comma
-            formattedNumber = formattedNumber.replace('.', ',');
-
-            // Add thousands separators
-            formattedNumber = formattedNumber.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-
-            return formattedNumber;
-
-        }
-    </script>
-    <!-- end copyright -->
-    <!-- jquery -->
-    <script src="{{ asset('/build/js/jquery-3.7.1.min.js') }}"></script>
-    <!-- bootstrap -->
+    <!-- bootstrap bundle (jQuery sudah tidak dipakai di storefront) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- count down -->
     {{-- <script src="{{ URL::asset('/build/build/js/jquery.countdown.js') }}"></script> --}}

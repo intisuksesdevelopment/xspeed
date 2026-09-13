@@ -155,6 +155,13 @@
                                         <h4>Description</h4>
                                         <h6 x-text="item.description || '-'"></h6>
                                     </li>
+                                    <li x-show="item.link_url">
+                                        <h4>Ecommerce Link</h4>
+                                        <h6><a :href="item.link_url" target="_blank" rel="noopener noreferrer"
+                                                class="text-decoration-none text-primary"
+                                                x-text="item.link_url"></a>
+                                        </h6>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

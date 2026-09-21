@@ -174,6 +174,7 @@
 @include('pages.layout.partials.theme-settings')
 @include('pages.layout.partials.footer-scripts')
 @yield('content')
+@yield('scripts')
 </body>
 
 </html>

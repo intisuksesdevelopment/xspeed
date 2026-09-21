@@ -43,7 +43,7 @@ class SaleData extends Model
 
     public function sales()
     {
-        return $this->belongsTo(Sales::class);
+        return $this->belongsTo(Sale::class);
     }
 
     public function item()

@@ -113,7 +113,7 @@
                         data-feather="printer" class="feather-rotate-ccw"></i></a>
             </li>
             <li>
-                <a data-bs-toggle="tooltip" data-bs-placement="top" id="refresh-btn" title="Refresh"><i
+                <a data-bs-toggle="tooltip" data-bs-placement="top" id="refresh-btn" title="Refresh" href="#" @click.prevent="document.dispatchEvent(new Event('refresh-product-list'))"><i
                         data-feather="rotate-ccw" class="feather-rotate-ccw"></i></a>
             </li>
             <li>

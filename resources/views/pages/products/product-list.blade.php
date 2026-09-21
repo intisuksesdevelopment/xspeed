@@ -217,7 +217,6 @@
                         <th>Merk</th>
                         <th>Harga Pokok</th>
                         <th>Harga Jual</th>
-                        <th>Link</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -254,20 +253,6 @@
                             <td x-text="formatRupiah(item.basic_price ?? 0)"></td>
                             <td x-text="formatRupiah(item.sell_price?? 0)"></td>
                             <td>
-                                <div class="d-flex flex-wrap gap-1" x-show="item.link_url && item.link_url.length > 0">
-                                    <template x-for="link in item.link_url" :key="link.platform">
-                                        <a x-bind:href="link.url"
-                                           target="_blank" rel="noopener noreferrer"
-                                           class="btn btn-sm"
-                                           :title="'Buka di ' + link.platform"
-                                           :class="getPlatformColor(link.platform)"
-                                           style="text-transform: uppercase; letter-spacing: 0.5px; font-size: 10px;">
-                                            <span x-text="getPlatformShort(link.platform)"></span>
-                                        </a>
-                                    </template>
-                                </div>
-                                <span x-show="!item.link_url || item.link_url.length === 0" class="text-muted">-</span>
-                            </td>
                             <td>
                                 <div class="d-flex gap-1">
                                     <a class="btn btn-sm btn-info" :href="ROUTES.productDetail(item.uuid)" title="Detail">
@@ -400,6 +385,9 @@
                     this.fetchWarehouses();
                     this.fetchBrands();
                     this.fetchProducts();
+
+                    // Listen for refresh button
+                    document.addEventListener('refresh-product-list', () => this.fetchProducts());
                 },
 
                 async fetchWarehouses() {
@@ -570,30 +558,6 @@
                         hour: '2-digit',
                         minute: '2-digit'
                     }).format(date);
-                },
-
-                getPlatformColor(platform) {
-                    const colors = {
-                        'Tokopedia': 'btn-tokopedia',
-                        'Shopee': 'btn-shopee',
-                        'Lazada': 'btn-lazada',
-                        'Blibli': 'btn-blibli',
-                        'Bukalapak': 'btn-bukalapak',
-                        'TikTok Shop': 'btn-tiktok'
-                    };
-                    return colors[platform] || 'btn-outline-primary';
-                },
-
-                getPlatformShort(platform) {
-                    const shorts = {
-                        'Tokopedia': 'Toko',
-                        'Shopee': 'Shpee',
-                        'Lazada': 'Lzda',
-                        'Blibli': 'Blib',
-                        'Bukalapak': 'Buka',
-                        'TikTok Shop': 'TikTok'
-                    };
-                    return shorts[platform] || platform;
                 },
 
                 confirmDelete(item) {

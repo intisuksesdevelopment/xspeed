@@ -26,7 +26,10 @@ class UtilService
      */
     public static function formatCurrency($value, $currency = 'IDR')
     {
-        return number_format((float) $value, 2, ',', '.').' '.strtoupper($currency);
+        if ($currency == 'IDR') {
+            return 'Rp ' . number_format((float) $value, 0, ',', '.');
+        }
+        return number_format((float) $value, 2, ',', '.') . ' ' . strtoupper($currency);
     }
 
     /**

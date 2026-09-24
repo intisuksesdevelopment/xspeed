@@ -60,6 +60,7 @@
         border-radius: 12px;
         padding: 20px;
         height: 100%;
+        overflow: hidden;
     }
     .mini-card-header {
         display: flex;
@@ -81,6 +82,12 @@
         border-radius: 20px;
         border: none;
         cursor: pointer;
+    }
+    #sales_chart {
+        width: 100% !important;
+    }
+    #sales_chart .apexcharts-canvas {
+        width: 100% !important;
     }
 
     .top-product-item {

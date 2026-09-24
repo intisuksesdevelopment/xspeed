@@ -9,6 +9,11 @@ class Sale extends Model
 {
     use HasFactory;
 
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
     protected $fillable = [
         'uuid',
         'trx_id',

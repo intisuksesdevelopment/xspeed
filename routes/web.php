@@ -94,7 +94,7 @@ Route::middleware(['auth', LocalizationMiddleware::class])->prefix('admin')->gro
         Route::get('/', [SalesController::class, 'index'])->name('sales-list');
         Route::get('/add', [SalesController::class, 'addForm'])->name('sales-add-form');
         Route::post('/add', [SalesController::class, 'add'])->name('sales-add');
-        Route::get('/{id}', [SalesController::class, 'detail'])->name('sales-detail');
+        Route::get('/{sale}', [SalesController::class, 'detail'])->name('sales-detail');
         Route::get('/invoice/list', [SalesController::class, 'invoices'])->name('sales-invoices');
 
     });

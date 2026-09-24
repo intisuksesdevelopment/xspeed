@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sale;
 use App\Services\BankService;
 use App\Services\ConfigService;
 use App\Services\ItemService;
@@ -52,8 +53,14 @@ class SalesController extends Controller
         return SalesService::save($request);
     }
 
-    public function detail(Request $request)
+    public function detail(Sale $sale)
     {
-        return SalesService::detail($request);
+        $data = [];
+        $data['sale'] = $sale;
+        $data['saleData'] = \App\Models\SaleData::where('sales_id', $sale->id)
+            ->where('status', '=', 0)
+            ->get();
+
+        return view('pages.sales.sales-detail', $data);
     }
 }
